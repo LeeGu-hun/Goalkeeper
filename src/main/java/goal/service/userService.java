@@ -1,9 +1,9 @@
 package goal.service;
 
-import goal.vo.userVO;
+import goal.vo.UserVO;
 
 public interface userService {
-	userVO selectUser();
-	void insertUser(userVO vo);		
-	boolean checkLogin(userVO vo);
+	UserVO selectUser();
+	void insertUser(UserVO vo);		
+	boolean checkLogin(UserVO vo);
 }
