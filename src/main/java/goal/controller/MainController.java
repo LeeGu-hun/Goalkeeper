@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import goal.vo.userVO;
+import goal.vo.UserVO;
 
 @RestController
 public class MainController {
@@ -19,7 +19,7 @@ public class MainController {
 //	}
 
 	@RequestMapping("/home")
-	public ModelAndView openHome(@ModelAttribute userVO vo,HttpSession session) {
+	public ModelAndView openHome(@ModelAttribute UserVO vo,HttpSession session) {
 		boolean result = false;
 		if(result == false) {
 			
