@@ -23,21 +23,7 @@
 		left: 157px;
 		top: 119px;
 	}
-	# {
-		display: none;
-		left: 1761px;
-		top: 435px;
-		position: absolute;
-		overflow: visible;
-		width: 118px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: MingLiU-ExtB;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 39px;
-		color: rgba(3,3,3,1);
-	}
+	
 	#rightTop {
 		position: absolute;
 		width: 371px;
@@ -113,34 +99,7 @@
 		left: 24px;
 		top: 0px;
 	}
-	#Pic1 {
-		position: absolute;
-		width: 660px;
-		height: 701px;
-		left: 245px;
-		top: 210px;
-		overflow: visible;
-		cursor:pointer
-	}
-	#Pic2 {
-		position: absolute;
-		width: 656px;
-		height: 343px;
-		left: 924px;
-		top: 210px;
-		overflow: visible;
-	}
-	#Pic3 {
-		position: absolute;
-		width: 656px;
-		height: 337px;
-		left: 924px;
-		top: 574px;
-		overflow: visible;
-	}
-	.UserProfile{
-		cursor:pointer
-	}
+	
 	
 	#UserPic {
 		position: absolute;
@@ -150,22 +109,7 @@
 		top: 135px;
 		overflow: visible;
 	}
-	#UserId {
-		left: 324px;
-		top: 151px;
-		position: absolute;
-		overflow: visible;
-		width: 103px;
-		white-space: nowrap;
-		text-align: center;
-		font-family: Segoe UI;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 25px;
-		color: rgba(3,3,3,1);
-		letter-spacing: 0.1px;
-		cursor:pointer
-	}
+	
 	#MainMenuButton {
 		position: absolute;
 		width: 100px;
@@ -177,24 +121,6 @@
 	}
 	
 	
-	#exP1 {
-		position: absolute;
-		width: 660px;
-		height: 43px;
-		left: 245px;
-		top: 1056px;
-		overflow: visible;
-		cursor:pointer
-	}
-	#exP10 {
-		position: absolute;
-		width: 656px;
-		height: 43px;
-		left: 924px;
-		top: 1056px;
-		overflow: visible;
-		cursor:pointer
-	}
 	#My_Calander {
 		left: 107px;
 		top: 32px;
