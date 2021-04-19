@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MainController {
 	
-	@RequestMapping("/view/main_header")
+	@RequestMapping("/home")
 	public String openHome() {
 		return "/view/main_header";
 	}
