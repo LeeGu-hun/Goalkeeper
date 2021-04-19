@@ -1,0 +1,168 @@
+@charset "utf-8";
+<style>
+* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		border: none;
+		position: absolute;
+		width: 1920px;
+		height: 1080px;
+		background-color: rgba(255,255,255,1);
+		--web-view-name: 웹 1920 – 1;
+		--web-view-id: _1920__1;
+		--web-scale-on-resize: true;
+		--web-actual-size-on-double-click: true;
+		--web-enable-deep-linking: true;
+	}
+.mediaViewInfo {
+		--web-view-name: 웹 1920 – 1;
+		--web-view-id: _1920__1;
+		--web-scale-on-resize: true;
+		--web-actual-size-on-double-click: true;
+		--web-enable-deep-linking: true;
+	}
+	:root {
+		--web-view-ids: _1920__1;
+	}		
+#plus {
+		opacity: 0.5;
+		position: absolute;
+		width: 115px;
+		height: 115px;
+		left: 1741px;
+		top: 873px;
+	}
+#menu {
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		left: 2px;
+		top: 8px;
+	}
+#my_calander {
+		left: 107px;
+		top: 32px;
+		position: absolute;
+		width: 231px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Georgia;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 40px;
+		color: rgba(197,160,225,1);
+		letter-spacing: 0.1px;
+	}
+#main_search {
+		fill: rgba(255,255,255,1);
+		stroke: rgba(112,112,112,1);
+		stroke-width: 1px;
+		stroke-linejoin: round;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+.main_search {
+		position: absolute;
+		width: 227px;
+		height: 41px;
+		left: 1385px;
+		top: 45px;
+	}
+#menu_home {
+		position: absolute;
+		width: 91px;
+		height: 91px;
+		left: 17px;
+		top: 119px;
+	}
+#menu_best {
+		position: absolute;
+		width: 91px;
+		height: 91px;
+		left: 16px;
+		top: 255px;
+	}
+#menu_group {
+		position: absolute;
+		width: 91px;
+		height: 91px;
+		left: 18px;
+		top: 403px;
+	}
+#menu_friend {
+		position: absolute;
+		width: 85px;
+		height: 85px;
+		left: 19px;
+		top: 539px;
+	}
+#main_center {
+		fill: rgba(247,246,248,1);
+	}
+.main_center {
+		filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.161));
+		position: absolute;
+		width: 1544px;
+		height: 1010px;
+		left: 157px;
+		top: 119px;
+	}
+#font_home {
+		left: 25px;
+		top: 221px;
+		position: absolute;
+		width: 77px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Georgia;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+		color: rgba(197,160,225,1);
+		letter-spacing: 0.1px;
+	}
+#font_best {
+		left: 23px;
+		top: 346px;
+		position: absolute;
+		width: 79px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Georgia;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 40px;
+		color: rgba(197,160,225,1);
+		letter-spacing: 0.1px;
+	}
+#font_group {
+		left: 17px;
+		top: 492px;
+		position: absolute;
+		width: 93px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Georgia;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(197,160,225,1);
+		letter-spacing: 0.1px;
+	}
+#font_friend {
+		left: 7px;
+		top: 635px;
+		position: absolute;
+		width: 111px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Georgia;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 32px;
+		color: rgba(197,160,225,1);
+		letter-spacing: 0.1px;
+	}
+</style>
