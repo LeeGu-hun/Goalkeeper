@@ -1,6 +1,141 @@
 @charset "utf-8";
 <style>
-#MiddleArea {
+#newPostModal{
+		position: absolute;
+		display: none;
+        width: 1000px;
+        height: 800px;
+        top:40%;
+        left: 35%;
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+   }
+	#newPostModal_close_btn{
+		  position: relative;
+		  width:100px;
+		  margin-left:calc(100% - 100px - 10px);
+     }
+	#modal {
+		position: absolute;
+		display: none;
+        width: 1000px;
+        height: 500px;
+        top:50%;
+        left: 35%;
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+   }
+    
+    #modal_close_btn {
+		  position: relative;
+		  width:100px;
+		  margin-left:calc(100% - 100px - 10px);
+     }
+	#joinmodal_close_btn{
+		position: absolute;
+		width:100px;
+		left:800px;
+     }
+	.ModalBorder {
+		position: absolute;
+		overflow: visible;
+		width: 1123px;
+		height: 776px;
+		left: 413px;
+		top: 144px;
+		fill: rgba(242,242,242,1);
+		stroke: rgba(112,112,112,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.inputBox{
+		position:absolute;
+	
+	}
+	
+		
+	#password {
+		width= 1355px;
+		height= 157px;
+		top:50px;
+	}
+	
+	#doLogin {
+		left: 360px;
+		top: 10px;
+		position: absolute;
+		width: 256px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 35px;
+		color: rgba(112,112,112,1);
+	}
+	
+	
+	#line {
+		fill: transparent;
+		stroke: rgba(112,112,112,1);
+		stroke-width: 1px;
+		stroke-linejoin: miter;
+		stroke-linecap: butt;
+		stroke-miterlimit: 4;
+		shape-rendering: auto;
+	}
+	.line {
+	
+		position: absolute;
+		width: 355px;
+		height: 1px;
+		top: 350px;
+		left:300px;
+		transform: matrix(1,0,0,1,0,0);
+	}
+	
+	#joinButton{
+		position: absolute;
+		left: 330px;
+		top: 360px;
+	}
+	
+	#findId {
+		left: 420px;
+		top: 360px;
+		position: absolute;
+		
+		width: 106px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 20px;
+		color: rgba(112,112,112,1);
+	}
+	#findPass {
+		left: 540px;
+		top: 360px;
+		position: absolute;
+		
+		width: 126px;
+		white-space: nowrap;
+		text-align: left;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 20px;
+		color: rgba(112,112,112,1);
+	}
+	
+	
+	#MiddleArea {
 		position: absolute;
 		width: 1920px;
 		height: 1080px;
@@ -23,7 +158,21 @@
 		left: 157px;
 		top: 119px;
 	}
-	
+	# {
+		display: none;
+		left: 1761px;
+		top: 435px;
+		position: absolute;
+		overflow: visible;
+		width: 118px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: MingLiU-ExtB;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 39px;
+		color: rgba(3,3,3,1);
+	}
 	#rightTop {
 		position: absolute;
 		width: 371px;
@@ -48,6 +197,11 @@
 		left: 120px;
 		top: 20px;
 	}
+	#modal_opne_btn{
+		position: absolute;
+		top: 20px;
+		left:30px;
+	}
 	#MyProfile {
 		position: absolute;
 		width: 66px;
@@ -57,59 +211,64 @@
 		overflow: visible;
 		cursor:pointer
 	}
-	#SearchToggle {
-		position: absolute;
-		width: 46px;
-		height: 22px;
-		left: 325px;
-		top: 28px;
-		overflow: visible;
-	}
-	#toggleBox {
-		fill: rgba(255,255,255,1);
-		stroke: rgba(112,112,112,1);
-		stroke-width: 1px;
-		stroke-linejoin: miter;
-		stroke-linecap: butt;
-		stroke-miterlimit: 4;
-		shape-rendering: auto;
-	}
-	.toggleBox {
-		position: absolute;
-		overflow: visible;
-		width: 44px;
-		height: 22px;
-		left: 0px;
-		top: 0px;
-	}
-	#toggleButton {
-		fill: rgba(66,227,141,1);
-		stroke: rgba(112,112,112,1);
-		stroke-width: 1px;
-		stroke-linejoin: miter;
-		stroke-linecap: butt;
-		stroke-miterlimit: 4;
-		shape-rendering: auto;
-	}
-	.toggleButton {
-		position: absolute;
-		overflow: visible;
-		width: 22px;
-		height: 22px;
-		left: 24px;
-		top: 0px;
-	}
 	
 	
-	#UserPic {
-		position: absolute;
-		width: 64px;
-		height: 64px;
-		left: 245px;
-		top: 135px;
-		overflow: visible;
+	.toggle-item {
+		width: 4em;
+		background: #E2E2E2;
+		height: 2em;
+		display: inline-block;
+		border-radius: 50px;
+		margin: 40px;
+		position: relative;
+		transition: all .3s ease;
+		transform-origin: 20% center;
+		cursor: pointer;
+		
 	}
-	
+	.toggle-normal{
+		position : absolute;
+		left : 420px;
+		bottom : 967PX;
+	}
+
+	#UserId {
+		left: 324px;
+		top: 50px;
+		position: absolute;
+		width: 310px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 25px;
+		color: rgba(3,3,3,1);
+		letter-spacing: 0.1px;
+		cursor:pointer
+	}
+	#UserPass{
+		left: 324px;
+		top: 100px;
+		position: absolute;
+		width: 310px;
+		white-space: nowrap;
+		text-align: center;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 25px;
+		color: rgba(3,3,3,1);
+		letter-spacing: 0.1px;
+		cursor:pointer
+	}
+	#loginButton{
+		left: 324px;
+		top: 150px;
+		position: absolute;
+		font-size: 30px;
+		cursor:pointer
+	}
 	#MainMenuButton {
 		position: absolute;
 		width: 100px;
@@ -140,7 +299,7 @@
 	
 	li :hover{
 		background-color: #8977ad;
-		color: #8977ad;
+		color: #F7F6F8;
 	}
 		
 	#HomeButton{
@@ -273,5 +432,55 @@
 		top: 873px;
 		overflow: visible;
 		cursor:pointer
+	}
+	#joinModal {
+		position: absolute;
+		display: none;
+		width: 1000px;
+        height: 500px;
+        top:50%;
+        left: 35%;
+		overflow:scroll; 
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+	}
+        
+	
+	.joinContents {
+		position: relative;
+		width: 50%;
+		height: 50%;
+		left: 160px;
+	}
+	#joinText {
+		position: absolute;
+		left: 280px;
+		width: 221px;
+		top: 20px;
+		white-space: nowrap;
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 35px;
+		color: rgba(112,112,112,1);
+	}
+	
+	#frm{
+		position: absolute;
+		left: 200px;
+		top: 100px;
+	}
+	.label{
+		font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
+	}
+	#전화번호{
+	font-family: Segoe UI;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 28px;
 	}
 </style>
