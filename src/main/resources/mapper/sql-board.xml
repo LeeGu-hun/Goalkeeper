@@ -7,7 +7,7 @@
 		where u_id = #{u_id}
 	</select>
 	
-	<insert id="regeister">
+	<insert id="regeister" parameterType="goal.vo.UserVO">
 		insert into GK_USER(uno, u_id, u_name, u_password, u_mail, u_number, u_birthdate) values
 		(GK_USER_SEQ, #{u_id}, #{u_name}, #{u_password}, #{u_mail}, #{u_number}, #{u_birthdate})
 	</insert>
