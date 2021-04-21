@@ -211,9 +211,6 @@
 		overflow: visible;
 		cursor:pointer
 	}
-	
-	
-	
 
 	#UserId {
 		left: 324px;
@@ -268,7 +265,6 @@
 		left: 107px;
 		top: 32px;
 		position: absolute;
-		overflow: visible;
 		width: 231px;
 		white-space: nowrap;
 		text-align: center;
@@ -280,65 +276,41 @@
 		letter-spacing: 0.1px;
 		cursor:pointer
 	}
-	
-	li :hover{
-		background-color: #8977ad;
-		color: #F7F6F8;
+	#menuIconButton{
+		position: absolute;
+		top:118px;
 	}
-		
-	#HomeButton{
-		width: 100px;
-		height: 100px;
-		background: red;
+	.SideButton{
+		width: 160px;
+		height: 160px;
 		cursor:pointer
 	}
-	#HomeIcon {
-		position: absolute;
+	.SideButton:hover{
+		background-color: #8977ad;
+		color: #fff;
+	}
+	.IconText{
+		position: relative;
+		left:10px;
+		left: 30px;
+	}
+	.menuIcon{
+		position: relative;
 		width: 91px;
 		height: 91px;
-		left: 17px;
-		top: 119px;
-		overflow: visible;
+		left: 30px;
 	}
-	
 	#HomeText {
-		left: 25px;
-		top: 221px;
-		position: absolute;
-		overflow: visible;
-		width: 77px;
-		white-space: nowrap;
 		text-align: center;
 		font-family: Georgia;
 		font-style: normal;
 		font-weight: normal;
-		font-size: 28px;
+		font-size: 40px;
 		color: rgba(197,160,225,1);
-		letter-spacing: 0.1px;
 		
 	}
 	
-	#BestButton{
-		width: 100px;
-		height: 100px;
-		background: red;
-		cursor:pointer;
-	}
-	#bestIcon {
-		position: absolute;
-		width: 91px;
-		height: 91px;
-		left: 16px;
-		top: 255px;
-		overflow: visible;
-		
-	}
 	#BestText {
-		left: 23px;
-		top: 346px;
-		position: absolute;
-		overflow: visible;
-		width: 79px;
 		white-space: nowrap;
 		text-align: center;
 		font-family: Georgia;
@@ -348,19 +320,8 @@
 		color: rgba(197,160,225,1);
 		letter-spacing: 0.1px;
 	}
-		
-	#GroupButton{
-		width: 100px;
-		height: 100px;
-		background: red;
-		cursor:pointer;
-	}
+	
 	#GroupText {
-		left: 17px;
-		top: 492px;
-		position: absolute;
-		overflow: visible;
-		width: 93px;
 		white-space: nowrap;
 		text-align: center;
 		font-family: Georgia;
@@ -370,34 +331,8 @@
 		color: rgba(197,160,225,1);
 		letter-spacing: 0.1px;
 	}
-	#GroupIcon {
-		position: absolute;
-		width: 91px;
-		height: 91px;
-		left: 18px;
-		top: 403px;
-		overflow: visible;
-	}
-	#FriendsButton{
-		width: 100px;
-		height: 100px;
-		background: red;
-		cursor:pointer;
-	}
-	#FriendsIcon {
-		position: absolute;
-		width: 85px;
-		height: 85px;
-		left: 19px;
-		top: 539px;
-		overflow: visible;
-	}
 	#FriendsText {
-		left: 7px;
-		top: 635px;
-		position: absolute;
-		overflow: visible;
-		width: 111px;
+		
 		white-space: nowrap;
 		text-align: center;
 		font-family: Georgia;
@@ -467,19 +402,7 @@
 		font-weight: normal;
 		font-size: 28px;
 	}
-	#custName{
-		
-	}
-	#custId{
 	
-	}
-	#custPass{
-		
-	}
-	#custRePass{
-		
-		
-	}
 	#custNameTextbox{
 		width: 300px;
 		height: 40px;

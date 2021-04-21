@@ -44,35 +44,24 @@
 			<img id="MainMenuButton"src="menu.png">
 		</div>
 		
-		<nav>
-			<li>
-				<a class="SideButton" id="HomeButton">
-					<img id="HomeIcon" src="menu_home.png">
-					<span id="HomeText">Home</span>
-				</a>
-			</li>
-		
-			<li>
-				<a class="SideButton" id="BestButton" onClick="location.href='http://www.naver.com'" > 
-					<img id="bestIcon" src="menu_best.png">
-					<span id ="BestText">Best</span>
-				</a>
-			</li>
-			
-			<li>
-				<a class="SideButton" id="GroupButton">
-					<img id="GroupIcon" src="menu_group.png">
-					<span id="GroupText">Group</span>
-				</a>
-			</li>
-			
-			<li>
-				<a class="SideButton" id="FriendsButton">
-					<img id="FriendsIcon" src="menu_friend.png">
-					<span id="FriendsText">Friends</span>
-				</a>
-			</li>
-		</nav>
+		<div id="menuIconButton">
+			<div class="SideButton" id="HomeButton">
+				<img class="menuIcon" src="menu_home.png">
+				<span class="IconText" id="HomeText">home</span>
+			</div>
+			<div class="SideButton" id="BestButton">
+				<img class="menuIcon" src="menu_best.png">
+				<span class ="IconText" id="BestText">Best</span>
+			</div>
+			<div class="SideButton" id="pb">
+				<img class="menuIcon" src="menu_group.png">
+				<span class="IconText" id="GroupText">Group</span>
+			</div>
+			<div class="SideButton" id="pb">
+				<img class="menuIcon" src="menu_friend.png">
+				<span class="IconText" id="FriendsText">Friends</span>
+			</div>
+		</div>
 		
 		
 		<div id="My_Calander" onClick="location.href='http://localhost:8080/home'">
