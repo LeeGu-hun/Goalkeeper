@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/css/main_header.css"/>
+<title>웹 1920 – 1</title>
+</head>
+<body>
+	<div id="MiddleArea">
+		<svg class="_24">
+			<rect id="_24" rx="0" ry="0" x="0" y="0" width="1514" height="980">
+			</rect>
+	</div>
+
+	
+	<div id="rightTop">
+		<input type="text" id="SearchBox">
+			
+		</input>
+		
+		<div id="MyProfile">
+			<image src="ID6b122eafd3d1652e077901d447c0.png" >
+		</div>	
+		
+		<div id="SearchToggle">
+			<svg class="toggleBox">
+				<rect id="toggleBox" rx="11" ry="11" x="0" y="0" width="44" height="22">
+				</rect>
+			</svg>
+			<svg class="toggleButton">
+				<ellipse id="toggleButton" rx="11" ry="11" cx="11" cy="11">
+				</ellipse>
+			</svg>
+		</div>
+	</div>
+		
+	<div class="RightTop">
+		<div class="MenuBar">
+			<img id="MainMenuButton" th:src="@{images/menu.png}" srcset="menu.png 1x">
+		</div>
+		
+		<nav>
+			<li>
+				<a class="SideButton" id="HomeButton">
+					<img id="HomeIcon" src="/images/menu_home.png" srcset="menu_home.png 1x">
+					<span id="HomeText">Home</span>
+				</a>
+			</li>
+		
+			<li>
+				<a class="SideButton" id="BestButton" onClick="location.href='http://www.naver.com'" > 
+					<img id="bestIcon" src="/images/menu_best.png" srcset="menu_best.png 1x">
+					<span id ="BestText">Best</span>
+				</a>
+			</li>
+			
+			<li>
+				<a class="SideButton" id="GroupButton">
+					<img id="GroupIcon" src="group.png" srcset="menu_group.png 1x">
+					<span id="GroupText">Group</span>
+				</a>
+			</li>
+			
+			<li>
+				<a class="SideButton" id="FriendsButton">
+					<img id="FriendsIcon"  src="/images/menu_friend.png" srcset="menu_friend.png 1x">
+					<span id="FriendsText">Friends</span>
+				</a>
+			</li>
+		</nav>
+		
+		
+		<div id="My_Calander">
+			<span>My Calander</span>
+		</div>
+	</div>
+
+	<img id="plus" src="plus.png">
+		
+
+</body>
+</html>
