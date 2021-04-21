@@ -67,7 +67,7 @@
 	
 	#doLogin {
 		left: 360px;
-		top: 10px;
+		top: 40px;
 		position: absolute;
 		width: 256px;
 		white-space: nowrap;
@@ -213,28 +213,11 @@
 	}
 	
 	
-	.toggle-item {
-		width: 4em;
-		background: #E2E2E2;
-		height: 2em;
-		display: inline-block;
-		border-radius: 50px;
-		margin: 40px;
-		position: relative;
-		transition: all .3s ease;
-		transform-origin: 20% center;
-		cursor: pointer;
-		
-	}
-	.toggle-normal{
-		position : absolute;
-		left : 420px;
-		bottom : 967PX;
-	}
+	
 
 	#UserId {
 		left: 324px;
-		top: 50px;
+		top: 70px;
 		position: absolute;
 		width: 310px;
 		white-space: nowrap;
@@ -249,7 +232,7 @@
 	}
 	#UserPass{
 		left: 324px;
-		top: 100px;
+		top: 120px;
 		position: absolute;
 		width: 310px;
 		white-space: nowrap;
@@ -264,7 +247,8 @@
 	}
 	#loginButton{
 		left: 324px;
-		top: 150px;
+		top: 170px;
+		width: 310px;
 		position: absolute;
 		font-size: 30px;
 		cursor:pointer
@@ -455,7 +439,7 @@
 	}
 	#joinText {
 		position: absolute;
-		left: 280px;
+		left: 350px;
 		width: 221px;
 		top: 20px;
 		white-space: nowrap;
@@ -482,5 +466,43 @@
 		font-style: normal;
 		font-weight: normal;
 		font-size: 28px;
+	}
+	#custName{
+		
+	}
+	#custId{
+	
+	}
+	#custPass{
+		
+	}
+	#custRePass{
+		
+		
+	}
+	#custNameTextbox{
+		width: 300px;
+		height: 40px;
+	}
+	#custIdTextbox{
+		width: 300px;
+		height: 40px;
+	}
+	#custPassTextbox{
+		width: 300px;
+		height: 40px;
+	}
+	#custRePassTextbox{
+		width: 300px;
+		height: 40px;
+	}
+	#datepicker{
+		width: 300px;
+		height: 40px;
+	}
+	#notPilsu{
+	position: absolute;
+		position: absolute;
+		top: 350px;
 	}
 </style>

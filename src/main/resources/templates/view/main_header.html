@@ -75,7 +75,7 @@
 		</nav>
 		
 		
-		<div id="My_Calander" onClick="location.href='http://www.naver.com'">
+		<div id="My_Calander" onClick="location.href='http://localhost:8080/home'">
 			<span>My Calander</span>
 		</div>
 	</div>
@@ -126,57 +126,63 @@
 <div id="joinModal">
 	<div id="joinText">
 			<span>정보를 입력해주세요</span>
-		</div>
-		<div id="joinmodal_close_btn">
-			<button type="button" >모달 창 닫기</button>
-		</div>
-		<div class="joinContents">		
+	</div>
+	<div id="joinmodal_close_btn">
+		<button type="button" >모달 창 닫기</button>
+	</div>
+	<div class="joinContents">		
 		<form id="frm"  action="홈페이지 대문.html">
-
-		<span class="label">이름 </span><br>
-		<input type="text" name="name"class="pilsu" id="이름"><br>
 		
-		<span class="label">아이디 </span><br>
-		<input type="text" name="id" class="pilsu"id="아이디"><br>
-		
-		<span class="label">비밀번호 </span><br>
-		<input type="password" name="pw"class="pilsu" id="비밀번호"><br>
-		
-		<span class="label">비밀번호확인 </span><br>
-		<input type="password" name="repw" class="pilsu" id="비밀번호확인"><br>
-		
-		<span  class="pilsu">생년월일 </span><br>
-		<input type="text" id="datepicker"><br>
-		
-		<span class="label">성별: </span>
-		<input type="radio" name="gender" value="male" id="male"><label for="male">남</label>
-		<input type="radio" name="gender" value="femeale"  checked><label for="female">여</label><br>
-		<span class="pilsu" id="전화번호">전화번호: </span>
-			<select id="m0">
-				<option value="010">010</option>
-				<option value="011">011</option>
-				<option value="012">012</option>
-			</select>-<input type="text" maxlength="4" id="m1" size="4">-<input
-			type="text" maxlength="4" id="m2" size="4"><br>
-		
-		
-		<span class="label">관심 분야</span>
-		<input type="checkbox" name="hobby" id="h1"><label for="h1">스터디</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">스포츠</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">외국어</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">여행</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">음악</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">사교</label>
-		<input type="checkbox" name="hobby" id="h2"><label for="h2">커피</label>
-		
-		<br>
-		
-		
-		<span>자기 소개</span><br>
-			<textarea cols="37" rows="10" name="bigo"></textarea><br>
+		<div id="custName">
+			<span class="label">이름 </span><br>
+			<input type="text" name="name"class="pilsu" id="custNameTextbox"><br>
+		</div>
+		<div id="custId">
+			<span class="label">아이디 </span><br>
+			<input type="text" name="id" class="pilsu"id="custIdTextbox"><br>
+		</div>
+		<div id="custPass">
+			<span class="label">비밀번호 </span><br>
+			<input type="password" name="pw"class="pilsu" id="custPassTextbox"><br>
+		</div>
+		<div id="custRePass">
+			<span class="label">비밀번호확인 </span><br>
+			<input type="password" name="repw" class="pilsu" id="custRePassTextbox"><br>
+		</div>
+		<div id="notPilsu">
+			<span class="pilsu">생년월일 </span><br>
+			<input type="text" id="datepicker"><br>
 			
-		<input type="submit" value="가입" >
-		<input type="button" value="취소" id="backButton">
+			<span class="label">성별: </span>
+			<input type="radio" name="gender" value="male" id="male"><label for="male">남</label>
+			<input type="radio" name="gender" value="femeale"  checked><label for="female">여</label><br>
+			<span class="pilsu" id="전화번호">전화번호: </span>
+				<select id="m0">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="012">012</option>
+				</select>-<input type="text" maxlength="4" id="m1" size="4">-<input
+				type="text" maxlength="4" id="m2" size="4"><br>
+			
+			
+			<span class="label">관심 분야</span>
+			<input type="checkbox" name="hobby" id="h1"><label for="h1">스터디</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">스포츠</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">외국어</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">여행</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">음악</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">사교</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">커피</label>
+			
+			<br>
+			
+			
+			<span>자기 소개</span><br>
+				<textarea cols="37" rows="10" name="bigo"></textarea><br>
+				
+			<input type="submit" value="가입" >
+			<input type="button" value="취소" id="backButton">
+		</div>
 	</div>	
 </div>	
 
