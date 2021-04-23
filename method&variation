@@ -1,0 +1,84 @@
+controller
+1 MainController
+- openHome
+- openBest
+- openGroup
+- openFriends
+- login
+- join
+- logout
+- openMypage
+- openBoard
+- MainSearchResult
+
+2 GroupListController
+- openGroupList
+- openGroupSearch
+- groupCategory
+- groupSearchResult
+
+3 GroupDetailController
+- openGroupHome
+- openGroupMember
+- openGroupBoard
+- openGroupStats
+- openGroupSetting
+
+4 MypageController
+- openMyHome
+- openMyFriend
+- openMyStats
+- openMySetting
+
+5 BoardController
+- openBoardDetail
+- registerBoard
+- modifyBoard
+- removeBoard
+
+
+service(=mapper)
+1 MainService
+- selectHomeList
+- selectBestList
+
+2 UserService
+- selectUser
+- insertUser
+- changeUser
+
+3 GroupListService
+- selectGroupList
+- selectGroupSearch
+
+4 GroupDetailService
+- selectGroupHome
+- selectGroupMember
+- selectGroupBoard
+- selectGroupstats
+
+5 MypageService
+- selectMyHome
+- selectFriend
+- selectStats
+
+6 BoardService
+- selectBoardDetail
+- registerBoard
+- modifyBoard
+- removeBoard
+
+
+VO
+1 userVO
+- uno
+- u_id
+- u_name
+- u_password
+- u_profile
+- u_mail
+- u_number
+- u_gender
+- u_birthdate
+
+.
