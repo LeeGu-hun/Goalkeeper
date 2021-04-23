@@ -5,5 +5,5 @@ import goal.vo.UserVO;
 public interface UserMapper {
 	public UserVO read(String u_id, String u_password);
 	
-	public void register();
+	public void register(UserVO vo);
 }
