@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/main_header.css"/>
+<script type="text/javascript" src="/js/main_header.js"></script>
+</head>
+<body>
+<div id="profileLoginButton">
+			<button type="button" id="modal_opne_btn">로그인</button>
+		</div>
+<div id="modal">
+		<div id="modal_close_btn">
+			<button type="button" >모달 창 닫기</button>
+		</div>	
+		
+		<div class="inputBox">
+			<input type="text" id="UserId">
+			</input>
+			
+			<input type="password" id="UserPass">
+			</input>
+			
+			<div>
+				<input id="loginButton" type="button" value="로그인" onclick="loginChk()">
+			</div>
+		</div>
+		
+		
+		<div id="doLogin">
+			<span>로그인 해주세요</span>
+		</div>
+		
+		
+		<svg class="line" viewBox="0 0 355 1">
+			<path id="line" d="M 0 0 L 355 0">
+			</path>
+		</svg>
+		<input type="button" id="joinButton" value="회원가입">
+
+		<div id="findId">
+			<span>아이디 찾기</span>
+		</div>
+		<div id="findPass">
+			<span>비밀번호 찾기</span>
+		</div>
+		
+   </div>
+    <div class="modal_layer"></div>
+	<div id="join">
+	
+
+<div id="joinModal">
+	<div id="joinText">
+			<span>정보를 입력해주세요</span>
+	</div>
+	<div id="joinmodal_close_btn">
+		<button type="button" >모달 창 닫기</button>
+	</div>
+	<div class="joinContents">		
+		<form id="frm"  action="홈페이지 대문.html">
+		
+		<div id="custName">
+			<span class="label">이름 </span><br>
+			<input type="text" name="name"class="pilsu" id="custNameTextbox"><br>
+		</div>
+		<div id="custId">
+			<span class="label">아이디 </span><br>
+			<input type="text" name="id" class="pilsu"id="custIdTextbox"><br>
+		</div>
+		<div id="custPass">
+			<span class="label">비밀번호 </span><br>
+			<input type="password" name="pw"class="pilsu" id="custPassTextbox"><br>
+		</div>
+		<div id="custRePass">
+			<span class="label">비밀번호확인 </span><br>
+			<input type="password" name="repw" class="pilsu" id="custRePassTextbox"><br>
+		</div>
+		<div id="notPilsu">
+			<span class="pilsu" style = "font-size:1.5em;">생년월일 </span><br>
+			<input type="text" id="datepicker"><br>
+			
+			<span class="label">성별 </span><br>
+			<input type="radio" name="gender" value="male" id="male" ><label for="male" style = "font-size:1.5em;">남</label>
+			<input type="radio" name="gender" value="femeale"  checked><label for="female" style = "font-size:1.5em;">여</label><br>
+			<span class="pilsu" id="전화번호">전화번호 </span><br>
+				<select id="m0">
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="012">012</option>
+				</select>-<input type="text" maxlength="4" id="m1" size="4">-<input
+				type="text" maxlength="4" id="m2" size="4"><br>
+			
+			
+			<span class="label">관심 분야</span><br>
+			<input type="checkbox" name="hobby" id="h1"><label for="h1">스터디</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">스포츠</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">외국어</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">여행</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">음악</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">사교</label>
+			<input type="checkbox" name="hobby" id="h2"><label for="h2">커피</label>
+			
+			<br>
+			
+			
+			<span>자기 소개</span><br>
+				<textarea cols="37" rows="10" name="bigo"></textarea><br>
+				
+			<input type="submit" value="가입" >
+			<input type="button" value="취소" id="backButton">
+		</div>
+	</div>	
+</div>	
+</body>
+</html>

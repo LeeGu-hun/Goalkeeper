@@ -23,12 +23,12 @@ public class MainController {
 	public ModelAndView openHome(@ModelAttribute UserVO vo,HttpSession session) {
 
 		boolean result = userService.checkLogin(vo);
-
+		ModelAndView mv = new ModelAndView("/view/main_header_login");
 		if(result == false) {
 			
 		} else {
 			
 		}
-		return null;
+		return mv;
 	}
 }
