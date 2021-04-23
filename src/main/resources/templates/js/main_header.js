@@ -1,48 +1,59 @@
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-$(document).ready(function(){
-
+ <script>
 	//로그인 페이지 모달창 
 	document.getElementById("modal_opne_btn").onclick = function() {
-	    document.getElementById("modal").style.display="block";
-	}
+        document.getElementById("modal").style.display="block";
+    }
+
 	//로그인창 닫기
-	document.getElementById("modal_close_btn").onclick = function() {
-	    document.getElementById("modal").style.display="none";
-	}   
+    document.getElementById("modal_close_btn").onclick = function() {
+        document.getElementById("modal").style.display="none";
+    }
+
 	//회원가입 모달창
 	document.getElementById("joinButton").onclick = function() {
 		document.getElementById("modal").style.display="none";
-	    document.getElementById("joinModal").style.display="block";
-	}
+        document.getElementById("joinModal").style.display="block";
+    }
+
 	//회원가입창 로그인 페이지로 돌아가기
 	document.getElementById("backButton").onclick = function() {
-	    document.getElementById("joinModal").style.display="none";
+        document.getElementById("joinModal").style.display="none";
 		 document.getElementById("modal").style.display="block";
-	}
+    }
+
 	//회원가입창 닫기
-	document.getElementById("joinmodal_close_btn").onclick = function() {
-	    document.getElementById("joinModal").style.display="none";
-	}
+    document.getElementById("joinmodal_close_btn").onclick = function() {
+        document.getElementById("joinModal").style.display="none";
+    }
+
 	//새글 쓰기 모달창 띄우기
 	document.getElementById("plus").onclick = function() {
-	    document.getElementById("newPostModal").style.display="block";
-	}
+        document.getElementById("newPostModal").style.display="block";
+    }
+
 	//새글 쓰기창 닫기
-	document.getElementById("newPostModal_close_btn").onclick = function() {
-	    document.getElementById("newPostModal").style.display="none";
-	} 
+    document.getElementById("newPostModal_close_btn").onclick = function() {
+        document.getElementById("newPostModal").style.display="none";
+    }
+
 	function loginChk() {
-		if (UserId.value) {
-		    alert("아이디를 입력해 주십시오.");
-		    form.user_id.focus();
-		    return;
-		}
+	    if (UserId.value) {
+	        alert("아이디를 입력해 주십시오.");
+	        form.user_id.focus();
+	        return;
+    	}
 	}
+
+	$(document).ready(function(){
 	$("input[type=submit]").click(function(e){
 		checking(e);
 	});
-	
+
 	function checking(e){
 		$('.pilsu').each(function(i,item){
 			if($(item).val().trim()==''){
@@ -60,9 +71,10 @@ $(document).ready(function(){
 				}else if(i==3){
 					return phChecking(node,e);
 				}
-				}
-			});
+			}
+		});
 	}
+
 	function getDate() {
 		var newDate = new Date();
 		var yyyy = newDate.getFullYear();
@@ -73,7 +85,7 @@ $(document).ready(function(){
 		var toDay = yyyy + "-" + mm + "-" + dd;
 		document.getElementById("saleDate").value = toDay;
 	}
-	
+
 	function pwCheck(){
 		if($('input[placeholder=Pass]').val()!=$('input[placeholder=RePass]').val()){
 			alert("패스워드가 같지 않습니다.");
@@ -83,6 +95,7 @@ $(document).ready(function(){
 			e.preventDefault();
 		}
 	}
+
 	function koChecking(node,e){
 		if(node.val().replace(/[가-힣]/g,'').length!=0){
 			alert('한글이름을 입력해주세요');
@@ -91,6 +104,7 @@ $(document).ready(function(){
 			return false;
 		}
 	}
+
 	function enChecking(node,e){
 		if(node.val().replace(/[a-zA-Z0-9]/g,'').length!=0){
 			alert('영어로 된 ID를 입력해주세요');
@@ -99,38 +113,39 @@ $(document).ready(function(){
 			return false;
 		}
 	}
-	
+
 	var input1 = document.getElementById('m1');
 	var input2 = document.getElementById('m2');
 	var numCheck = RegExp(/[^0-9]$/g);
 	
 	if(numCheck.test(input1.value)){
-			input1.value = input1.value.replace(/[^0-9]$/g,'');
+		input1.value = input1.value.replace(/[^0-9]$/g,'');
 	}
 	if(input1.value.length>=4){
-			input2.focus();
+		input2.focus();
 	}
-		
-		input1.onkeydown = function(){
-			if(numCheck.test(input1.value)){
+
+	input1.onkeydown = function(){
+		if(numCheck.test(input1.value)){
 			input1.value = input1.value.replace(/[^0-9]$/g,'');
 		}
 	}
+
 	if(numCheck.test(input2.value)){
-			input2.value = input2.value.replace(/[^0-9]$/g,'');
+		input2.value = input2.value.replace(/[^0-9]$/g,'');
 	}
-		
+
 	input2.onkeydown = function(){
 		if(numCheck.test(input2.value)){
-		input2.value = input2.value.replace(/[^0-9]$/g,'');
+			input2.value = input2.value.replace(/[^0-9]$/g,'');
 		}
 	}
+
 	e.preventDefault();
-	return false;
+		return false;
+	});
 
-});	
-
-$(document).ready(function(){
+	$(document).ready(function(){
 		$("#datepicker").datepicker({
 			dateFormat : 'yy-mm-dd',
 			prevText : '이전 달',
@@ -147,3 +162,4 @@ $(document).ready(function(){
 		});
 		getDate();
 	});
+</script>

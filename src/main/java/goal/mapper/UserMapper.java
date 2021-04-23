@@ -6,7 +6,7 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface UserMapper {
-	public UserVO read(String u_id, String u_password);
+	public UserVO read(UserVO vo);
 	
 	public void register(UserVO vo);
 }
