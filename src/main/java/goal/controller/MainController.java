@@ -22,7 +22,7 @@ public class MainController {
 
 	@GetMapping("/home")
 	public ModelAndView openHome(@ModelAttribute UserVO vo,HttpSession session) {
-		ModelAndView mv = new ModelAndView("/view/main_home_login");
+		ModelAndView mv = new ModelAndView("/view/main_header");
 		return mv;
 	}
 	
