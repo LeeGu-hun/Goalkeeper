@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean checkLogin(UserVO vo) {
-		// TODO Auto-generated 
+		// TODO Auto-gener
 		return false;
 	}
 	
