@@ -22,14 +22,14 @@ public class MainController {
 
 	@GetMapping("/home")
 	public ModelAndView openHome(@ModelAttribute UserVO vo,HttpSession session) {
-		ModelAndView mv = new ModelAndView("/view/main_header_login");
+		ModelAndView mv = new ModelAndView("/view/main_home_login");
 		return mv;
 	}
 	
 	@PostMapping("/home")
 	public ModelAndView loginCheck(@ModelAttribute UserVO vo,HttpSession session) {
 		boolean result = userService.checkLogin(vo);
-		ModelAndView mv = new ModelAndView("/view/main_header_login");
+		ModelAndView mv = new ModelAndView("/view/main_home_login");
 		UserVO user = userService.loginUser(vo);
 		if(result == false) {
 			mv.addObject("msg", "fail");
