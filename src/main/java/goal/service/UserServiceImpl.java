@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService{
 	private UserMapper mapper;
 	
 	@Override
-	public UserVO selectUser(String id, String pw) {
-		mapper.read(id, pw);
+	public UserVO loginUser(UserVO vo) {
+		mapper.read(vo);
 		return null;
 	}
 

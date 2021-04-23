@@ -3,7 +3,7 @@ package goal.service;
 import goal.vo.UserVO;
 
 public interface UserService {
-	UserVO selectUser(String id, String pw);
+	UserVO loginUser(UserVO vo);
 	void insertUser(UserVO vo);		
 	boolean checkLogin(UserVO vo);
 }
