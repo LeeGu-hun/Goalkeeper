@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goal.mapper.GroupMapper">
+	<resultMap type="goal.vo.GroupVO" id="groupVO">
+		<id property="gno" column="gno"/>
+		<id property="uno" column="uno"/>
+		<id property="g_name" column="g_name"/>
+		<id property="g_date" column="g_date"/>
+		<id property="g_intro" column="g_intro"/>
+		<id property="g_cate" column="g_cate"/>
+		<id property="g_open" column="g_open"/>
+		<id property="g_goaldate" column="g_goaldate"/>
+	</resultMap>
+	<select id="selectGroupList" resultMap="groupVO">
+		SELECT * FROM GK_ALLGROUP ORDER BY gno DESC
+	</select>
+
+	<insert id="createGroup" parameterType="goal.vo.GroupVO">
+		insert into
+		GK_ALLGROUP(gno, uno, g_name, g_intro, g_date, g_cate,
+		g_open, g_goaldate) values
+		(GK_ALLGROUP_SEQ.nextval, #{uno}, #{g_name},
+		#{g_intro}, sysdate, #{g_cate}, #{g_open},
+		#{g_goaldate})
+	</insert>
+	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
+		insert into
+		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
+		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
+	</insert>
+</mapper>

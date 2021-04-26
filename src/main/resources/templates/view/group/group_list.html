@@ -54,10 +54,9 @@
 <!-- BEGIN Custom CSS-->
 <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
 <!-- END Custom CSS-->
-<script
-  src="https://code.jquery.com/jquery-1.12.4.js"
-  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"
+	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script>
 	$(document).ready(function() {
@@ -75,9 +74,10 @@
 					<h2 class="content-header-title">Group List</h2>
 				</div>
 				<div class="content-header-left col-md-2">
-					<button class="hover color-box" style="background-color:#48CFAD;">새 그룹</button>
+					<button class="hover color-box" style="background-color: #48CFAD;"
+						onclick="location.href='group_create'">새 그룹</button>
 				</div>
-				<div 
+				<div
 					class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-xs-12">
 					<div class="breadcrumb-wrapper col-xs-12">
 						<ol class="breadcrumb">
@@ -92,73 +92,27 @@
 			<div class="content-body">
 				<!-- Basic example section start -->
 				<div class="row match-height">
-					<div class="col-xl-3 col-md-6 col-sm-12">
+					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj:${List}">
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
 									src="../../app-assets/images/carousel/06.jpg"
 									alt="Card image cap">
-								<div class="card-block" th:each="obj:${list}">
-									<h4 class="card-title" th:text="${obj[0]}"></h4>
-									<p class="card-text" th:text="${obj[1]}"></p>
+			
+								<div class="card-block">
+									<h4 class="card-title" th:text="${obj.g_name}"></h4>
+									<p class="card-text" th:text="${obj.g_intro}"></p>
 									<a href="#" class="btn btn-outline-deep-orange">Go
 										somewhere</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-3 col-md-6 col-sm-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-block">
-									<img class="card-img img-fluid mb-1"
-										src="../../app-assets/images/carousel/08.jpg"
-										alt="Card image cap">
-									<h4 class="card-title">Card title</h4>
-									<p class="card-text">Sweet halvah dragée jelly-o halvah
-										carrot cake oat cake. Donut jujubes jelly chocolate cake
-										marzipan chocolate chocolate bar.</p>
-									<a href="#" class="btn btn-outline-teal">Go somewhere</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6 col-sm-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-block">
-									<h4 class="card-title">Card title</h4>
-									<h6 class="card-subtitle text-muted">Support card subtitle</h6>
-								</div>
-								<img class="img-fluid"
-									src="../../app-assets/images/carousel/10.jpg"
-									alt="Card image cap">
-								<div class="card-block">
-									<p class="card-text">Bear claw sesame snaps gummies
-										chocolate.</p>
-									<a href="#" class="card-link pink">Card link</a> <a href="#"
-										class="card-link pink">Another link</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6 col-sm-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-block">
-									<h4 class="card-title">Card title</h4>
-									<h6 class="card-subtitle text-muted">Support card subtitle</h6>
-									<img class="img-fluid my-1"
-										src="../../app-assets/images/carousel/09.jpg"
-										alt="Card image cap">
-									<p class="card-text">Topping dessert marshmallow gummi
-										bears chupa chups marzipan.</p>
-									<a href="#" class="card-link indigo darken-2">Card link</a> <a
-										href="#" class="card-link indigo darken-2">Another link</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div th:if="${!#strings.isEmpty(List)}">
+						<span style="border:1px sloid black; ">
+							<h2>가입된 그룹이 없습니다.</h2>
+						</span>
+					</div>	
 				</div>
 				</section>
 				<!-- // Basic example section end -->
