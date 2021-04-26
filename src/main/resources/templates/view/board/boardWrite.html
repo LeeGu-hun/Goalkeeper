@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<head>
+<!-- BEGIN VENDOR CSS-->
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/bootstrap.css">
+<!-- font icons-->
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/fonts/icomoon.css">
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/vendors/css/extensions/pace.css">
+<!-- END VENDOR CSS-->
+<!-- BEGIN ROBUST CSS-->
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/bootstrap-extended.css">
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/app.css">
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/colors.css">
+<!-- END ROBUST CSS-->
+<!-- BEGIN Page Level CSS-->
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/core/menu/menu-types/vertical-menu.css">
+<link rel="stylesheet" type="text/css"
+	href="../../app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
+<!-- END Page Level CSS-->
+<!-- BEGIN Custom CSS-->
+<link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+<!-- END Custom CSS-->
+</head>
+<body>
+	<div class="card-block">
+		<section class="flexbox-container">
+			<div style="" class="col-md-6 offset-md-3 box-shadow-2 p-0">
+				<div style="margin: 30px">
+					<h4 class="form-section">
+						<i class="icon-clipboard4"></i> 글 쓰기
+					</h4>
+
+					<form id="frm" name="frm" method="post"
+						action="/view/board/insertBoard.do" enctype="multipart/form-data">
+						<div class="row"
+							style="width: 100%; display: inline-block; margin-top: 20px">
+							<div class="col-md-6">
+								<label>범위설정</label> <select id="range_set" name="b_cate"
+									class="form-control" selected="selected">
+									<option value="none" selected="" disabled="">선택해주세요</option>
+									<option value="all">전체글</option>
+									<option value="private">비밀글</option>
+									<option value="group">그룹글</option>
+								</select>
+
+							</div>
+							<div style="display: none" class="group_form" id="group_form">
+								<div class="col-md-6">
+									<label>그룹설정</label> <select id="range_group" name="range_group"
+										class="form-control">
+										<option value="none" selected="" disabled="">선택해주세요</option>
+										<option value="all">ex1</option>
+										<option value="private">ex2</option>
+										<option value="group">ex3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="projectinput8">내용</label></br>
+							<textarea id="projectinput8" rows="5" class="form-control"
+								style="width: 100%; display: inline-block;" name="b_content"
+								placeholder="입력해주세요"></textarea>
+						</div>
+
+						<!--태그-->
+						<div style="margin-top: 20px; margin-bottom: 20px">
+							<label style="font-size: 25px">Tag # </label> <i
+								style="cursor: pointer; font-size: 25px;"
+								class="icon-circle-plus" onclick="addInput();"></i> <i
+								style="cursor: pointer; font-size: 25px;"
+								class="icon-circle-minus" onclick="deleteInput();"></i>
+							<form class="form-control" name="form" id="tag-form">
+								<div id="tagdiv"></div>
+							</form>
+						</div>
+
+						<div class="form-group">
+							<label>사진 첨부</label> <label id="projectinput7"
+								class="file center-block"> <input type="file" id="file"
+								maxlength="2" multiple> <span class="file-custom"></span>
+							</label>
+						</div>
+
+						<!--이미지-->
+						<div class="form-control"
+							style="display: inline-block; margin: 5px;" id="imgdiv">
+							<div style="margin: 5px" id="imgsrc" src=""></div>
+						</div>
+
+						<div>
+							<!--버튼-->
+							<button style="float: right; margin-bottom: 10px;" type="submit"
+								class="btn btn-primary" onclick="location.href='insert_board'">
+								<i class="icon-check2"></i> Save
+							</button>
+
+							<div class="form-actions">
+								<button style="float: right" type="button"
+									class="btn btn-warning mr-1">
+									<i class="icon-cross2"></i> Cancel
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+	</div>
+</body>
+<script src="../../app-assets/js/core/libraries/jquery.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/ui/tether.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/js/core/libraries/bootstrap.min.js"
+	type="text/javascript"></script>
+<script
+	src="../../app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/ui/unison.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/ui/blockUI.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/ui/jquery.matchHeight-min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/ui/screenfull.min.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/vendors/js/extensions/pace.min.js"
+	type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		$('#range_set').change(function() {
+			var result = $('#range_set option:selected').val();
+			if (result == 'group') {
+				$('.group_form').show();
+			} else {
+				$('.group_form').hide();
+			}
+		});
+	});
+</script>
+
+<script>
+	$("#tag-form").hide();
+	var arrInput = new Array(0);
+	var arrInputValue = new Array(0);
+
+	function addInput() {
+		arrInput.push(arrInput.length);
+		arrInputValue.push("");
+		display();
+	}
+
+	function display() {
+		document.getElementById('tagdiv').innerHTML = "";
+		for (intI = 0; intI < arrInput.length; intI++) {
+			document.getElementById('tagdiv').innerHTML += createInput(
+					arrInput[intI], arrInputValue[intI]);
+		}
+	}
+
+	function saveValue(intId, strValue) {
+		arrInputValue[intId] = strValue;
+	}
+
+	function createInput(id, value) {
+		$("#tag-form").show();
+		return "<input type='text' style='margin:5px' class='btn btn-outline-pink' placeholder='Tag를 입력해주세요.'  id='tag"
+				+ id
+				+ "' onChange='javascript:saveValue("
+				+ id
+				+ ",this.value)' value='"
+				+ value
+				+ "' OnKeyDown='CheckEnter(this.form,this)'>";
+
+	}
+
+	function deleteInput() {
+		if (arrInput.length > 0) {
+			arrInput.pop();
+			arrInputValue.pop();
+		}
+		display();
+	}
+</script>
+
+<script language="JavaScript">
+	function CheckEnter(frm, objName) {
+		var keycode = event.keyCode;
+		var i = 0;
+
+		if (keycode == 13) {
+			for (i = 0; i < frm.length; ++i) {
+				if (objName.id == frm[i].id)
+					break;
+			}
+			frm[++i].focus();
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function(e) {
+						$("#imgdiv").hide();
+						$("input[type='file']")
+								.change(
+										function(e) {
+
+											//div 내용 비워주기
+											$('#imgsrc').empty();
+
+											var files = e.target.files;
+											var arr = Array.prototype.slice
+													.call(files);
+
+											//업로드 가능 파일인지 체크
+											for (var i = 0; i < files.length; i++) {
+												if (!checkExtension(
+														files[i].name,
+														files[i].size)) {
+													return false;
+												}
+											}
+
+											preview(arr);
+											$("#imgdiv").show();
+
+										});//file change
+
+						function checkExtension(fileName, fileSize) {
+
+							var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+							var maxSize = 20971520; //20MB
+
+							if (fileSize >= maxSize) {
+								alert('파일 사이즈 초과');
+								$("input[type='file']").val(""); //파일 초기화
+								return false;
+							}
+
+							if (regex.test(fileName)) {
+								alert('업로드 불가능한 파일이 있습니다.');
+								$("input[type='file']").val(""); //파일 초기화
+								return false;
+							}
+							return true;
+						}
+
+						function preview(arr) {
+							arr
+									.forEach(function(f) {
+
+										//파일명이 길면 파일명...으로 처리
+										var fileName = f.name;
+										if (fileName.length > 10) {
+											fileName = fileName.substring(0, 7)
+													+ "...";
+										}
+
+										//div에 이미지 추가
+										var str = '<div style="display: inline-flex; padding: 10px;">';
+
+										//이미지 파일 미리보기
+										if (f.type.match('image.*')) {
+											var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+											reader.onload = function(e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+												str += '<img src="'+e.target.result+'" title="'+f.name+  '" width=100 height=100 />';
+												$(str).appendTo('#imgsrc');
+											}
+											reader.readAsDataURL(f);
+										} else {
+											str += '<img src="/resources/img/fileImg.png" title="'+f.name+'" width=100 height=100 />';
+											$(str).appendTo('#imgsrc');
+										}
+									});//arr.forEach
+						}
+					});
+</script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN ROBUST JS-->
+<script src="../../app-assets/js/core/app-menu.js"
+	type="text/javascript"></script>
+<script src="../../app-assets/js/core/app.js" type="text/javascript"></script>
+</html>
