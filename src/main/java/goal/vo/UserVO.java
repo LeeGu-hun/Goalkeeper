@@ -3,6 +3,8 @@ package goal.vo;
 import java.io.File;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -11,9 +13,10 @@ public class UserVO {
 	private String u_id;
 	private String u_name;
 	private String u_password;
-	private File u_profile;
+
 	private String u_mail;
 	private String u_number;
-	private char u_gender;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date u_birthdate;
 }

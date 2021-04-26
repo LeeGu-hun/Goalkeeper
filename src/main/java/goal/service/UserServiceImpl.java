@@ -14,22 +14,17 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper mapper;
 	
-	@Override
-	public UserVO loginUser(UserVO vo) {
-		mapper.read(vo);
-		return null;
-	}
 
 	@Override
 	public void insertUser(UserVO vo) {
 		mapper.register(vo);
 		
 	}
-
+	
 	@Override
-	public boolean checkLogin(UserVO vo) {
-		// TODO Auto-gener
-		return false;
+	public int checkLogin(UserVO vo) {
+		int check = mapper.read(vo);
+		return check;
 	}
 	
 }
