@@ -61,6 +61,12 @@
 <script>
 	$(document).ready(function() {
 		$("#header").load("/view/main_header.html");
+		
+		if($('#nullCheck').text()==""){
+			$('#pushAlert').append('<div id="toggleDiv" style="display:inline-block; margin-left:40%;"><h2>가입된 그룹이 없습니다.</h2></div>');
+		} else{
+			$('#toggleDiv').remove();
+		}
 	});
 </script>
 </head>
@@ -71,27 +77,26 @@
 		<div class="content-wrapper">
 			<div class="content-header row">
 				<div class="content-header-left col-md-4 col-xs-12 mb-1">
-					<h2 class="content-header-title">Group List</h2>
+					<h2 class="content-header-title">내 그룹</h2>
 				</div>
 				<div class="content-header-left col-md-2">
-					<button class="hover color-box" style="background-color: #48CFAD;"
+					<button class="hover color-box" style="margin-left:340px; background-color: #48CFAD;"
 						onclick="location.href='group_create'">새 그룹</button>
 				</div>
 				<div
 					class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-xs-12">
 					<div class="breadcrumb-wrapper col-xs-12">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item active"><a href="index.html">My
-									Group</a></li>
-							<li class="breadcrumb-item"><a href="#">Group List</a></li>
-							<li class="breadcrumb-item">Group Setting</li>
+							<li class="breadcrumb-item active">내 그룹</li>
+							<li class="breadcrumb-item"><a href="#">모든 그룹</a></li>
+							<li class="breadcrumb-item"><a href="#">그룹 설정</a></li>
 						</ol>
 					</div>
 				</div>
 			</div>
 			<div class="content-body">
 				<!-- Basic example section start -->
-				<div class="row match-height">
+				<div id="pushAlert" class="row match-height">
 					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj:${List}">
 						<div class="card">
 							<div class="card-body">
@@ -100,24 +105,16 @@
 									alt="Card image cap">
 			
 								<div class="card-block">
-									<h4 class="card-title" th:text="${obj.g_name}"></h4>
+									<h4 id="nullCheck" class="card-title" th:text="${obj.g_name}"></h4>
 									<p class="card-text" th:text="${obj.g_intro}"></p>
-									<a href="#" class="btn btn-outline-deep-orange">Go
-										somewhere</a>
+									<a href="#" class="btn btn-outline-deep-orange">자세히 보기</a>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div th:if="${!#strings.isEmpty(List)}">
-						<span style="border:1px solid black; ">
-							<h2>가입된 그룹이 없습니다.</h2>
-						</span>
 					</div>	
-				</div>
+				</div><br>
 				</section>
 				<!-- // Basic example section end -->
-
-
 
 				<footer class="footer footer-static footer-light navbar-border">
 					Shared by <i class="fa fa-love"></i><a

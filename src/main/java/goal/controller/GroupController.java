@@ -28,7 +28,7 @@ public class GroupController {
 	
 	@RequestMapping("/group")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
-		ModelAndView mv = new ModelAndView("view/group/group_list");
+		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		
 		List<GroupVO> groupList = groupService.selectGroupList();
 		mv.addObject("List", groupList);
