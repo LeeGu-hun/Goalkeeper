@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import goal.dto.BoardDto;
 import goal.service.BoardService;
 import goal.vo.UserVO;
 
@@ -25,11 +24,11 @@ public class BoardController {
 		return mv;
 	}
 	
-	@RequestMapping("/board/insert_board.do")
-	public String insertBoard(BoardDto board, 
-			MultipartHttpServletRequest multi) throws Exception {
-		boardService.insertBoard(board, multi);
-		return "redirect:/board/openBoardList.do";
-	}
+//	@RequestMapping("/board/insert_board.do")
+//	public String insertBoard(BoardDto board, 
+//			MultipartHttpServletRequest multi) throws Exception {
+//		boardService.insertBoard(board, multi);
+//		return "redirect:/board/openBoardList.do";
+//	}
 
 }

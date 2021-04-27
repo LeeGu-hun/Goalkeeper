@@ -3,10 +3,14 @@ package goal.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,14 +25,15 @@ public class HomeController {
 	private UserService userService;
 
 	@GetMapping("/home")
-	public ModelAndView openHome(@ModelAttribute UserVO vo,HttpSession session) {
+	public ModelAndView openHome(@ModelAttribute UserVO user,HttpSession session) {
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
+		mv.addObject("user", user);
 		return mv;
 	}
 	
 	@GetMapping("/login")
 	public ModelAndView openLogin() {
-		ModelAndView mv = new ModelAndView("/view/home/login_simple");
+		ModelAndView mv = new ModelAndView("/view/home/user_login");
 		return mv;
 	}
 	
@@ -37,8 +42,8 @@ public class HomeController {
 		String check = userService.checkLogin(vo);
 		
 		if(check == null) {
-			ModelAndView mv = new ModelAndView("/view/home/login_simple");
-			mv.addObject("user", vo);
+			ModelAndView mv = new ModelAndView("/view/home/logout_home");
+			mv.addObject("guest", "guest");
 			return mv;
 			
 		} else {
@@ -49,21 +54,23 @@ public class HomeController {
 	}
 	@GetMapping("/register")
 	public ModelAndView openRegister() {
-		ModelAndView mv = new ModelAndView("/view/home/register_simple");
+		ModelAndView mv = new ModelAndView("/view/home/user_register");
 		return mv;
 	}
 	@PostMapping("/register")
-	public String insertUser(UserVO vo) {
+	public ModelAndView insertUser(UserVO vo, Model model) {
 		String check = userService.checkId(vo);
+		ModelAndView mv = new ModelAndView();
 		if(check == null) {
 			userService.insertUser(vo);
-			return "redirect:/view/home/login_simple";
+			mv.setViewName("/view/home/user_login");
+			return mv;
 		} else {
-			 return "<script>"
-			         + "alert(\"아이디가 중복되었습니다.\");"
-			         + "</script>";
+			model.addAttribute("msg","중복된 아이디 입니다.");
+			mv.setViewName("/view/home/user_register");
+			return mv;
+			 
 		}
-		
 	}
 	
 	/*
