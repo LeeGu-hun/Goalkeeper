@@ -1,7 +1,5 @@
 package goal.vo;
 
-import java.io.File;
-import java.sql.Blob;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
