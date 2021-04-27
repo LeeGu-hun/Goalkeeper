@@ -1,6 +1,7 @@
 package goal.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import goal.service.GroupDataService;
 import goal.service.GroupService;
 import goal.vo.GroupDataVO;
+import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
@@ -26,13 +28,30 @@ public class GroupController {
 	@Autowired
 	private GroupDataService groupDataService;
 	
-	@RequestMapping("/group")
+	@RequestMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
-		ModelAndView mv = new ModelAndView("view/group/group_list");
-		
-		List<GroupVO> groupList = groupService.selectGroupList();
+		ModelAndView mv = new ModelAndView("view/group/group_myList");
+		UserVO user = new UserVO();
+		user.setUno(2);
+		List<GroupVO> groupList = groupService.selectGroupList(user);
 		mv.addObject("List", groupList);
 		
+		return mv;
+	}
+	
+	@GetMapping("/searchGroup")
+	public ModelAndView openSearchGroup() {
+		ModelAndView mv = new ModelAndView("view/group/group_searchList");
+		List<GroupVO> allList = groupService.allList();
+		List<GroupVO> studyList = groupService.selectSearchList("공부");
+		List<GroupVO> exerciseList = groupService.selectSearchList("운동");
+		List<GroupVO> picnucList = groupService.selectSearchList("야외활동");
+		List<GroupVO> musicList = groupService.selectSearchList("음악");
+		mv.addObject("allList", allList);
+		mv.addObject("studyList", studyList);
+		mv.addObject("exerciseList", exerciseList);
+		mv.addObject("picnucList", picnucList);
+		mv.addObject("musicList", musicList);
 		return mv;
 	}
 	
@@ -52,6 +71,6 @@ public class GroupController {
 		groupData.setUno(user.getUno());
 		groupDataService.insertData(groupData);
 
-		return "redirect:/group";
+		return "redirect:/myGroup";
 	}
 }

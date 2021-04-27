@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import goal.common.GroupFileUtils;
 import goal.mapper.GroupMapper;
 import goal.vo.GroupFileVO;
+import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
+import goal.vo.UserVO;
 
 @Service
 @Component
@@ -37,10 +39,18 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupVO> selectGroupList() {
-		return groupMapper.selectGroupList();
+	public List<GroupVO> selectGroupList(UserVO user) {
+		return groupMapper.selectGroupList(user);
 	}
-	
-	
+
+	@Override
+	public List<GroupVO> allList() {
+		return groupMapper.allList();
+	}
+
+	@Override
+	public List<GroupVO> selectSearchList(String g_cate) {
+		return groupMapper.selectSearchList(g_cate);
+	}
 	
 }

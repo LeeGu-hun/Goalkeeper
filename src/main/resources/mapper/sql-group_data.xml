@@ -4,7 +4,7 @@
 <mapper namespace="goal.mapper.GroupDataMapper">
 	<insert id="insertData" parameterType="goal.vo.GroupDataVO">
 		insert into
-		GK_ALLGROUP(gno, uno, hor_data, ver_data) values
-		(GK_ALLGROUP_SEQ.nextval, #{uno}, #{hor_data}, #{ver_data})
+		GK_DATA_STATS(gno, uno, hor_data, ver_data) values
+		(GK_DATA_STATS_SEQ.nextval, #{uno}, #{hor_data}, #{ver_data})
 	</insert>
 </mapper>

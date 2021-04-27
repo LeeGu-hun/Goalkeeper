@@ -12,8 +12,20 @@
 		<id property="g_open" column="g_open"/>
 		<id property="g_goaldate" column="g_goaldate"/>
 	</resultMap>
-	<select id="selectGroupList" resultMap="groupVO">
-		SELECT * FROM GK_ALLGROUP ORDER BY gno DESC
+	<select id="selectGroupList" parameterType="goal.vo.UserVO" resultMap="groupVO">
+		<![CDATA[
+			SELECT * FROM GK_ALLGROUP WHERE UNO=#{uno} ORDER BY gno DESC
+		]]>
+	</select>
+	
+	<select id="allList" resultMap="groupVO">
+		SELECT * FROM GK_ALLGROUP
+	</select>
+	
+	<select id="selectSearchList" parameterType="String" resultMap="groupVO">
+		<![CDATA[
+			SELECT * FROM GK_ALLGROUP WHERE G_CATE=#{g_cate}
+		]]>
 	</select>
 
 	<insert id="createGroup" parameterType="goal.vo.GroupVO">
