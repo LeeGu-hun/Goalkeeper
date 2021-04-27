@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goal.mapper.BoardMapper">
+	<resultMap type="goal.vo.BoardVO" id="boardVO">
+		<id property="bno" column="bno"/>
+		<id property="uno" column="uno"/>
+		<id property="b_content" column="b_content"/>
+		<id property="b_title" column="b_title"/>
+		<id property="b_cate" column="b_cate"/>
+		<id property="b_group" column="b_group"/>
+		<id property="b_date" column="b_date"/>
+	</resultMap>
+	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
+		insert into
+		GK_BOARD(bno, uno, b_content, b_date, b_cate) values
+		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate})
+	</insert>
+</mapper>

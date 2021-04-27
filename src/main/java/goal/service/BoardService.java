@@ -6,6 +6,6 @@ import goal.vo.BoardVO;
 
 public interface BoardService {
 
-	void insertBoard(BoardVO board, MultipartHttpServletRequest multi);
+	void insertBoard(BoardVO board);
 
 }
