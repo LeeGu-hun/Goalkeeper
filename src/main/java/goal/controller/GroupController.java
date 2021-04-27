@@ -28,30 +28,48 @@ public class GroupController {
 	@Autowired
 	private GroupDataService groupDataService;
 	
-	@RequestMapping("/myGroup")
+	@GetMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		UserVO user = new UserVO();
-		user.setUno(2);
-		List<GroupVO> groupList = groupService.selectGroupList(user);
+		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		
 		return mv;
 	}
-	
+	@PostMapping("/myGroup")
+	public ModelAndView removeGroup(GroupVO group) {
+		boolean result = groupService.removeGroup(group);
+		ModelAndView mv = new ModelAndView("view/group/group_myList");
+		if(result) {
+			mv.addObject("remove", "success");
+		} else {
+			mv.addObject("remove", "fail");
+		}	
+		return mv;
+	}
 	@GetMapping("/searchGroup")
 	public ModelAndView openSearchGroup() {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
 		List<GroupVO> allList = groupService.allList();
 		List<GroupVO> studyList = groupService.selectSearchList("공부");
 		List<GroupVO> exerciseList = groupService.selectSearchList("운동");
-		List<GroupVO> picnucList = groupService.selectSearchList("야외활동");
+		List<GroupVO> picnicList = groupService.selectSearchList("야외활동");
 		List<GroupVO> musicList = groupService.selectSearchList("음악");
 		mv.addObject("allList", allList);
 		mv.addObject("studyList", studyList);
 		mv.addObject("exerciseList", exerciseList);
-		mv.addObject("picnucList", picnucList);
+		mv.addObject("picnicList", picnicList);
 		mv.addObject("musicList", musicList);
+		return mv;
+	}
+	
+	@GetMapping("/openManage")
+	public ModelAndView openManage() {
+		ModelAndView mv = new ModelAndView("view/group/group_manage");
+		UserVO user = new UserVO();
+		List<GroupVO> groupList = getGroupList(user);
+		mv.addObject("List", groupList);
 		return mv;
 	}
 	
@@ -72,5 +90,12 @@ public class GroupController {
 		groupDataService.insertData(groupData);
 
 		return "redirect:/myGroup";
+	}
+	
+	
+	private List<GroupVO> getGroupList(UserVO user){
+		user.setUno(2);
+		List<GroupVO> groupList = groupService.selectGroupList(user);
+		return groupList;
 	}
 }

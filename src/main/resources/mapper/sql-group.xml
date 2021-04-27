@@ -41,4 +41,9 @@
 		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
 		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
 	</insert>
+	<delete id="removeGroup" parameterType="goal.vo.GroupVO">
+		<![CDATA[
+			delete FROM GK_ALLGROUP WHERE GNO=#{gno}
+		]]> 
+	</delete>
 </mapper>

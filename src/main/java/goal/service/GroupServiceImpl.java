@@ -52,5 +52,10 @@ public class GroupServiceImpl implements GroupService{
 	public List<GroupVO> selectSearchList(String g_cate) {
 		return groupMapper.selectSearchList(g_cate);
 	}
+
+	@Override
+	public boolean removeGroup(GroupVO group) {
+		return groupMapper.removeGroup(group)>0 ? true : false;
+	}
 	
 }

@@ -67,28 +67,6 @@
 		} else{
 			$('#toggleDiv').remove();
 		}
-		var toggle = true;
-		$('#removeBtn').click(function(){
-			if($('input[type="radio"]:checked').val()==null){
-				alert("삭제할 항목을 선택하세요.");
-				return false;		
-			}
-			toggle=false;
-			alert($('input[type="radio"]').val());
-			//$('#removeFrm').submit();
-		});
-		$('#selectBtn').click(function(){
-			if(toggle){
-				$('input[type="radio"]').attr("style", "display:inline-block");
-				$('#selectBtn').html("최소");
-				toggle = false;
-			} else{
-				$('input[type="radio"]').attr("style", "display:none");
-				$('#selectBtn').html("그룹 선택");
-				toggle=true;
-			}
-			
-		});
 	});
 </script>
 </head>
@@ -105,49 +83,61 @@
 					class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-xs-12">
 					<div class="breadcrumb-wrapper col-xs-12">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item active">내 그룹</li>
+							<li class="breadcrumb-item"><a href="myGroup">내 그룹</a></li>
 							<li class="breadcrumb-item"><a href="searchGroup">모든 그룹</a></li>
-							<li class="breadcrumb-item"><a href="openManage">그룹 관리</a></li>
+							<li class="breadcrumb-item active">그룹 관리</li>
 						</ol>
 					</div>
 				</div>
 			</div>
 			<div class="content-body">
 				<!-- Basic example section start -->
-				<div id="pushAlert" class="row match-height">
-					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj:${List}">
-						<div class="card">
-							<div class="card-body">
-								<img class="card-img-top img-fluid"
-									src="../../app-assets/images/carousel/06.jpg"
-									alt="Card image cap">
-								<div class="card-block">
-									<div class="card-title">
-										<form id="removeFrm" style="display:inline-block" action="/myGroup" method="post">
-											<input type="radio" style="display:none" th:value="${obj.gno}" name="gno">
-										</form>
-										<h4 id="nullCheck" style="display:inline-block" th:text="${obj.g_name}"></h4>
+				<div class="card-body">
+					<div class="card-block">
+						<div class="nav-vertical">
+							<ul class="nav nav-tabs nav-left" style="height:62px;">
+								<li class="nav-item">
+									<a class="nav-link active" id="setting1" data-toggle="tab" aria-controls="myGroup" href="#myGroup" aria-expanded="true">내 그룹 관리</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="setting2" data-toggle="tab" aria-controls="groupAlarm" href="#groupAlarm" aria-expanded="false">그룹 알람</a>
+								</li>
+							</ul>
+							<div class="tab-content ">
+								<div role="tabpanel" class="tab-pane active height-300" id="myGroup" aria-expanded="true" aria-labelledby="setting1">
+									<div class="table-responsive">
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>그룹 이름</th>
+													<th>생성 날짜</th>
+													<th>분류</th>
+													<th>공개여부</th>
+													<th>목표달성일</th>
+												</tr>
+											</thead>
+											<tbody th:each="obj:${List}">
+												<tr>
+													<th th:text="${obj.g_name}"></th>
+													<th th:text="${obj.g_date}"></th>
+													<th th:text="${obj.g_cate}"></th>
+													<th th:text="${obj.g_open}"></th>
+													<th th:text="${obj.g_goaldate}"></th>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-									<p class="card-text" th:text="${obj.g_intro}">
-										<p th:if="${obj.g_open}=='Y'">공개</p>
-										<p th:if="${obj.g_open}=='N'">비공개</p>
-									</p>
-									<a href="#" class="btn btn-outline-deep-orange">자세히 보기</a>
+								</div>
+								<div role="tabpanel" class="tab-pane" id="groupAlarm" aria-expanded="false" aria-labelledby="setting2">
+									<p>alarm</p>
 								</div>
 							</div>
 						</div>
-					</div>	
-				</div><br>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="pl-3">
-			<button class="btn btn-success border" 
-				onclick="location.href='group_create'">새 그룹</button>
-			<button type="text" id="selectBtn" class="btn btn-info border">그룹 선택</button>
-			<button type="text" id="removeBtn" class="btn btn-danger border"
-				onclick="href='removeGroup'">그룹 삭제하기</button>
-		</div>
-		<div id="removeAlert" th:if="${remove}=='success'"><p>삭제가 완료되었습니다</p></div>
+
 	</div>
 	<br>
 				

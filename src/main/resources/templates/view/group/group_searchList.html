@@ -82,7 +82,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="myGroup">내 그룹</a></li>
 							<li class="breadcrumb-item active">그룹 검색하기</li>
-							<li class="breadcrumb-item"><a href="#">그룹 설정</a></li>
+							<li class="breadcrumb-item"><a href="openManage">그룹 관리</a></li>
 						</ol>
 					</div>
 				</div>
@@ -107,7 +107,7 @@
 			<div class="tab-content content-body border">
 				<!-- Basic example section start -->
 				<div id="goAll" class="tab-pane active row match-height" aria-expanded="false" aria-labelledby="allItem">
-					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="all:${allList}">
+					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="all:${allList}" th:if="${all.g_open}=='Y'">
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
@@ -124,7 +124,7 @@
 					</div>	
 				</div>
 				<div role="tabpanel" id="goStudy" class="tab-pane row match-height" aria-expanded="true" aria-labelledby="study">
-					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="study:${studyList}">
+					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="study:${studyList}" th:if="${study.g_open}=='Y'">
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
@@ -142,7 +142,7 @@
 				</div>
 				<!-- Basic example section start -->
 				<div id="goExercise" class="tab-pane row match-height" aria-labelledby="exercise" aria-expanded="false">
-					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="exercise:${exerciseList}">
+					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="exercise:${exerciseList}" th:if="${exercise.g_open}=='Y'">
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
@@ -159,7 +159,7 @@
 					</div>	
 				</div>
 				<div id="goPicnic" class="tab-pane row match-height" aria-labelledby="picnic" aria-expanded="false">
-					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="picnic:${picnicList}">
+					<div class=" col-xl-3 col-md-6 col-sm-12" th:each="picnic:${picnicList}" th:if="${picnic.g_open}=='Y'">
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
