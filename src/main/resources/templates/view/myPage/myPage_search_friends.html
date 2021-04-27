@@ -19,22 +19,19 @@ $(document).ready( function() {
 <div style="margin-top:80px; margin-left:250px;">
 	<div class="col-lg-6 col-md-12" style="width:100%">
 		<div class="card">
-			<div class="card-header" style="display:inline-block;">
-				<input type="text" class="form-control form-control-lg input-lg" id="iconLeft" placeholder="Search Friends!" style="display:inline;">
-				<button type="button" class="btn btn-info btn-min-width mr-1 mb-1" style="display:inline-block;">검색</button>
+			<div class="card-header" style="display:block;">
+				<input type="text" class="form-control form-control-lg input-lg" id="iconLeft" placeholder="Search Friends!">
+				<button type="button" class="btn btn-info btn-min-width mr-1 mb-1" style=" margin-top:5px; float:right;">검색</button>
 				<a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
 			</div>
 			<div class="card-body collapse in">
 				<div class="card-block">
 					<div class="list-group">
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
-						<form id="newFriendsList" method="get">
-							<a th:href="@{myPage(uno=${uno})}" class="list-group-item">ggg
+						<form id="newFriendsList" method="get" th:each="f:${list}">
+							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" th:value="${f.uno}">
 							<button type="button" class="btn btn-info btn-min-width mr-1 mb-1"
-								th:onclick="" style="float:right;">친구 추가</button></a>
-							<a href="#" class="list-group-item">Morbi leo risus</a>
-							<a href="#" class="list-group-item">Porta ac consectetur ac</a>
-							<a href="#" class="list-group-item">Vestibulum at eros</a>
+								th:onclick="location.href='view/myPage/myPage?myPage_home?uno=[[$user.uno]]'" style="float:right;">친구 추가</button></a>
 						</form>
 					</div>
 				</div>
