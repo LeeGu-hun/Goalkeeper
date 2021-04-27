@@ -22,8 +22,13 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public int checkLogin(UserVO vo) {
-		int check = mapper.read(vo);
+	public String checkLogin(UserVO vo) {
+		String check = mapper.read(vo);
+		return check;
+	}
+	@Override
+	public String checkId(UserVO vo) {
+		String check = mapper.readId(vo);
 		return check;
 	}
 	

@@ -34,14 +34,15 @@ public class HomeController {
 	
 	@PostMapping("/login")
 	public ModelAndView checkLogin(UserVO vo) {
-		int check = userService.checkLogin(vo);
+		String check = userService.checkLogin(vo);
 		
-		if(check == 1) {
-			ModelAndView mv = new ModelAndView("/view/home/login_home");
+		if(check == null) {
+			ModelAndView mv = new ModelAndView("/view/home/login_simple");
 			mv.addObject("user", vo);
 			return mv;
+			
 		} else {
-			ModelAndView mv = new ModelAndView("/view/home/login_simple");
+			ModelAndView mv = new ModelAndView("/view/home/login_home");
 			mv.addObject("user", vo);
 			return mv;
 		}
@@ -53,8 +54,16 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public String insertUser(UserVO vo) {
-		userService.insertUser(vo);
-		return "redirect:/view/home/login_simple";
+		String check = userService.checkId(vo);
+		if(check == null) {
+			userService.insertUser(vo);
+			return "redirect:/view/home/login_simple";
+		} else {
+			 return "<script>"
+			         + "alert(\"아이디가 중복되었습니다.\");"
+			         + "</script>";
+		}
+		
 	}
 	
 	/*

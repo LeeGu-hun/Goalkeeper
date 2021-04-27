@@ -2,13 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goal.mapper.UserMapper">
-	<select id="read" parameterType="goal.vo.UserVO" resultType="int">
+	<select id="read" parameterType="goal.vo.UserVO" resultType="String">
 	<![CDATA[
 		select u_id from GK_USER
 		where u_id = #{u_id} and u_password = #{u_password}
 	]]>
 	</select>
-	
+	<select id="readId" parameterType="goal.vo.UserVO" resultType="String">
+	<![CDATA[
+		select * from GK_USER
+		where u_id = #{u_id}
+	]]>
+	</select>
 	<insert id="register" parameterType="goal.vo.UserVO">
 		insert into GK_USER(uno, u_id, u_name, u_password, u_mail, u_number, u_birthdate) values
 		(GK_USER_SEQ.nextval, #{u_id}, #{u_name}, #{u_password}, #{u_mail}, #{u_number}, #{u_birthdate})
