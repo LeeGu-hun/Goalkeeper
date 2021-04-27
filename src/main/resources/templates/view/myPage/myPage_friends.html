@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+	crossorigin="anonymous"></script>
+<title>Insert title here</title>
+<script>
+$(document).ready( function() {
+    $("#header").load("view/main_header.html");
+});
+</script>
+</head>
+<body>
+<div id="header"></div>
+<div class="struct" style="margin-left:250px; margin-top:80px;">
+	<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
+		style="display:block; float:right;" th:onclick="location.href='mySearchFriends'">New Friends</button>
+	<div class="col-lg-6 col-md-12" style="width:100%;">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title" style="display:inline;">친구 목록</h4>
+				<a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+				<div style="display:inline-bolck; float:right;">
+					<button type="button" class="btn btn-info btn-min-width mr-1 mb-1">내 친구 검색</button>
+				</div>
+			</div>
+			<div class="card-body collapse in">
+				<div class="card-block">
+					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
+	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
+	                    <label class="fonticon-classname">JSG</label>
+	                    <label class="fonticon-unit">???</label>
+                    </div>
+	                <i class="icon-ei-comment"></i>
+					<button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" style="float:right;">친구 삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

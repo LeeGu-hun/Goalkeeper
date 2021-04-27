@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+	crossorigin="anonymous"></script>
+<title>친구 찾기 페이지</title>
+<script>
+$(document).ready( function() {
+   $("#header").load("view/main_header.html");
+   
+   
+});
+</script>
+</head>
+<body>
+<div id="header"></div>
+<div style="margin-top:80px; margin-left:250px;">
+	<div class="col-lg-6 col-md-12" style="width:100%">
+		<div class="card">
+			<div class="card-header" style="display:inline-block;">
+				<input type="text" class="form-control form-control-lg input-lg" id="iconLeft" placeholder="Search Friends!" style="display:inline;">
+				<button type="button" class="btn btn-info btn-min-width mr-1 mb-1" style="display:inline-block;">검색</button>
+				<a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+			</div>
+			<div class="card-body collapse in">
+				<div class="card-block">
+					<div class="list-group">
+						<a href="#" class="list-group-item disabled">새 친구 목록</a>
+						<form id="newFriendsList" method="get">
+							<a th:href="@{myPage(uno=${uno})}" class="list-group-item">ggg
+							<button type="button" class="btn btn-info btn-min-width mr-1 mb-1"
+								th:onclick="" style="float:right;">친구 추가</button></a>
+							<a href="#" class="list-group-item">Morbi leo risus</a>
+							<a href="#" class="list-group-item">Porta ac consectetur ac</a>
+							<a href="#" class="list-group-item">Vestibulum at eros</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.FriendMapper">
+	<resultMap type="goal.vo.FriendVO" id="FriendVO">
+		<id property="fno" column="fno"></id>
+		<id property="uno" column="uno"></id>
+	</resultMap>
+	
+	<select id="listFriend" parameterType="goal.vo.FriendVO">
+		<![CDATA[
+			select * from GK_FRIEND where uno=#{uno}
+		]]>
+	</select>
+	
+	<insert id="addFriend">
+		<selectKey keyProperty="fno" resultType="int" order="BEFORE">
+			select gk_friend_seq from dual
+		</selectKey>
+		insert into GK_FRIEND(fno, uno, friend_uno)
+		values (#{gk_friend_seq}, #{uno}, #{select f.uno from GK_USER f where f.uno=#{uno}})
+	</insert>
+	
+	<delete id="deleteFriend">
+		<![CDATA[
+			delete GK_FRIEND where fno = #{fno}
+		]]>
+	</delete>
+</mapper>
