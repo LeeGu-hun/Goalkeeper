@@ -3,20 +3,16 @@ package goal.upload;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import goal.GoalKeeperApplication;
 import goal.vo.GroupFileVO;
 
 public class Upload { 
 	public GroupFileVO requestSingleUpload(MultipartHttpServletRequest mtfRequest) {
 		GroupFileVO groupFile = new GroupFileVO();
-        String src = mtfRequest.getParameter("src");
-        System.out.println("src value : " + src);
         MultipartFile mf = mtfRequest.getFile("file");
         String path ="C:\\group-image";
         File uploadPath = new File(path); 
@@ -42,10 +38,8 @@ public class Upload {
         try {
             mf.transferTo(new File(safeFile));
         } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return groupFile;

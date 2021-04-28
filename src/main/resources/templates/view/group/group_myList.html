@@ -122,9 +122,8 @@
 					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj, i:${List}">
 						<div class="card">
 							<div class="card-body">
-								<div th:each="file, j:${fileList}" >
-									<img class="card-img-top img-fluid" th:if="${i.index}==${j.index}"
-										th:attr="src=@{'/group-image/'+ ${file.g_fid}+'_'+${file.g_filename}}" 
+								<div>
+									<img class="card-img-top img-fluid" th:attr="src=@{'/display'}" 
 										alt="Card image cap">
 								</div>
 								<div class="card-block">
