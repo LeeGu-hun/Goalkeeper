@@ -16,5 +16,5 @@ public interface GroupMapper {
 	List<GroupVO> selectGroupList(UserVO vo);
 	List<GroupVO> allList();
 	List<GroupVO> selectSearchList(String g_cate);
-	int removeGroup(GroupVO group);
+	int removeGroup(int gno);
 }

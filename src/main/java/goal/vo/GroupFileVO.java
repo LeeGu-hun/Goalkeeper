@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class GroupFileVO {
-	private int g_fid, gno;
-	private String g_filename, g_filepath;
+	private int gno;
+	private String g_fid, g_filename, g_filepath;
 }
