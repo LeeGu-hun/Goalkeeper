@@ -3,11 +3,13 @@ package goal.upload;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import goal.GoalKeeperApplication;
 import goal.vo.GroupFileVO;
 
 public class Upload { 
@@ -16,16 +18,15 @@ public class Upload {
         String src = mtfRequest.getParameter("src");
         System.out.println("src value : " + src);
         MultipartFile mf = mtfRequest.getFile("file");
-
-        String path = "C:\\image";
+        String path ="C:\\group-image";
         File uploadPath = new File(path); 
         if(uploadPath.exists()==false) uploadPath.mkdir();
 
-        String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+        String originFileName = mf.getOriginalFilename();
         originFileName = originFileName.substring(originFileName.lastIndexOf("\\")+1);
         groupFile.setG_filename(originFileName);
         UUID uuid = UUID.randomUUID();
-        originFileName = originFileName + "_" + uuid.toString();
+        originFileName = uuid.toString() + "_" + originFileName;
         
         try {
 			mf.transferTo(new File(uploadPath, originFileName));

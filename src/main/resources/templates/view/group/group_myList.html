@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -76,7 +76,10 @@
 			$('input[type="radio"]:checked').attr("name", "gno");
 			$('input[type="radio"]:checked').closest("form").attr("id", "removeFrm");
 			toggle=false;
-			$('#removeFrm').submit();
+			$('#confirmBtn').click(function(){
+				alert("삭제가 완료되었습니다.");
+				$('#removeFrm').submit();	
+			});
 		});
 		$('#selectBtn').click(function(){
 			if(toggle){
@@ -116,12 +119,14 @@
 			<div class="content-body">
 				<!-- Basic example section start -->
 				<div id="pushAlert" class="row match-height">
-					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj:${List}">
+					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj, i:${List}">
 						<div class="card">
 							<div class="card-body">
-								<img class="card-img-top img-fluid"
-									src="../../app-assets/images/carousel/06.jpg"
-									alt="Card image cap">
+								<div th:each="file, j:${fileList}" >
+									<img class="card-img-top img-fluid" th:if="${i.index}==${j.index}"
+										th:attr="src=@{'/group-image/'+ ${file.g_fid}+'_'+${file.g_filename}}" 
+										alt="Card image cap">
+								</div>
 								<div class="card-block">
 									<div class="card-title">
 										<form style="display:inline-block" action="/myGroup" method="post">
@@ -144,14 +149,32 @@
 		<div class="pl-3">
 			<button class="btn btn-success border" 
 				onclick="location.href='group_create'">새 그룹</button>
-			<button type="text" id="selectBtn" class="btn btn-info border">그룹 선택</button>
-			<button type="text" id="removeBtn" class="btn btn-danger border"
-				onclick="href='removeGroup'">그룹 삭제하기</button>
+			<button type="button" id="selectBtn" class="btn btn-info border">그룹 선택</button>
+			<button type="button" id="removeBtn" class="btn btn-danger border"
+				onclick="href='removeGroup'" data-toggle="modal" data-target="#modalOpen">그룹 삭제하기</button>
 		</div>
-		<div id="removeAlert" th:if="${remove}=='success'"><p>삭제가 완료되었습니다</p></div>
+		<!-- 모달-->
 	</div>
 	<br>
-				
+	<div class="modal fade text-xs-left-in" id="modalOpen" tabindex="-1" role="dialog" aria-labelledby="modal" style="display:none; padding-right:17px;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+						</button>
+						<h3 class="modal-title" id="modalTitle">경고</h4>
+						<div class="modal-body">
+							<h4>그룹을 삭제하시겠습니까?</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">취소</button>
+							<button type="button" id="confirmBtn" class="btn grey btn-outline-primary">삭제하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>			
 	<!-- // Basic example section end -->
 
 	<footer class="footer footer-static footer-light navbar-border">

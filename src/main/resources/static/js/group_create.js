@@ -90,15 +90,6 @@ window.onload = function() {
 		this.submit();
 	});
 	
-	function file_upload(){
-		var file_tag = $('#g_profile');
-		var newForm = $('<form></form>');
-		var clone = file_tag.clone();
-		newForm.append(clone);
-		
-		var formData = new FormData(newForm);
-	}
-	
 	function getDate(addYear, addMonth, addDay, token){		//받은 매개변수로 날짜를 추가하는 함수
 		token = token == undefined || token == null ? "-" : token;
 		addYear = addYear == null ? 0 : addYear;

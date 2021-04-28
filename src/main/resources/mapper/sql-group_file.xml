@@ -2,9 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goal.mapper.GroupFileMapper">
+	<resultMap type="goal.vo.GroupFileVO" id="groupFileVO">
+		<id property="g_fid" column="g_fid"/>
+		<id property="g_filename" column="g_filename"/>
+		<id property="g_filepath" column="g_filepath"/>
+		<id property="gno" column="gno"/>
+	</resultMap>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
 		insert into
 		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
 		(#{g_fid}, #{g_filename}, #{g_filepath}, #{gno})
 	</insert>
+	<select id="selectFileName" resultMap="groupFileVO">
+		<![CDATA[
+			SELECT * FROM GK_GROUPFILE
+		]]>
+	</select>
+	<delete id="removeGroupFile" parameterType="int">
+		<![CDATA[
+			delete GK_GROUPFILE WHERE GNO=#{gno}
+		]]> 
+	</delete>
 </mapper>

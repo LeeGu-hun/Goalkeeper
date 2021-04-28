@@ -26,7 +26,7 @@ public class GroupServiceImpl implements GroupService{
 	private GroupFileUtils fileUtils;
 	
 	@Override
-	public void createGroup(GroupVO group, MultipartHttpServletRequest multi) {
+	public void createGroup(GroupVO group) {
 		groupMapper.createGroup(group);
 	}
 
@@ -38,6 +38,11 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public List<GroupVO> allList() {
 		return groupMapper.allList();
+	}
+
+	@Override
+	public GroupVO recentGroup() {
+		return groupMapper.recentGroup();
 	}
 
 	@Override

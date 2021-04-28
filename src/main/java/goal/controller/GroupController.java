@@ -41,24 +41,21 @@ public class GroupController {
 
 	@GetMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
-		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		UserVO user = new UserVO();
-		List<GroupVO> groupList = getGroupList(user);
-		mv.addObject("List", groupList);
+		
+		ModelAndView mv = addList("view/group/group_myList", user);
 		
 		return mv;
 	}
 	@PostMapping("/myGroup")
 	public ModelAndView removeGroup(@RequestParam(value="gno") int gno) {
-		boolean result = groupService.removeGroup(gno);
+		groupService.removeGroup(gno);
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
-		if(result) {
-			mv.addObject("remove", "success");
-		} else {
-			mv.addObject("remove", "fail");
-		}	
 		UserVO user = new UserVO();
 		List<GroupVO> groupList = getGroupList(user);
+		List<GroupFileVO> groupFileList = groupFileService.selectFileName();
+		groupFileService.removeGroupFile(gno);
+		mv.addObject("fileList", groupFileList);
 		mv.addObject("List", groupList);
 		return mv;
 	}
@@ -94,23 +91,25 @@ public class GroupController {
 	}
 	
 	@PostMapping("/group_create")
-	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
+	public ModelAndView createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
 		Upload upload = new Upload();
 		UserVO user = new UserVO();
 		GroupFileVO groupFile = new GroupFileVO();
 		user.setUno(2);
 		group.setUno(user.getUno());
+		groupService.createGroup(group);
+		GroupVO recentGroup = groupService.recentGroup();
 		
 		groupFile = upload.requestSingleUpload(multi);
-		groupFile.setGno(group.getGno());
+		groupFile.setGno(recentGroup.getGno());
 		groupFileService.insertGroupFile(groupFile);
 		
-		groupService.createGroup(group, multi);
-		groupData.setGno(group.getGno());
+		groupData.setGno(recentGroup.getGno());
 		groupData.setUno(user.getUno());
 		groupDataService.insertData(groupData);
-
-		return "redirect:/myGroup";
+		
+		ModelAndView mv = addList("view/group/group_myList", user);
+		return mv;
 	}
 	
 	
@@ -120,4 +119,12 @@ public class GroupController {
 		return groupList;
 	}
 	
+	private ModelAndView addList(String url, UserVO user) {
+		ModelAndView mv = new ModelAndView(url);
+		List<GroupVO> groupList = getGroupList(user);
+		List<GroupFileVO> groupFileList = groupFileService.selectFileName();
+		mv.addObject("fileList", groupFileList);
+		mv.addObject("List", groupList);
+		return mv;
+	}
 }
