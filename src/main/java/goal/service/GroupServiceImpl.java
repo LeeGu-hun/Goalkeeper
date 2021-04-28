@@ -28,14 +28,6 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public void createGroup(GroupVO group, MultipartHttpServletRequest multi) {
 		groupMapper.createGroup(group);
-		
-		try {
-			List<GroupFileVO> groupFile = fileUtils.parseFileInfo(group.getGno(), multi);
-			groupMapper.insertGroupFile(groupFile);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -54,8 +46,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public boolean removeGroup(GroupVO group) {
-		return groupMapper.removeGroup(group)>0 ? true : false;
+	public boolean removeGroup(int gno) {
+		return groupMapper.removeGroup(gno)>0 ? true : false;
 	}
 	
 }

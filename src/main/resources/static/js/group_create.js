@@ -51,21 +51,7 @@ window.onload = function() {
 		$('#stats').append('<input type="text" class="form-control" style="width:46%; display:inline-block;" placeholder="측정할 목표" name="hor_data">&nbsp');
 		$('#stats').append('<input type="text" class="form-control" style="width:46%; display:inline-block;" placeholder="달성 목표값" name="data_goal">');
 	});
-	
-	$("#g_profile").change(function(e){
-		//div 내용 비워주기
-	    $('#img_preview').empty();
-		var files = e.target.files;
-	    var arr =Array.prototype.slice.call(files);
-	      
-	    //업로드 가능 파일인지 체크
-	    for(var i=0;i<files.length;i++){
-	    	if(!checkExtension(files[i].name,files[i].size)){
-	        	return false;
-	        }
-	    }
-	    preview(arr);
-	});//file change
+
 	function checkExtension(fileName,fileSize){
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	    var maxSize = 20971520;  //20MB
@@ -80,32 +66,6 @@ window.onload = function() {
 	        return false;
 	    }
 	    return true;
-	}
-	function preview(arr){
-		arr.forEach(function(f){
-	    	//파일명이 길면 파일명...으로 처리
-	        var fileName = f.name;
-	        if(fileName.length > 10){
-	        	fileName = fileName.substring(0,7)+"...";
-	        }
-	        
-	        //div에 이미지 추가
-	        var str = '<div style="display: inline-flex; padding: 10px;">';
-	        
-	        //이미지 파일 미리보기
-	        if(f.type.match('image.*')){
-	        	var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-	          	reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-	            	str += '<img src="'+e.target.result+'" title="'+f.name+  '" width=100 height=100 />';
-	           		$(str).appendTo('#img_preview');
-	        	} 
-	        	reader.readAsDataURL(f);
-	        }else{
-	        	str += '<img src="/resources/img/fileImg.png" title="'+f.name+'" width=100 height=100 />';
-	        	$(str).appendTo('#img_preview');
-	        }
-		});//arr.forEach
-		$('#img_border').show();
 	}
 	
 	$('#goal_submit').click(function(e){
@@ -125,8 +85,19 @@ window.onload = function() {
 			alert("목표 달성일을 설정해주세요.");
 			return false;
 		} 
+		if(!checkExtension(file.name, file.size)) return false;
+		alert($('#g_name').val() + "을(를) 만들었습니다.");
 		this.submit();
 	});
+	
+	function file_upload(){
+		var file_tag = $('#g_profile');
+		var newForm = $('<form></form>');
+		var clone = file_tag.clone();
+		newForm.append(clone);
+		
+		var formData = new FormData(newForm);
+	}
 	
 	function getDate(addYear, addMonth, addDay, token){		//받은 매개변수로 날짜를 추가하는 함수
 		token = token == undefined || token == null ? "-" : token;

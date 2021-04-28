@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goal.mapper.GroupFileMapper">
+	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
+		insert into
+		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
+		(#{g_fid}, #{g_filename}, #{g_filepath}, #{gno})
+	</insert>
+</mapper>

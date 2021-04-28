@@ -27,7 +27,6 @@
 			SELECT * FROM GK_ALLGROUP WHERE G_CATE=#{g_cate}
 		]]>
 	</select>
-
 	<insert id="createGroup" parameterType="goal.vo.GroupVO">
 		insert into
 		GK_ALLGROUP(gno, uno, g_name, g_intro, g_date, g_cate,
@@ -41,9 +40,9 @@
 		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
 		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
 	</insert>
-	<delete id="removeGroup" parameterType="goal.vo.GroupVO">
+	<delete id="removeGroup" parameterType="int">
 		<![CDATA[
-			delete FROM GK_ALLGROUP WHERE GNO=#{gno}
+			delete GK_ALLGROUP WHERE GNO=#{gno}
 		]]> 
 	</delete>
 </mapper>

@@ -1,5 +1,7 @@
 package goal.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,14 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import goal.service.GroupDataService;
+import goal.service.GroupFileService;
 import goal.service.GroupService;
+import goal.upload.Upload;
 import goal.vo.GroupDataVO;
+import goal.vo.GroupFileVO;
 import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -28,6 +36,9 @@ public class GroupController {
 	@Autowired
 	private GroupDataService groupDataService;
 	
+	@Autowired
+	private GroupFileService groupFileService;
+
 	@GetMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
@@ -38,14 +49,17 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/myGroup")
-	public ModelAndView removeGroup(GroupVO group) {
-		boolean result = groupService.removeGroup(group);
+	public ModelAndView removeGroup(@RequestParam(value="gno") int gno) {
+		boolean result = groupService.removeGroup(gno);
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		if(result) {
 			mv.addObject("remove", "success");
 		} else {
 			mv.addObject("remove", "fail");
 		}	
+		UserVO user = new UserVO();
+		List<GroupVO> groupList = getGroupList(user);
+		mv.addObject("List", groupList);
 		return mv;
 	}
 	@GetMapping("/searchGroup")
@@ -81,9 +95,16 @@ public class GroupController {
 	
 	@PostMapping("/group_create")
 	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
+		Upload upload = new Upload();
 		UserVO user = new UserVO();
+		GroupFileVO groupFile = new GroupFileVO();
 		user.setUno(2);
 		group.setUno(user.getUno());
+		
+		groupFile = upload.requestSingleUpload(multi);
+		groupFile.setGno(group.getGno());
+		groupFileService.insertGroupFile(groupFile);
+		
 		groupService.createGroup(group, multi);
 		groupData.setGno(group.getGno());
 		groupData.setUno(user.getUno());
@@ -98,4 +119,5 @@ public class GroupController {
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
 	}
+	
 }

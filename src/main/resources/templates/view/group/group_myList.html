@@ -58,7 +58,7 @@
 	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
-<script>
+<script th:inline="javascript">
 	$(document).ready(function() {
 		$("#header").load("/view/main_header.html");
 		
@@ -73,9 +73,10 @@
 				alert("삭제할 항목을 선택하세요.");
 				return false;		
 			}
+			$('input[type="radio"]:checked').attr("name", "gno");
+			$('input[type="radio"]:checked').closest("form").attr("id", "removeFrm");
 			toggle=false;
-			alert($('input[type="radio"]').val());
-			//$('#removeFrm').submit();
+			$('#removeFrm').submit();
 		});
 		$('#selectBtn').click(function(){
 			if(toggle){
@@ -123,7 +124,7 @@
 									alt="Card image cap">
 								<div class="card-block">
 									<div class="card-title">
-										<form id="removeFrm" style="display:inline-block" action="/myGroup" method="post">
+										<form style="display:inline-block" action="/myGroup" method="post">
 											<input type="radio" style="display:none" th:value="${obj.gno}" name="gno">
 										</form>
 										<h4 id="nullCheck" style="display:inline-block" th:text="${obj.g_name}"></h4>
