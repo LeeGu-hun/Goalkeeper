@@ -10,5 +10,5 @@ import goal.vo.BoardVO;
 public interface BoardMapper {
 	void insertBoard(BoardVO board);
 	
-	List<BoardVO> selectBoardList(BoardVO vo);
+List<BoardVO> selectBoardList(BoardVO vo);
 }

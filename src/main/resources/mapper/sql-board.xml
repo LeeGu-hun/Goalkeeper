@@ -17,9 +17,4 @@
 		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate}, #{b_group})
 	</insert>
 	
-	<select id="selectBoardList" parameterType="goal.vo.BoardVO" resultMap="BoardVO">
-      <![CDATA[
-         SELECT * FROM GK_BOARD ORDER BY b_date
-      ]]>
-   </select>
 </mapper>

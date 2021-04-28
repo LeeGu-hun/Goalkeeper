@@ -27,9 +27,7 @@ public class BoardController {
 	public ModelAndView openBoardWrite(ModelAndView mv) {
 		mv.setViewName("view/board/boardWrite");
 		UserVO user = new UserVO();
-		
 		user.setUno(2);
-		
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
