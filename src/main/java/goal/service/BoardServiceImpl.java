@@ -1,5 +1,7 @@
 package goal.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,11 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public void insertBoard(BoardVO vo) {
-		boardMapper.insertBoard(vo);
-		
+		boardMapper.insertBoard(vo);	
 	}
+	@Override
+	   public List<BoardVO> selectBoardList(BoardVO vo) {
+	      return boardMapper.selectBoardList(vo);
+	   }
 
 }

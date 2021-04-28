@@ -13,7 +13,13 @@
 	</resultMap>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
-		GK_BOARD(bno, uno, b_content, b_date, b_cate) values
-		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate})
+		GK_BOARD(bno, uno, b_content, b_date, b_cate, b_group) values
+		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate}, #{b_group})
 	</insert>
+	
+	<select id="selectBoardList" parameterType="goal.vo.BoardVO" resultMap="BoardVO">
+      <![CDATA[
+         SELECT * FROM GK_BOARD ORDER BY b_date
+      ]]>
+   </select>
 </mapper>

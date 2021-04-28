@@ -18,7 +18,8 @@ $(document).ready(function() {
 	$("#imgdiv").hide();
 
 	document.getElementById("b_cate").value;
-
+	document.getElementById("b_group").value;
+	
 	function CheckEnter(frm, objName) {
 		var keycode = event.keyCode;
 		var i = 0;
@@ -101,7 +102,7 @@ $(document).ready(function() {
 			alert("내용을 입력해주세요.");
 			return false;
 		}
-		document.form.action = "insert_board";
+		document.form.action = "/board/insert_board.do";
 		document.form.submit();
 		alert("저장되었습니다.");
 	});
