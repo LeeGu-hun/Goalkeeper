@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.UserMapper;
+import goal.vo.PostVO;
 import goal.vo.UserVO;
 
 @Service
@@ -33,10 +34,16 @@ public class UserServiceImpl implements UserService{
 		String check = mapper.readId(vo);
 		return check;
 	}
-	@Override
-	   public List<UserVO> allUserList(UserVO vo) {
-	      return mapper.allUser(vo);
-	   }
 
-	
+	@Override
+	public List<UserVO> allUserList(UserVO vo) {
+		return mapper.allUser(vo);
+		
+	}
+	@Override
+	public List<PostVO> selectPost(PostVO vo) {
+		return mapper.getPost(vo);
+		
+	}
+
 }

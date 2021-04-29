@@ -32,14 +32,7 @@ public class MyPageController {
 		return mv;
 	}
 	
-	@GetMapping("/mySearchFriends")
-	public ModelAndView searchFriendsList(@ModelAttribute UserVO vo,HttpSession session) {
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
-		
-//		List<FriendVO> list = friendService.getFriendsList(uno);
-//		mv.addObject("list", list);
-		return mv;
-	}
+
 	
 	@PostMapping("/mySearchFriends")
 	public String addFriend(FriendVO vo, RedirectAttributes rttr) {
