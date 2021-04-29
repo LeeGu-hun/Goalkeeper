@@ -72,6 +72,10 @@ public class HomeController {
 			 
 		}
 	}
+	@GetMapping("/denied")
+    public String deniedView() {
+        return "view/error/denied";
+    }
 	
 	/*
 	 * @PostMapping("/home") public ModelAndView loginCheck(@ModelAttribute UserVO
