@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import goal.vo.PostVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 public interface UserService {
@@ -15,5 +16,6 @@ public interface UserService {
 	public UserVO checkUser(String u_id);
 	List<UserVO> allUserList(UserVO vo);
 	List<PostVO> selectPost(PostVO vo);
+	List<ReplyVO> selectReply(ReplyVO vo);
 
 }
