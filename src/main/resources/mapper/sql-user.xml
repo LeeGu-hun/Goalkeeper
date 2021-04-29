@@ -19,5 +19,11 @@
 		(GK_USER_SEQ.nextval, #{u_id}, #{u_name}, #{u_password}, #{u_mail}, #{u_number}, #{u_birthdate})
 	</insert>
 	
+	<select id="listFriend" parameterType="goal.vo.UserVO" resultMap="UserVO">
+      <![CDATA[
+         select * from GK_FRIEND where uno=#{uno}
+      ]]>
+   </select>
+	
 	
 </mapper>

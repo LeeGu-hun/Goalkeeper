@@ -1,5 +1,7 @@
 package goal.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.UserVO;
@@ -11,4 +13,7 @@ public interface UserMapper {
 	public String readId(UserVO vo);
 	
 	public void register(UserVO vo);
+	
+	public List<UserVO> allUser(UserVO vo);
+
 }

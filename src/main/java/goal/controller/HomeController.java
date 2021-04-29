@@ -77,6 +77,14 @@ public class HomeController {
         return "view/error/denied";
     }
 	
+	@GetMapping("/mySearchFriends")
+	   public ModelAndView UserList(@ModelAttribute UserVO vo,HttpSession session) {
+	      ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
+	      
+	      List<UserVO> list = friendService.allUserList(vo);
+	      mv.addObject("list", list);
+	      return mv;
+	   }
 	/*
 	 * @PostMapping("/home") public ModelAndView loginCheck(@ModelAttribute UserVO
 	 * vo,HttpSession session) { boolean result = userService.checkLogin(vo);
