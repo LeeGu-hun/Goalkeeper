@@ -64,9 +64,10 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public ModelAndView insertUser(UserVO vo, Model model) {
-		String check = userService.checkId(vo);
+		UserVO idCheck = new UserVO();
+		idCheck = userService.checkId(vo);
 		ModelAndView mv = new ModelAndView();
-		if(check == null) {
+		if(idCheck.getU_id() == null) {
 			userService.insertUser(vo);
 			mv.setViewName("/view/home/user_login");
 			return mv;

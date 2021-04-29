@@ -1,8 +1,15 @@
 package goal.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +37,9 @@ public class UserServiceImpl implements UserService{
 		return check;
 	}
 	@Override
-	public String checkId(UserVO vo) {
-		String check = mapper.readId(vo);
-		return check;
+	public UserVO checkId(UserVO vo) {
+		vo = mapper.readId(vo);
+		return vo;
 	}
 
 	@Override
@@ -45,5 +52,16 @@ public class UserServiceImpl implements UserService{
 		return mapper.getPost(vo);
 		
 	}
+	@Override
+    public UserDetails loadUserByUsername(UserVO vo) throws UsernameNotFoundException {
+        UserVO user = mapper.readId(vo);
+        //findbyemail이 아닌 readId로 전체가져오기
 
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+    
+        return new User(user.getU_id(), user.getU_password(), authorities);
+    }
+}
 }

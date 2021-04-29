@@ -15,7 +15,7 @@
 		where u_id = #{u_id} and u_password = #{u_password}
 	]]>
 	</select>
-	<select id="readId" parameterType="goal.vo.UserVO" resultType="String">
+	<select id="readId" parameterType="goal.vo.UserVO" resultType="UserVO">
 	<![CDATA[
 		select * from GK_USER
 		where u_id = #{u_id}
