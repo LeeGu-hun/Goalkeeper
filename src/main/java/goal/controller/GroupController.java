@@ -43,11 +43,22 @@ public class GroupController {
 	@Autowired
 	private GroupFileService groupFileService;
 	
+	private GroupUpload groupUpload = new GroupUpload();
+	
+	private UserVO user = new UserVO();
+	
 	@GetMapping("/user/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
-		UserVO user = new UserVO();
-		user.setUno(2);
+//		if(user.getU_id() == null) {	//로그인 여부 판단
+//			mv.addObject("msg", "doLogin");
+//			return mv;
+//		}
+		if(user.getU_id()==null) {
+			mv.setViewName("/view/error/denied");
+			return mv;
+		}
+		group.setUno(user.getUno());
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		
@@ -55,17 +66,20 @@ public class GroupController {
 	}
 	@PostMapping("/user/myGroup")
 	public ModelAndView removeGroup(@RequestParam(value="gno") int gno) {
-		groupService.removeGroup(gno);
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
-		UserVO user = new UserVO();
-		List<GroupVO> groupList = getGroupList(user);
+		groupService.removeGroup(gno);
 		groupFileService.removeGroupFile(gno);
+		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
 	}
 	@GetMapping("/user/searchGroup")
 	public ModelAndView openSearchGroup() {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
+		if(user.getU_id()==null) {
+			mv.setViewName("/view/error/denied");
+			return mv;
+		}
 		List<GroupVO> allList = groupService.allList();
 		List<GroupVO> studyList = groupService.selectSearchList("공부");
 		List<GroupVO> exerciseList = groupService.selectSearchList("운동");
@@ -82,7 +96,10 @@ public class GroupController {
 	@GetMapping("/user/openManage")
 	public ModelAndView openManage() {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
-		UserVO user = new UserVO();
+		if(user.getU_id()==null) {
+			mv.setViewName("/view/error/denied");
+			return mv;
+		}
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -91,20 +108,20 @@ public class GroupController {
 	@GetMapping("/user/group_create")
 	public ModelAndView openGroupCreate() {
 		ModelAndView mv = new ModelAndView("view/group/group_create");
+		if(user.getU_id()==null) {
+			mv.setViewName("/view/error/denied");
+		}
 		return mv;
 	}
 	
 	@PostMapping("/user/group_create")
 	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
-		GroupUpload upload = new GroupUpload();
-		UserVO user = new UserVO();
 		GroupFileVO groupFile = new GroupFileVO();
-		user.setUno(2);
 		group.setUno(user.getUno());
 		groupService.createGroup(group);
 		GroupVO recentGroup = groupService.recentGroup();
 		
-		groupFile = upload.requestSingleUpload(multi);
+		groupFile = groupUpload.requestSingleUpload(multi);
 		groupFile.setGno(recentGroup.getGno());
 		groupFileService.insertGroupFile(groupFile);
 		
@@ -118,32 +135,32 @@ public class GroupController {
 	@RequestMapping(value="/display", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage() throws IOException{
 		MediaUtils mediaUtils = new MediaUtils();
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		List<GroupFileVO> groupFileList = groupFileService.selectFileName();
-		for(GroupFileVO groupFile : groupFileList) {
-			try {
-				String fileName = groupFile.getG_filename();
-				String g_fid = groupFile.getG_fid();
-				String uploadPath = groupFile.getG_filepath();
-				String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-				MediaType mType = mediaUtils.getMediaType(formatName);
-				HttpHeaders headers = new HttpHeaders();
-				in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
-				headers.setContentType(mType);
-				entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-			} catch (IOException e) {
-				e.printStackTrace();
-				entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-			} finally {
-				in.close();
-			}
-		}
-		return entity;
+	      InputStream in = null;
+	      ResponseEntity<byte[]> entity = null;
+	      List<GroupFileVO> groupFileList = groupFileService.selectFileName();
+	      for(GroupFileVO groupFile : groupFileList) {
+	         try {
+	            String fileName = groupFile.getG_filename();
+	            String g_fid = groupFile.getG_fid();
+	            String uploadPath = groupFile.getG_filepath();
+	            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	            MediaType mType = mediaUtils.getMediaType(formatName);
+	            HttpHeaders headers = new HttpHeaders();
+	            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
+	            headers.setContentType(mType);
+	            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+	         } finally {
+	            in.close();
+	         }
+	      }
+	      return entity;
+
 	}
 	
 	private List<GroupVO> getGroupList(UserVO user){
-		user.setUno(2);
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
 	}

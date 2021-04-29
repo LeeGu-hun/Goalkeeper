@@ -63,7 +63,7 @@
 		$("#header").load("/view/main_header.html");
 		
 		if($('#nullCheck').text()==""){
-			$('#pushAlert').append('<div id="toggleDiv" style="display:inline-block; margin-left:40%;"><h2>가입된 그룹이 없습니다.</h2></div>');
+			$('#toggleDiv').append('style', 'display:inline-block');
 		} else{
 			$('#toggleDiv').remove();
 		}
@@ -94,12 +94,13 @@
 			
 		});
 	});
+	
 </script>
 </head>
 <body data-open="click" data-menu="vertical-menu" data-col="2-columns"
 	class="vertical-layout vertical-menu 2-columns  fixed-navbar">
 	<div id="header"></div>
-	<div class="app-content content container-fluid">
+	<div class="app-content content container-fluid" th:with="isUser=${msg==doLogin}?true:false">
 		<div class="content-wrapper">
 			<div class="content-header row">
 				<div class="content-header-left col-md-4 col-xs-12 mb-1">
@@ -119,7 +120,7 @@
 			<div class="content-body">
 				<!-- Basic example section start -->
 				<div id="pushAlert" class="row match-height">
-					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj, i:${List}">
+					<div class="col-xl-3 col-md-6 col-sm-12" th:if="${isUser}" th:each="obj, i:${List}">
 						<div class="card">
 							<div class="card-body">
 								<div>
@@ -128,10 +129,10 @@
 								</div>
 								<div class="card-block">
 									<div class="card-title">
-										<form style="display:inline-block" action="/user/myGroup" method="post">
+										<form class="display-inline-block" action="/user/myGroup" method="post">
 											<input type="radio" style="display:none" th:value="${obj.gno}" name="gno">
 										</form>
-										<h4 id="nullCheck" style="display:inline-block" th:text="${obj.g_name}"></h4>
+										<h4 id="nullCheck" class="display-inline-block" th:text="${obj.g_name}"></h4>
 									</div>
 									<p class="card-text" th:text="${obj.g_intro}">
 										<p th:if="${obj.g_open}=='Y'">공개</p>
@@ -139,15 +140,20 @@
 									</p>
 									<a href="#" class="btn btn-outline-deep-orange">자세히 보기</a>
 								</div>
+								<div id="toggleDiv" style="display:none; margin-left:40%;"><h2>가입된 그룹이 없습니다.</h2></div>
 							</div>
 						</div>
 					</div>	
 				</div><br>
+				
+				<div class="width-250 height-70" style=" margin-left:40%;" th:unless="${isUser}">
+						<a class="position-absolute" href="/login">로그인</a><h4 class="position-absolute"style="left:51%">이 필요합니다.</h4>
+				</div>
 			</div>
 		</div>
 		<div class="pl-3">
-			<button class="btn btn-success border" 
-				onclick="location.href='group_create'">새 그룹</button>
+			<button class="btn btn-success border" id="createBtn" th:if="${isUser}"
+				onclick="href='/user/group_create'">새 그룹</button>
 			<button type="button" id="selectBtn" class="btn btn-info border">그룹 선택</button>
 			<button type="button" id="removeBtn" class="btn btn-danger border"
 				onclick="href='removeGroup'" data-toggle="modal" data-target="#modalOpen">그룹 삭제하기</button>
