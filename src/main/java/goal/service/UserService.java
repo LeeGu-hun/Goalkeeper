@@ -11,8 +11,9 @@ public interface UserService {
 	
 	void insertUser(UserVO vo);		
 	String checkLogin(UserVO vo);
-	UserVO checkId(UserVO vo);
+	String checkId(String u_id);
+	public UserVO checkUser(String u_id);
 	List<UserVO> allUserList(UserVO vo);
 	List<PostVO> selectPost(PostVO vo);
-	UserDetails loadUserByUsername(UserVO vo);
+	UserDetails loadUserByUsername(String u_id);
 }

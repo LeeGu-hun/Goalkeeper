@@ -11,7 +11,9 @@ import goal.vo.UserVO;
 public interface UserMapper {
 	public String read(UserVO vo);
 	
-	public UserVO readId(UserVO vo);
+	public String readId(String u_id);
+	
+	public UserVO readUser(String u_id);
 	
 	public void register(UserVO vo);
 	

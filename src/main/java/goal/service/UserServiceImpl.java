@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import goal.vo.UserVO;
 
 @Service
 @Component
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,UserDetailsService {
 
 	@Autowired
 	private UserMapper mapper;
@@ -37,9 +38,15 @@ public class UserServiceImpl implements UserService{
 		return check;
 	}
 	@Override
-	public UserVO checkId(UserVO vo) {
-		vo = mapper.readId(vo);
-		return vo;
+	public String checkId(String u_id) {
+		String id = mapper.readId(u_id);
+		return id;
+	}
+
+	@Override
+	public UserVO checkUser(String u_id) {
+		UserVO user = mapper.readUser(u_id);
+		return user;
 	}
 
 	@Override
@@ -53,8 +60,8 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	@Override
-    public UserDetails loadUserByUsername(UserVO vo) throws UsernameNotFoundException {
-        UserVO user = mapper.readId(vo);
+    public UserDetails loadUserByUsername(String u_id) throws UsernameNotFoundException {
+        UserVO user = mapper.readUser(u_id);
         //findbyemail이 아닌 readId로 전체가져오기
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -64,4 +71,4 @@ public class UserServiceImpl implements UserService{
         return new User(user.getU_id(), user.getU_password(), authorities);
     }
 }
-}
+

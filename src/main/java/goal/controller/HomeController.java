@@ -64,10 +64,9 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public ModelAndView insertUser(UserVO vo, Model model) {
-		UserVO idCheck = new UserVO();
-		idCheck = userService.checkId(vo);
+		String idCheck = userService.checkId(vo.getU_id());
 		ModelAndView mv = new ModelAndView();
-		if(idCheck.getU_id() == null) {
+		if(idCheck == null) {
 			userService.insertUser(vo);
 			mv.setViewName("/view/home/user_login");
 			return mv;
@@ -83,14 +82,6 @@ public class HomeController {
         return "view/error/denied";
     }
 	
-	@GetMapping("/mySearchFriends")
-	   public ModelAndView UserList(@ModelAttribute UserVO vo,HttpSession session) {
-	      ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
-	      
-	      List<UserVO> list = userService.allUserList(vo);
-	      mv.addObject("list", list);
-	      return mv;
-	   }
 	
 	private List<PostVO> getPostList(PostVO vo){
 		List<PostVO> postList = userService.selectPost(vo);
