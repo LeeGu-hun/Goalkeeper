@@ -15,5 +15,5 @@ public interface UserService {
 	public UserVO checkUser(String u_id);
 	List<UserVO> allUserList(UserVO vo);
 	List<PostVO> selectPost(PostVO vo);
-	UserDetails loadUserByUsername(String u_id);
+
 }

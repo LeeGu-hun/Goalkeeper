@@ -20,7 +20,7 @@ import goal.vo.UserVO;
 
 @Service
 @Component
-public class UserServiceImpl implements UserService,UserDetailsService {
+public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserMapper mapper;
@@ -59,16 +59,6 @@ public class UserServiceImpl implements UserService,UserDetailsService {
 		return mapper.getPost(vo);
 		
 	}
-	@Override
-    public UserDetails loadUserByUsername(String u_id) throws UsernameNotFoundException {
-        UserVO user = mapper.readUser(u_id);
-        //findbyemail이 아닌 readId로 전체가져오기
-
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-    
-        return new User(user.getU_id(), user.getU_password(), authorities);
-    }
+	
 }
 
