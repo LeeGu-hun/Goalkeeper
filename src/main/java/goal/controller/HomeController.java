@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import goal.service.UserService;
 import goal.vo.PostVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @RestController
@@ -30,8 +31,11 @@ public class HomeController {
 	public ModelAndView openHome(@ModelAttribute UserVO user,HttpSession session) {
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
 		PostVO p_vo = new PostVO();
+		ReplyVO r_vo = new ReplyVO();
 		List<PostVO> postList = getPostList(p_vo);
+		List<ReplyVO> replyList = getReplyList(r_vo);
 		mv.addObject("List", postList);
+		mv.addObject("replyList", replyList);
 		mv.addObject("user", user);
 		return mv;
 	}
@@ -87,5 +91,8 @@ public class HomeController {
 		List<PostVO> postList = userService.selectPost(vo);
 		return postList;
 	}
-	
+	private List<ReplyVO> getReplyList(ReplyVO vo){
+		List<ReplyVO> postList = userService.selectReply(vo);
+		return postList;
+	}
 }

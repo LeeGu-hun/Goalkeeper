@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.PostVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Mapper
@@ -20,5 +21,7 @@ public interface UserMapper {
 	public List<UserVO> allUser(UserVO vo);
 	
 	public List<PostVO> getPost(PostVO vo);
+	
+	public List<ReplyVO> getReply(ReplyVO vo);
 
 }

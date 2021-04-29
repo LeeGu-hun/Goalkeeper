@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.UserMapper;
 import goal.vo.PostVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Service
@@ -59,6 +60,10 @@ public class UserServiceImpl implements UserService{
 		return mapper.getPost(vo);
 		
 	}
-	
+	@Override
+	public List<ReplyVO> selectReply(ReplyVO vo) {
+		return mapper.getReply(vo);
+		
+	}
 }
 

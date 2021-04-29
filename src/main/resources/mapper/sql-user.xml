@@ -6,9 +6,14 @@
 		<id property="u_id" column="u_id"/>
 		<id property="b_content" column="b_content"/>
 		<id property="b_date" column="b_date"/>
-		<id property="r_content" column="r_content"/>
-		
 	</resultMap>
+	
+	<resultMap type="goal.vo.ReplyVO" id="replyVO">
+		<id property="r_writer" column="r_writer"/>
+		<id property="r_content" column="r_content"/>
+		<id property="r_date" column="r_date"/>
+	</resultMap>
+	
 	<select id="read" parameterType="goal.vo.UserVO" resultType="String">
 	<![CDATA[
 		select u_id from GK_USER
@@ -40,10 +45,14 @@
    
    <select id="getPost" parameterType="goal.vo.PostVO" resultMap="postVO">
      <![CDATA[
-        select  U.u_id, B.b_content,B.B_DATE, C.R_CONTENT from Gk_BOARD B, GK_COMMENT C, GK_USER U where B.uno = U.uno and B.bno = C.bno
+        select  U.u_id, B.b_content,B.B_DATE from Gk_BOARD B, GK_USER U where B.uno = U.uno 
       ]]>
    </select>
    
-	
+	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">
+     <![CDATA[
+        select r_writer ,r_content ,r_date from GK_COMMENT ORDER BY r_date DESC
+      ]]>
+   </select>
 	
 </mapper>
