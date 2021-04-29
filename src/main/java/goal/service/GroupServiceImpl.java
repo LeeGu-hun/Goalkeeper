@@ -5,13 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import goal.common.GroupFileUtils;
 import goal.mapper.GroupMapper;
-import goal.vo.GroupFileVO;
-import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
@@ -21,9 +17,6 @@ public class GroupServiceImpl implements GroupService{
 	
 	@Autowired
 	private GroupMapper groupMapper;
-	
-	@Autowired
-	private GroupFileUtils fileUtils;
 	
 	@Override
 	public void createGroup(GroupVO group) {

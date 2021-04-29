@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.GroupFileVO;
-import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 

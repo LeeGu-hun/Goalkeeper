@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import goal.service.GroupDataService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
-import goal.upload.Upload;
+import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
@@ -96,7 +96,7 @@ public class GroupController {
 	
 	@PostMapping("/group_create")
 	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
-		Upload upload = new Upload();
+		GroupUpload upload = new GroupUpload();
 		UserVO user = new UserVO();
 		GroupFileVO groupFile = new GroupFileVO();
 		user.setUno(2);

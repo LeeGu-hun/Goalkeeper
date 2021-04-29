@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.GroupFileMapper;
 import goal.vo.GroupFileVO;
-import goal.vo.GroupVO;
 
 @Service
 public class GroupFileServiceImpl implements GroupFileService{

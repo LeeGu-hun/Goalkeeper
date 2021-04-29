@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import goal.vo.GroupFileVO;
 
-public class Upload { 
+public class GroupUpload { 
 	public GroupFileVO requestSingleUpload(MultipartHttpServletRequest mtfRequest) {
 		GroupFileVO groupFile = new GroupFileVO();
         MultipartFile mf = mtfRequest.getFile("file");
@@ -45,18 +45,16 @@ public class Upload {
         return groupFile;
     }
 	public void requestMultiUpload(MultipartHttpServletRequest mtfRequest) {
-        List<MultipartFile> fileList = mtfRequest.getFiles("file");
+        
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
         String src = mtfRequest.getParameter("src");
         System.out.println("src value : " + src);
 
-        String path = "C:\\image\\";
+        String path = "C:\\group-image";
 
         for (MultipartFile mf : fileList) {
-            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-            long fileSize = mf.getSize(); // 파일 사이즈
-
-            System.out.println("originFileName : " + originFileName);
-            System.out.println("fileSize : " + fileSize);
+        	String originFileName = mf.getOriginalFilename();
+        	originFileName = originFileName.substring(originFileName.lastIndexOf("\\")+1);
 
             String safeFile = path + System.currentTimeMillis() + originFileName;
             try {

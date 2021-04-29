@@ -2,9 +2,6 @@ package goal.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import goal.vo.GroupListVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
