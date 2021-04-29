@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.SearchFriendMapper">
+	<resultMap type="goal.vo.UserVO" id="userVO">
+		<id property="uno" column="uno"></id>
+		<id property="u_name" column="u_name"></id>
+		<id property="u_password" column="u_password"></id>
+		<id property="u_mail" column="u_mail"></id>
+		<id property="u_id" column="u_id"></id>
+		<id property="u_number" column="u_number"></id>
+		<id property="u_birthdate" column="u_birthdate"></id>
+	</resultMap>
+	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
+		select uno, u_name, u_number, u_birthdate from GK_USER
+	</select>
+</mapper>

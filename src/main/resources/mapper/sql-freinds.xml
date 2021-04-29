@@ -4,6 +4,9 @@
 	<resultMap type="goal.vo.FriendVO" id="FriendVO">
 		<id property="fno" column="fno"></id>
 		<id property="uno" column="uno"></id>
+		<id property="f_name" column="f_name"></id>
+		<id property="f_number" column="f_number"></id>
+		<id property="f_birthdate" column="f_birthdate"></id>
 	</resultMap>
 	
 	<select id="listFriend" parameterType="goal.vo.FriendVO">
@@ -13,11 +16,8 @@
 	</select>
 	
 	<insert id="addFriend">
-		<selectKey keyProperty="fno" resultType="int" order="BEFORE">
-			select gk_friend_seq from dual
-		</selectKey>
-		insert into GK_FRIEND(fno, uno, friend_uno)
-		values (#{gk_friend_seq}, #{uno}, #{select f.uno from GK_USER f where f.uno=#{uno}})
+		insert into GK_FRIEND(uno, fno, f_name, f_number, f_birthdate)
+		values (#{uno}, #{fno}, #{f_name}, #{f_number}, #{f_birthdate})
 	</insert>
 	
 	<delete id="deleteFriend">
