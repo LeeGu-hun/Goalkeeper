@@ -43,7 +43,7 @@ public class GroupController {
 	@Autowired
 	private GroupFileService groupFileService;
 	
-	@GetMapping("/myGroup")
+	@GetMapping("/user/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		UserVO user = new UserVO();
@@ -53,7 +53,7 @@ public class GroupController {
 		
 		return mv;
 	}
-	@PostMapping("/myGroup")
+	@PostMapping("/user/myGroup")
 	public ModelAndView removeGroup(@RequestParam(value="gno") int gno) {
 		groupService.removeGroup(gno);
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
@@ -63,7 +63,7 @@ public class GroupController {
 		mv.addObject("List", groupList);
 		return mv;
 	}
-	@GetMapping("/searchGroup")
+	@GetMapping("/user/searchGroup")
 	public ModelAndView openSearchGroup() {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
 		List<GroupVO> allList = groupService.allList();
@@ -79,7 +79,7 @@ public class GroupController {
 		return mv;
 	}
 	
-	@GetMapping("/openManage")
+	@GetMapping("/user/openManage")
 	public ModelAndView openManage() {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
 		UserVO user = new UserVO();
@@ -88,13 +88,13 @@ public class GroupController {
 		return mv;
 	}
 	
-	@GetMapping("/group_create")
+	@GetMapping("/user/group_create")
 	public ModelAndView openGroupCreate() {
 		ModelAndView mv = new ModelAndView("view/group/group_create");
 		return mv;
 	}
 	
-	@PostMapping("/group_create")
+	@PostMapping("/user/group_create")
 	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
 		GroupUpload upload = new GroupUpload();
 		UserVO user = new UserVO();
