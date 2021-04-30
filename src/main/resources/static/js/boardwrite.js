@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
 var availableTags = [
                             '가나',
                             '가나쵸콜렛',
@@ -32,14 +33,7 @@ $("#searchbox").autocomplete(availableTags,{
             selectFirst: false
         });
 
-	$('#b_cate').change(function() {
-		var result = $('#b_cate option:selected').val();
-		if (result == 'group') {
-			$('.group_form').show();
-		} else {
-			$('.group_form').hide();
-		}
-	});
+	
 	
 	$("#btnblue").click(function(){
         $("#card-background").css("background-image", "url(../../app-assets/images/blue.jpg)");});
@@ -49,6 +43,16 @@ $("#searchbox").autocomplete(availableTags,{
 	    $("#card-background").css("background-image", "url(../../app-assets/images/red.jpg)");});
 	
 	$("#imgdiv").hide();
+	$("#group_form").hide();
+	
+	$('#b_cate').change(function() {
+		var result = $('#b_cate option:selected').val();
+		if (result == 'group') {
+			$('.group_form').show();
+		} else {
+			$('.group_form').hide();
+		}
+	});
 
 	document.getElementById("b_cate").value;
 	document.getElementById("b_group").value;
@@ -131,10 +135,15 @@ $("#searchbox").autocomplete(availableTags,{
 		if (document.getElementById("b_cate").value == "none") {
 			alert("범위를 설정해주세요.");
 			return false;
+		} else if (document.getElementById("b_cate").value == "group") {
+			if(document.getElementById("b_group").value =="") {
+			alert("그룹범위를 설정해주세요.");
+			return false;
+			}
 		} else if ($('#b_content').val() == "") {
 			alert("내용을 입력해주세요.");
 			return false;
-		}
+		} 
 		document.form.action = "/board/insert_board.do";
 		document.form.submit();
 		alert("저장되었습니다.");

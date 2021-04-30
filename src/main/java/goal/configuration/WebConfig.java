@@ -10,6 +10,10 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/group-image/**")
         .addResourceLocations("file:///C:/group-image/")
         .setCachePeriod(20);
+		registry.addResourceHandler("/board-image/**")
+        .addResourceLocations("file:///C:/board-image/")
+        .setCachePeriod(20);
+		
 	}
 	
 
