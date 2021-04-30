@@ -54,10 +54,11 @@ public class GroupController {
 //			mv.addObject("msg", "doLogin");
 //			return mv;
 //		}
-		if(user.getU_id()==null) {
-			mv.setViewName("/view/error/denied");
-			return mv;
-		}
+//		if(user.getU_id()==null) {
+//			mv.setViewName("/view/error/denied");
+//			return mv;
+//		}
+		user.setUno(2);
 		group.setUno(user.getUno());
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
@@ -76,10 +77,6 @@ public class GroupController {
 	@GetMapping("/user/searchGroup")
 	public ModelAndView openSearchGroup() {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
-		if(user.getU_id()==null) {
-			mv.setViewName("/view/error/denied");
-			return mv;
-		}
 		List<GroupVO> allList = groupService.allList();
 		List<GroupVO> studyList = groupService.selectSearchList("공부");
 		List<GroupVO> exerciseList = groupService.selectSearchList("운동");
@@ -96,10 +93,6 @@ public class GroupController {
 	@GetMapping("/user/openManage")
 	public ModelAndView openManage() {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
-		if(user.getU_id()==null) {
-			mv.setViewName("/view/error/denied");
-			return mv;
-		}
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -108,9 +101,6 @@ public class GroupController {
 	@GetMapping("/user/group_create")
 	public ModelAndView openGroupCreate() {
 		ModelAndView mv = new ModelAndView("view/group/group_create");
-		if(user.getU_id()==null) {
-			mv.setViewName("/view/error/denied");
-		}
 		return mv;
 	}
 	
@@ -129,7 +119,7 @@ public class GroupController {
 		groupData.setUno(user.getUno());
 		groupDataService.insertData(groupData);
 
-		return "redirect:/myGroup";
+		return "redirect:/user/myGroup";
 	}
 	
 	@RequestMapping(value="/display", method=RequestMethod.GET)

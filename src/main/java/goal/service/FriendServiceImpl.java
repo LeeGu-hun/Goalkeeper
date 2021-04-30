@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.FriendMapper;
 import goal.vo.FriendVO;
+import goal.vo.UserVO;
 
 @Service
 @Component
@@ -17,8 +18,8 @@ public class FriendServiceImpl implements FriendService{
 	private FriendMapper mapper;
 	
 	@Override
-	public List<FriendVO> getFriendsList(int uno) {
-		return mapper.listFriend(uno);
+	public List<FriendVO> getFriendsList(UserVO vo) {
+		return mapper.listFriend(vo);
 	}
 
 	@Override
@@ -27,8 +28,8 @@ public class FriendServiceImpl implements FriendService{
 	}
 
 	@Override
-	public boolean remove(int fno) {
-		return mapper.deleteFriend(fno) > 0 ? true : false;
+	public boolean remove(int uno) {
+		return mapper.deleteFriend(uno) > 0 ? true : false;
 	}
 	
 }

@@ -63,7 +63,6 @@
 <!-- END Custom CSS-->
 </head>
 <body>
-<div style="background-image:url(../../app-assets/images/background.jpg); background-size:contain;">
 	<div class="card-block">
 		<section class="flexbox-container">
 		<div style="float:right">
@@ -92,10 +91,11 @@
 								</select>
 
 							</div>
-							<div style="display: none" class="group_form" id="group_form">
+							<div class="group_form" id="group_form">
 								<div class="col-md-6">
 									<label>그룹설정</label> 
 									<select id="b_group" name="b_group" class="form-control">
+										<option value="">선택해주세요</option>
 										<option th:each="obj:${List}"
 												th:value="${obj.g_name}"
 												th:text="${obj.g_name}"></option>
@@ -142,6 +142,5 @@
 			</div>
 		</section>
 	</div>
-</div>
 </body>
 </html>

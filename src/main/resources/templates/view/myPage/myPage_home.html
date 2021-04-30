@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -15,6 +15,7 @@ $(document).ready( function() {
 <body>
 <div id="header"></div>
 <div class="struct" style="margin-top:80px; margin-left:250px;">
+	<h1><input th:value="${list.u_id}"> +님의 페이지</h1>
 	<ul class="nav nav-tabs" style="margin-bottom:5px;">
 		<li class="nav-item">
 			<a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true">일별</a>
@@ -65,7 +66,7 @@ $(document).ready( function() {
 		</div>	
 	</div>
 	
-	<section id="image-gallery" class="card" id="monthPart" style="display:none;">
+	<section id="image-gallery" class="card" style="display:none;">
   <div class="card-header">
     <h4 class="card-title">Image gallery</h4>
     <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>

@@ -100,7 +100,7 @@
 <body data-open="click" data-menu="vertical-menu" data-col="2-columns"
 	class="vertical-layout vertical-menu 2-columns  fixed-navbar">
 	<div id="header"></div>
-	<div class="app-content content container-fluid" th:with="isUser=${msg==doLogin}?true:false">
+	<div class="app-content content container-fluid">
 		<div class="content-wrapper">
 			<div class="content-header row">
 				<div class="content-header-left col-md-4 col-xs-12 mb-1">
@@ -120,7 +120,7 @@
 			<div class="content-body">
 				<!-- Basic example section start -->
 				<div id="pushAlert" class="row match-height">
-					<div class="col-xl-3 col-md-6 col-sm-12" th:if="${isUser}" th:each="obj, i:${List}">
+					<div class="col-xl-3 col-md-6 col-sm-12" th:each="obj, i:${List}">
 						<div class="card">
 							<div class="card-body">
 								<div>
@@ -146,13 +146,13 @@
 					</div>	
 				</div><br>
 				
-				<div class="width-250 height-70" style=" margin-left:40%;" th:unless="${isUser}">
+				<!-- <div class="width-250 height-70" style=" margin-left:40%;" th:unless="${isUser}">
 						<a class="position-absolute" href="/login">로그인</a><h4 class="position-absolute"style="left:51%">이 필요합니다.</h4>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="pl-3">
-			<button class="btn btn-success border" id="createBtn" th:if="${isUser}"
+			<button class="btn btn-success border" id="createBtn" 
 				onclick="href='/user/group_create'">새 그룹</button>
 			<button type="button" id="selectBtn" class="btn btn-info border">그룹 선택</button>
 			<button type="button" id="removeBtn" class="btn btn-danger border"
