@@ -13,4 +13,6 @@ public class ReplyVO {
 	private String r_content;
 	
 	private String r_date;
+	
+	private int bno;
 }

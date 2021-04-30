@@ -25,11 +25,12 @@ $(document).ready(function() {
 					<img class="img-fluid" style="left:300px; height:600px; width:600px">
 					<div class="card-block">
 						<a href="#" class="card-link">Like 141</a>
+						<a href="#" class="card-link" th:text="${obj.bno}">Like 141</a>
 						<p class="card-text" th:text="${obj.b_content}"></p>
 						
-						<div class="reply" th:each="reply:${replyList}">
-							<p class="card-text" th:text="${reply.r_writer}"></p>	
-							<p class="card-text" th:text="${reply.r_content}"></p>	
+						<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
+							<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
+							<span class="card-text" th:text="${reply.r_content}"></span>	
 						</div>
 					</div>
 				</div>

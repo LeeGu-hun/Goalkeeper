@@ -45,13 +45,13 @@
    
    <select id="getPost" parameterType="goal.vo.PostVO" resultMap="postVO">
      <![CDATA[
-        select  U.u_id, B.b_content,B.B_DATE from Gk_BOARD B, GK_USER U where B.uno = U.uno 
+        select  U.u_id, B.b_content,B.B_DATE, bno from Gk_BOARD B, GK_USER U where B.uno = U.uno 
       ]]>
    </select>
    
 	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">
      <![CDATA[
-        select r_writer ,r_content ,r_date from GK_COMMENT ORDER BY r_date DESC
+        select bno, r_writer ,r_content ,r_date from GK_COMMENT where bno = #{bno} ORDER BY r_date DESC
       ]]>
    </select>
 	

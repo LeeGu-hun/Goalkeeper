@@ -28,11 +28,17 @@ public class HomeController {
 	private UserService userService;
 
 	@GetMapping("/home")
-	public ModelAndView openHome(@ModelAttribute UserVO user,HttpSession session) {
+	public ModelAndView openHome(HttpSession session) {
+		UserVO user = new UserVO();
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
+		if(user.getU_id() == null) {   //로그인 여부 판단
+	         mv.addObject("msg", "doLogin");
+	         return mv;
+	      }
 		PostVO p_vo = new PostVO();
 		ReplyVO r_vo = new ReplyVO();
 		List<PostVO> postList = getPostList(p_vo);
+		r_vo.setBno(1);
 		List<ReplyVO> replyList = getReplyList(r_vo);
 		mv.addObject("List", postList);
 		mv.addObject("replyList", replyList);

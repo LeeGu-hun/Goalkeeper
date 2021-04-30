@@ -17,5 +17,5 @@ public class PostVO {
 	
 	private Date b_date;
 	
-	
+	private int bno;
 }
