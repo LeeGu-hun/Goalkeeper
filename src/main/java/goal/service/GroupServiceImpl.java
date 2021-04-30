@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import goal.common.GroupFileUtils;
 import goal.mapper.GroupMapper;
+import goal.vo.GroupDataVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
@@ -17,7 +19,7 @@ public class GroupServiceImpl implements GroupService{
 	
 	@Autowired
 	private GroupMapper groupMapper;
-	
+
 	@Override
 	public void createGroup(GroupVO group) {
 		groupMapper.createGroup(group);
@@ -46,6 +48,13 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public boolean removeGroup(int gno) {
 		return groupMapper.removeGroup(gno)>0 ? true : false;
+	}
+
+	@Override
+	public void insertData(GroupVO group,GroupDataVO groupData) {
+		groupData.setGno(group.getGno());
+		groupMapper.insertData(groupData);
+		
 	}
 	
 }

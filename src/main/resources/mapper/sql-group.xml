@@ -34,10 +34,13 @@
 		]]>
 	</select>
 	<insert id="createGroup" parameterType="goal.vo.GroupVO">
+		<selectKey keyProperty="gno" resultType="int" order="BEFORE">
+			select GK_ALLGROUP_SEQ.nextval from dual
+		</selectKey>
 		insert into
 		GK_ALLGROUP(gno, uno, g_name, g_intro, g_date, g_cate,
 		g_open, g_goaldate) values
-		(GK_ALLGROUP_SEQ.nextval, #{uno}, #{g_name},
+		(GK_ALLGROUP_SEQ.currval, #{uno}, #{g_name},
 		#{g_intro}, sysdate, #{g_cate}, #{g_open},
 		#{g_goaldate})
 	</insert>
@@ -51,4 +54,9 @@
 			delete GK_ALLGROUP WHERE GNO=#{gno}
 		]]> 
 	</delete>
+	<insert id="insertData" parameterType="goal.vo.GroupDataVO">
+		insert into
+		GK_DATA_STATS(gno, uno, hor_data, ver_data) values
+		(#{gno}, #{uno}, #{hor_data}, #{ver_data})
+	</insert>
 </mapper>

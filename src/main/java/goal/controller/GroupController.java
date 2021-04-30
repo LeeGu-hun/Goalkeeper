@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import goal.service.GroupDataService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
 import goal.upload.GroupUpload;
@@ -36,9 +35,6 @@ public class GroupController {
 	
 	@Autowired
 	private GroupService groupService;
-	
-	@Autowired
-	private GroupDataService groupDataService;
 	
 	@Autowired
 	private GroupFileService groupFileService;
@@ -107,18 +103,13 @@ public class GroupController {
 	@PostMapping("/user/group_create")
 	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
+		user.setUno(2);
 		group.setUno(user.getUno());
 		groupService.createGroup(group);
-		GroupVO recentGroup = groupService.recentGroup();
-		
+		groupService.insertData(group,groupData);
 		groupFile = groupUpload.requestSingleUpload(multi);
-		groupFile.setGno(recentGroup.getGno());
-		groupFileService.insertGroupFile(groupFile);
+		groupFileService.insertGroupFile(group, groupFile);
 		
-		groupData.setGno(recentGroup.getGno());
-		groupData.setUno(user.getUno());
-		groupDataService.insertData(groupData);
-
 		return "redirect:/user/myGroup";
 	}
 	

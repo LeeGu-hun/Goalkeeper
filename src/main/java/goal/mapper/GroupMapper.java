@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -17,4 +18,5 @@ public interface GroupMapper {
 	GroupVO recentGroup();
 	List<GroupVO> selectSearchList(String g_cate);
 	int removeGroup(int gno);
+	void insertData(GroupDataVO groupData);
 }

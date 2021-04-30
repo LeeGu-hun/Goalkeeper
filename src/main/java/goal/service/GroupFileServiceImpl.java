@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.GroupFileMapper;
 import goal.vo.GroupFileVO;
+import goal.vo.GroupVO;
 
 @Service
 public class GroupFileServiceImpl implements GroupFileService{
@@ -15,7 +16,8 @@ public class GroupFileServiceImpl implements GroupFileService{
 	private GroupFileMapper groupFileMapper;
 	
 	@Override
-	public void insertGroupFile(GroupFileVO groupFile) {
+	public void insertGroupFile(GroupVO group, GroupFileVO groupFile) {
+		groupFile.setGno(group.getGno());
 		groupFileMapper.insertGroupFile(groupFile);
 	}
 
