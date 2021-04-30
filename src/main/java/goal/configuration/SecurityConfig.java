@@ -19,42 +19,20 @@ import goal.service.UserService;
 import goal.vo.UserDetailVO;
 
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private UserService userService;
 	
 	private UserDetailsService userDetailService;
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
-	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/**").permitAll();
-
-//		http.formLogin()
-//			.loginPage("/view/home/user_login")
-//        	.defaultSuccessUrl("/view/home/login_home")
-//        	.permitAll()
-//        	.usernameParameter("u_id");
-
-//		http.logout()
-//        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//        .logoutSuccessUrl("/login")
-//        .invalidateHttpSession(true);
-
-		http.exceptionHandling()
-        .accessDeniedPage("/denied");
+		http.httpBasic().disable();
+		http.cors().and();
+		http.csrf().disable();
 	}
+	
 	
 }
