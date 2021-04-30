@@ -30,8 +30,8 @@ $(document).ready( function() {
 				<div class="card-block" th:each="f:${list}">
 					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
 	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
-	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.uno})}"><input type="text" th:value="${f.f_name}"></a></label>
-	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.uno})}"><input type="text" th:value="${f.f_birthdate}"></a></label>
+	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.fno})}" th:text="${f.f_name}"></a></label>
+	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.fno})}" th:text="${f.f_birthdate}"></a></label>
                     </div>
 	                <i class="icon-ei-comment"></i>
 					<button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" 

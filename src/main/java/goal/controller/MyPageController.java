@@ -43,7 +43,7 @@ public class MyPageController {
 		return mv;	
 	}
 	
-	@RequestMapping("/myFriends")
+	@GetMapping("/myFriends")
 	public ModelAndView getFriendsList(HttpSession session) {
 		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");

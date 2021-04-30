@@ -1,11 +1,8 @@
 package goal.vo;
 
 import java.util.Date;
-
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data

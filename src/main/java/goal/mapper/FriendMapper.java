@@ -9,9 +9,9 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface FriendMapper {
-	public List<FriendVO> listFriend(UserVO vo);
+	List<FriendVO> listFriend(UserVO vo);
 	
-	public int addFriend(FriendVO vo);
+	int addFriend(FriendVO vo);
 	
-	public int deleteFriend(int uno);
+	int deleteFriend(int uno);
 }

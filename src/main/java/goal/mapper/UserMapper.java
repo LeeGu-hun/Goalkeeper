@@ -18,7 +18,6 @@ public interface UserMapper {
 	
 	public void register(UserVO vo);
 	
-	public List<UserVO> allUser(UserVO vo);
 	
 	public List<PostVO> getPost(PostVO vo);
 	

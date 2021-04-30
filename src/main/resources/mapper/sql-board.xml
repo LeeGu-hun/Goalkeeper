@@ -10,7 +10,11 @@
 		<id property="b_cate" column="b_cate"/>
 		<id property="b_group" column="b_group"/>
 		<id property="b_date" column="b_date"/>
+		<collection property="replyList" column="bno" javaType="java.util.ArrayList" ofType="goal.vo.ReplyVO" select="getReplyListById"/>
 	</resultMap>
+	<select id="getReplyListById" resultMap="boardVO">
+		select * from GK_COMMENT
+	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
 		GK_BOARD(bno, uno, b_content, b_date, b_cate, b_group) values
@@ -21,5 +25,8 @@
 		<![CDATA[
 		SELECT ROWNUM, BNO FROM (SELECT * FROM GK_BOARD ORDER BY BNO DESC)WHERE ROWNUM <= 1
 		]]>
+		</select>
+	<select id="getBoardList" resultMap="boardVO">
+		select * from GK_BOARD
 	</select>
 </mapper>
