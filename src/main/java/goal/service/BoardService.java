@@ -9,5 +9,5 @@ import goal.vo.BoardVO;
 public interface BoardService {
 
 	void insertBoard(BoardVO board);
-	List<BoardVO> selectBoardList(BoardVO vo);
+	List<BoardVO> getBoardList();
 }

@@ -1,22 +1,17 @@
 package goal.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.service.BoardService;
 import goal.service.UserService;
+import goal.vo.BoardVO;
 import goal.vo.PostVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
@@ -26,22 +21,17 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private BoardService boardService;
 	@GetMapping("/home")
 	public ModelAndView openHome(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
 		UserVO user = new UserVO();
 		if(user.getU_id() == null) {   //로그인 여부 판단
 	         mv.addObject("msg", "doLogin");
-	   
 	      }
-		PostVO p_vo = new PostVO();
-		ReplyVO r_vo = new ReplyVO();
-		List<PostVO> postList = getPostList(p_vo);
-		r_vo.setBno(1);
-		List<ReplyVO> replyList = getReplyList(r_vo);
-		mv.addObject("List", postList);
-		mv.addObject("replyList", replyList);
+		List<BoardVO> boardList = boardService.getBoardList();
+		mv.addObject("List", boardList);
 		mv.addObject("user", user);
 		return mv;
 	}
@@ -91,8 +81,6 @@ public class HomeController {
     public String deniedView() {
         return "view/error/denied";
     }
-	
-	
 	private List<PostVO> getPostList(PostVO vo){
 		List<PostVO> postList = userService.selectPost(vo);
 		return postList;

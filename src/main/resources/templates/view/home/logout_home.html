@@ -23,15 +23,16 @@ $(document).ready(function() {
 			<h4 class="card-title" th:text="${obj.u_id}"></h4>
 		</div>
 		<div class="card-body">	
-			<img class="img-fluid" style="left:300px; height:600px; width:600px">
+			<img id="imageBox"class="img-fluid" style="left:300px; height:600px; width:600px">
 			<div class="card-block">
 				<a href="#" class="card-link">Like 141</a>
 				<a class="card-link"th:text="${obj.bno} + '번 글'"></a>
 				<p class="card-text" th:text="${obj.b_content}"></p>
-				<a id="detail-modal" >댓글 모두 보기</a>
+				<a th:href="@{/getReplyAll/obj.bno}" id="detail-modal" >댓글 모두 보기</a>
 				<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
+					<a th:href="@{obj.bno}">
 					<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
-					<span class="card-text" th:text="${reply.r_content}"></span>	
+					<span class="card-text" th:text="${reply.r_content}"></span></a>	
 				</div>
 			</div>
 		</div>
@@ -41,18 +42,18 @@ $(document).ready(function() {
 		</div>
 	</div>
 </div>
-<div id="modal" style="display:none;  position:absolute; border:1px solid black;width: 1200px; height: 800px; background:#eee; top:10%;left:20%;">
+<div id="modal" th:each="obj:${List}" style="display:none;  position:absolute; border:1px solid black;width: 1200px; height: 800px; background:#eee; top:10%;left:20%;">
 		<img class="img-fluid" style="position:absolute; left:0%; height:100%; width:60%">
 		<div class="detail_saction"style="position:absolute; border:1px solid black; width: 40%; height: 100%; top:0%; left: 60%; background:black;">
 			<div id = "modal_profile" style="position:absolute; border:1px solid black; width: 100%; height: 10%;  top:0%; ; background:red;">
-				<p style="position:absolute; font-size:30px; top:18%; left:5%" >강원기141</p>
+				<p th:text="${obj.u_id}" style="position:absolute; font-size:30px; top:18%; left:5%" >강원기141</p>
 			</div>
 			<div class="modal_contant" style="position:absolute; border:1px solid black; width: 100%; height: 65%;   top:10%; background:orange">
-				<!-- <p class="card-text" th:text="${obj.b_content}+'내 글'"></p>
-				<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
-					<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
-					<span class="card-text" th:text="${reply.r_content}"></span>	
-				</div> -->
+				<p class="card-text" th:text="${obj.b_content}+'내 글'"></p>
+				<div class="reply" >
+					<span class="card-text" th:text="${obj.replyList.r_writer} +' :'" ></span>
+					<span class="card-text" th:text="${obj.replyList.r_content}"></span>	
+				</div>
 			</div>
 			<div class="detail_like" style="position:absolute; border:1px solid black; width: 100%; height: 20%; ;  top:70%;  background:yellow">
 				<div>좋아요</div>
