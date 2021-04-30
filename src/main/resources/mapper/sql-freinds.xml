@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goal.mapper.FriendMapper">
-	<resultMap type="goal.vo.FriendVO" id="FriendVO">
-		<id property="fno" column="fno"></id>
+	<resultMap type="goal.vo.FriendVO" id="friendVO">
 		<id property="uno" column="uno"></id>
+		<id property="fno" column="fno"></id>
 		<id property="f_name" column="f_name"></id>
 		<id property="f_number" column="f_number"></id>
 		<id property="f_birthdate" column="f_birthdate"></id>
 	</resultMap>
 	
-	<select id="listFriend" parameterType="goal.vo.FriendVO">
-		<![CDATA[
-			select * from GK_FRIEND where uno=#{uno}
-		]]>
+	<select id="listFriend" parameterType="goal.vo.UserVO" resultMap="friendVO">
+		select * from GK_FRIEND where uno=#{uno}
 	</select>
 	
-	<insert id="addFriend">
+	<insert id="addFriend" parameterType="goal.vo.FriendVO">
 		insert into GK_FRIEND(uno, fno, f_name, f_number, f_birthdate)
 		values (#{uno}, #{fno}, #{f_name}, #{f_number}, #{f_birthdate})
 	</insert>
 	
-	<delete id="deleteFriend">
+	<delete id="deleteFriend" parameterType="int">
 		<![CDATA[
-			delete GK_FRIEND where fno = #{fno}
+			delete GK_FRIEND where uno = #{uno} and fno = #{fno}
 		]]>
 	</delete>
 </mapper>

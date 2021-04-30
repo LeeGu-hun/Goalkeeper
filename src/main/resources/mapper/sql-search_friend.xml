@@ -11,6 +11,6 @@
 		<id property="u_birthdate" column="u_birthdate"></id>
 	</resultMap>
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
-		select uno, u_name, u_number, u_birthdate from GK_USER
+		select uno, u_name, u_number, u_birthdate from GK_USER where not uno = #{uno}
 	</select>
 </mapper>

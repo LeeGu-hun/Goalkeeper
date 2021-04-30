@@ -27,15 +27,15 @@ $(document).ready( function() {
 				</div>
 			</div>
 			<div class="card-body collapse in">
-				<div class="card-block" th:each="f:${list}"> <!-- list가 없어서 지금은 출력안됨. -->
+				<div class="card-block" th:each="f:${list}">
 					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
 	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
-	                    <label class="fonticon-classname"><a th:href="@{view/myPage/myPage_home(uno=${uno})}"><input type="text" th:value="${u_name}"></a></label>
-	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${uno})}">???</a></label>
+	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.uno})}"><input type="text" th:value="${f.f_name}"></a></label>
+	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.uno})}"><input type="text" th:value="${f.f_birthdate}"></a></label>
                     </div>
 	                <i class="icon-ei-comment"></i>
 					<button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" 
-						th:onclick="" style="float:right;">친구 삭제</button>
+						onclick="href='deleteFriend'" style="float:right;">친구 삭제</button>
 				</div>
 			</div>
 		</div>
