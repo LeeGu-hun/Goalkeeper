@@ -10,6 +10,7 @@ import goal.vo.GroupVO;
 public interface BoardService {
 
 	void insertBoard(BoardVO board);
+	List<BoardVO> getBoardList();
 	List<BoardVO> selectBoardList(BoardVO vo);
 	BoardVO recentBoard();
 }
