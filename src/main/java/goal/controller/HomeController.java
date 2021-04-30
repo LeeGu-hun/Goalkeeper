@@ -33,7 +33,7 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
 		if(user.getU_id() == null) {   //로그인 여부 판단
 	         mv.addObject("msg", "doLogin");
-	         return mv;
+	  
 	      }
 		PostVO p_vo = new PostVO();
 		ReplyVO r_vo = new ReplyVO();
@@ -67,7 +67,7 @@ public class HomeController {
 			return mv;
 		}
 	}
-	@GetMapping("/register")
+	@GetMapping("/register") 
 	public ModelAndView openRegister() {
 		ModelAndView mv = new ModelAndView("/view/home/user_register");
 		return mv;

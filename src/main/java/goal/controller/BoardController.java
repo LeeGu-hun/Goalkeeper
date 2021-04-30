@@ -31,23 +31,27 @@ public class BoardController {
 	
 	private BoardUpload boardUpload = new BoardUpload();
 	
-	@RequestMapping(value="/boardWrite")
+	@RequestMapping("/boardWrite")
 	public ModelAndView openBoardWrite(ModelAndView mv) {
 		mv.setViewName("view/board/boardWrite");
 		UserVO user = new UserVO();
-		user.setUno(2);
+		BoardVO board = new BoardVO();
+		board.setUno(user.getUno());
+		
+		//user.setUno(3);
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
 	}
 	
-	@PostMapping(value="/board/insert_board.do")
+	@PostMapping("/board/insert_board.do")
 	public String insertBoard(BoardVO board, MultipartHttpServletRequest multi) throws Exception {
 		List<BoardFileVO> boardFile = null;
 		UserVO user = new UserVO();
-		user.setUno(2);
 		board.setUno(user.getUno());
-		boardService.insertBoard(board);
+		//user.setUno(3);
+		//board.setUno(user.getUno());
+		//boardService.insertBoard(board);
 		BoardVO recentBoard = boardService.recentBoard();
 		
 		for(BoardFileVO file : boardFile) {
@@ -60,7 +64,8 @@ public class BoardController {
 	}
 	
 	private List<GroupVO> getGroupList(UserVO user){
-		user.setUno(2);
+		BoardVO board = new BoardVO();
+		board.setUno(user.getUno());
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
 	}

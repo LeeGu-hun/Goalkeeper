@@ -77,7 +77,7 @@
 					<h4 class="form-section">
 						<i class="icon-clipboard4"></i> 글 쓰기
 					</h4>		
-					<form name="form" method="post">
+					<form name="form" method="post" enctype="multipart/form-data">
 						<div class="row"
 							style="width: 100%; display: inline-block; margin-top: 20px">
 							<div class="col-md-6">
@@ -109,6 +109,10 @@
 							<textarea id="b_content" rows="5" class="form-control"
 								style="width: 100%; display: inline-block;" name="b_content"
 								placeholder="입력해주세요"></textarea>
+								<form name="form1" method="post" action="result.php">
+	  <input type="text" id="searchbox">
+	  <input type="submit" id="sumit" value="검색">
+	</form>
 						</div>
 					
 

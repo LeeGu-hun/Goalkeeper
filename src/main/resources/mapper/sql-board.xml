@@ -17,4 +17,9 @@
 		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate}, #{b_group})
 	</insert>
 	
+	<select id="recentBoard" resultMap="boardVO">
+		<![CDATA[
+		SELECT ROWNUM, BNO FROM (SELECT * FROM GK_BOARD ORDER BY BNO DESC)WHERE ROWNUM <= 1
+		]]>
+	</select>
 </mapper>

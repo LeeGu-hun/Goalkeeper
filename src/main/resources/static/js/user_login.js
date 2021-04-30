@@ -47,6 +47,4 @@ window.onload = function() {
    	    	 $("#more_list tr:last").after(content); 
              // id가 more_list 인 tr의 마지막에 content 값을 추가함
    	    }
-
-</script>
 }
