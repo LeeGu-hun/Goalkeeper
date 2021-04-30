@@ -50,11 +50,7 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	@Override
-	public List<UserVO> allUserList(UserVO vo) {
-		return mapper.allUser(vo);
-		
-	}
+	
 	@Override
 	public List<PostVO> selectPost(PostVO vo) {
 		return mapper.getPost(vo);

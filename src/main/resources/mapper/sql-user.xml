@@ -49,9 +49,9 @@
       ]]>
    </select>
    
-	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">
+	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
      <![CDATA[
-        select bno, r_writer ,r_content ,r_date from GK_COMMENT where bno = #{bno} ORDER BY r_date DESC
+       select * from(select rownum rn, t.* from(select bno, r_writer ,r_content ,r_date from GK_COMMENT where bno = ${bno} ORDER BY r_date DESC) t) where rn<=2
       ]]>
    </select>
 	

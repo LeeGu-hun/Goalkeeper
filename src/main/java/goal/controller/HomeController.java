@@ -29,11 +29,11 @@ public class HomeController {
 
 	@GetMapping("/home")
 	public ModelAndView openHome(HttpSession session) {
-		UserVO user = new UserVO();
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
+		UserVO user = new UserVO();
 		if(user.getU_id() == null) {   //로그인 여부 판단
 	         mv.addObject("msg", "doLogin");
-	         return mv;
+	   
 	      }
 		PostVO p_vo = new PostVO();
 		ReplyVO r_vo = new ReplyVO();

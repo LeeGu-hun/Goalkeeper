@@ -14,7 +14,6 @@ public interface UserService {
 	String checkLogin(UserVO vo);
 	String checkId(String u_id);
 	public UserVO checkUser(String u_id);
-	List<UserVO> allUserList(UserVO vo);
 	List<PostVO> selectPost(PostVO vo);
 	List<ReplyVO> selectReply(ReplyVO vo);
 

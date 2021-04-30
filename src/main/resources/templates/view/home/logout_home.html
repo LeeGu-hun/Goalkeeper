@@ -7,6 +7,7 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
       crossorigin="anonymous">
  </script>
+
 <script>
 $(document).ready(function() {
 	$("#header").load("view/logout_header.html");
@@ -17,29 +18,53 @@ $(document).ready(function() {
 <body>
 <div id="header"></div>
 <div class="col-xl-4 col-md-6">
-			<div class="card" th:each="obj:${List}" style="height: 900px; width: 1670px; left: 230px; top:110px;">
-				<div class="card-header">
-					<h4 class="card-title" th:text="${obj.u_id}"></h4>
-				</div>
-				<div class="card-body">	
-					<img class="img-fluid" style="left:300px; height:600px; width:600px">
-					<div class="card-block">
-						<a href="#" class="card-link">Like 141</a>
-						<a href="#" class="card-link" th:text="${obj.bno}">Like 141</a>
-						<p class="card-text" th:text="${obj.b_content}"></p>
-						
-						<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
-							<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
-							<span class="card-text" th:text="${reply.r_content}"></span>	
-						</div>
-					</div>
-				</div>
-				<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-					<i class="icon-android-happy" style ="font-size:50px;"></i>
-					<input type="text">
+	<div class="card" th:each="obj:${List}" style="height: 900px; width: 1670px; left: 230px; top:110px;">
+		<div class="card-header">
+			<h4 class="card-title" th:text="${obj.u_id}"></h4>
+		</div>
+		<div class="card-body">	
+			<img class="img-fluid" style="left:300px; height:600px; width:600px">
+			<div class="card-block">
+				<a href="#" class="card-link">Like 141</a>
+				<a class="card-link"th:text="${obj.bno} + '번 글'"></a>
+				<p class="card-text" th:text="${obj.b_content}"></p>
+				<a id="detail-modal" >댓글 모두 보기</a>
+				<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
+					<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
+					<span class="card-text" th:text="${reply.r_content}"></span>	
 				</div>
 			</div>
 		</div>
+		<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+			<i class="icon-android-happy" style ="font-size:50px;"></i>
+			<input type="text">
+		</div>
+	</div>
+</div>
+<div id="modal" style="display:none;  position:absolute; border:1px solid black;width: 1200px; height: 800px; background:#eee; top:10%;left:20%;">
+		<img class="img-fluid" style="position:absolute; left:0%; height:100%; width:60%">
+		<div class="detail_saction"style="position:absolute; border:1px solid black; width: 40%; height: 100%; top:0%; left: 60%; background:black;">
+			<div id = "modal_profile" style="position:absolute; border:1px solid black; width: 100%; height: 10%;  top:0%; ; background:red;">
+				<p style="position:absolute; font-size:30px; top:18%; left:5%" >강원기141</p>
+			</div>
+			<div class="modal_contant" style="position:absolute; border:1px solid black; width: 100%; height: 65%;   top:10%; background:orange">
+				<!-- <p class="card-text" th:text="${obj.b_content}+'내 글'"></p>
+				<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
+					<span class="card-text" th:text="${reply.r_writer} +' :'" ></span>
+					<span class="card-text" th:text="${reply.r_content}"></span>	
+				</div> -->
+			</div>
+			<div class="detail_like" style="position:absolute; border:1px solid black; width: 100%; height: 20%; ;  top:70%;  background:yellow">
+				<div>좋아요</div>
+			</div>
+			<div class="detail_insert_reply" style="position:absolute; border:1px solid black; width:100%; height: 15%;  top:85%; background:green">
+				<i class="icon-android-happy" style ="font-size:50px;"></i>
+				<input type="text">
+				<button valye="입력"></button>
+			</div>
+		</div>
+	</div>
+ <script src="../../js/modal.js" type="text/javascript"></script>
 </body>
 </body>
 </html>
