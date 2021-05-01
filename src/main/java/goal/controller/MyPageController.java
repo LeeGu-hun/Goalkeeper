@@ -38,8 +38,7 @@ public class MyPageController {
 	public ModelAndView openHome(HttpSession session) {
 		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
-		List<UserVO> list = userService.allUserList(vo);
-		mv.addObject("list", list);
+//		mv.addObject("list", list);
 		return mv;	
 	}
 	

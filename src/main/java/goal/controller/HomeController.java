@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.repository.UserRepository;
 import goal.service.BoardService;
+import goal.service.UserDetailService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
 import goal.vo.PostVO;
@@ -23,6 +25,8 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private UserDetailService userDetailService;
 	@GetMapping("/home")
 	public ModelAndView openHome(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
@@ -45,9 +49,11 @@ public class HomeController {
 	
 	@PostMapping("/login")
 	public ModelAndView checkLogin(UserVO vo) {
-		String check = userService.checkLogin(vo);
+//		String check = userService.checkLogin(vo);
+		UserVO user = new UserVO();
+		user = userDetailService.save(vo);
 		
-		if(check == null) {
+		if(user == null) {
 			ModelAndView mv = new ModelAndView("/view/home/logout_home");
 			mv.addObject("guest", "guest");
 			return mv;

@@ -22,17 +22,17 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
-	@Override
-	public List<BoardVO> getBoardList() {
-		return boardMapper.getBoardList();
-	}
-	
-
-	   public List<BoardVO> selectBoardList(BoardVO vo) {
+	public List<BoardVO> selectBoardList(BoardVO vo) {
 	      return boardMapper.selectBoardList(vo);
 	}
 	@Override
 	public BoardVO recentBoard() {
 		return boardMapper.recentBoard();
+	}
+
+	@Override
+	public List<BoardVO> getBoardList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
