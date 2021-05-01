@@ -30,7 +30,7 @@ public class UserDetailService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String u_id) throws UsernameNotFoundException {
 		UserVO user = this.user.findById(u_id);
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		authorities.add(new SimpleGrantedAuthority("USER"));
 		
 		return new User(user.getU_id(), user.getU_password(), authorities);
 	}

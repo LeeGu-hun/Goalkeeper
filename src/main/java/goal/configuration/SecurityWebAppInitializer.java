@@ -11,7 +11,6 @@ public class SecurityWebAppInitializer extends AbstractSecurityWebApplicationIni
 
 	@Override
 	protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
-		// TODO Auto-generated method stub
 		super.insertFilters(servletContext, new CustomSpringSecurityFilterChain());
 	}
 	
