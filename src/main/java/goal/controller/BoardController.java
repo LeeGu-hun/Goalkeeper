@@ -38,7 +38,7 @@ public class BoardController {
 		BoardVO board = new BoardVO();
 		board.setUno(user.getUno());
 		
-		//user.setUno(3);
+		user.setUno(2);
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -48,22 +48,21 @@ public class BoardController {
 	public String insertBoard(BoardVO board, MultipartHttpServletRequest multi) throws Exception {
 		List<BoardFileVO> boardFile = null;
 		UserVO user = new UserVO();
+		user.setUno(2);
 		board.setUno(user.getUno());
-		//user.setUno(3);
-		//board.setUno(user.getUno());
-		//boardService.insertBoard(board);
+		boardService.insertBoard(board);
 		BoardVO recentBoard = boardService.recentBoard();
 		
 		for(BoardFileVO file : boardFile) {
 			file.setBno(recentBoard.getBno());
 		}
 		boardFile = boardUpload.requestMultiUpload(multi);
-		
 		return "redirect:/boardWrite";
 		//임시로 지정 
 	}
 	
 	private List<GroupVO> getGroupList(UserVO user){
+		user.setUno(2);
 		BoardVO board = new BoardVO();
 		board.setUno(user.getUno());
 		List<GroupVO> groupList = groupService.selectGroupList(user);
