@@ -14,7 +14,7 @@ public interface UserMapper {
 	
 	public String readId(String u_id);
 	
-	public UserVO readUser(String u_id);
+	public UserVO readUser(UserVO user);
 	
 	public void register(UserVO vo);
 	

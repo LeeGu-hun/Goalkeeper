@@ -44,12 +44,6 @@ public class UserServiceImpl implements UserService{
 		return id;
 	}
 
-	@Override
-	public UserVO checkUser(String u_id) {
-		UserVO user = mapper.readUser(u_id);
-		return user;
-	}
-
 	
 	@Override
 	public List<PostVO> selectPost(PostVO vo) {

@@ -7,6 +7,15 @@
 		<id property="b_content" column="b_content"/>
 		<id property="b_date" column="b_date"/>
 	</resultMap>
+	<resultMap type="goal.vo.UserVO" id="userVO">
+		<id property="uno" column="uno"/>
+		<id property="u_id" column="u_id"/>
+		<id property="u_name" column="u_name"/>
+		<id property="u_password" column="u_password"/>
+		<id property="u_mail" column="u_mail"/>
+		<id property="u_number" column="u_number"/>
+		<id property="u_birthdate" column="u_birthdate"/>
+	</resultMap>
 	
 	<resultMap type="goal.vo.ReplyVO" id="replyVO">
 		<id property="r_writer" column="r_writer"/>
@@ -20,13 +29,10 @@
 		where u_id = #{u_id} and u_password = #{u_password}
 	]]>
 	</select>
-	<select id="readId" parameterType="String" resultType="String">
-	<![CDATA[
-		select u_id from GK_USER
-		where u_id = #{u_id}
-	]]>
+	<select id="readUser" parameterType="goal.vo.UserVO" resultMap="userVO">
+		select * from GK_USER where u_id = #{u_id} and u_password = #{u_password}
 	</select>
-	<select id="readUser" parameterType="String" resultType="goal.vo.UserVO">
+	<select id="readId" parameterType="String" resultType="String">
 	<![CDATA[
 		select u_id from GK_USER
 		where u_id = #{u_id}

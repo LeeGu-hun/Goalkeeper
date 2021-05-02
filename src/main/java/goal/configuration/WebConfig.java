@@ -1,6 +1,7 @@
 package goal.configuration;
 
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class WebConfig implements WebMvcConfigurer{
@@ -14,6 +15,11 @@ public class WebConfig implements WebMvcConfigurer{
         .addResourceLocations("file:///C:/board-image/")
         .setCachePeriod(20);
 		
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("/home");
 	}
 	
 

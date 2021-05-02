@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import goal.common.GroupFileUtils;
 import goal.mapper.GroupMapper;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupVO;
