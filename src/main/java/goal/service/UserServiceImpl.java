@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService{
 		return check;
 	}
 	@Override
-	public String checkId(String u_id) {
-		String id = mapper.readId(u_id);
+	public String checkId(String userId) {
+		String id = mapper.readId(userId);
 		return id;
 	}
 
