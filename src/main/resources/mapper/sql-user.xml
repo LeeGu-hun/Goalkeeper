@@ -20,7 +20,7 @@
 		where userId = #{userId} and userPw= #{userPw}
 	]]>
 	</select>
-	<select id="readUser" parameterType="goal.vo.UserVO" resultType="UserVO">
+	<select id="readUser" parameterType="goal.vo.UserVO" resultMap="userVO">
 		select * from GK_USER where userId= #{userId} and userPw= #{userPw}
 	</select>
 	<select id="readId" parameterType="String" resultType="String">

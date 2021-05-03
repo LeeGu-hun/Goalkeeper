@@ -57,7 +57,7 @@ public class GroupController {
 //			mv.setViewName("/view/error/denied");
 //			return mv;
 //		}
-		user.setUno(2);
+		user.setUno(1);
 		group.setUno(user.getUno());
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
@@ -72,7 +72,7 @@ public class GroupController {
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
-	}
+	}//1
 	@GetMapping("/user/searchGroup")
 	public ModelAndView openSearchGroup() {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
@@ -106,8 +106,8 @@ public class GroupController {
 	@PostMapping("/user/group_create")
 	public String createGroup(GroupVO group, GroupSVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
-		user.setUno(2);
-		groups.setUno(2);
+		user.setUno(1);
+		groups.setUno(1);
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups, groupGoal);
 		groupService.insertGoal(groupGoal);
