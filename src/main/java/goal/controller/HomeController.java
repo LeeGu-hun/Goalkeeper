@@ -28,16 +28,14 @@ public class HomeController {
 	@Autowired
 	private UserDetailService userDetailService;
 	@GetMapping("/home")
-	public ModelAndView openHome(HttpSession session) {
+	public ModelAndView openHome(HttpSession session, BoardVO vo) {//웹에서 쿠키 같은 기록을 담는다
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
 		UserVO user = new UserVO();
 		if(user.getU_id() == null) {   //로그인 여부 판단
 	         mv.addObject("msg", "doLogin");
-
 	      }
-		List<BoardVO> boardList = boardService.getBoardList();
+		List<BoardVO> boardList = boardService.selectBoardList(vo);
 		mv.addObject("List", boardList);
-		mv.addObject("user", user);
 		return mv;
 	}
 	
@@ -88,12 +86,6 @@ public class HomeController {
     public String deniedView() {
         return "view/error/denied";
     }
-	private List<PostVO> getPostList(PostVO vo){
-		List<PostVO> postList = userService.selectPost(vo);
-		return postList;
-	}
-	private List<ReplyVO> getReplyList(ReplyVO vo){
-		List<ReplyVO> postList = userService.selectReply(vo);
-		return postList;
-	}
+	
+	
 }
