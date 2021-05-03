@@ -10,4 +10,5 @@
 	<select id="findDatabyId" parameterType="int" resultType="int">
 		select * from GK_DATA where gno=#{gno}
 	</select>
+	
 </mapper>

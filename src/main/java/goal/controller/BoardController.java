@@ -31,9 +31,9 @@ public class BoardController {
 		mv.setViewName("view/board/board_write");
 		UserVO user = new UserVO();
 		BoardVO board = new BoardVO();
-		board.setUserid(user.getUserid());
+		board.setUno(2);
 		
-		user.setUserid("kjm");
+		user.setUserId("kjm");
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -43,8 +43,8 @@ public class BoardController {
 	public String insertBoard(BoardVO board, MultipartHttpServletRequest multi) throws Exception {
 		
 		UserVO user = new UserVO();
-		user.setUserid("kjm");
-		board.setUserid(user.getUserid());
+		user.setUserId("kjm");
+		board.setUno(2);
 		boardService.insertBoard(board);
 		BoardVO recentBoard = boardService.recentBoard();
 		
@@ -62,27 +62,30 @@ public class BoardController {
 		mv.setViewName("view/board/board_search");
 		UserVO user = new UserVO();
 		BoardVO board = new BoardVO();
-		board.setUserid(user.getUserid());	
+		board.setUno(2);
 		
-		user.setUserid("kjm");
+		
+		user.setUserId("kjm");
 		List<BoardVO> boardlist = getBoardList(user);
 		mv.addObject("List", boardlist);
 		return mv;
 	}
 	
 	private List<GroupVO> getGroupList(UserVO user){
-		user.setUserid("kjm");
+		user.setUserId("kjm");
 		BoardVO board = new BoardVO();
-		board.setUserid(user.getUserid());
+		board.setUno(2);
+		
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
 	}
 	
 	private List<BoardVO> getBoardList(UserVO user){
-		user.setUserid("kjm");
+		user.setUserId("kjm");
 		BoardVO board = new BoardVO();
-		board.setUserid(user.getUserid());
-		List<BoardVO> boardList = boardService.searchBoard(board);
+		board.setUno(2);
+		
+		List<BoardVO> boardList = null;
 		return boardList;
 	}
 

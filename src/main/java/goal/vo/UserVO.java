@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+
 @Data
 @Alias("userVO")
 public class UserVO {
@@ -17,7 +18,7 @@ public class UserVO {
 	private String userPw;
 
 	private String userMail;
-	private String userPumber;
+	private String userPhone;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userBirthdate;

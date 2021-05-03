@@ -54,7 +54,7 @@ public class HomeController {
 	}
 	
 	@PostMapping("/login")
-	public String checkLogin(HttpServletRequest request,UserVO vo) {
+	public String checkLogin(HttpServletRequest request,UserVO vo, Model model) {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
 		if(user != null) {
 			HttpSession session = request.getSession(true);
