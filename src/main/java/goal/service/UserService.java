@@ -12,6 +12,6 @@ public interface UserService {
 	
 	void insertUser(UserVO vo);		
 	String checkLogin(UserVO vo);
-	String checkId(String u_id);
+	String checkId(String userId);
 
 }
