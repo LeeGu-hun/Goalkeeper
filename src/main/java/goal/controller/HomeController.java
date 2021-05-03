@@ -25,7 +25,7 @@ import goal.vo.UserVO;
 @Controller
 public class HomeController {
 	
-	@Autowiredspring principal
+	@Autowired
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
@@ -39,7 +39,7 @@ public class HomeController {
 	      UserVO user = (UserVO) session.getAttribute("user");
 	      if(user!=null) {
 	         mv.addObject("login", "success");
-	         mv.addObject("user", userName);
+	         mv.addObject("user", user);
 	      } else {
 	         mv.addObject("login", null);
 	      }
