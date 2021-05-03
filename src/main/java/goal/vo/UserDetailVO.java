@@ -20,12 +20,12 @@ public class UserDetailVO implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return user.getU_password();
+		return user.getUserPw();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getU_id();
+		return user.getUserId();
 	}
 
 	@Override
