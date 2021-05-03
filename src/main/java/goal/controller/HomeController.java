@@ -1,6 +1,8 @@
 package goal.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -30,16 +32,20 @@ public class HomeController {
 	 * @Autowired private UserDetailService userDetailService;
 	 */
 	@GetMapping("/home")
-	public ModelAndView openHome(HttpSession session, BoardVO vo) {//웹에서 쿠키 같은 기록을 담는다
-		ModelAndView mv = new ModelAndView("/view/home/logout_home");
-		UserVO user = new UserVO();
-		if(user.getUserId() == null) {   //로그인 여부 판단
-	         mv.addObject("msg", "doLogin");
+	   public ModelAndView openHome(HttpServletRequest request) {
+	      ModelAndView mv = new ModelAndView("/view/home/login_home");
+	      HttpSession session = request.getSession(true);
+	      UserVO user = (UserVO) session.getAttribute("user");
+	      if(user!=null) {
+	         mv.addObject("login", "success");
+	         mv.addObject("user", user);
+	      } else {
+	         mv.addObject("login", "fail");
 	      }
-		List<BoardVO> boardList = boardService.selectBoardList(vo);
-		mv.addObject("List", boardList);
-		return mv;
-	}
+	      List<BoardVO> boardList = boardService.getBoardList();   
+	      mv.addObject("List", boardList);
+	      return mv;
+	   }
 	
 	@GetMapping("/login")
 	public ModelAndView openLogin() {
@@ -47,18 +53,15 @@ public class HomeController {
 		return mv;
 	}
 	
-	/*
-	 * @PostMapping("/login") public ModelAndView checkLogin(UserVO vo) { // String
-	 * check = userService.checkLogin(vo); UserVO user = new UserVO(); user =
-	 * userDetailService.save(vo);
-	 * 
-	 * if(user == null) { ModelAndView mv = new
-	 * ModelAndView("/view/home/logout_home"); mv.addObject("guest", "guest");
-	 * return mv;
-	 * 
-	 * } else { ModelAndView mv = new ModelAndView("/view/home/login_home");
-	 * mv.addObject("user", vo); return mv; } }
-	 */
+	@PostMapping("/login")
+	public String checkLogin(HttpServletRequest request,UserVO vo) {
+		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
+		if(user != null) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
+		} 
+		return "redirect:/home";
+	   }
 	@GetMapping("/register") 
 	public ModelAndView openRegister() {
 		ModelAndView mv = new ModelAndView("/view/home/user_register");

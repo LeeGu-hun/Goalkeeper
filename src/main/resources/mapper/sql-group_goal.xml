@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goal.mapper.GroupMapper">
+	<insert id="insertData" parameterType="goal.vo.GroupGoalVO">
+		insert into
+		GK_GOAL(dno, gno, goal_name, goal_allcnt, goal_type, goal_enddate) values
+		(GK_DATA_SEQ.nextval, #{gno}, #{goal_name}, #{goal_allcnt}, #{goal_type}, #{goal_enddate})
+	</insert>
+	<select id="findDatabyId" parameterType="int" resultType="int">
+		select * from GK_DATA where gno=#{gno}
+	</select>
+</mapper>

@@ -20,7 +20,7 @@
 		where userId = #{userId} and userPw= #{userPw}
 	]]>
 	</select>
-	<select id="readUser" parameterType="goal.vo.UserVO" resultMap="userVO">
+	<select id="readUser" parameterType="goal.vo.UserVO" resultType="UserVO">
 		select * from GK_USER where userId= #{userId} and userPw= #{userPw}
 	</select>
 	<select id="readId" parameterType="String" resultType="String">
@@ -42,10 +42,10 @@
    
    
    
-	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
+	<!-- <select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
      <![CDATA[
        select * from(select rownum rn, t.* from(select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = ${bno} ORDER BY replyDate DESC) t) where rn<=2
       ]]>
-   </select>
+   </select> -->
 	
 </mapper>

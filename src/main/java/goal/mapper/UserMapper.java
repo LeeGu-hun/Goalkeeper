@@ -19,6 +19,5 @@ public interface UserMapper {
 	public void register(UserVO vo);
 	
 	
-	public List<ReplyVO> getReply(ReplyVO vo);
-
+	
 }

@@ -82,7 +82,7 @@
 							style="width: 100%; display: inline-block; margin-top: 20px">
 							<div class="col-md-6">
 								<label>범위설정</label> 
-								<select id="b_cate" name="b_cate"
+								<select id="bo_cate" name="bo_cate"
 									class="form-control">
 									<option value="none">선택해주세요</option>
 									<option value="all">전체글</option>
@@ -94,7 +94,7 @@
 							<div class="group_form" id="group_form">
 								<div class="col-md-6">
 									<label>그룹설정</label> 
-									<select id="b_group" name="b_group" class="form-control">
+									<select id="bo_group" name="bo_group" class="form-control">
 										<option value="">선택해주세요</option>
 										<option th:each="obj:${List}"
 												th:value="${obj.g_name}"
@@ -106,13 +106,10 @@
 
 						<div class="form-group">
 							<label for="projectinput8">내용</label></br>
-							<textarea id="b_content" rows="5" class="form-control"
-								style="width: 100%; display: inline-block;" name="b_content"
+							<textarea id="bo_content" rows="5" class="form-control"
+								style="width: 100%; display: inline-block;" name="bo_content"
 								placeholder="입력해주세요"></textarea>
-								<form name="form1" method="post" action="result.php">
-	  <input type="text" id="searchbox">
-	  <input type="submit" id="sumit" value="검색">
-	</form>
+						
 						</div>
 					
 

@@ -10,7 +10,6 @@
 		<id property="g_intro" column="g_intro"/>
 		<id property="g_cate" column="g_cate"/>
 		<id property="g_open" column="g_open"/>
-		<id property="g_goaldate" column="g_goaldate"/>
 	</resultMap>
 	<select id="selectGroupList" parameterType="goal.vo.UserVO" resultMap="groupVO">
 		<![CDATA[
@@ -21,7 +20,6 @@
 	<select id="allList" resultMap="groupVO">
 		SELECT * FROM GK_ALLGROUP
 	</select>
-	
 	<select id="recentGroup" resultMap="groupVO">
 		<![CDATA[
 		SELECT ROWNUM, GNO FROM (SELECT * FROM GK_ALLGROUP ORDER BY GNO DESC)WHERE ROWNUM <= 1
@@ -39,14 +37,14 @@
 		</selectKey>
 		insert into
 		GK_ALLGROUP(gno, uno, g_name, g_intro, g_date, g_cate,
-		g_open, g_goaldate) values
+		g_open) values
 		(GK_ALLGROUP_SEQ.currval, #{uno}, #{g_name},
-		#{g_intro}, sysdate, #{g_cate}, #{g_open},
-		#{g_goaldate})
+		#{g_intro}, sysdate, #{g_cate}, #{g_open}
+		)
 	</insert>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
 		insert into
-		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
+		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
 		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
 	</insert>
 	<delete id="removeGroup" parameterType="int">
@@ -54,9 +52,4 @@
 			delete GK_ALLGROUP WHERE GNO=#{gno}
 		]]> 
 	</delete>
-	<insert id="insertData" parameterType="goal.vo.GroupDataVO">
-		insert into
-		GK_DATA_STATS(gno, uno, hor_data, ver_data) values
-		(#{gno}, #{uno}, #{hor_data}, #{ver_data})
-	</insert>
 </mapper>

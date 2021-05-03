@@ -10,17 +10,17 @@
 	</resultMap>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
 		insert into
-		GK_GROUPFILE(g_fid, g_filename, g_filepath, gno) values
+		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
 		(#{g_fid}, #{g_filename}, #{g_filepath}, #{gno})
 	</insert>
 	<select id="selectFileName" resultMap="groupFileVO">
 		<![CDATA[
-			SELECT * FROM GK_GROUPFILE
+			SELECT * FROM GK_GROUP_PROFILE
 		]]>
 	</select>
 	<delete id="removeGroupFile" parameterType="int">
 		<![CDATA[
-			delete GK_GROUPFILE WHERE GNO=#{gno}
+			delete GK_GROUP_PROFILE WHERE GNO=#{gno}
 		]]> 
 	</delete>
 </mapper>
