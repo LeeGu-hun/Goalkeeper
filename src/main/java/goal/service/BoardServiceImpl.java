@@ -35,4 +35,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<BoardVO> searchBoard(BoardVO board) {
+		return boardMapper.searchBoard(board);	
+	}
+	
 }

@@ -5,20 +5,23 @@
 	<resultMap type="goal.vo.BoardVO" id="boardVO">
 		<id property="bno" column="bno"/>
 		<id property="uno" column="uno"/>
-		<id property="b_content" column="b_content"/>
-		<id property="b_title" column="b_title"/>
-		<id property="b_cate" column="b_cate"/>
-		<id property="b_group" column="b_group"/>
-		<id property="b_date" column="b_date"/>
+		<id property="bo_content" column="bo_content"/>
+		<id property="bo_title" column="bo_title"/>
+		<id property="bo_cate" column="bo_cate"/>
+		<id property="bo_group" column="bo_group"/>
+		<id property="bo_date" column="bo_date"/>
 		<collection property="replyList" column="bno" javaType="java.util.ArrayList" ofType="goal.vo.ReplyVO" select="getReplyListById"/>
 	</resultMap>
 	<select id="getReplyListById" resultMap="boardVO">
 		select * from GK_COMMENT
 	</select>
+	<select id="searchBoard" resultMap="boardVO">
+		select bo_content, userid from GK_BOARD where uno=#{uno}
+	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
-		GK_BOARD(bno, uno, b_content, b_date, b_cate, b_group) values
-		(GK_board_SEQ.nextval,#{uno}, #{b_content}, sysdate, #{b_cate}, #{b_group})
+		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group, uno) values
+		(GK_board_SEQ.nextval,#{userid}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group}, #{uno})
 	</insert>
 	
 	<select id="recentBoard" resultMap="boardVO">
@@ -29,7 +32,7 @@
 		
 	<select id="getBoard" parameterType="goal.vo.BoardVO" resultMap="boardVO">
   	 <![CDATA[
-   	select u_id, b_content, b_DATE, bno, replyWriter, replyContent, replyDate from Gk_BOARD join GK_COMMENT using(bno)
+   	select u_id, bo_content, bo_DATE, bno, replyWriter, replyContent, replyDate from Gk_BOARD join GK_COMMENT using(bno)
      ]]>
    </select>
    

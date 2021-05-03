@@ -31,9 +31,11 @@ public class BoardController {
 		mv.setViewName("view/board/board_write");
 		UserVO user = new UserVO();
 		BoardVO board = new BoardVO();
-		board.setUno(2);
+		board.setUserid("kjm");
+		board.setUno(3);
 		
 		user.setUserId("kjm");
+		user.setUno(3);
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -44,7 +46,9 @@ public class BoardController {
 		
 		UserVO user = new UserVO();
 		user.setUserId("kjm");
-		board.setUno(2);
+		user.setUno(3);
+		board.setUserid("kjm");
+		board.setUno(3);
 		boardService.insertBoard(board);
 		BoardVO recentBoard = boardService.recentBoard();
 		
@@ -62,9 +66,10 @@ public class BoardController {
 		mv.setViewName("view/board/board_search");
 		UserVO user = new UserVO();
 		BoardVO board = new BoardVO();
-		board.setUno(2);
+		board.setUserid("kjm");
+		board.setUno(3);
 		
-		
+		user.setUno(3);
 		user.setUserId("kjm");
 		List<BoardVO> boardlist = getBoardList(user);
 		mv.addObject("List", boardlist);
@@ -73,8 +78,10 @@ public class BoardController {
 	
 	private List<GroupVO> getGroupList(UserVO user){
 		user.setUserId("kjm");
+		user.setUno(3);
 		BoardVO board = new BoardVO();
-		board.setUno(2);
+		board.setUserid("kjm");
+		board.setUno(3);
 		
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
@@ -82,10 +89,12 @@ public class BoardController {
 	
 	private List<BoardVO> getBoardList(UserVO user){
 		user.setUserId("kjm");
+		user.setUno(3);
 		BoardVO board = new BoardVO();
-		board.setUno(2);
+		board.setUserid("kjm");
+		board.setUno(3);
 		
-		List<BoardVO> boardList = null;
+		List<BoardVO> boardList = boardService.searchBoard(board);
 		return boardList;
 	}
 

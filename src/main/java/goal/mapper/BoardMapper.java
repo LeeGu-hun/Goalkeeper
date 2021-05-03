@@ -11,7 +11,7 @@ import goal.vo.GroupVO;
 @Mapper
 public interface BoardMapper {
 	void insertBoard(BoardVO board);
-
+	List<BoardVO> searchBoard(BoardVO board);
 	BoardVO recentBoard();
 	List<BoardVO> selectBoardList(BoardVO vo);
 }

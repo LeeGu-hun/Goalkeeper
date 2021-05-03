@@ -13,10 +13,12 @@ import lombok.Data;
 public class BoardVO {
    private int bno;
    private int uno;
-   private String b_content;
-   private String b_title;
-   private String b_cate;
-   private String b_group;
+   private String userid;
+   private String bo_content;
+   private String bo_title;
+   private String bo_cate;
+   private String bo_group;
+   //private String replyList;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   private Date b_date;  
+   private Date bo_date;  
 }
