@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.UserMapper;
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 

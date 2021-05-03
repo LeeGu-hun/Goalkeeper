@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 

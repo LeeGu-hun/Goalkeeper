@@ -14,7 +14,7 @@ import goal.service.BoardService;
 import goal.service.UserDetailService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -31,7 +31,7 @@ public class HomeController {
 	public ModelAndView openHome(HttpSession session, BoardVO vo) {//웹에서 쿠키 같은 기록을 담는다
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
 		UserVO user = new UserVO();
-		if(user.getU_id() == null) {   //로그인 여부 판단
+		if(user.getUserId() == null) {   //로그인 여부 판단
 	         mv.addObject("msg", "doLogin");
 	      }
 		List<BoardVO> boardList = boardService.selectBoardList(vo);
@@ -69,7 +69,7 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public ModelAndView insertUser(UserVO vo, Model model) {
-		String idCheck = userService.checkId(vo.getU_id());
+		String idCheck = userService.checkId(vo.getUserId());
 		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);

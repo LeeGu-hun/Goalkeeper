@@ -32,11 +32,11 @@ public class UserDetailService implements UserDetailsService{
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("USER"));
 		
-		return new User(user.getU_id(), user.getU_password(), authorities);
+		return new User(user.getUserId(), user.getUserPw(), authorities);
 	}
 
 	public UserVO save(UserVO vo) {
-		vo.setU_password(passwordEncoder.encode(vo.getU_password()));
+		vo.setUserPw(passwordEncoder.encode(vo.getUserPw()));
 		return user.save(vo);
 	}
 	
