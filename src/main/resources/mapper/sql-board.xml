@@ -26,6 +26,13 @@
 		SELECT ROWNUM, BNO FROM (SELECT * FROM GK_BOARD ORDER BY BNO DESC)WHERE ROWNUM <= 1
 		]]>
 		</select>
+		
+	<select id="getBoard" parameterType="goal.vo.BoardVO" resultMap="boardVO">
+  	 <![CDATA[
+   	select u_id, b_content, b_DATE, bno, replyWriter, replyContent, replyDate from Gk_BOARD join GK_COMMENT using(bno)
+     ]]>
+   </select>
+   
 	<select id="getBoardList" resultMap="boardVO">
 		select * from GK_BOARD
 	</select>

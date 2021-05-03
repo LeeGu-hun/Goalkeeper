@@ -19,5 +19,5 @@ public class BoardVO {
    private String b_group;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
    private Date b_date;
-   private List<ReplyVO> replyList;
+  
 }

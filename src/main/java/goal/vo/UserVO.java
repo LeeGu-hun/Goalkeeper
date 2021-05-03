@@ -12,13 +12,13 @@ import lombok.Data;
 @Alias("userVO")
 public class UserVO {
 	private int uno;
-	private String u_id;
-	private String u_name;
-	private String u_password;
+	private String userId;
+	private String userName;
+	private String userPw;
 
-	private String u_mail;
-	private String u_number;
+	private String userMail;
+	private String userPumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date u_birthdate;
+	private Date userBirthdate;
 }

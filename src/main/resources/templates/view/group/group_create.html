@@ -84,7 +84,7 @@
 							<div class="card-body collapse in">
 								<div class="card-block">
 									<form class="form-horizontal form-simple" method="post"
-										action="/user/group_create" enctype="multipart/form-data" novalidate>
+										action="/user/group_create" enctype="multipart/form-data">
 										<fieldset
 											class="form-group position-relative has-icon-left mb-1">
 											<input type="text"
@@ -150,17 +150,17 @@
 											</fieldset>
 											<br> <input type="date" id="g_goaldate"
 												class="form-control round" required
-												pattern="\d{4}-\d{2}-\d{2}" name="g_goaldate">
+												pattern="\d{4}-\d{2}-\d{2}" name="goal_enddate">
 										</div>
 										<div class="form-group">
 											<label for="projectinput5">통계 세부목표 설정</label>
 											<fieldset id="stats" class="f">
 												<input type="text" class="form-control"
 													style="width: 46%; display: inline-block;"
-													placeholder="측정할 목표" name="hor_data"> <input
+													placeholder="측정할 목표" name="goal_name"> <input
 													type="text" class="form-control"
 													style="width: 46%; display: inline-block;"
-													placeholder="달성 목표값" name="ver_data"> <span
+													placeholder="달성 목표값" name="goal_allcnt"> <span
 													id="add_stats"
 													class="tag tag-default tag-pill bg-success float-xs-right"><i
 													class="icon-plus4"></i></span>

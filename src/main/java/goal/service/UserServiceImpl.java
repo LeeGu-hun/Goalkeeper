@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.UserMapper;
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -39,21 +39,16 @@ public class UserServiceImpl implements UserService{
 		return check;
 	}
 	@Override
-	public String checkId(String u_id) {
-		String id = mapper.readId(u_id);
+	public String checkId(String userId) {
+		String id = mapper.readId(userId);
 		return id;
 	}
 
-	
 	@Override
-	public List<PostVO> selectPost(PostVO vo) {
-		return mapper.getPost(vo);
-		
+	public UserVO getUser(UserVO vo) {
+		return mapper.readUser(vo);
 	}
-	@Override
-	public List<ReplyVO> selectReply(ReplyVO vo) {
-		return mapper.getReply(vo);
-		
-	}
+
+
 }
 

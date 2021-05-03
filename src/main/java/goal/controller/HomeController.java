@@ -1,6 +1,8 @@
 package goal.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -9,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import goal.repository.UserRepository;
+
 import goal.service.BoardService;
-import goal.service.UserDetailService;
+
 import goal.service.UserService;
 import goal.vo.BoardVO;
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -25,21 +27,25 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
-	@Autowired
-	private UserDetailService userDetailService;
-	@GetMapping("/home")
-	public ModelAndView openHome(HttpSession session) {
-		ModelAndView mv = new ModelAndView("/view/home/logout_home");
-		UserVO user = new UserVO();
-		if(user.getU_id() == null) {   //로그인 여부 판단
-	         mv.addObject("msg", "doLogin");
 
+	/*
+	 * @Autowired private UserDetailService userDetailService;
+	 */
+	@GetMapping("/home")
+	   public ModelAndView openHome(HttpServletRequest request) {
+	      ModelAndView mv = new ModelAndView("/view/home/login_home");
+	      HttpSession session = request.getSession(true);
+	      UserVO user = (UserVO) session.getAttribute("user");
+	      if(user!=null) {
+	         mv.addObject("login", "success");
+	         mv.addObject("user", user);
+	      } else {
+	         mv.addObject("login", "fail");
 	      }
-		List<BoardVO> boardList = boardService.getBoardList();
-		mv.addObject("List", boardList);
-		mv.addObject("user", user);
-		return mv;
-	}
+	      List<BoardVO> boardList = boardService.getBoardList();   
+	      mv.addObject("List", boardList);
+	      return mv;
+	   }
 	
 	@GetMapping("/login")
 	public ModelAndView openLogin() {
@@ -48,22 +54,14 @@ public class HomeController {
 	}
 	
 	@PostMapping("/login")
-	public ModelAndView checkLogin(UserVO vo) {
-//		String check = userService.checkLogin(vo);
-		UserVO user = new UserVO();
-		user = userDetailService.save(vo);
-		
-		if(user == null) {
-			ModelAndView mv = new ModelAndView("/view/home/logout_home");
-			mv.addObject("guest", "guest");
-			return mv;
-			
-		} else {
-			ModelAndView mv = new ModelAndView("/view/home/login_home");
-			mv.addObject("user", vo);
-			return mv;
-		}
-	}
+	public String checkLogin(HttpServletRequest request,UserVO vo) {
+		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
+		if(user != null) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
+		} 
+		return "redirect:/home";
+	   }
 	@GetMapping("/register") 
 	public ModelAndView openRegister() {
 		ModelAndView mv = new ModelAndView("/view/home/user_register");
@@ -71,7 +69,7 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public ModelAndView insertUser(UserVO vo, Model model) {
-		String idCheck = userService.checkId(vo.getU_id());
+		String idCheck = userService.checkId(vo.getUserId());
 		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);
@@ -88,12 +86,6 @@ public class HomeController {
     public String deniedView() {
         return "view/error/denied";
     }
-	private List<PostVO> getPostList(PostVO vo){
-		List<PostVO> postList = userService.selectPost(vo);
-		return postList;
-	}
-	private List<ReplyVO> getReplyList(ReplyVO vo){
-		List<ReplyVO> postList = userService.selectReply(vo);
-		return postList;
-	}
+	
+	
 }

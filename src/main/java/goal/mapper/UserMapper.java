@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -19,8 +19,5 @@ public interface UserMapper {
 	public void register(UserVO vo);
 	
 	
-	public List<PostVO> getPost(PostVO vo);
 	
-	public List<ReplyVO> getReply(ReplyVO vo);
-
 }

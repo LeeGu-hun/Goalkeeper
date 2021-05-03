@@ -26,8 +26,9 @@ import goal.service.GroupFileService;
 import goal.service.GroupService;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
-import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
+import goal.vo.GroupGoalVO;
+import goal.vo.GroupSVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
@@ -103,12 +104,13 @@ public class GroupController {
 	}
 	
 	@PostMapping("/user/group_create")
-	public String createGroup(GroupVO group, GroupDataVO groupData, MultipartHttpServletRequest multi) throws Exception {	
+	public String createGroup(GroupVO group, GroupSVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
 		user.setUno(2);
+		groups.setUno(2);
 		group.setUno(user.getUno());
-		groupService.createGroup(group);
-		groupService.insertData(group,groupData);
+		groupService.createGroup(group, groups, groupGoal);
+		groupService.insertGoal(groupGoal);
 		groupFile = groupUpload.requestSingleUpload(multi);
 		groupFileService.insertGroupFile(group, groupFile);
 		

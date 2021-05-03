@@ -2,45 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goal.mapper.UserMapper">
-	<resultMap type="goal.vo.PostVO" id="postVO">
-		<id property="u_id" column="u_id"/>
-		<id property="b_content" column="b_content"/>
-		<id property="b_date" column="b_date"/>
-	</resultMap>
+	
 	<resultMap type="goal.vo.UserVO" id="userVO">
 		<id property="uno" column="uno"/>
-		<id property="u_id" column="u_id"/>
-		<id property="u_name" column="u_name"/>
-		<id property="u_password" column="u_password"/>
-		<id property="u_mail" column="u_mail"/>
-		<id property="u_number" column="u_number"/>
-		<id property="u_birthdate" column="u_birthdate"/>
+		<id property="userId" column="userId"/>
+		<id property="userName" column="userName"/>
+		<id property="userPw" column="userPw"/>
+		<id property="userMail" column="userMail"/>
+		<id property="userPhone" column="userPhone"/>
+		<id property="userBirthdate" column="userBirthdate"/>
 	</resultMap>
 	
-	<resultMap type="goal.vo.ReplyVO" id="replyVO">
-		<id property="r_writer" column="r_writer"/>
-		<id property="r_content" column="r_content"/>
-		<id property="r_date" column="r_date"/>
-	</resultMap>
 	
 	<select id="read" parameterType="goal.vo.UserVO" resultType="String">
 	<![CDATA[
-		select u_id from GK_USER
-		where u_id = #{u_id} and u_password = #{u_password}
+		select userId from GK_USER
+		where userId = #{userId} and userPw= #{userPw}
 	]]>
 	</select>
-	<select id="readUser" parameterType="goal.vo.UserVO" resultMap="userVO">
-		select * from GK_USER where u_id = #{u_id} and u_password = #{u_password}
+	<select id="readUser" parameterType="goal.vo.UserVO" resultType="UserVO">
+		select * from GK_USER where userId= #{userId} and userPw= #{userPw}
 	</select>
 	<select id="readId" parameterType="String" resultType="String">
 	<![CDATA[
-		select u_id from GK_USER
-		where u_id = #{u_id}
+		select userId from GK_USER
+		where userId= #{userId}
 	]]>
 	</select>
 	<insert id="register" parameterType="goal.vo.UserVO">
-		insert into GK_USER(uno, u_id, u_name, u_password, u_mail, u_number, u_birthdate) values
-		(GK_USER_SEQ.nextval, #{u_id}, #{u_name}, #{u_password}, #{u_mail}, #{u_number}, #{u_birthdate})
+		insert into GK_USER(uno, userId, userName, userPw, userMail, userPhone, userBirthdate) values
+		(GK_USER_SEQ.nextval, #{userId}, #{userName}, #{userPw}, #{userMail}, #{userPhone}, #{userBirthdate})
 	</insert>
 	
 	<select id="listFriend" parameterType="goal.vo.UserVO" resultType="goal.vo.UserVO">
@@ -49,16 +40,12 @@
       ]]>
    </select>
    
-   <select id="getPost" parameterType="goal.vo.PostVO" resultMap="postVO">
-     <![CDATA[
-        select  U.u_id, B.b_content,B.B_DATE, bno from Gk_BOARD B, GK_USER U where B.uno = U.uno 
-      ]]>
-   </select>
    
-	<select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
+   
+	<!-- <select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
      <![CDATA[
-       select * from(select rownum rn, t.* from(select bno, r_writer ,r_content ,r_date from GK_COMMENT where bno = ${bno} ORDER BY r_date DESC) t) where rn<=2
+       select * from(select rownum rn, t.* from(select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = ${bno} ORDER BY replyDate DESC) t) where rn<=2
       ]]>
-   </select>
+   </select> -->
 	
 </mapper>
