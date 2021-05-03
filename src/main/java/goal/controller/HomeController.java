@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import goal.repository.UserRepository;
+
 import goal.service.BoardService;
-import goal.service.UserDetailService;
+
 import goal.service.UserService;
 import goal.vo.BoardVO;
 
@@ -25,8 +25,10 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
-	@Autowired
-	private UserDetailService userDetailService;
+
+	/*
+	 * @Autowired private UserDetailService userDetailService;
+	 */
 	@GetMapping("/home")
 	public ModelAndView openHome(HttpSession session, BoardVO vo) {//웹에서 쿠키 같은 기록을 담는다
 		ModelAndView mv = new ModelAndView("/view/home/logout_home");
@@ -45,23 +47,18 @@ public class HomeController {
 		return mv;
 	}
 	
-	@PostMapping("/login")
-	public ModelAndView checkLogin(UserVO vo) {
-//		String check = userService.checkLogin(vo);
-		UserVO user = new UserVO();
-		user = userDetailService.save(vo);
-		
-		if(user == null) {
-			ModelAndView mv = new ModelAndView("/view/home/logout_home");
-			mv.addObject("guest", "guest");
-			return mv;
-			
-		} else {
-			ModelAndView mv = new ModelAndView("/view/home/login_home");
-			mv.addObject("user", vo);
-			return mv;
-		}
-	}
+	/*
+	 * @PostMapping("/login") public ModelAndView checkLogin(UserVO vo) { // String
+	 * check = userService.checkLogin(vo); UserVO user = new UserVO(); user =
+	 * userDetailService.save(vo);
+	 * 
+	 * if(user == null) { ModelAndView mv = new
+	 * ModelAndView("/view/home/logout_home"); mv.addObject("guest", "guest");
+	 * return mv;
+	 * 
+	 * } else { ModelAndView mv = new ModelAndView("/view/home/login_home");
+	 * mv.addObject("user", vo); return mv; } }
+	 */
 	@GetMapping("/register") 
 	public ModelAndView openRegister() {
 		ModelAndView mv = new ModelAndView("/view/home/user_register");
