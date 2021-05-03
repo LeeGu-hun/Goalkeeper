@@ -59,7 +59,8 @@ public class HomeController {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
 		if(user != null) {
 			HttpSession session = request.getSession(true);
-			userDetailService.save(vo);
+			user = userDetailService.save(vo);
+			
 			session.setAttribute("user", user);
 			return "redirect:/home";
 		} 
