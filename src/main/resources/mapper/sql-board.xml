@@ -10,7 +10,7 @@
 		<id property="b_cate" column="b_cate"/>
 		<id property="b_group" column="b_group"/>
 		<id property="b_date" column="b_date"/>
-		<collection property="replyListzz" column="bno" javaType="java.util.ArrayList" ofType="goal.vo.ReplyVO" select="getReplyListById"/>
+		<collection property="replyList" column="bno" javaType="java.util.ArrayList" ofType="goal.vo.ReplyVO" select="getReplyListById"/>
 	</resultMap>
 	<select id="getReplyListById" resultMap="boardVO">
 		select * from GK_COMMENT
