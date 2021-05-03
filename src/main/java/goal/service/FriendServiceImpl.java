@@ -18,9 +18,10 @@ public class FriendServiceImpl implements FriendService{
 	private FriendMapper mapper;
 	
 	@Override
-	public List<FriendVO> getFriendsList(UserVO vo) {
-		return mapper.listFriend(vo);
+	public List<FriendVO> getFriendsList(FriendVO vo) {
+		return mapper.getlistFriend(vo);
 	}
+
 
 	@Override
 	public void addFriend(FriendVO vo) {

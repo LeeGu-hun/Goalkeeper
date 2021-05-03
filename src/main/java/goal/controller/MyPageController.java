@@ -44,10 +44,11 @@ public class MyPageController {
 	
 	@GetMapping("/myFriends")
 	public ModelAndView getFriendsList(HttpSession session) {
-		vo.setUno(2);
+		FriendVO friend = new FriendVO();
+		friend.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
-		List<FriendVO> list = friendService.getFriendsList(vo);
+		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
 		return mv;
 	}
@@ -70,17 +71,17 @@ public class MyPageController {
 		return "redirect:/view/mySearchFriends";
 	}
 	
-	@PostMapping("myFriends")
-	public ModelAndView deleteFriend(@RequestParam(value="uno") int uno) {
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
-		friendService.remove(uno);
-		List<FriendVO> friendList = getFriendList(vo);
-		mv.addObject("friendList", friendList);
-		return mv;
-	}
+//	@PostMapping("myFriends")
+//	public ModelAndView deleteFriend(@RequestParam(value="uno") int uno) {
+//		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+//		friendService.remove(uno);
+//		List<FriendVO> friendList = getFriendList(vo);
+//		mv.addObject("friendList", friendList);
+//		return mv;
+//	}
 	
-	private List<FriendVO> getFriendList(UserVO vo){
-		List<FriendVO> friendList = friendService.getFriendsList(vo);
-		return friendList;
-	}
+//	private List<FriendVO> getFriendList(UserVO vo){
+//		List<FriendVO> friendList = friendService.getFriendsList(vo);
+//		return friendList;
+//	}
 }

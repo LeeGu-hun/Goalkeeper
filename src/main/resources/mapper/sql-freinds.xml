@@ -9,8 +9,8 @@
 		<id property="f_birthdate" column="f_birthdate"></id>
 	</resultMap>
 	
-	<select id="listFriend" parameterType="goal.vo.UserVO" resultMap="friendVO">
-		select * from GK_FRIEND where uno=#{uno}
+	<select id="getlistFriend" resultMap="friendVO" parameterType="goal.vo.FriendVO"> 
+		select * from GK_FRIEND where uno=#{uno} 
 	</select>
 	
 	<insert id="addFriend" parameterType="goal.vo.FriendVO">

@@ -9,7 +9,7 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface FriendMapper {
-	List<FriendVO> listFriend(UserVO vo);
+	List<FriendVO> getlistFriend(FriendVO vo);
 	
 	int addFriend(FriendVO vo);
 	
