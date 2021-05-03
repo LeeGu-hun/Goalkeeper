@@ -53,43 +53,56 @@
 				<div class="card-title text-xs-center">
 					<img src="../../app-assets/images/logo/robust-logo-dark.png" alt="branding logo">
 				</div>
-				<h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2"><span>Create Account</span></h6>
+				<h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2"><span>계정 생성</span></h6>
 			</div>
 			<div class="card-body collapse in">	
 				<div class="card-block">
 					<form class="form-horizontal form-simple" action="/register" name="register-page" method="post" novalidate>
 						<fieldset class="form-group position-relative has-icon-left mb-1">
-							<input type="text" class="form-control form-control-lg input-lg" id="u_name" placeholder="User Name" name="u_name">
+							<input type="text" class="form-control form-control-lg input-lg" id="u_name" placeholder="유저 이름" name="userName">
 							<div class="form-control-position">
 							    <i class="icon-head"></i>
 							</div>
 						</fieldset>
 						<fieldset class="form-group position-relative has-icon-left mb-1">
-							<input type="email" class="form-control form-control-lg input-lg" id="u_id" placeholder="Enter your Id" name="u_id" required>
+							<input type="email" class="form-control form-control-lg input-lg" id="u_id" placeholder="유저 아이디" name="userId" required>
 							<div class="form-control-position">
 							    <i class="icon-mail6"></i>
 							</div>
 						</fieldset>
 						<fieldset class="form-group position-relative has-icon-left">
-							<input type="password" class="form-control form-control-lg input-lg" id="u_password" placeholder="Enter Password" name="u_password" required>
+							<input type="password" class="form-control form-control-lg input-lg" id="u_password" placeholder="비밃번호 확인" name="userPw" required>
 							<div class="form-control-position">
 							    <i class="icon-key3"></i>
 							</div>
 						</fieldset>
 						<fieldset class="form-group position-relative has-icon-left">
-							<input type="password" class="form-control form-control-lg input-lg" id="re_password" placeholder="reCheck-password" required>
+							<input type="password" class="form-control form-control-lg input-lg" id="re_password" placeholder="비밀번호 재확인" required>
 							<div class="form-control-position">
 							    <i class="icon-key3"></i>
+							</div>
+						</fieldset>
+						<fieldset class="form-group position-relative has-icon-left">
+							<input type="password" class="form-control form-control-lg input-lg" id="u_number" placeholder="휴대폰 번호" name="userPhone"required>
+							<div class="form-control-position">
+							    <i class="icon-clock5"></i>
 							</div>
 						</fieldset>
 						<fieldset class="form-group position-relative has-icon-left mb-1">
-							<input type="email" class="form-control form-control-lg input-lg" id="u_mail" placeholder="Enter your Email" name="u_mail" required>
+							<input type="email" class="form-control form-control-lg input-lg" id="u_mail" placeholder="이메일" name="userMail" required>
 							<div class="form-control-position">
 							    <i class="icon-mail6"></i>
 							</div>
 						</fieldset>
+						<fieldset class="form-group position-relative has-icon-left mb-1 display-inline-block width-80-per">
+							<input type="text" class="form-control form-control-lg input-lg" id="type_birth" placeholder="생일(0000-00-00)">
+							<div class="form-control-position">
+							    <i class="icon-calendar5"></i>
+							</div>
+						</fieldset>
+						<button type="button" class="btn btn-warning position-absolute" id="birth_check" style="margin-left:20px; margin-top:6px">확인</button>
 						<div class="position-relative has-icon-left">
-							<input type="date" id="u_birthdate" class="form-control"  name="u_birthdate"required
+							<input type="date" id="u_birthdate" class="form-control"  name="userBirthdate"required
 												pattern="\d{4}-\d{2}-\d{2}">
 							<div class="form-control-position">
 								<i class="icon-calendar5"></i>
@@ -106,11 +119,10 @@
 				<input type="checkbox" name="coffee" id="h7"><label for="h2">커피</label>
 			</div>
 			<br>
-			<input type="text" id="u_number" class="form-control" placeholder="Phone-number" name="u_number">
-			<button type="submit" class="btn btn-primary btn-lg btn-block" id= "doSignUp"><i class="icon-unlock2"></i> Register</button>
+			<button type="submit" class="btn btn-success btn-lg btn-block" id= "doSignUp"><i class="icon-unlock2"></i> 가입하기</button>
 			</form>
 			</div>
-				<p class="text-xs-center">Already have an account ? <a href="user_login.html" class="card-link">Login</a></p>
+				<p class="text-xs-center">이미 계정이 있으신가요? <a href="user_login.html" class="card-link">로그인</a></p>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 window.onload = function() {
-	$('#doSignUp').click(function(e){	   
+	$('#doSignUp').click(function(e){	 
 	    var userid = $("#u_id").val();
 	    var userpwd = $("#u_password").val();
 	    var inputPwdCfm = $("#re_password").val();
@@ -36,6 +36,16 @@ window.onload = function() {
 	        $("#u_number").focus();
 	        return false;
 	    }	   
-	    this.submit(); 
+	    alert($('#u_name').val() + "님 환영합니다!");
+	    $(this).submit(); 
+	});
+	$('#birth_check').click(function(){
+		var birthDate = $('#type_birth').val();
+		var splitDate = birthDate.split("-");
+		if(birthDate == "" || splitDate.length !=3 || splitDate[1].length !=2 || splitDate[2].length !=2 || splitDate[0].length !=4){
+			alert("맞는 양식을 입력하세요");
+			return false;
+		}
+		$("#u_birthdate").attr('value', birthDate);
 	});
 }

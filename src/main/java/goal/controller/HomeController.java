@@ -5,42 +5,43 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
 import goal.service.BoardService;
-
+import goal.service.UserDetailService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
 
-import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
-@RestController
+@Controller
 public class HomeController {
 	
-	@Autowired
+	@Autowiredspring principal
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
-
-	/*
-	 * @Autowired private UserDetailService userDetailService;
-	 */
+	@Autowired 
+	private UserDetailService userDetailService;
+	 
 	@GetMapping("/home")
-	   public ModelAndView openHome(HttpServletRequest request) {
+	   public ModelAndView openHome(HttpServletRequest request, Authentication authentication) {
 	      ModelAndView mv = new ModelAndView("/view/home/login_home");
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
 	      if(user!=null) {
 	         mv.addObject("login", "success");
-	         mv.addObject("user", user);
+	         mv.addObject("user", userName);
 	      } else {
-	         mv.addObject("login", "fail");
+	         mv.addObject("login", null);
 	      }
 	      List<BoardVO> boardList = boardService.getBoardList();   
 	      mv.addObject("List", boardList);
@@ -58,9 +59,11 @@ public class HomeController {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
 		if(user != null) {
 			HttpSession session = request.getSession(true);
+			userDetailService.save(vo);
 			session.setAttribute("user", user);
+			return "redirect:/home";
 		} 
-		return "redirect:/home";
+		return "redirect:/login";
 	   }
 	@GetMapping("/register") 
 	public ModelAndView openRegister() {
@@ -82,6 +85,14 @@ public class HomeController {
 			 
 		}
 	}
+	@GetMapping("/logtout")
+	public String logoutUser(@RequestParam String userName, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
+		return "redirect:/home";
+	}
+	
 	@GetMapping("/denied")
     public String deniedView() {
         return "view/error/denied";
