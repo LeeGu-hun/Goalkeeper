@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,9 +37,7 @@ public class MyPageController {
 	
 	@GetMapping("/myPage")
 	public ModelAndView openHome(HttpSession session) {
-		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
-//		mv.addObject("list", list);
 		return mv;	
 	}
 	
@@ -57,31 +56,35 @@ public class MyPageController {
 	public ModelAndView UserList(HttpSession session) {
 		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
-      
+
 		List<UserVO> list = searchFriendService.allUserList(vo);
 		mv.addObject("list", list);
 		return mv;
 	}
 	
 	@PostMapping("/mySearchFriends")
-	public String addFriend(@ModelAttribute FriendVO friend, RedirectAttributes rttr) {
+	public ModelAndView addFriend(@RequestBody FriendVO friend) {
 		vo.setUno(2);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		friendService.addFriend(friend);
-		rttr.addFlashAttribute("add", friend.getUno());
-		return "redirect:/view/mySearchFriends";
+		List<FriendVO> list = friendService.getFriendsList(friend);
+		mv.addObject(list);
+		return mv;
 	}
 	
-//	@PostMapping("myFriends")
-//	public ModelAndView deleteFriend(@RequestParam(value="uno") int uno) {
-//		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
-//		friendService.remove(uno);
-//		List<FriendVO> friendList = getFriendList(vo);
-//		mv.addObject("friendList", friendList);
-//		return mv;
-//	}
+	@PostMapping("myFriends")
+	public ModelAndView deleteFriend(@RequestParam(value="uno") int uno, @RequestParam(value="fno") int fno) {
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		friendService.remove(uno, fno);
+		
+		FriendVO vo = new FriendVO();
+		List<FriendVO> friendList = friendList(vo);
+		mv.addObject("friendList", friendList);
+		return mv;
+	}
 	
-//	private List<FriendVO> getFriendList(UserVO vo){
-//		List<FriendVO> friendList = friendService.getFriendsList(vo);
-//		return friendList;
-//	}
+	private List<FriendVO> friendList(FriendVO vo){
+		List<FriendVO> friendList = friendService.getFriendsList(vo);
+		return friendList;
+	}
 }

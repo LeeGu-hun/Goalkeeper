@@ -8,7 +8,7 @@ import goal.vo.UserVO;
 public interface FriendService {
 	List<FriendVO> getFriendsList(FriendVO vo);
 	
-	void addFriend(FriendVO vo);
+	boolean addFriend(FriendVO vo);
 	
-	boolean remove(int uno);
+	boolean remove(int uno, int fno);
 }

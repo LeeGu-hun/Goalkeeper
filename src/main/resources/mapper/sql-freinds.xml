@@ -4,9 +4,9 @@
 	<resultMap type="goal.vo.FriendVO" id="friendVO">
 		<id property="uno" column="uno"></id>
 		<id property="fno" column="fno"></id>
-		<id property="f_name" column="f_name"></id>
-		<id property="f_number" column="f_number"></id>
-		<id property="f_birthdate" column="f_birthdate"></id>
+		<id property="friendName" column="friendName"></id>
+		<id property="friendNumber" column="friendNumber"></id>
+		<id property="friendBirthdate" column="friendBirthdate"></id>
 	</resultMap>
 	
 	<select id="getlistFriend" resultMap="friendVO" parameterType="goal.vo.FriendVO"> 
@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="addFriend" parameterType="goal.vo.FriendVO">
-		insert into GK_FRIEND(uno, fno, f_name, f_number, f_birthdate)
-		values (#{uno}, #{fno}, #{f_name}, #{f_number}, #{f_birthdate})
+		insert into GK_FRIEND(uno, fno, friendName, friendName, friendBirthdate)
+		values (#{uno}, #{fno}, #{friendName}, #{friendName}, #{friendBirthdate})
 	</insert>
 	
 	<delete id="deleteFriend" parameterType="int">

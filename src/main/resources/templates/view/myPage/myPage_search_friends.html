@@ -8,9 +8,12 @@
 <title>친구 찾기 페이지</title>
 <script>
 $(document).ready( function() {
-   $("#header").load("view/main_header.html");
+   $("#header").load("view/header.html");
    
-   
+   $('#newFriendList button').on('click', function(e){
+	   e.prevertDefualt();
+	   $('#newFriendList').attr('action', 'addFriend');
+   });
 });
 </script>
 </head>
@@ -30,10 +33,10 @@ $(document).ready( function() {
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
 						<form id="newFriendsList" method="get" th:each="f:${list}">
 							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" th:value="${f.uno}" style="display:inline-block; width:85%;">
-							<input th:value="${f.u_name}" style="display:block;">
-							<input th:value="${#dates.format(f.u_birthdate, 'yyyy-MM-dd')}"></a>
-							<button type="button" class="btn btn-info btn-min-width mr-1 mb-1"
-								onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
+							<input th:value="${f.userName}" style="display:block;">
+							<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}"></a>
+							<button type="button" id="addBtn" class="btn btn-info btn-min-width mr-1 mb-1"
+								style="margin-top:22px; float:right;">친구 추가</button>
 						</form>
 					</div>
 				</div>

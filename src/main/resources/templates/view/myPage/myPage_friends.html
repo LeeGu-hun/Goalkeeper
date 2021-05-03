@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script>
 $(document).ready( function() {
-    $("#header").load("view/main_header.html");
+    $("#header").load("view/header.html");
 });
 </script>
 </head>
@@ -30,12 +30,12 @@ $(document).ready( function() {
 				<div class="card-block" th:each="f:${list}">
 					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
 	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
-	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.fno})}" th:text="${f.f_name}"></a></label>
-	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.fno})}" th:text="${#dates.format(f.f_birthdate, 'yyyy-MM-dd')}"></a></label>
+	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.fno})}" th:text="${f.friendName}"></a></label>
+	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.fno})}" th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a></label>
                     </div>
 	                <i class="icon-ei-comment"></i>
 					<button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" 
-						onclick="href='deleteFriend'" style="float:right;">친구 삭제</button>
+						th:onclick="deleteFriend([[${f.uno}]], [[${f.fno}]])" style="float:right;">친구 삭제</button>
 				</div>
 			</div>
 		</div>
