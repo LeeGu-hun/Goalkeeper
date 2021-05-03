@@ -1,39 +1,4 @@
 $(document).ready(function() {
-
-
-var availableTags = [
-                            '가나',
-                            '가나쵸콜렛',
-                            '갈갈이 삼형제',
-                            '북마크',
-                            '북까페',
-                            '엄마',
-                            '아빠',
-                            '북소리',
-                            '여러분',
-                            '소문',
-                            '소문난 식당',
-                            '나나나',
-                            '쇼',
-                            '쇼팽',
-                            '모나미',
-                            '한강',
-                            '강강수월래',
-                            '강촌',
-                            '제주도',
-                            '삼총사',
-                            '먹보',
-                            '먹소리',
-                            '수박',
-                            '수박 겉핥기'
-                        ];
-
-$("#searchbox").autocomplete(availableTags,{ 
-            matchContains: true,
-            selectFirst: false
-        });
-
-	
 	
 	$("#btnblue").click(function(){
         $("#card-background").css("background-image", "url(../../app-assets/images/blue.jpg)");});
@@ -45,8 +10,8 @@ $("#searchbox").autocomplete(availableTags,{
 	$("#imgdiv").hide();
 	$("#group_form").hide();
 	
-	$('#b_cate').change(function() {
-		var result = $('#b_cate option:selected').val();
+	$('#bo_cate').change(function() {
+		var result = $('#bo_cate option:selected').val();
 		if (result == 'group') {
 			$('.group_form').show();
 		} else {
@@ -54,8 +19,8 @@ $("#searchbox").autocomplete(availableTags,{
 		}
 	});
 
-	document.getElementById("b_cate").value;
-	document.getElementById("b_group").value;
+	document.getElementById("bo_cate").value;
+	document.getElementById("bo_group").value;
 	
 	function CheckEnter(frm, objName) {
 		var keycode = event.keyCode;
@@ -132,15 +97,15 @@ $("#searchbox").autocomplete(availableTags,{
 	}
 	$('#btnInsert').click(function(e) {
 		e.preventDefault();
-		if (document.getElementById("b_cate").value == "none") {
+		if (document.getElementById("bo_cate").value == "none") {
 			alert("범위를 설정해주세요.");
 			return false;
-		} else if (document.getElementById("b_cate").value == "group") {
-			if(document.getElementById("b_group").value =="") {
+		} else if (document.getElementById("bo_cate").value == "group") {
+			if(document.getElementById("bo_group").value =="") {
 			alert("그룹범위를 설정해주세요.");
 			return false;
 			}
-		} else if ($('#b_content').val() == "") {
+		} else if ($('#bo_content').val() == "") {
 			alert("내용을 입력해주세요.");
 			return false;
 		} 
