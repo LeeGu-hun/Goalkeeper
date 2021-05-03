@@ -69,12 +69,12 @@
 		}
 		var toggle = true;
 		$('#removeBtn').click(function(){
-			if($('input[type="radio"]:checked').val()==null){
+			if($('input[type="checkbox"]:checked').val()==null){
 				alert("삭제할 항목을 선택하세요.");
 				return false;		
 			}
-			$('input[type="radio"]:checked').attr("name", "gno");
-			$('input[type="radio"]:checked').closest("form").attr("id", "removeFrm");
+			$('input[type="checkbox"]:checked').attr("name", "gno");
+			$('input[type="checkbox"]:checked').closest("form").attr("id", "removeFrm");
 			toggle=false;
 			$('#confirmBtn').click(function(){
 				alert("삭제가 완료되었습니다.");
@@ -83,18 +83,23 @@
 		});
 		$('#selectBtn').click(function(){
 			if(toggle){
-				$('input[type="radio"]').attr("style", "display:inline-block");
+				$('input[type="checkbox"]').attr("style", "display:inline-block");
 				$('#selectBtn').html("최소");
 				toggle = false;
 			} else{
-				$('input[type="radio"]').attr("style", "display:none");
+				$('input[type="checkbox"]').attr("style", "display:none");
 				$('#selectBtn').html("그룹 선택");
 				toggle=true;
-			}
-			
+			}			
 		});
 	});
 	
+	function goDetail(){
+		var gno = $(this).attr("id");
+		alert(gno);
+		$(this).closet("from").attr("id", "detailForm");
+		$('#detailForm').submit();
+	};
 </script>
 </head>
 <body data-open="click" data-menu="vertical-menu" data-col="2-columns"
@@ -130,7 +135,7 @@
 								<div class="card-block">
 									<div class="card-title">
 										<form class="display-inline-block" action="/user/myGroup" method="post">
-											<input type="radio" style="display:none" th:value="${obj.gno}" name="gno">
+											<input type="checkbox" style="display:none" th:value="${obj.gno}" name="gno">
 										</form>
 										<h4 id="nullCheck" class="display-inline-block" th:text="${obj.g_name}"></h4>
 									</div>
@@ -138,7 +143,11 @@
 										<p th:if="${obj.g_open}=='Y'">공개</p>
 										<p th:if="${obj.g_open}=='N'">비공개</p>
 									</p>
-									<a href="#" class="btn btn-outline-deep-orange">자세히 보기</a>
+									<form action="/user/group_detail" method="get">
+										<input type="hidden" name="gno" th:value="${obj.gno}">
+										<button type="submit" class="btn btn-outline-deep-orange">자세히 보기</button>
+									</form>
+									
 								</div>
 								<div id="toggleDiv" style="display:none; margin-left:40%;"><h2>가입된 그룹이 없습니다.</h2></div>
 							</div>
