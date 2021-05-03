@@ -44,16 +44,6 @@ public class UserServiceImpl implements UserService{
 		return id;
 	}
 
-	
-	@Override
-	public List<PostVO> selectPost(PostVO vo) {
-		return mapper.getPost(vo);
-		
-	}
-	@Override
-	public List<ReplyVO> selectReply(ReplyVO vo) {
-		return mapper.getReply(vo);
-		
-	}
+
 }
 

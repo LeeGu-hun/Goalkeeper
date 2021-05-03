@@ -5,14 +5,8 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("postVO")
+@Alias("replyVO")
 public class ReplyVO {
-	
-	private String r_writer;
-	
-	private String r_content;
-	
-	private String r_date;
-	
+	private String replyWriter, replyContent, replyDate;
 	private int bno;
 }
