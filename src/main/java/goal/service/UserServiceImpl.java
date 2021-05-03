@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService{
 		return id;
 	}
 
+	@Override
+	public UserVO getUser(UserVO vo) {
+		return mapper.readUser(vo);
+	}
+
 
 }
 
