@@ -14,7 +14,7 @@ import goal.service.BoardService;
 import goal.service.UserDetailService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
-import goal.vo.PostVO;
+
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -69,7 +69,7 @@ public class HomeController {
 	}
 	@PostMapping("/register")
 	public ModelAndView insertUser(UserVO vo, Model model) {
-		String idCheck = userService.checkId(vo.getU_id());
+		String idCheck = userService.checkId(vo.getUserId());
 		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);
