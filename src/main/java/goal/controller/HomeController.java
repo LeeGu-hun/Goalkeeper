@@ -31,8 +31,7 @@ public class HomeController {
 	@GetMapping("/home")
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/user_home");
-	      HttpSession session = request.getSession(true);
-	      UserVO user = (UserVO) session.getAttribute("user");
+	      UserVO user = getLoginUser(request);
 	      if(user!=null) {
 	         mv.addObject("user", user);
 	      } else {
@@ -92,5 +91,9 @@ public class HomeController {
         return "view/error/denied";
     }
 	
-	
+	public UserVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+	    UserVO user = (UserVO) session.getAttribute("user");
+	    return user;
+	}
 }
