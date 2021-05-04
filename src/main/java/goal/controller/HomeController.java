@@ -5,10 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import goal.service.BoardService;
-import goal.service.UserDetailService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
 
@@ -31,12 +26,10 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
-	@Autowired 
-	private UserDetailService userDetailService;
 	 
 	@GetMapping("/home")
 	   public ModelAndView openHome(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("/view/home/login_home");
+	      ModelAndView mv = new ModelAndView("view/home/user_home");
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
 	      if(user!=null) {
@@ -60,7 +53,6 @@ public class HomeController {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
 		HttpSession session = request.getSession(true);
 		if(user != null) {
-			user = userDetailService.save(vo);	
 			session.setAttribute("user", user);
 			return "redirect:/home";
 		} 
@@ -77,17 +69,17 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);
-			mv.setViewName("/view/home/user_login");
+			mv.setViewName("view/home/user_home");
 			return mv;
 		} else {
 			model.addAttribute("msg","중복된 아이디 입니다.");
-			mv.setViewName("/view/home/user_register");
+			mv.setViewName("view/home/user_register");
 			return mv;
 			 
 		}
 	}
 	@GetMapping("/logtout")
-	public String logoutUser(@RequestParam String userName, HttpServletRequest request) {
+	public String logoutUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
