@@ -15,12 +15,5 @@ public class WebConfig implements WebMvcConfigurer{
         .addResourceLocations("file:///C:/board-image/")
         .setCachePeriod(20);
 		
-	}
-
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("/home");
-	}
-	
-
+	}	
 }

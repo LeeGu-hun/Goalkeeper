@@ -31,6 +31,9 @@ public class UserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String u_id) throws UsernameNotFoundException {
 		UserVO user = this.user.findById(u_id);
+		if(user == null) {
+			return null;
+		}
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("USER"));
 

@@ -35,15 +35,15 @@ public class HomeController {
 	private UserDetailService userDetailService;
 	 
 	@GetMapping("/home")
-	   public ModelAndView openHome(HttpServletRequest request, @AuthenticationPrincipal User user) {
+	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("/view/home/login_home");
 	      HttpSession session = request.getSession(true);
-//	      UserVO user = (UserVO) session.getAttribute("user");
+	      UserVO user = (UserVO) session.getAttribute("user");
+	      String check = (String) session.getAttribute("fail");
 	      if(user!=null) {
-	         mv.addObject("login", "success");
 	         mv.addObject("user", user);
 	      } else {
-	         mv.addObject("login", null);
+	         mv.addObject("user", check);
 	      }
 	      List<BoardVO> boardList = boardService.getBoardList();   
 	      mv.addObject("List", boardList);
@@ -59,13 +59,13 @@ public class HomeController {
 	@PostMapping("/login")
 	public String checkLogin(HttpServletRequest request,UserVO vo, Model model) {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
+		HttpSession session = request.getSession(true);
 		if(user != null) {
-			HttpSession session = request.getSession(true);
-			user = userDetailService.save(vo);
-			
+			user = userDetailService.save(vo);	
 			session.setAttribute("user", user);
 			return "redirect:/home";
 		} 
+		session.setAttribute("fail", "fail");
 		return "redirect:/login";
 	   }
 	@GetMapping("/register") 

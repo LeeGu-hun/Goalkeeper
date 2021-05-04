@@ -17,6 +17,7 @@ public class UserDetailVO implements UserDetails{
         auth.add(new SimpleGrantedAuthority("ROLE_USER"));
         return auth;
 	}
+	
 	@Override
 	public String getPassword() {
 		return user.getUserPw();
