@@ -33,8 +33,10 @@ $(document).ready( function() {
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
 						<form id="newFriendsList" method="get" th:each="f:${list}">
 							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" th:value="${f.uno}" style="display:inline-block; width:85%;">
-							<input th:value="${f.userName}" style="display:block;">
-							<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}"></a>
+							<input type="hidden" th:value="${f.uno}" name="fno">
+							<input th:value="${f.userName}" name="friendName" style="display:block;">
+							<input type="hidden" th:value="${friendNumber}" name="friendNumber">
+							<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
 							<button type="button" id="addBtn" class="btn btn-info btn-min-width mr-1 mb-1"
 								style="margin-top:22px; float:right;">친구 추가</button>
 						</form>

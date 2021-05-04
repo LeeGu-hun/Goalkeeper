@@ -22,15 +22,14 @@ public class FriendServiceImpl implements FriendService{
 		return mapper.getlistFriend(vo);
 	}
 
-
 	@Override
 	public boolean addFriend(FriendVO vo) {
 		return mapper.addFriend(vo) > 0 ? true : false;
 	}
 
 	@Override
-	public boolean remove(int uno, int fno) {
-		return mapper.deleteFriend(uno, fno) > 0 ? true : false;
+	public boolean remove(int fno) {
+		return mapper.deleteFriend(fno) > 0 ? true : false;
 	}
 	
 }

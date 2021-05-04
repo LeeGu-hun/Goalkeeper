@@ -1,5 +1,6 @@
 package goal.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,13 +38,14 @@ public class MyPageController {
 	
 	@GetMapping("/myPage")
 	public ModelAndView openHome(HttpSession session) {
+		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
+		mv.addObject("uno", vo.getUno());
 		return mv;	
 	}
 	
 	@GetMapping("/myFriends")
-	public ModelAndView getFriendsList(HttpSession session) {
-		FriendVO friend = new FriendVO();
+	public ModelAndView getFriendsList(FriendVO friend, HttpSession session) {
 		friend.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
@@ -63,8 +65,11 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/mySearchFriends")
-	public ModelAndView addFriend(@RequestBody FriendVO friend) {
-		vo.setUno(2);
+	public ModelAndView addFriend(@RequestParam(value="uno") int uno, @RequestParam(value="fno") int fno, 
+			@RequestParam(value="friendName") int friendName, @RequestParam(value="friendNumber") String friendNumber, 
+			@RequestParam(value="friendBirthdate") Date friendBirthdate) {
+		vo.setUno(uno);
+		FriendVO friend = new FriendVO();
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		friendService.addFriend(friend);
 		List<FriendVO> list = friendService.getFriendsList(friend);
@@ -73,18 +78,15 @@ public class MyPageController {
 	}
 	
 	@PostMapping("myFriends")
-	public ModelAndView deleteFriend(@RequestParam(value="uno") int uno, @RequestParam(value="fno") int fno) {
+	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
+		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
-		friendService.remove(uno, fno);
+		friendService.remove(fno);
 		
-		FriendVO vo = new FriendVO();
-		List<FriendVO> friendList = friendList(vo);
+		FriendVO friend = new FriendVO();
+		List<FriendVO> friendList = friendService.getFriendsList(friend);
 		mv.addObject("friendList", friendList);
 		return mv;
 	}
 	
-	private List<FriendVO> friendList(FriendVO vo){
-		List<FriendVO> friendList = friendService.getFriendsList(vo);
-		return friendList;
-	}
 }

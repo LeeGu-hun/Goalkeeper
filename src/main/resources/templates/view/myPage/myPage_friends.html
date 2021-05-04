@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-	crossorigin="anonymous"></script>
-<title>Insert title here</title>
-<script>
-$(document).ready( function() {
-    $("#header").load("view/header.html");
-});
-</script>
+<head th:insert="/view/fragments/header.html :: header">
 </head>
+<body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
 <body>
-<div id="header"></div>
+<div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <div class="struct" style="margin-left:250px; margin-top:80px;">
 	<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
 		style="display:block; float:right;" th:onclick="location.href='mySearchFriends'">New Friends</button>
@@ -30,12 +21,15 @@ $(document).ready( function() {
 				<div class="card-block" th:each="f:${list}">
 					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
 	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
-	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.fno})}" th:text="${f.friendName}"></a></label>
-	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.fno})}" th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a></label>
+	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.friendNo})}" th:text="${f.friendName}"></a></label>
+	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.friendNo})}" th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a></label>
                     </div>
 	                <i class="icon-ei-comment"></i>
-					<button type="button" class="btn btn-danger btn-min-width mr-1 mb-1" 
-						th:onclick="deleteFriend([[${f.uno}]], [[${f.fno}]])" style="float:right;">친구 삭제</button>
+					<form action="myPage" method="post">
+                    	<input type="hidden" th:value="${f.fno}" name="fno">
+                    	<button type="submit" class="btn btn-danger btn-min-width mr-1 mb-1"
+							onclick="href='deleteFriend'" style="float:right;">친구 삭제</button>
+                   	</form>
 				</div>
 			</div>
 		</div>
