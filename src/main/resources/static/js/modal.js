@@ -1,5 +1,5 @@
 
-	//상세보기 모달창 켜기 
+/*	//상세보기 모달창 켜기 
 	document.getElementById("detail-modal").onclick = function() {
         document.getElementById("modal").style.display="block";
      }
@@ -13,6 +13,6 @@
 	if( container.has(e.target).length === 0){
 		document.getElementById("modal").style.display="none";
 	}
-	});
+	});*/
 	
 	

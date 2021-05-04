@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,30 +46,25 @@ public class GroupController {
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	
-	private UserVO user = new UserVO();
-	
-	@Secured({"ROLE_USER"})
 	@GetMapping("/user/myGroup")
-	public ModelAndView openGroup(@ModelAttribute GroupVO group) {
+	public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
-//		if(user.getU_id() == null) {	//로그인 여부 판단
-//			mv.addObject("msg", "doLogin");
-//			return mv;
-//		}
-//		if(user.getU_id()==null) {
-//			mv.setViewName("/view/error/denied");
-//			return mv;
-//		}
-		user.setUno(1);
-		group.setUno(user.getUno());
-		List<GroupVO> groupList = getGroupList(user);
-		mv.addObject("List", groupList);
-		
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
+		if(user != null) {
+			group.setUno(user.getUno());
+			List<GroupVO> groupList = getGroupList(user);
+			mv.addObject("List", groupList);
+		} else {
+			mv.addObject("List", null);
+		}
 		return mv;
 	}
 	@PostMapping("/user/myGroup")
-	public ModelAndView removeGroup(@RequestParam(value="gno") int gno) {
+	public ModelAndView removeGroup(@RequestParam(value="gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
 		groupService.removeGroup(gno);
 		groupFileService.removeGroupFile(gno);
 		List<GroupVO> groupList = getGroupList(user);
@@ -90,8 +88,10 @@ public class GroupController {
 	}
 	
 	@GetMapping("/user/openManage")
-	public ModelAndView openManage() {
+	public ModelAndView openManage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
 		return mv;
@@ -104,10 +104,14 @@ public class GroupController {
 	}
 	
 	@PostMapping("/user/group_create")
-	public String createGroup(GroupVO group, GroupSVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi) throws Exception {	
+	public String createGroup(GroupVO group, GroupSVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
-		user.setUno(1);
-		groups.setUno(1);
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
+		if(user == null) {
+			return "redirect:/login";
+		}
+		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups, groupGoal);
 		groupService.insertGoal(groupGoal);
@@ -148,5 +152,10 @@ public class GroupController {
 	private List<GroupVO> getGroupList(UserVO user){
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
+	}
+	public UserVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+	    UserVO user = (UserVO) session.getAttribute("user");
+	    return user;
 	}
 }

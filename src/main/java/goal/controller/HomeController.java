@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
+	
+	private String referer = null;
 	 
 	@GetMapping("/home")
 	   public ModelAndView openHome(HttpServletRequest request) {
@@ -43,8 +47,9 @@ public class HomeController {
 	   }
 	
 	@GetMapping("/login")
-	public ModelAndView openLogin() {
+	public ModelAndView openLogin(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/home/user_login");
+		referer = request.getHeader("REFERER");
 		return mv;
 	}
 	
@@ -54,7 +59,7 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		if(user != null) {
 			session.setAttribute("user", user);
-			return "redirect:/home";
+			return "redirect:" + referer;
 		} 
 		return "redirect:/login";
 	   }
