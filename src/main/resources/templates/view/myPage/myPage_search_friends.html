@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-	crossorigin="anonymous"></script>
-<title>친구 찾기 페이지</title>
+<head th:insert="/view/fragments/header.html :: header">
+</head>
+<body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
+<body>
+<div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <script>
 $(document).ready( function() {
    $("#header").load("view/header.html");
