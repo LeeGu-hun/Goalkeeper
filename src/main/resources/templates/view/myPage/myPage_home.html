@@ -21,8 +21,11 @@
 		</li>
 	</ul>
 	<div style="display:block; width:100%;">
-		<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
-			style="display:block; float:right;" onclick="location.href='myFriends'"> 내 친구 보기</button>
+	<form action="myFriends" method="get">
+		<input type="hidden" value="${uno}">
+		<button class="btn btn-primary btn-min-width mr-1 mb-1" 
+			style="display:block; float:right;"> 내 친구 보기</button>
+	</form>
 	</div>
 	<div class="col-md-6 col-sm-12" id="dayPart">
 		<div class="card">

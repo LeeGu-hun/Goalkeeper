@@ -5,7 +5,7 @@
 <body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
 <body>
 <div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
-<div class="struct" style="margin-left:250px; margin-top:80px;">
+<div class="struct" style="margin-left:250px; margin-top:20px;">
 	<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
 		style="display:block; float:right;" th:onclick="location.href='mySearchFriends'">New Friends</button>
 	<div class="col-lg-6 col-md-12" style="width:100%;">
@@ -22,10 +22,12 @@
 					<div class="col-md-4 col-sm-6 col-xs-12 fonticon-container">
 	                    <div class="fonticon-wrap"><i class="icon-user5"></i></div>
 	                    <label class="fonticon-classname"><a th:href="@{myPage(uno=${f.friendNo})}" th:text="${f.friendName}"></a></label>
-	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.friendNo})}" th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a></label>
+	                    <label class="fonticon-unit"><a th:href="@{view/myPage/myPage_home(uno=${f.friendNo})}"
+	                    	th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a></label>
                     </div>
 	                <i class="icon-ei-comment"></i>
-					<form action="myPage" method="post">
+					<form action="myFriends" method="post">
+						<input type="hidden" value="${uno}" name="uno">
                     	<input type="hidden" th:value="${f.fno}" name="fno">
                     	<button type="submit" class="btn btn-danger btn-min-width mr-1 mb-1"
 							onclick="href='deleteFriend'" style="float:right;">친구 삭제</button>

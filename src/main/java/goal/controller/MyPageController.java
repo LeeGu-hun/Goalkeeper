@@ -3,6 +3,7 @@ package goal.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,29 +35,36 @@ public class MyPageController {
 	@Autowired
 	public UserService userService;
 	
-	private UserVO vo = new UserVO();
-	
 	@GetMapping("/myPage")
-	public ModelAndView openHome(HttpSession session) {
-		vo.setUno(2);
+	public ModelAndView openHome(HttpServletRequest request) {
+		UserVO vo = new UserVO();
+		vo = getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
-		mv.addObject("uno", vo.getUno());
+		if(vo != null) {
+			mv.addObject("vo", vo);
+			mv.addObject("uno", vo.getUno());
+		} else {
+			mv.setViewName("view/error/denied");
+		}
+		
 		return mv;	
 	}
 	
 	@GetMapping("/myFriends")
-	public ModelAndView getFriendsList(FriendVO friend, HttpSession session) {
-		friend.setUno(2);
+	public ModelAndView getFriendsList(HttpServletRequest request, UserVO vo, FriendVO friend) {
+		vo = getLoginUser(request);
+		friend.setUno(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
+		mv.addObject("uno", friend.getUno());
 		return mv;
 	}
 	
 	@GetMapping("/mySearchFriends")
 	public ModelAndView UserList(HttpSession session) {
-		vo.setUno(2);
+		UserVO vo = new UserVO();
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 
 		List<UserVO> list = searchFriendService.allUserList(vo);
@@ -68,7 +76,6 @@ public class MyPageController {
 	public ModelAndView addFriend(@RequestParam(value="uno") int uno, @RequestParam(value="fno") int fno, 
 			@RequestParam(value="friendName") int friendName, @RequestParam(value="friendNumber") String friendNumber, 
 			@RequestParam(value="friendBirthdate") Date friendBirthdate) {
-		vo.setUno(uno);
 		FriendVO friend = new FriendVO();
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		friendService.addFriend(friend);
@@ -79,7 +86,6 @@ public class MyPageController {
 	
 	@PostMapping("myFriends")
 	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
-		vo.setUno(2);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		friendService.remove(fno);
 		
@@ -87,6 +93,12 @@ public class MyPageController {
 		List<FriendVO> friendList = friendService.getFriendsList(friend);
 		mv.addObject("friendList", friendList);
 		return mv;
+	}
+	
+	public UserVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+	    UserVO user = (UserVO) session.getAttribute("user");
+	    return user;
 	}
 	
 }

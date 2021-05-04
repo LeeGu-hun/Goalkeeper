@@ -7,9 +7,7 @@
 <div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <script>
 $(document).ready( function() {
-   $("#header").load("view/header.html");
-   
-   $('#newFriendList button').on('click', function(e){
+	$('#newFriendList button').on('click', function(e){
 	   e.prevertDefualt();
 	   $('#newFriendList').attr('action', 'addFriend');
    });
@@ -18,7 +16,7 @@ $(document).ready( function() {
 </head>
 <body>
 <div id="header"></div>
-<div style="margin-top:80px; margin-left:250px;">
+<div style="margin-top:60px; margin-left:250px;">
 	<div class="col-lg-6 col-md-12" style="width:100%">
 		<div class="card">
 			<div class="card-header" style="display:block;">
@@ -31,7 +29,8 @@ $(document).ready( function() {
 					<div class="list-group">
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
 						<form id="newFriendsList" method="get" th:each="f:${list}">
-							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" th:value="${f.uno}" style="display:inline-block; width:85%;">
+							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" 
+								th:value="${f.uno}" style="display:inline-block; width:85%;">
 							<input type="hidden" th:value="${f.uno}" name="fno">
 							<input th:value="${f.userName}" name="friendName" style="display:block;">
 							<input type="hidden" th:value="${friendNumber}" name="friendNumber">
