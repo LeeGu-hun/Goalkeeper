@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-textdirection="ltr" class="loading" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" data-textdirection="ltr" class="loading" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -161,8 +161,8 @@
               </li>
 			  <!-- -->
 			  <!-- 프로필 -->
-				<li class="dropdown dropdown-user nav-item" >
-					<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link">
+				<li class="dropdown dropdown-user nav-item" sec:authorize="isAuthenticated()">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link" >
 					<span class="avatar avatar-online"><img src="../../app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span>
 					<span id="u_name" class="user-name" th:text="${userName}"></span></a>
 					<div class="dropdown-menu dropdown-menu-right">
@@ -174,7 +174,7 @@
 						<a th:href="@{/logout/(userName=${user.userName})" class="dropdown-item"><i class="icon-power3"></i> 로그아웃</a>
 					</div>
 				</li>
-				<li class="dropdown dropdown-user nav-item" style="position:relative; width:200px;" th:unless="${login==null}">
+				<li class="dropdown dropdown-user nav-item" style="position:relative; width:200px;" sec:authorize="!isAuthenticated()">
 
 					<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link">
 		

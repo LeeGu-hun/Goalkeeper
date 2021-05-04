@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,10 +35,10 @@ public class HomeController {
 	private UserDetailService userDetailService;
 	 
 	@GetMapping("/home")
-	   public ModelAndView openHome(HttpServletRequest request, Authentication authentication) {
+	   public ModelAndView openHome(HttpServletRequest request, @AuthenticationPrincipal User user) {
 	      ModelAndView mv = new ModelAndView("/view/home/login_home");
 	      HttpSession session = request.getSession(true);
-	      UserVO user = (UserVO) session.getAttribute("user");
+//	      UserVO user = (UserVO) session.getAttribute("user");
 	      if(user!=null) {
 	         mv.addObject("login", "success");
 	         mv.addObject("user", user);
