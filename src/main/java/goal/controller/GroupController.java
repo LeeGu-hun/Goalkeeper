@@ -1,4 +1,4 @@
-package goal.controller;
+	package goal.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;

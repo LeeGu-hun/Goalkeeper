@@ -1,5 +1,3 @@
-$(document).ready(function() {
-	
 	$("#btnblue").click(function(){
         $("#card-background").css("background-image", "url(../../app-assets/images/blue.jpg)");});
 	$("#btnyellow").click(function(){
@@ -112,5 +110,4 @@ $(document).ready(function() {
 		document.form.action = "/board/insert_board.do";
 		document.form.submit();
 		alert("저장되었습니다.");
-	});
 });

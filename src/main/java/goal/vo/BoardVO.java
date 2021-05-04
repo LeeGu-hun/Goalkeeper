@@ -13,7 +13,7 @@ import lombok.Data;
 public class BoardVO {
    private int bno;
    private int uno;
-   private String userid;
+   private String userId;
    private String bo_content;
    private String bo_title;
    private String bo_cate;

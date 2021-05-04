@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.BoardMapper;
 import goal.vo.BoardVO;
+import goal.vo.UserVO;
 
 @Service
 @Component
@@ -22,8 +23,8 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
-	public List<BoardVO> selectBoardList(BoardVO vo) {
-	      return boardMapper.selectBoardList(vo);
+	public List<BoardVO> selectBoardList(UserVO uservo) {
+	      return boardMapper.selectBoardList(uservo);
 	}
 	@Override
 	public BoardVO recentBoard() {
@@ -32,8 +33,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public List<BoardVO> getBoardList() {
-		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.getBoardList();
 	}
 
 	@Override
