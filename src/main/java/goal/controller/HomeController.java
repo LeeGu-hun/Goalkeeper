@@ -39,11 +39,10 @@ public class HomeController {
 	      ModelAndView mv = new ModelAndView("/view/home/login_home");
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
-	      String check = (String) session.getAttribute("fail");
 	      if(user!=null) {
 	         mv.addObject("user", user);
 	      } else {
-	         mv.addObject("user", check);
+	         mv.addObject("user", null);
 	      }
 	      List<BoardVO> boardList = boardService.getBoardList();   
 	      mv.addObject("List", boardList);
@@ -65,7 +64,6 @@ public class HomeController {
 			session.setAttribute("user", user);
 			return "redirect:/home";
 		} 
-		session.setAttribute("fail", "fail");
 		return "redirect:/login";
 	   }
 	@GetMapping("/register") 
