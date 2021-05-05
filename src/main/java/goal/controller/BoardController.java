@@ -69,21 +69,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardSearch")
-	public ModelAndView searchBoard(HttpServletRequest request, ModelAndView mv) {
-		mv.setViewName("view/board/board_search");
+	public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("view/board/board_search");
 		UserVO user = getLoginUser(request);
-	
-		List<BoardVO> boardlist = boardService.getBoardList();
-		mv.addObject("List", boardlist);
+		if(user!=null) {
+	         mv.addObject("user", user);
+	         List<BoardVO> boardlist = boardService.searchBoard(vo);
+	 		 mv.addObject("List", boardlist);
+	      } else {
+	    	 mv.setViewName("view/error/denied");
+	      }
 		return mv;
-	}
-	
-	private List<BoardVO> getBoardList(HttpServletRequest request){
-		BoardVO board = new BoardVO();
-		HttpSession session = request.getSession(true);
-	    UserVO user = (UserVO) session.getAttribute("user");
-		List<BoardVO> boardList = boardService.searchBoard(board);
-		return boardList;
 	}
 	
 	public UserVO getLoginUser(HttpServletRequest request) {

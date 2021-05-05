@@ -12,7 +12,7 @@ import goal.vo.GroupVO;
 @Mapper
 public interface BoardMapper {
 	void insertBoard(BoardVO board);
-	List<BoardVO> searchBoard(BoardVO board);
+	List<BoardVO> searchBoard(BoardVO vo);
 	BoardVO recentBoard();
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getBoardList();

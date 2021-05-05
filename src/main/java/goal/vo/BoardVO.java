@@ -1,7 +1,6 @@
 package goal.vo;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +17,7 @@ public class BoardVO {
    private String bo_title;
    private String bo_cate;
    private String bo_group;
+   private String bo_search;
    //private String replyList;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
    private Date bo_date;  

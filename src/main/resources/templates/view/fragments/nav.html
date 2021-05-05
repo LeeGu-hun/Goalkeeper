@@ -36,10 +36,16 @@
 						<li class="nav-item hidden-sm-down"><a href="#"
 							class="nav-link nav-link-expand"><i
 								class="ficon icon-expand2"></i></a></li>
-						<li class="nav-item hidden-sm-down"><input
-							style="margin-top: 15px; margin-left: 30px" size=40 type="text"
-							placeholder="S e a r c h" class="menu-search form-control round" /></li>
-
+						<!-- 검색기능 start -->
+						<form class="form-horizontal form-simple" action="/boardSearch" method="get">
+							<li class="nav-item hidden-sm-down"><input
+								style="margin-top: 15px; margin-left: 30px" size=40 type="text" name="bo_search" id="bo_search"
+								placeholder="S e a r c h" class="menu-search form-control round" /></li>
+							<li class="nav-item hidden-sm-down">
+							<button type="submit" style="margin-top: 15px; margin-left: 40px; cursor:pointer; " size=40
+							class="btn4" >search</button></li>
+						</form>
+						<!-- 검색기능 end -->
 					</ul>
 					<ul class="nav navbar-nav float-xs-right">
 						<li class="dropdown dropdown-language nav-item"><a
