@@ -14,6 +14,6 @@ public class FriendVO {
 	private String friendName;
 	private String friendNumber;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yy/MM/dd")
 	private Date friendBirthdate;
 }

@@ -7,10 +7,7 @@
 <div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <script>
 $(document).ready( function() {
-	$('#newFriendList button').on('click', function(e){
-	   e.prevertDefualt();
-	   $('#newFriendList').attr('action', 'addFriend');
-   });
+	
 });
 </script>
 </head>
@@ -28,16 +25,18 @@ $(document).ready( function() {
 				<div class="card-block">
 					<div class="list-group">
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
-						<form id="newFriendsList" method="get" th:each="f:${list}">
-							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" 
-								th:value="${f.uno}" style="display:inline-block; width:85%;">
-							<input type="hidden" th:value="${f.uno}" name="fno">
-							<input th:value="${f.userName}" name="friendName" style="display:block;">
-							<input type="hidden" th:value="${friendNumber}" name="friendNumber">
-							<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
-							<button type="button" id="addBtn" class="btn btn-info btn-min-width mr-1 mb-1"
-								style="margin-top:22px; float:right;">친구 추가</button>
-						</form>
+						<div th:each="f:${list}">
+							<form method="post" action="mySearchFriends">
+								<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" 
+									th:value="${f.uno}" style="display:inline-block; width:85%;">
+								<input type="hidden" th:value="${f.uno}" name="friendNo">
+								<input th:value="${f.userName}" name="friendName" style="display:block;">
+								<input type="hidden" th:value="${userPhone}" name="friendNumber">
+								<input th:value="${#dates.format(f.userBirthdate, 'yy/MM/dd')}" name="friendBirthdate"></a>
+								<button type="submit" class="btn btn-info btn-min-width mr-1 mb-1"
+									onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

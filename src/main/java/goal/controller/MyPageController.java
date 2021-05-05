@@ -63,22 +63,32 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/mySearchFriends")
-	public ModelAndView UserList(HttpSession session) {
-		UserVO vo = new UserVO();
+	public ModelAndView UserList(HttpServletRequest request, UserVO vo) {
+		vo = getLoginUser(request);
+		UserVO user = new UserVO();
+		user.setUno(vo.getUno());
+		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
-
-		List<UserVO> list = searchFriendService.allUserList(vo);
+		List<UserVO> list = searchFriendService.allUserList(user);
 		mv.addObject("list", list);
+		
 		return mv;
 	}
 	
 	@PostMapping("/mySearchFriends")
-	public ModelAndView addFriend(@RequestParam(value="uno") int uno, @RequestParam(value="fno") int fno, 
-			@RequestParam(value="friendName") int friendName, @RequestParam(value="friendNumber") String friendNumber, 
-			@RequestParam(value="friendBirthdate") Date friendBirthdate) {
+	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, 
+			@RequestParam(value="friendNo") int friendNo, @RequestParam(value="friendName") String friendName, 
+			@RequestParam(value="friendNumber") String friendNumber, @RequestParam(value="friendBirthdate") Date friendBirthdate) {
+		vo = getLoginUser(request);
 		FriendVO friend = new FriendVO();
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
+		friend.setUno(vo.getUno());
+		friend.setFriendNo(friendNo);
+		friend.setFriendName(friendName);
+		friend.setFriendNumber(friendNumber);
+		friend.setFriendBirthdate(friendBirthdate);
 		friendService.addFriend(friend);
+		
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject(list);
 		return mv;
