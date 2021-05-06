@@ -13,7 +13,9 @@ $(document).ready( function() {
 </head>
 <body>
 <div id="header"></div>
-<div style="margin-top:60px; margin-left:250px;">
+<div style="margin-top:25px; margin-left:250px;">
+	<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
+		style="display:block; float:right;" th:onclick="location.href='myFriends'">My Friends</button>
 	<div class="col-lg-6 col-md-12" style="width:100%">
 		<div class="card">
 			<div class="card-header" style="display:block;">
@@ -32,7 +34,7 @@ $(document).ready( function() {
 								<input type="hidden" th:value="${f.uno}" name="friendNo">
 								<input th:value="${f.userName}" name="friendName" style="display:block;">
 								<input type="hidden" th:value="${userPhone}" name="friendNumber">
-								<input th:value="${#dates.format(f.userBirthdate, 'yy/MM/dd')}" name="friendBirthdate"></a>
+								<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
 								<button type="submit" class="btn btn-info btn-min-width mr-1 mb-1"
 									onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
 							</form>
