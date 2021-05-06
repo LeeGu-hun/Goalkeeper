@@ -1,72 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<meta name="description"
-	content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-<meta name="keywords"
-	content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
-<meta name="author" content="PIXINVENT">
-<title>Bootstrap Cards - Robust Free Bootstrap Admin Template</title>
-<link rel="apple-touch-icon" sizes="60x60"
-	href="../../app-assets/images/ico/apple-icon-60.png">
-<link rel="apple-touch-icon" sizes="76x76"
-	href="../../app-assets/images/ico/apple-icon-76.png">
-<link rel="apple-touch-icon" sizes="120x120"
-	href="../../app-assets/images/ico/apple-icon-120.png">
-<link rel="apple-touch-icon" sizes="152x152"
-	href="../../app-assets/images/ico/apple-icon-152.png">
-<link rel="shortcut icon" type="image/x-icon"
-	href="../../app-assets/images/ico/favicon.ico">
-<link rel="shortcut icon" type="image/png"
-	href="../../app-assets/images/ico/favicon-32.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-touch-fullscreen" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<!-- BEGIN VENDOR CSS-->
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/bootstrap.css">
-<!-- font icons-->
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/fonts/icomoon.css">
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/vendors/css/extensions/pace.css">
-<!-- END VENDOR CSS-->
-<!-- BEGIN ROBUST CSS-->
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/bootstrap-extended.css">
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/app.css">
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/colors.css">
-<!-- END ROBUST CSS-->
-<!-- BEGIN Page Level CSS-->
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/core/menu/menu-types/vertical-menu.css">
-<link rel="stylesheet" type="text/css"
-	href="../../app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
-<!-- END Page Level CSS-->
-<!-- BEGIN Custom CSS-->
-<link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-<!-- END Custom CSS-->
-<script src="https://code.jquery.com/jquery-1.12.4.js"
-	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-	crossorigin="anonymous"></script>
-<title>Insert title here</title>
-<script>
-	$(document).ready(function() {
-		$("#header").load("/view/header.html");
-		$('#allItem').click(function(){
-			$('div[aria-expanded="false"]').attr("aria-expanded", true);
-		});
-	});
-</script>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/view/fragments/header.html :: header">
 </head>
+<body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
+<body>
+	<div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <body data-open="click" data-menu="vertical-menu" data-col="2-columns"
 	class="vertical-layout vertical-menu 2-columns  fixed-navbar">
 	<div id="header"></div>
@@ -111,13 +49,16 @@
 						<div class="card">
 							<div class="card-body">
 								<img class="card-img-top img-fluid"
-									src="../../app-assets/images/carousel/06.jpg"
+									th:attr="src=@{'/display'}"
 									alt="Card image cap">
 			
 								<div class="card-block">
 									<h4 id="nullCheck" class="card-title" th:text="${all.g_name}"></h4>
 									<p class="card-text" th:text="${all.g_intro}"></p>
-									<a href="#" class="btn btn-outline-deep-orange">자세히 보기</a>
+									<form action="/group_detail" method="get">
+										<input type="hidden" name="gno" th:value="${all.gno}">
+										<button type="submit" class="btn btn-outline-deep-orange">자세히 보기</button>
+									</form>
 								</div>
 							</div>
 						</div>

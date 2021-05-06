@@ -4,23 +4,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import goal.service.BoardService;
 import goal.service.CommonService;
+import goal.service.ReplyService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
-
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Controller
@@ -30,6 +27,8 @@ public class HomeController {
 	private UserService userService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReplyService replyService;
 	
 	@Autowired
 	private CommonService commonService;
@@ -40,8 +39,10 @@ public class HomeController {
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/user_home");
 	      mv = commonService.checkLoginUser(request, mv);
-	      List<BoardVO> boardList = boardService.getBoardList();   
+	      List<BoardVO> boardList = boardService.getBoardList();
+	      List<ReplyVO> ReplyList = replyService.getMainReply(); 
 	      mv.addObject("List", boardList);
+	      mv.addObject("reply", ReplyList);
 	      return mv;
 	   }
 	
@@ -58,6 +59,9 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		if(user != null) {
 			session.setAttribute("user", user);
+			if(referer == null) {
+				return "redirect:/home";
+			}
 			return "redirect:" + referer;
 		} 
 		return "redirect:/login";
