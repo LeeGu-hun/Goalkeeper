@@ -58,6 +58,9 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		if(user != null) {
 			session.setAttribute("user", user);
+			if(referer == null) {
+				return "redirect:/home";
+			}
 			return "redirect:" + referer;
 		} 
 		return "redirect:/login";

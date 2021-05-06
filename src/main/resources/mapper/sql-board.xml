@@ -21,8 +21,8 @@
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
-		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group, uno) values
-		(GK_board_SEQ.nextval,#{userId}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group}, #{uno})
+		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group) values
+		(GK_board_SEQ.nextval,#{userId}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group})
 	</insert>
 	
 	<select id="recentBoard" resultMap="boardVO">

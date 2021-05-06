@@ -178,9 +178,8 @@ public class GroupController {
 	         }
 	      }
 	      return entity;
-
 	}
-	
+
 	private List<GroupVO> getGroupList(UserVO user){
 		List<GroupVO> groupList = groupService.selectGroupList(user);
 		return groupList;
