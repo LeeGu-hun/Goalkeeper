@@ -13,4 +13,5 @@
 	<select id="fineUserbyId" parameterType="int" resultType="int">
 		select * from GK_SGROUP where gno=#{gno}
 	</select>
+	
 </mapper>

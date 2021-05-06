@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goal.common.GroupFileUtils;
+import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
 import goal.mapper.GroupSMapper;
 import goal.vo.GroupGoalVO;
@@ -24,6 +25,9 @@ public class GroupServiceImpl implements GroupService{
 
 	@Autowired
 	private GroupSMapper groupsMapper;
+	
+	@Autowired
+	private BoardMapper boardMapper;
 	
 	@Override
 	public void createGroup(GroupVO group, GroupSVO groupUser, GroupGoalVO groupGoal) {
@@ -74,8 +78,9 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public int fineUserbyId(int gno) {
-		return groupsMapper.fineUserbyId(gno);
+	public GroupVO selectGroup(int gno) {
+		return groupMapper.selectGroup(gno);
 	}
+
 	
 }

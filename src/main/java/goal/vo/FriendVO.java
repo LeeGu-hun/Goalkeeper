@@ -10,10 +10,10 @@ import lombok.Data;
 @Data
 @Alias("friendVO")
 public class FriendVO {
-	private int uno, fno;
+	private int fno, uno, friendNo;
 	private String friendName;
 	private String friendNumber;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yy/MM/dd")
 	private Date friendBirthdate;
 }

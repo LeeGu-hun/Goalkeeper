@@ -14,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.service.CommonService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
 import goal.upload.GroupUpload;
@@ -44,9 +44,12 @@ public class GroupController {
 	@Autowired
 	private GroupFileService groupFileService;
 	
+	@Autowired
+	private CommonService commonService;
+	
 	private GroupUpload groupUpload = new GroupUpload();
 	
-	@GetMapping("/user/myGroup")
+	@GetMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		UserVO user = new UserVO();
@@ -54,13 +57,14 @@ public class GroupController {
 		if(user != null) {
 			group.setUno(user.getUno());
 			List<GroupVO> groupList = getGroupList(user);
-			mv.addObject("List", groupList);
+			mv.addObject("list", groupList);
+			mv.addObject("user", user);
 		} else {
-			mv.addObject("List", null);
+			mv.addObject("user", null);
 		}
 		return mv;
 	}
-	@PostMapping("/user/myGroup")
+	@PostMapping("/myGroup")
 	public ModelAndView removeGroup(@RequestParam(value="gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_myList");
 		UserVO user = new UserVO();
@@ -71,8 +75,8 @@ public class GroupController {
 		mv.addObject("List", groupList);
 		return mv;
 	}//1
-	@GetMapping("/user/searchGroup")
-	public ModelAndView openSearchGroup() {
+	@GetMapping("/searchGroup")
+	public ModelAndView openSearchGroup(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_searchList");
 		List<GroupVO> allList = groupService.allList();
 		List<GroupVO> studyList = groupService.selectSearchList("공부");
@@ -84,26 +88,28 @@ public class GroupController {
 		mv.addObject("exerciseList", exerciseList);
 		mv.addObject("picnicList", picnicList);
 		mv.addObject("musicList", musicList);
+		mv = commonService.checkLoginUser(request, mv);
 		return mv;
 	}
 	
-	@GetMapping("/user/openManage")
+	@GetMapping("/openManage")
 	public ModelAndView openManage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
 		List<GroupVO> groupList = getGroupList(user);
 		mv.addObject("List", groupList);
+		mv = commonService.checkLoginUser(request, mv);
 		return mv;
 	}
 	
-	@GetMapping("/user/group_create")
+	@GetMapping("/group_create")
 	public ModelAndView openGroupCreate() {
 		ModelAndView mv = new ModelAndView("view/group/group_create");
 		return mv;
 	}
 	
-	@PostMapping("/user/group_create")
+	@PostMapping("/group_create")
 	public String createGroup(GroupVO group, GroupSVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
 		UserVO user = new UserVO();
@@ -119,6 +125,18 @@ public class GroupController {
 		groupFileService.insertGroupFile(group, groupFile);
 		
 		return "redirect:/user/myGroup";
+	}
+	@GetMapping("/group_detail")
+	public ModelAndView openDetail(@RequestParam int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_main");
+		mv = commonService.checkLoginUser(request, mv);
+		return mv;
+	}
+	@GetMapping("/group_member")
+	public ModelAndView openMember(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_member");
+		mv = commonService.checkLoginUser(request, mv);
+		return mv;
 	}
 	
 	@RequestMapping(value="/display", method=RequestMethod.GET)

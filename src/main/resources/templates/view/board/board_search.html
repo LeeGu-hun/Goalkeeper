@@ -1,33 +1,101 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org">
 <head th:insert="/view/fragments/header.html :: header">
 </head>
 <body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
 <body>
 <div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
-<div style="margin-left:0px; margin-top:0px" class="col-xl-4 col-md-6">
-			<div class="card" th:each="obj:${List}" style="height: 900px; width: 1670px; left: 230px; top:110px;">
-				<div style="margin:30px">
-				<div class="card-header">
-					<h4 class="card-title" th:text="${obj.userId}"></h4>
-				</div>
-				<div class="card-body">	
-					<img src="http://placehold.it/500x500" class="img-fluid" style="left:300px; height:600px; width:600px">
-					<div class="card-block">
-						<a href="#" class="card-link">Like 141</a>
-						<p class="card-text" th:text="${obj.bo_content}"></p>
-					<!-- 	<div class="reply" th:each="reply:${replyList}">
-							<p class="card-text" th:text="${reply.r_writer}"></p>	
-							<p class="card-text" th:text="${reply.r_content}"></p>	 -->
-						</div>
-					</div>
-				</div>
-				<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-					<i class="icon-android-happy" style ="font-size:50px;"></i>
+<div class="col-xl-4 col-md-6">
+	<div th:each="obj:${List}" class="col-md-6 offset-md-7 box-shadow-2 p-0" style="width:1000px; margin-top:20px">
+		<div class="card-header">
+			<h4 class="card-title" th:text="${obj.userId}"></h4>
+		</div>
+		<div class="card-body">	
+			<img id="imageBox"class="img-fluid" style="left:300px; height:600px; width:600px">
+			<div class="card-block">
+				<a href="#" class="card-link">Like 141</a>
+				<a class="card-link"th:text="${obj.bno} + '번 글'"></a>
+				<p class="card-text" th:text="${obj.bo_content}"></p>
+				<a th:href="@{/getReplyAll/obj.bno}" id="detail-modal" >댓글 모두 보기</a>
+				<div class="reply" th:each="reply:${replyList}" th:if="${obj.bno} == ${reply.bno}">
+					<a th:href="@{obj.bno}">
+					<!-- <span class="card-text" th:text="${reply.replyWriter} +' :'" ></span>
+					<span class="card-text" th:text="${reply.replyContent}"></span></a>	 -->
 				</div>
 			</div>
 		</div>
+		<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+			<i class="icon-android-happy" style ="font-size:50px;"></i>
+			<input type="text">
+		</div>
 	</div>
-</body>
+</div>
+	<div id="modal" th:each="obj:${List}"
+		style="display: none; position: absolute; border: 1px solid black; width: 1200px; height: 800px; background: #eee; top: 10%; left: 20%;">
+		<img class="img-fluid"
+			style="position: absolute; left: 0%; height: 100%; width: 60%">
+		<div class="detail_saction"
+			style="position: absolute; border: 1px solid black; width: 40%; height: 100%; top: 0%; left: 60%; background: black;">
+			<div id="modal_profile"
+				style="position: absolute; border: 1px solid black; width: 100%; height: 10%; top: 0%;; background: red;">
+				<p th:text="${obj.userId}"
+					style="position: absolute; font-size: 30px; top: 18%; left: 5%">강원기141</p>
+			</div>
+			<div class="modal_contant"
+				style="position: absolute; border: 1px solid black; width: 100%; height: 65%; top: 10%; background: orange">
+				<p class="card-text" th:text="${obj.bo_content}+'내 글'"></p>
+				<div class="reply">
+					<!-- <span class="card-text" th:text="${obj.replyList.replyWriter} +' :'"></span>
+					<span class="card-text" th:text="${obj.replyList.replyContent}"></span> -->
+				</div>
+			</div>
+			<div class="detail_like"
+				style="position: absolute; border: 1px solid black; width: 100%; height: 20%;; top: 70%; background: yellow">
+				<div>좋아요</div>
+			</div>
+			<div class="detail_insert_reply"
+				style="position: absolute; border: 1px solid black; width: 100%; height: 15%; top: 85%; background: green">
+				<i class="icon-android-happy" style="font-size: 50px;"></i> <input
+					type="text">
+				<button value="입력"></button>
+			</div>
+		</div>
+	</div>
+	<script src="../../js/modal.js" type="text/javascript"></script>
+ <!-- BEGIN VENDOR JS-->
+	<script src="../../app-assets/js/core/libraries/jquery.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/ui/tether.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/js/core/libraries/bootstrap.min.js"
+		type="text/javascript"></script>
+	<script
+		src="../../app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/ui/unison.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/ui/blockUI.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/ui/jquery.matchHeight-min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/ui/screenfull.min.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/vendors/js/extensions/pace.min.js"
+		type="text/javascript"></script>
+	<!-- BEGIN VENDOR JS-->
+	<!-- BEGIN PAGE VENDOR JS-->
+	<script src="../../app-assets/vendors/js/charts/chart.min.js"
+		type="text/javascript"></script>
+	<!-- END PAGE VENDOR JS-->
+	<!-- BEGIN ROBUST JS-->
+	<script src="../../app-assets/js/core/app-menu.js"
+		type="text/javascript"></script>
+	<script src="../../app-assets/js/core/app.js" type="text/javascript"></script>
+	<!-- END ROBUST JS-->
+	<!-- BEGIN PAGE LEVEL JS-->
+	<script src="../../app-assets/js/scripts/pages/dashboard-lite.js"
+		type="text/javascript"></script>
+	<!-- END PAGE LEVEL JS-->
 </body>
 </html>

@@ -37,8 +37,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> searchBoard(BoardVO board) {
-		return boardMapper.searchBoard(board);	
+	public List<BoardVO> searchBoard(BoardVO vo) {
+		return boardMapper.searchBoard(vo);	
 	}
 	
 }

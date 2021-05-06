@@ -16,5 +16,5 @@ public interface GroupService {
 	boolean removeGroup(int gno);
 	void insertGoal(GroupGoalVO groupGoal);
 	int findDatabyId(int gno);
-	int fineUserbyId(int gno);
+	GroupVO selectGroup(int gno);
 }

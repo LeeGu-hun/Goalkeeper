@@ -25,7 +25,9 @@
 		SELECT ROWNUM, GNO FROM (SELECT * FROM GK_ALLGROUP ORDER BY GNO DESC)WHERE ROWNUM <= 1
 		]]>
 	</select>
-	
+	<select id="selectGroup" parameterType="int" resultMap="groupVO">
+		select * from gk_allgroup where gno=#{gno}
+	</select>
 	<select id="selectSearchList" parameterType="String" resultMap="groupVO">
 		<![CDATA[
 			SELECT * FROM GK_ALLGROUP WHERE G_CATE=#{g_cate}

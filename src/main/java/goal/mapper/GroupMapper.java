@@ -20,4 +20,5 @@ public interface GroupMapper {
 	int removeGroup(int gno);
 	void insertData(GroupGoalVO groupGoal);
 	int findDatabyId(int gno);
+	GroupVO selectGroup(int gno);
 }

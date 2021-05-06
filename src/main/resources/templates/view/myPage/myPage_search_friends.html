@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-	crossorigin="anonymous"></script>
-<title>친구 찾기 페이지</title>
+<head th:insert="/view/fragments/header.html :: header">
+</head>
+<body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
+<body>
+<div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
 <script>
 $(document).ready( function() {
-   $("#header").load("view/header.html");
-   
-   $('#newFriendList button').on('click', function(e){
-	   e.prevertDefualt();
-	   $('#newFriendList').attr('action', 'addFriend');
-   });
+	
 });
 </script>
 </head>
 <body>
 <div id="header"></div>
-<div style="margin-top:80px; margin-left:250px;">
+<div style="margin-top:60px; margin-left:250px;">
 	<div class="col-lg-6 col-md-12" style="width:100%">
 		<div class="card">
 			<div class="card-header" style="display:block;">
@@ -31,13 +25,18 @@ $(document).ready( function() {
 				<div class="card-block">
 					<div class="list-group">
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
-						<form id="newFriendsList" method="get" th:each="f:${list}">
-							<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" th:value="${f.uno}" style="display:inline-block; width:85%;">
-							<input th:value="${f.userName}" style="display:block;">
-							<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}"></a>
-							<button type="button" id="addBtn" class="btn btn-info btn-min-width mr-1 mb-1"
-								style="margin-top:22px; float:right;">친구 추가</button>
-						</form>
+						<div th:each="f:${list}">
+							<form method="post" action="mySearchFriends">
+								<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" 
+									th:value="${f.uno}" style="display:inline-block; width:85%;">
+								<input type="hidden" th:value="${f.uno}" name="friendNo">
+								<input th:value="${f.userName}" name="friendName" style="display:block;">
+								<input type="hidden" th:value="${userPhone}" name="friendNumber">
+								<input th:value="${#dates.format(f.userBirthdate, 'yy/MM/dd')}" name="friendBirthdate"></a>
+								<button type="submit" class="btn btn-info btn-min-width mr-1 mb-1"
+									onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

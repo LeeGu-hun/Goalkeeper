@@ -4,7 +4,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <body data-open="click" data-menu="vertical-menu" data-col="2-columns"
-	class="vertical-layout vertical-menu 2-columns  fixed-navbar" th:fragment="fragment-nav">
+	class="vertical-layout vertical-menu 2-columns  fixed-navbar"
+	th:fragment="fragment-nav">
 	<!-- navbar-fixed-top-->
 	<nav
 		class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-semi-dark navbar-shadow">
@@ -35,6 +36,16 @@
 						<li class="nav-item hidden-sm-down"><a href="#"
 							class="nav-link nav-link-expand"><i
 								class="ficon icon-expand2"></i></a></li>
+						<!-- 검색기능 start -->
+						<form class="form-horizontal form-simple" action="/boardSearch" method="get">
+							<li class="nav-item hidden-sm-down"><input
+								style="margin-top: 15px; margin-left: 30px" size=40 type="text" name="bo_search" id="bo_search"
+								placeholder="S e a r c h" class="menu-search form-control round" /></li>
+							<li class="nav-item hidden-sm-down">
+							<button type="submit" style="margin-top: 15px; margin-left: 40px; cursor:pointer; " size=40
+							class="btn4" >search</button></li>
+						</form>
+						<!-- 검색기능 end -->
 					</ul>
 					<ul class="nav navbar-nav float-xs-right">
 						<li class="dropdown dropdown-language nav-item"><a
@@ -234,14 +245,13 @@
 								<a href="#" class="dropdown-item"><i class="icon-calendar5"></i>
 									Calender</a>
 								<div class="dropdown-divider"></div>
-								<a href="/logout"
-									class="dropdown-item"><i class="icon-power3"></i> 로그아웃</a>
+								<a href="/logout" class="dropdown-item"><i
+									class="icon-power3"></i> 로그아웃</a>
 							</div>
 						</li>
 						<li class="dropdown dropdown-user nav-item"
-							style="position: relative; width: 200px;" th:unless="${user!=null}">
-
-							<a href="#" data-toggle="dropdown"
+							style="position: relative; width: 200px;"
+							th:unless="${user!=null}"><a href="#" data-toggle="dropdown"
 							class="dropdown-toggle nav-link dropdown-user-link"> <span
 								class="avatar avatar-online"></span> <span class="user-name">로그인
 									필요</span>
@@ -252,13 +262,19 @@
 								<div class="dropdown-divider"></div>
 								<a href="/register" class="dropdown-item"><i
 									class="icon-power3"></i> 회원가입</a>
-							</div>
-						</li>
+							</div></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</nav>
+	<div style="position: fixed; right: 0px; bottom: 0px; z-index: 10;">
+		<button
+			style="border-radius: 40px 40px; margin: 30px; font-size: 30px; cursor: pointer;"
+			onClick="location.href='boardWrite'">
+			<i class="icon-pencil2"></i>
+		</button>
+	</div>
 	<!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
@@ -281,7 +297,7 @@
 				<li class=" nav-item"><a href="/best"><i class="icon-paper"></i><span
 						data-i18n="nav.form_layouts.form_layout_basic" class="menu-title">Best</span></a>
 				</li>
-				<li class=" nav-item"><a href="user/myGroup"><i
+				<li class=" nav-item"><a href="/myGroup"><i
 						class="icon-home3"></i><span data-i18n="nav.dash.main"
 						class="menu-title">Group</span><span
 						class="tag tag tag-primary tag-pill float-xs-right mr-2">2</span></a>
@@ -297,6 +313,8 @@
 		<!-- main menu footer-->
 	</div>
  <!-- BEGIN VENDOR JS-->
+	<script src="../../js/modal.js" type="text/javascript"></script>
+	<!-- BEGIN VENDOR JS-->
 	<script src="../../app-assets/js/core/libraries/jquery.min.js"
 		type="text/javascript"></script>
 	<script src="../../app-assets/vendors/js/ui/tether.min.js"
