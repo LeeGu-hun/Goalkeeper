@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,9 +77,9 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/mySearchFriends")
-	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, 
-			@RequestParam(value="friendNo") int friendNo, @RequestParam(value="friendName") String friendName, 
-			@RequestParam(value="friendNumber") String friendNumber, @RequestParam(value="friendBirthdate") Date friendBirthdate) {
+	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, @RequestParam int friendNo,
+			@RequestParam String friendName, @RequestParam String friendNumber,
+			@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate) {
 		vo = getLoginUser(request);
 		FriendVO friend = new FriendVO();
 		friend.setUno(vo.getUno());
