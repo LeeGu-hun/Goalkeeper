@@ -8,11 +8,15 @@
 		<id property="i_path" column="i_path"/>
 		<id property="bno" column="bno"/>
 	</resultMap>
-	<insert id="insertBoardFile" parameterType="goal.vo.BoardFileVO">
-		insert into
-		GK_FILE(uuid, i_filename, i_path, bno) values
-		(#{uuid}, #{i_filename}, #{i_path}, #{bno})
+	<insert id="insertBoardFile" parameterType="java.util.List">
+			insert all
+		<foreach collection="list" item="item" index="index"  open="" separator=" " close="SELECT * FROM DUAL">
+			into GK_FILE (UUID, I_FILENAME, I_PATH, BNO)
+			values  
+			(#{item.uuid}, #{item.i_filename}, #{item.i_path}, #{item.bno})
+		</foreach>
 	</insert>
+
 	<select id="selectFileName" resultMap="boardFileVO">
 		<![CDATA[
 			SELECT * FROM GK_FILE

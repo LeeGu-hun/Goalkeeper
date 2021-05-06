@@ -17,7 +17,7 @@
 	</select>
 	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
 		select bo_content, userid from GK_BOARD 
-		where userid like '%' || #{bo_search} || '%' or bo_content like '%' || #{bo_search} || '%'
+		where userid like '%' || #{bo_search} || '%' or bo_content like '%' || #{bo_search} || '%' 
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
@@ -38,10 +38,10 @@
    </select>
    
 	<select id="getBoardList" resultMap="boardVO">
-		select * from GK_BOARD
+		select * from GK_BOARD order by bno desc
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardVO" parameterType="goal.vo.UserVO">
-		select * from GK_BOARD where uno=#{uno}
+		select * from GK_BOARD where uno=#{uno} order by bno desc
 	</select>
 </mapper>

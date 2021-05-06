@@ -2,6 +2,7 @@ package goal.upload;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import goal.vo.BoardFileVO;
 
 public class BoardUpload {
 	public List<BoardFileVO> requestMultiUpload(MultipartHttpServletRequest mtfRequest) {
-		List<BoardFileVO> boardFile = null;
+		List<BoardFileVO> boardFile = new ArrayList<>();
 		String path ="C:\\board-image";
         File uploadPath = new File(path); 
         if(uploadPath.exists()==false) uploadPath.mkdir();
