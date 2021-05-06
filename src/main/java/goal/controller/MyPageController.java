@@ -89,7 +89,7 @@ public class MyPageController {
 		friend.setFriendBirthdate(friendBirthdate);
 		friendService.addFriend(friend);
 		
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
+		ModelAndView mv = new ModelAndView("redirect:/mySearchFriends");
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject(list);
 		return mv;
@@ -97,7 +97,7 @@ public class MyPageController {
 	
 	@PostMapping("myFriends")
 	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		ModelAndView mv = new ModelAndView("redirect:/myFriends");
 		friendService.remove(fno);
 		
 		FriendVO friend = new FriendVO();
