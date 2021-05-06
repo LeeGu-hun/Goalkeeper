@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goal.mapper.ReplyMapper">
+	<resultMap type="goal.vo.ReplyVO" id="replyVO">
+		<id property="replyWriter" column="replyWriter"/>
+		<id property="replyContent" column="replyContent"/>
+		<id property="bno" column="bno"/>
+		<id property="replyDate" column="replyDate"/>
+	</resultMap>
+	
+	<select id="readMainReply" parameterType="int" resultMap="replyVO">
+		select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT
+		<!-- <![CDATA[
+			select * from( select rownum rn, t.* from(select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = #{bno} ORDER BY replyDate DESC) t) where rn<=2
+		]]> -->
+	</select>
+	
+</mapper>
