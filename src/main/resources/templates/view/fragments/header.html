@@ -73,6 +73,9 @@
 		$('div[style="cursor:pointer"]').bind('mouseout',function(e){
 			$(this).css('background-color', color_old);
 		});
+		$('#memberCard').click(function(){
+			$('#memberForm').submit();
+		});
 	});
 	</script>
 </head>

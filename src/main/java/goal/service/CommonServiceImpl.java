@@ -13,15 +13,13 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public ModelAndView checkLoginUser(HttpServletRequest request, ModelAndView mv) {
-		UserVO user = new UserVO();
 		HttpSession session = request.getSession(true);
-	    user = (UserVO) session.getAttribute("user");
+		UserVO user = (UserVO) session.getAttribute("user");
 		if(user != null) {
 			mv.addObject("user", user);
 		} else {
 			mv.addObject("user", null);
 		}
 		return mv;
-	}
-	
+	}	
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import goal.service.BoardService;
+import goal.service.CommonService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
 
@@ -30,17 +31,15 @@ public class HomeController {
 	@Autowired
 	private BoardService boardService;
 	
+	@Autowired
+	private CommonService commonService;
+	
 	private String referer = null;
 	 
 	@GetMapping("/home")
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/user_home");
-	      UserVO user = getLoginUser(request);
-	      if(user!=null) {
-	         mv.addObject("user", user);
-	      } else {
-	         mv.addObject("user", null);
-	      }
+	      mv = commonService.checkLoginUser(request, mv);
 	      List<BoardVO> boardList = boardService.getBoardList();   
 	      mv.addObject("List", boardList);
 	      return mv;
@@ -87,18 +86,12 @@ public class HomeController {
 	public String logoutUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
-		return "redirect:/home";
+		referer = request.getHeader("REFERER");
+		return "redirect:"+referer;
 	}
 	
 	@GetMapping("/denied")
     public String deniedView() {
         return "view/error/denied";
     }
-	
-	public UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-	    UserVO user = (UserVO) session.getAttribute("user");
-	    return user;
-	}
 }
