@@ -14,6 +14,14 @@
 				<div class="content-header-left col-md-6 col-xs-12 mb-1">
 					<h2 class="content-header-title">그룹원 상세보기</h2>
 				</div>
+				<div class="content-header-right col-md-6 col-sm-6 col-xs-12 fonticon-container text-xs-right">
+					<div class="fonticon-wrap" style="float:right">
+						<form id="memberForm" action="/group_detail" method="get">
+							<input type="hidden" name="gno" th:value="${gno}">
+							<button type="submit" style="width:56px; height:56px;" onclick="location.href='/group_home'"><i class="icon-home" style="font-size:40px;"></i></button>
+						</form>
+					</div>
+				</div>
 			</div>
 			<div class="content-body">
 				<section class="card">
@@ -28,22 +36,21 @@
 											<tr>
 												<th>#</th>
 												<th>이름</th>
-												<th class="text-xs-right">가입일</th>
-												<th class="text-xs-right">목표 생성수</th>
-												<th class="text-xs-right">목표 달성수</th>
+												<th class="text-xs-center">가입일</th>
+												<th class="text-xs-center">목표 생성수</th>
+												<th class="text-xs-center">목표 달성수</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr th:each="list:${groupUser}">
 												<th scope="row">1</th>
 												<td>
-													<p>Create PSD for mobile APP</p>
-													<p class="text-muted">Simply dummy text of the printing
-														and typesetting industry.</p>
+													<p th:text="${list.userId}"></p>
+													<p class="text-muted">멤버 소개 샘플</p>
 												</td>
-												<td class="text-xs-right">$ 20.00/hr</td>
-												<td class="text-xs-right">120</td>
-												<td class="text-xs-right">$ 2400.00</td>
+												<td class="text-xs-center" th:text="${#dates.format(list.g_date, 'yyyy년 MM월 dd일')}"></td>
+												<td class="text-xs-center">--</td>
+												<td class="text-xs-center">--</td>
 											</tr>
 										</tbody>
 									</table>

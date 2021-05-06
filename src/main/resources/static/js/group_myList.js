@@ -30,10 +30,3 @@ $(document).ready(function() {
 			}			
 		});
 	});
-	
-	function goDetail(){
-		var gno = $(this).attr("id");
-		alert(gno);
-		$(this).closet("from").attr("id", "detailForm");
-		$('#detailForm').submit();
-	};

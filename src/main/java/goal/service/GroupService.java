@@ -3,12 +3,13 @@ package goal.service;
 import java.util.List;
 
 import goal.vo.GroupGoalVO;
-import goal.vo.GroupSVO;
+import goal.vo.GroupUserNameVO;
+import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
 public interface GroupService {
-	void createGroup(GroupVO group, GroupSVO groupUser, GroupGoalVO groupGoal);
+	void createGroup(GroupVO group, GroupUserVO groupUser, GroupGoalVO groupGoal);
 	List<GroupVO> selectGroupList(UserVO user);
 	List<GroupVO> allList();
 	GroupVO recentGroup();
@@ -17,4 +18,7 @@ public interface GroupService {
 	void insertGoal(GroupGoalVO groupGoal);
 	int findDatabyId(int gno);
 	GroupVO selectGroup(int gno);
+	
+	GroupUserNameVO fineUserbyGroup(int gno);
+	int countUserbyGroup(int gno);
 }
