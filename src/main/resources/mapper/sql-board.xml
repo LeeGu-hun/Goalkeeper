@@ -16,7 +16,8 @@
 		select * from GK_COMMENT
 	</select>
 	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
-		select bo_content, userid from GK_BOARD where userid=#{bo_search} or bo_content=#{bo_search}
+		select bo_content, userid from GK_BOARD 
+		where userid like '%' || #{bo_search} || '%' or bo_content like '%' || #{bo_search} || '%'
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO">
 		insert into
