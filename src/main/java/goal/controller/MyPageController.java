@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import goal.service.FriendService;
 import goal.service.SearchFriendService;
 import goal.service.UserService;
+import goal.vo.BoardVO;
 import goal.vo.FriendVO;
 import goal.vo.UserVO;
 
@@ -37,13 +38,14 @@ public class MyPageController {
 	public UserService userService;
 	
 	@GetMapping("/myPage")
-	public ModelAndView openHome(HttpServletRequest request) {
-		UserVO vo = new UserVO();
-		vo = getLoginUser(request);
+	public ModelAndView openHome(HttpServletRequest request, BoardVO vo) {
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
+		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
 		if(vo != null) {
-			mv.addObject("vo", vo);
-			mv.addObject("uno", vo.getUno());
+			mv.addObject("vo", user);
+			mv.addObject("uno", user.getUno());
 		} else {
 			mv.setViewName("view/error/denied");
 		}
@@ -59,7 +61,6 @@ public class MyPageController {
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
-		mv.addObject("uno", friend.getUno());
 		return mv;
 	}
 	
@@ -71,8 +72,8 @@ public class MyPageController {
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		List<UserVO> list = searchFriendService.allUserList(user);
-		mv.addObject("list", list);
 		
+		mv.addObject("list", list);
 		return mv;
 	}
 	

@@ -27,14 +27,14 @@ $(document).ready( function() {
 				<div class="card-block">
 					<div class="list-group">
 						<a href="#" class="list-group-item disabled">새 친구 목록</a>
-						<div th:each="f:${list}">
+						<div th:each="u:${list}">
 							<form method="post" action="mySearchFriends">
-								<a th:href="@{myPage(uno=${f.uno})}" class="list-group-item" 
-									th:value="${f.uno}" style="display:inline-block; width:85%;">
-								<input type="hidden" th:value="${f.uno}" name="friendNo">
-								<input th:value="${f.userName}" name="friendName" style="display:block;">
-								<input type="hidden" th:value="${f.userPhone}" name="friendNumber">
-								<input th:value="${#dates.format(f.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
+								<a th:href="@{myPage(uno=${u.uno})}" class="list-group-item" 
+									th:value="${u.uno}" style="display:inline-block; width:85%;">
+								<input type="hidden" th:value="${u.uno}" name="friendNo">
+								<input th:value="${u.userName}" name="friendName" style="display:block;">
+								<input type="hidden" th:value="${u.userPhone}" name="friendNumber">
+								<input th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
 								<button type="submit" class="btn btn-info btn-min-width mr-1 mb-1"
 									onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
 							</form>
