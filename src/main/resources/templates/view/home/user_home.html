@@ -42,7 +42,7 @@
 							<input type="hidden" name="bno" th:value="${obj.bno}"> 
 							<input type="hidden" name="replyWriter" th:value="${userInfo.userId}"> 
 							<p th:text="${userInfo.userId}"style="display: inline-block;"></p>
-							<input type="text" name="replyContent">
+							<input type="text" name="replyContent" id="replyInsert">
 							<button type="submit" id="insertReplyBtn" style="display: inline-block; width: 100px; height: 30px;">댓글 등록</button><br>
 						</form>
 						<div th:unless="${user}!=null">
