@@ -13,8 +13,7 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface ReplyMapper {
-	
 	List<ReplyVO> readMainReply();
 	List<ReplyVO> readDetailMainReply(int bno);
-	
+	void insertReply(ReplyVO vo);
 }

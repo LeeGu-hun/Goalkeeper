@@ -27,7 +27,6 @@
 								th:text="${obj.bno} + '번 글'"><input th:value="${obj.bno}"
 								name="bno"></a>
 							<p class="card-text" th:text="${obj.bo_content}"></p>
-							<input type="hidden" name="bno" th:value="${obj.bno}">
 							<a id="detail-modal" >댓글 모두 보기</a><!-- th:href="@{/getReplyAll/obj.bno}" -->
 							<div class="reply" th:each="reply:${reply}" th:if="${obj.bno} == ${reply.bno}">
 								<a th:href="@{obj.bno}">
@@ -38,12 +37,17 @@
 						</div>
 					</div>
 					<div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-						<form action="" method="get">
+						<form action="/insertReply" method="post" th:if="${user}!=null">
 							<i class="icon-android-happy" style="font-size: 50px; display: inline-block;"></i>
-							<input type="hidden" name="sendReplyWriter" th:value="${userId}"> 
-							<input type="text" id="" name="replyInserBox">
+							<input type="hidden" name="bno" th:value="${obj.bno}"> 
+							<input type="hidden" name="replyWriter" th:value="${userInfo.userId}"> 
+							<p th:text="${userInfo.userId}"style="display: inline-block;"></p>
+							<input type="text" name="replyContent">
 							<button type="submit" id="insertReplyBtn" style="display: inline-block; width: 100px; height: 30px;">댓글 등록</button><br>
 						</form>
+						<div th:unless="${user}!=null">
+							<a href="/login" style="font-size:30px;display:inline-block; position:relative;">로그인</a><h2 style="display:inline-block;">이 필요합니다.</h2>
+						</div>
 					</div>
 			</div>
 			</section>

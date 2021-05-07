@@ -38,5 +38,11 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyVO> getDetailMainReply(int bno) {
 		return mapper.readDetailMainReply(bno);
 	}
+	@Override
+	public void insertReply(ReplyVO vo) {
+		mapper.insertReply(vo);
+		
+	}
+	
 }
 

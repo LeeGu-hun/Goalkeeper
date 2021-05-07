@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import goal.service.BoardService;
@@ -39,12 +40,27 @@ public class HomeController {
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/user_home");
 	      mv = commonService.checkLoginUser(request, mv);
+	      HttpSession session = request.getSession(true);
+	      UserVO user = (UserVO) session.getAttribute("user");
+	      
 	      List<BoardVO> boardList = boardService.getBoardList();
 	      List<ReplyVO> ReplyList = replyService.getMainReply(); 
+	      
+	      mv.addObject("userInfo", user);
 	      mv.addObject("List", boardList);
 	      mv.addObject("reply", ReplyList);
 	      return mv;
-	   }
+	 }
+
+		/*
+		 * @GetMapping("/insertReply") public ModelAndView openInsertReply() {
+		 * ModelAndView mv = new ModelAndView("view/home/user_home"); return mv; }
+		 */
+	@PostMapping("/insertReply")
+		public String insertReply(ReplyVO vo) {
+			replyService.insertReply(vo);
+			return "redirect:/home";
+	}
 	
 	@GetMapping("/login")
 	public ModelAndView openLogin(HttpServletRequest request) {
