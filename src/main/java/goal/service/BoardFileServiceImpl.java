@@ -16,12 +16,6 @@ public class BoardFileServiceImpl implements BoardFileService {
 
 	@Autowired
 	private BoardFileMapper boardFileMapper;
-	
-	@Transactional
-	@Override
-	public void insertBoardFile(@RequestParam("boardFile") List<BoardFileVO> boardFile) {
-		boardFileMapper.insertBoardFile(boardFile);
-	}
 
 	@Override
 	public List<BoardFileVO> selectFileName() {
@@ -32,6 +26,16 @@ public class BoardFileServiceImpl implements BoardFileService {
 	@Override
 	public boolean removeBoardFile(int bno) {
 		return boardFileMapper.removeBoardFile(bno)>0 ? true : false;
+	}
+
+	@Override
+	public int fileInsert(BoardFileVO file) {
+		return boardFileMapper.fileInsert(file);
+	}
+
+	@Override
+	public List<BoardFileVO> searchFile(BoardFileVO file) {
+		return boardFileMapper.searchFile(file);
 	}
 
 	

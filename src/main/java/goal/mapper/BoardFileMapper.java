@@ -9,8 +9,8 @@ import goal.vo.BoardFileVO;
 
 @Mapper
 public interface BoardFileMapper {
-	void insertBoardFile(@RequestParam("boardFile") List<BoardFileVO> boardFile);
-	
+	int fileInsert(BoardFileVO file);
 	List<BoardFileVO> selectFileName();
 	int removeBoardFile(int bno);
+	List<BoardFileVO> searchFile(BoardFileVO file);
 }

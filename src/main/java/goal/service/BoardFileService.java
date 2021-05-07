@@ -10,5 +10,6 @@ import goal.vo.BoardVO;
 public interface BoardFileService {
 	List<BoardFileVO> selectFileName();
 	boolean removeBoardFile(int bno);
-	void insertBoardFile(@RequestParam("boardFile") List<BoardFileVO> boardFile);
+	int fileInsert(BoardFileVO file);
+	List<BoardFileVO> searchFile(BoardFileVO file);
 }
