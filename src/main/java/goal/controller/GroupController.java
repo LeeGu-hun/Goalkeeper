@@ -215,8 +215,10 @@ public class GroupController {
 	private ModelAndView getGroupUser(int gno, ModelAndView mv) {
 		GroupUserNameVO groupUser = new GroupUserNameVO();
 		groupUser = groupService.fineUserbyGroup(gno);
-		int result = groupService.countUserbyGroup(gno);
-		mv.addObject("count", result);
+		int userResult = groupService.countUserbyGroup(gno);
+		int goalResult = groupService.countGoalbyGroup(gno);
+		mv.addObject("goalCount", goalResult);
+		mv.addObject("userCount", userResult);
 		mv.addObject("groupUser", groupUser);
 		mv.addObject("gno", gno);
 		return mv;

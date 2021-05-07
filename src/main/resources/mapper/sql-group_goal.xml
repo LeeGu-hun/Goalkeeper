@@ -22,5 +22,7 @@
 	<select id="getMaxDataById" resultType="int">
 		select sum(d_cnt) from gk_data where dno=#{dno}	
 	</select>
-	
+	<select id="countGoalbyId" parameterType="int" resultType="int">
+		select count(*) from gk_goal where gno=#{gno}	
+	</select>
 </mapper>

@@ -15,7 +15,7 @@
 					<div class="card-block">
 						<div class="media">
 							<div class="media-body text-xs-left">
-								<h3 class="pink">3</h3>
+								<h3 class="pink" th:text="${goalCount}"></h3>
 								<span>현재 목표</span>
 							</div>
 							<div class="media-right media-middle">
@@ -35,7 +35,7 @@
 					<div class="card-block">
 						<div class="media">
 							<div class="media-body text-xs-left">
-								<h3 class="teal" th:text="${count}"></h3>
+								<h3 class="teal" th:text="${userCount}"></h3>
 								<span>그룹원 수</span>
 							</div>
 							<div class="media-right media-middle">

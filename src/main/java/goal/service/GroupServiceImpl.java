@@ -93,5 +93,10 @@ public class GroupServiceImpl implements GroupService{
 		return groupUserMapper.countUserbyGroup(gno);
 	}
 
+	@Override
+	public int countGoalbyGroup(int gno) {
+		return groupMapper.countGoalbyId(gno);
+	}
+
 	
 }

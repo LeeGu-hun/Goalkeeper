@@ -36,7 +36,7 @@ window.onload = function() {
 	        $("#userPhone").focus();
 	        return false;
 	    }	   
-	    alert($('#u_name').val() + "님 환영합니다!");
+	    alert($('#userId').val() + "님 환영합니다!");
 	    $(this).submit(); 
 	});
 	$('#birth_check').click(function(){

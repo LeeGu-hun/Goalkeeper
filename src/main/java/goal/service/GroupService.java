@@ -21,4 +21,5 @@ public interface GroupService {
 	
 	GroupUserNameVO fineUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
+	int countGoalbyGroup(int gno);
 }
