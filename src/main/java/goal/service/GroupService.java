@@ -16,7 +16,7 @@ public interface GroupService {
 	List<GroupVO> selectSearchList(String g_cate);
 	boolean removeGroup(int gno);
 	void insertGoal(GroupGoalVO groupGoal);
-	int findDatabyId(int gno);
+	List<GroupGoalVO> findGoalbyId(int gno);
 	GroupVO selectGroup(int gno);
 	
 	GroupUserNameVO fineUserbyGroup(int gno);

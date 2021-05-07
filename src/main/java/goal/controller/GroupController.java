@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -96,10 +97,12 @@ public class GroupController {
 	@GetMapping("/openManage")
 	public ModelAndView openManage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/group_manage");
-		UserVO user = new UserVO();
-		List<GroupVO> groupList = getGroupList(user);
-		mv.addObject("List", groupList);
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		if(user!=null) {
+			List<GroupVO> groupList = getGroupList(user);
+			mv.addObject("List", groupList);
+		}
 		return mv;
 	}
 	
@@ -120,7 +123,6 @@ public class GroupController {
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups, groupGoal);
-		groupService.insertGoal(groupGoal);
 		groupFile = groupUpload.requestSingleUpload(multi);
 		groupFileService.insertGroupFile(group, groupFile);
 		
@@ -130,21 +132,42 @@ public class GroupController {
 	public ModelAndView openDetail(@RequestParam int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_main");
 		mv = commonService.checkLoginUser(request, mv);
-		int result = groupService.countUserbyGroup(gno);
-		mv = commonService.checkLoginUser(request, mv);
-		mv.addObject("count", result);
-		mv.addObject("gno", gno);
+		mv = getGroupUser(gno, mv);
 		return mv;
 	}
 	@GetMapping("/group_member")
 	public ModelAndView openMember(@RequestParam int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
-		int result = groupService.countUserbyGroup(gno);
 		mv = commonService.checkLoginUser(request, mv);
-		GroupUserNameVO groupUser = getGroupUser(gno);
-		mv.addObject("count", result);
-		mv.addObject("groupUser", groupUser);
-		mv.addObject("gno", gno);
+		mv = getGroupUser(gno, mv);
+		return mv;
+	}
+	
+	@GetMapping("/group_mainGoal")
+	public ModelAndView openMainGoal(@RequestParam int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_mainGoal");
+		mv = commonService.checkLoginUser(request, mv);
+		mv = getGroupUser(gno, mv);
+		List<GroupGoalVO> groupGoal = groupService.findGoalbyId(gno);
+		mv.addObject("goal", groupGoal);
+		
+		return mv;
+	}
+	@PostMapping("/group_mainGoal")
+	public ModelAndView addMainGoal(GroupGoalVO groupGoal, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("redirect:/group_mainGoal");
+		mv = commonService.checkLoginUser(request, mv);
+		groupGoal.setGoal_type("A");
+		groupService.insertGoal(groupGoal);
+		mv.addObject("gno", groupGoal.getGno());
+		return mv;
+	}
+	
+	@GetMapping("/group_singleGoal{gno}")
+	public ModelAndView openSingleGoal(@RequestParam int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_singleGoal");
+		mv = commonService.checkLoginUser(request, mv);
+		mv = getGroupUser(gno, mv);
 		return mv;
 	}
 	
@@ -189,9 +212,13 @@ public class GroupController {
 	    UserVO user = (UserVO) session.getAttribute("user");
 	    return user;
 	}
-	private GroupUserNameVO getGroupUser(int gno) {
+	private ModelAndView getGroupUser(int gno, ModelAndView mv) {
 		GroupUserNameVO groupUser = new GroupUserNameVO();
 		groupUser = groupService.fineUserbyGroup(gno);
-		return groupUser;
+		int result = groupService.countUserbyGroup(gno);
+		mv.addObject("count", result);
+		mv.addObject("groupUser", groupUser);
+		mv.addObject("gno", gno);
+		return mv;
 	}
 }

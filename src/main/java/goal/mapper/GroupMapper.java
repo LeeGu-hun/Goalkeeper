@@ -19,6 +19,6 @@ public interface GroupMapper {
 	List<GroupVO> selectSearchList(String g_cate);
 	int removeGroup(int gno);
 	void insertData(GroupGoalVO groupGoal);
-	int findDatabyId(int gno);
+	List<GroupGoalVO> findGoalbyId(int gno);
 	GroupVO selectGroup(int gno);
 }

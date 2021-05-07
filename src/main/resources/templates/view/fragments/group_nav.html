@@ -8,8 +8,10 @@
 	<div class="row" th:fragment="group_nav">
 		<div class="col-xl-3 col-lg-6 col-xs-12">
 			<div class="card">
-				<div id="goalCard" class="card-body" style="cursor:pointer"
-					onclick="location.href='#'">
+				<div id="goalCard" class="card-body" style="cursor:pointer">
+					<form id="goalForm" action="/group_mainGoal" method="get">
+						<input type="hidden" name="gno" th:value="${gno}">
+					</form>
 					<div class="card-block">
 						<div class="media">
 							<div class="media-body text-xs-left">

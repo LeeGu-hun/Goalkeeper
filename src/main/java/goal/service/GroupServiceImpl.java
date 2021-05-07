@@ -74,8 +74,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public int findDatabyId(int gno) {
-		return groupMapper.findDatabyId(gno);
+	public List<GroupGoalVO> findGoalbyId(int gno) {
+		return groupMapper.findGoalbyId(gno);
 	}
 
 	@Override

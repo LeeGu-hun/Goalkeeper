@@ -2,13 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goal.mapper.GroupMapper">
+	<resultMap type="goal.vo.GroupGoalVO" id="groupGoal">
+		<id property="dno" column="dno"/>
+		<id property="gno" column="gno"/>
+		<id property="goal_name" column="goal_name"/>
+		<id property="goal_allcnt" column="goal_allcnt"/>
+		<id property="goal_type" column="goal_type"/>
+		<id property="goal_enddate" column="goal_enddate"/>
+		<collection property="groupMaxData" column="dno" javaType="int" ofType="int" select="getMaxDataById"/>
+	</resultMap>
 	<insert id="insertData" parameterType="goal.vo.GroupGoalVO">
 		insert into
 		GK_GOAL(dno, gno, goal_name, goal_allcnt, goal_type, goal_enddate) values
 		(GK_DATA_SEQ.nextval, #{gno}, #{goal_name}, #{goal_allcnt}, #{goal_type}, #{goal_enddate})
 	</insert>
-	<select id="findDatabyId" parameterType="int" resultType="int">
-		select * from GK_DATA where gno=#{gno}
+	<select id="findGoalbyId" parameterType="int" resultMap="groupGoal">
+		select * from GK_GOAL where gno=#{gno} and goal_type='A'
+	</select>
+	<select id="getMaxDataById" resultType="int">
+		select sum(d_cnt) from gk_data where dno=#{dno}	
 	</select>
 	
 </mapper>

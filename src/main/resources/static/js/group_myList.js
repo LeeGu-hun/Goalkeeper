@@ -1,5 +1,5 @@
 $(document).ready(function() {
-		if($('#nullCheck').text()==""){
+		if($('#nullCheck').text()=="" || $('#nullCheck').text()==null){
 			$('#toggleDiv').append('style', 'display:inline-block');
 		} else{
 			$('#toggleDiv').remove();

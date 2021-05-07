@@ -21,5 +21,12 @@ public class CommonServiceImpl implements CommonService {
 			mv.addObject("user", null);
 		}
 		return mv;
+	}
+
+	@Override
+	public UserVO getLoginUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		return (UserVO) session.getAttribute("user");
 	}	
+	
 }
