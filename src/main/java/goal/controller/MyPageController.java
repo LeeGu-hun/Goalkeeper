@@ -41,7 +41,6 @@ public class MyPageController {
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo) {
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
-		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
 		if(vo != null) {
 			mv.addObject("vo", user);

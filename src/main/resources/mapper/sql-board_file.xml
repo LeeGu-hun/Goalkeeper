@@ -4,19 +4,21 @@
 <mapper namespace="goal.mapper.BoardFileMapper">
 	<resultMap type="goal.vo.BoardFileVO" id="boardFileVO">
 		<id property="uuid" column="uuid"/>
-		<id property="i_filename" column="i_filename"/>
-		<id property="i_path" column="i_path"/>
+		<id property="filename" column="filename"/>
+		<id property="fileUrl" column="fileUrl"/>
 		<id property="bno" column="bno"/>
 	</resultMap>
-	<insert id="insertBoardFile" parameterType="java.util.List">
-			insert all
-		<foreach collection="list" item="item" index="index"  open="" separator=" " close="SELECT * FROM DUAL">
-			into GK_FILE (UUID, I_FILENAME, I_PATH, BNO)
-			values  
-			(#{item.uuid}, #{item.i_filename}, #{item.i_path}, #{item.bno})
-		</foreach>
+	<insert id="fileInsert" parameterType="goal.vo.BoardFileVO">
+       INSERT INTO GK_FILE (uuid, bno, fileName, fileUrl)
+	   VALUES (#{uuid} ,#{bno},#{fileName},#{fileUrl})
 	</insert>
 
+	<select id="searchFile" resultMap="boardFileVO">
+		<![CDATA[
+			SELECT FileURL FROM GK_FILE where bno = #{bno}
+		]]>
+	</select>
+	
 	<select id="selectFileName" resultMap="boardFileVO">
 		<![CDATA[
 			SELECT * FROM GK_FILE
