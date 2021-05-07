@@ -11,5 +11,5 @@ import goal.vo.UserVO;
 public interface ReplyService {
 	
 	List<ReplyVO> getMainReply();
-	
+	List<ReplyVO> getDetailMainReply(int bno);
 }

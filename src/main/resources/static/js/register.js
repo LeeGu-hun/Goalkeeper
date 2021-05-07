@@ -7,7 +7,7 @@ window.onload = function() {
 	    var birthday = $("#userBirthdate").val();
 	    var phoneNumber = $("#userPhone").val();
 	  
-	    if($('#u_name').val() == ""){
+	    if($('#userName').val() == ""){
 	        alert("이름을 입력해주세요");
 	        $('#u_name').focus();
 	        return false;
