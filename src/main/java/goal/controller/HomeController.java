@@ -93,7 +93,7 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);
-			mv.setViewName("view/home/user_home");
+			mv.setViewName("view/home/user_login");
 			return mv;
 		} else {
 			model.addAttribute("msg","중복된 아이디 입니다.");
