@@ -19,4 +19,9 @@ public class SearchFriendServiceImpl implements SearchFriendService{
 		return searchFriendMapper.allUser(vo);
 	}
 
+	@Override
+	public List<UserVO> searchUser(UserVO vo) {
+		return searchFriendMapper.searchUser(vo);
+	}
+
 }

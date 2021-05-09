@@ -6,4 +6,5 @@ import goal.vo.UserVO;
 
 public interface SearchFriendService {
 	List<UserVO> allUserList(UserVO vo);
+	List<UserVO> searchUser(UserVO vo);
 }

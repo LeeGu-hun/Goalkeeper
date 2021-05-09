@@ -8,5 +8,6 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface SearchFriendMapper {
-	public List<UserVO> allUser(UserVO vo);
+	List<UserVO> allUser(UserVO vo);
+	List<UserVO> searchUser(UserVO vo);
 }

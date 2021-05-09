@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,15 +65,17 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/mySearchFriends")
-	public ModelAndView UserList(HttpServletRequest request, UserVO vo) {
+	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
 		vo = getLoginUser(request);
 		UserVO user = new UserVO();
 		user.setUno(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		List<UserVO> list = searchFriendService.allUserList(user);
-		
+		List<UserVO> findList = searchFriendService.searchUser(user);
 		mv.addObject("list", list);
+		mv.addObject("findList", findList);
+		
 		return mv;
 	}
 	
