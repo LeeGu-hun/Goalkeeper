@@ -2,48 +2,59 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="/view/fragments/header.html :: header">
 </head>
-<body th:insert="/view/fragments/nav.html :: fragment-nav"></body>
-<body>
-<div th:replace="/view/fragments/nav.html :: fragment-nav"></div>
-<script>
-$(document).ready( function() {
-	
-});
-</script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- bootstrap 4.3.1 -->
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+	<!-- styles -->
+	<link rel="stylesheet" href="css/styles.min.css">
+	<!-- simplebar styles -->
+	<link rel="stylesheet" href="css/vendor/simplebar.css">
+	<!-- tiny-slider styles -->
+	<link rel="stylesheet" href="css/vendor/tiny-slider.css">
+	<!-- favicon -->
+	<link rel="icon" href="img/favicon.ico">
+	<title>Vikinger | Profile</title>
 </head>
 <body>
 <div id="header"></div>
-<div style="margin-top:25px; margin-left:250px;">
-	<button type="button" class="btn btn-primary btn-min-width mr-1 mb-1" 
-		style="display:block; float:right;" th:onclick="location.href='myFriends'">My Friends</button>
-	<div class="col-lg-6 col-md-12" style="width:100%">
-		<div class="card">
-			<div class="card-header" style="display:block;">
-				<input type="text" class="form-control form-control-lg input-lg" placeholder="Search Friends!">
-				<button type="button" class="btn btn-info btn-min-width mr-1 mb-1" style=" margin-top:5px; float:right;">검색</button>
-				<a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
-			</div>
-			<div class="card-body collapse in">
-				<div class="card-block">
-					<div class="list-group">
-						<a href="#" class="list-group-item disabled">새 친구 목록</a>
-						<div th:each="u:${list}">
-							<form method="post" action="mySearchFriends">
-								<a th:href="@{myPage(uno=${u.uno})}" class="list-group-item" 
-									th:value="${u.uno}" style="display:inline-block; width:85%;">
-								<input type="hidden" th:value="${u.uno}" name="friendNo">
-								<input th:value="${u.userName}" name="friendName" style="display:block;">
-								<input type="hidden" th:value="${u.userPhone}" name="friendNumber">
-								<input th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate"></a>
-								<button type="submit" class="btn btn-info btn-min-width mr-1 mb-1"
-									onclick="href='addFriend'" style="margin-top:22px; float:right;">친구 추가</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- PAGE LOADER INFO -->
+    <div class="page-loader-info">
+      <!-- PAGE LOADER INFO TITLE -->
+      <p class="page-loader-info-title">본주 이름 자리</p>
+      <!-- /PAGE LOADER INFO TITLE -->
+
+      <!-- PAGE LOADER INFO TEXT -->
+      <p class="page-loader-info-text">이름 아래 작은 글씨 자리</p>
+      <!-- /PAGE LOADER INFO TEXT -->
+    </div>
+    <!-- /PAGE LOADER INFO -->
+<!-- app -->
+<script src="js/utils/app.js"></script>
+<!-- page loader -->
+<script src="js/utils/page-loader.js"></script>
+<!-- simplebar -->
+<script src="js/vendor/simplebar.min.js"></script>
+<!-- liquidify -->
+<script src="js/utils/liquidify.js"></script>
+<!-- XM_Plugins -->
+<script src="js/vendor/xm_plugins.min.js"></script>
+<!-- tiny-slider -->
+<script src="js/vendor/tiny-slider.min.js"></script>
+<!-- global.hexagons -->
+<script src="js/global/global.hexagons.js"></script>
+<!-- global.tooltips -->
+<script src="js/global/global.tooltips.js"></script>
+<!-- header -->
+<script src="js/header/header.js"></script>
+<!-- sidebar -->
+<script src="js/sidebar/sidebar.js"></script>
+<!-- content -->
+<script src="js/content/content.js"></script>
+<!-- form.utils -->
+<script src="js/form/form.utils.js"></script>
+<!-- SVG icons -->
+<script src="js/utils/svg-loader.js"></script>
 </body>
 </html>
