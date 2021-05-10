@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,29 +68,14 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/myGroup")
-	public ModelAndView removeGroup(@RequestParam(value="gno") int gno, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/group/group_myList");
-		UserVO user = new UserVO();
-		user = getLoginUser(request);
-		groupService.removeGroup(gno);
-		groupFileService.removeGroupFile(gno);
-		List<GroupVO> groupList = getGroupList(user);
-		mv.addObject("List", groupList);
-		return mv;
-	}//1
-	@GetMapping("/searchGroup")
-	public ModelAndView openSearchGroup(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/group/group_searchList");
-		List<GroupVO> allList = groupService.allList();
-		List<GroupVO> studyList = groupService.selectSearchList("공부");
-		List<GroupVO> exerciseList = groupService.selectSearchList("운동");
-		List<GroupVO> picnicList = groupService.selectSearchList("야외활동");
-		List<GroupVO> musicList = groupService.selectSearchList("음악");
-		mv.addObject("allList", allList);
-		mv.addObject("studyList", studyList);
-		mv.addObject("exerciseList", exerciseList);
-		mv.addObject("picnicList", picnicList);
-		mv.addObject("musicList", musicList);
+	@ResponseBody
+	public ModelAndView openSearchGroup(@RequestParam("groups_search") String word, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("view/group/groups");
+		List<GroupVO> searchList = groupService.selectSearchList(word);
+		if(searchList == null) {
+			mv.addObject("fail", "fail");
+		} 
+		mv.addObject("list", searchList);
 		mv = commonService.checkLoginUser(request, mv);
 		return mv;
 	}
@@ -110,9 +96,6 @@ public class GroupController {
 		GroupFileVO groupFile = new GroupFileVO();
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
-		if(user == null) {
-			return "redirect:/login";
-		}
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups);

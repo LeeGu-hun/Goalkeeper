@@ -16,7 +16,7 @@ public interface GroupMapper {
 	List<GroupVO> selectGroupList(UserVO vo);
 	List<GroupVO> allList();
 	GroupVO recentGroup();
-	List<GroupVO> selectSearchList(String g_cate);
+	List<GroupVO> selectSearchList(String word);
 	int removeGroup(int gno);
 	void insertData(GroupGoalVO groupGoal);
 	List<GroupGoalVO> findGoalbyId(int gno);
