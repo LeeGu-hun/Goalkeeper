@@ -72,9 +72,7 @@ public class MyPageController {
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		List<UserVO> list = searchFriendService.allUserList(user);
-		List<UserVO> findList = searchFriendService.searchUser(user);
 		mv.addObject("list", list);
-		mv.addObject("findList", findList);
 		
 		return mv;
 	}
