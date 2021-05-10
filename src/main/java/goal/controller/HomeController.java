@@ -35,7 +35,12 @@ public class HomeController {
 	private CommonService commonService;
 	
 	private String referer = null;
-	 
+	@GetMapping("/newsFeed")
+	   public ModelAndView openNewsFeed(HttpServletRequest request) {
+		 ModelAndView mv = new ModelAndView("view/home/newsFeed");
+		 mv = commonService.checkLoginUser(request, mv);
+		 return mv;
+	}
 	@GetMapping("/user")
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/Old_user_home");
@@ -72,7 +77,7 @@ public class HomeController {
 		if(user != null) {
 			session.setAttribute("user", user);
 			if(referer == null) {
-				return "redirect:/user";
+				return "redirect:/newsFeed";
 			}
 			return "redirect:" + referer;
 		} 

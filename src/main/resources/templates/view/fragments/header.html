@@ -1867,7 +1867,8 @@
               <!-- /DROPDOWN BOX LIST ITEM -->
         
               <!-- DROPDOWN BOX LIST ITEM -->
-              <a class="dropdown-box-list-item" href="hub-profile-messages.html">
+             <div >
+              <a th:text="${userId}" class="dropdown-box-list-item" href="hub-profile-messages.html">
                 <!-- USER STATUS -->
                 <div class="user-status">
                   <!-- USER STATUS AVATAR -->
@@ -1941,7 +1942,7 @@
                 <!-- /USER STATUS -->
               </a>
               <!-- /DROPDOWN BOX LIST ITEM -->
-        
+        	</div>
               <!-- DROPDOWN BOX LIST ITEM -->
               <a class="dropdown-box-list-item" href="hub-profile-messages.html">
                 <!-- USER STATUS -->
@@ -2497,9 +2498,19 @@
           <!-- /ACTION ITEM ICON -->
         </div>
         <!-- /ACTION ITEM -->
-
-        <!-- DROPDOWN NAVIGATION -->
-        <div class="dropdown-navigation header-settings-dropdown">
+        <!-- 로그아웃 됬을 때 -->
+		<div class="dropdown-navigation header-settings-dropdown" th:unless="${user!=null}">
+            <!-- USER STATUS TITLE -->
+            <p class="user-status-title"><span class="bold">로그인해주세요!</span></p>
+            <!-- /USER STATUS TITLE -->
+           
+         	<!-- DROPDOWN NAVIGATION BUTTON -->
+        		<a class="dropdown-navigation-button button small secondary" href="/home">Log-In</a>
+         	<!-- /DROPDOWN NAVIGATION BUTTON -->
+        </div>
+        <!-- /로그아웃 됬을 때 -->
+        <!-- 로그인 DROPDOWN NAVIGATION -->
+        <div class="dropdown-navigation header-settings-dropdown" th:if="${user!=null}">
           <!-- DROPDOWN NAVIGATION HEADER -->
           <div class="dropdown-navigation-header">
             <!-- USER STATUS -->
@@ -2561,11 +2572,11 @@
               <!-- /USER STATUS AVATAR -->
           
               <!-- USER STATUS TITLE -->
-              <p class="user-status-title"><span class="bold">Hi Marina!</span></p>
+              <p class="user-status-title" th:text="'hi! '+${user.userId}"><span class="bold">Hi Marina!</span></p>
               <!-- /USER STATUS TITLE -->
           
               <!-- USER STATUS TEXT -->
-              <p class="user-status-text small"><a href="profile-timeline.html">@marinavalentine</a></p>
+              <p class="user-status-text small" th:text="'@'+${user.userMail}"></p>
               <!-- /USER STATUS TEXT -->
             </div>
             <!-- /USER STATUS -->
@@ -2577,75 +2588,26 @@
           <!-- /DROPDOWN NAVIGATION CATEGORY -->
       
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-info.html">Profile Info</a>
+          <a class="dropdown-navigation-link" href="/profileInfo">Profile Info</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
       
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-social.html">Social &amp; Stream</a>
+          <a class="dropdown-navigation-link" href="/profileModify">Profile Setting</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
       
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-notifications.html">Notifications</a>
+          <a class="dropdown-navigation-link" href="/notice">Notifications</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
       
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-messages.html">Messages</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-profile-requests.html">Friend Requests</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION CATEGORY -->
-          <p class="dropdown-navigation-category">Account</p>
-          <!-- /DROPDOWN NAVIGATION CATEGORY -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-account-info.html">Account Info</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-account-password.html">Change Password</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-account-settings.html">General Settings</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION CATEGORY -->
-          <p class="dropdown-navigation-category">Groups</p>
-          <!-- /DROPDOWN NAVIGATION CATEGORY -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-group-management.html">Manage Groups</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-group-invitations.html">Invitations</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION CATEGORY -->
-          <p class="dropdown-navigation-category">My Store</p>
-          <!-- /DROPDOWN NAVIGATION CATEGORY -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-store-account.html">My Account <span class="highlighted">$250,32</span></a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-store-statement.html">Sales Statement</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-store-items.html">Manage Items</a>
-          <!-- /DROPDOWN NAVIGATION LINK -->
-      
-          <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="hub-store-downloads.html">Downloads</a>
+          <a class="dropdown-navigation-link" href="/massage">Messages</a>
+          <!-- /DROPDOWN NAVIGATION LINK -->              
+         
+          <a class="dropdown-navigation-link" href="/generalSetting">General Settings</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
       
           <!-- DROPDOWN NAVIGATION BUTTON -->
-          <p class="dropdown-navigation-button button small secondary">Logout</p>
+          <a class="dropdown-navigation-button button small secondary" href="/logout">Logout</a>
           <!-- /DROPDOWN NAVIGATION BUTTON -->
         </div>
         <!-- /DROPDOWN NAVIGATION -->
