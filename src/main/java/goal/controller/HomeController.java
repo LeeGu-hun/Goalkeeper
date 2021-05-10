@@ -79,23 +79,16 @@ public class HomeController {
 		return "redirect:/home";
 	   }
 	
-	@GetMapping("/register") 
-	public ModelAndView openRegister() {
-		ModelAndView mv = new ModelAndView("/view/home/user_register");
-		return mv;
-	}
+	
 	@PostMapping("/register")
-	public ModelAndView insertUser(UserVO vo, Model model) {
+	public String insertUser(UserVO vo, Model model) {
 		String idCheck = userService.checkId(vo.getUserId());
-		ModelAndView mv = new ModelAndView();
 		if(idCheck == null) {
 			userService.insertUser(vo);
-			mv.setViewName("view/home/user_login");
-			return mv;
+			return "redirect:/home";
 		} else {
 			model.addAttribute("msg","중복된 아이디 입니다.");
-			mv.setViewName("view/home/user_register");
-			return mv;
+			return "redirect:/register";
 			 
 		}
 	}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- bootstrap 4.3.1 -->
@@ -139,7 +140,7 @@
             <!-- FORM ITEM -->
             <div class="form-item">
               <!-- BUTTON -->
-              <button class="button medium secondary">Login to your Account!</button>
+              <button class="button medium secondary" id="doLogin">Login to your Account!</button>
               <!-- /BUTTON -->
             </div>
             <!-- /FORM ITEM -->
@@ -209,15 +210,15 @@
         <!-- /FORM BOX TITLE -->
     
         <!-- FORM -->
-        <form class="form">
+        <form class="form" action="/register" name="register-page" method="post">
           <!-- FORM ROW -->
-          <div class="form-row" action="/register" name="register-page" method="post">
+          <div class="form-row">
             <!-- FORM ITEM -->
             <div class="form-item">
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-email">Your ID</label>
-                <input type="text" id="register-email" name="userId">
+                <input type="text" id="userId" name="userId">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -232,7 +233,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-username">Username</label>
-                <input type="text" id="register-username" name="userName">
+                <input type="text" id="userName" name="userName">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -247,7 +248,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-password">Password</label>
-                <input type="password" id="register-password" name="userPw">
+                <input type="password" id="userPw" name="userPw">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -262,26 +263,27 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-password-repeat">Repeat Password</label>
-                <input type="password" id="register-password-repeat" name="register_password_repeat">
+                <input type="password" id="re_password" name="re_password">
               </div>
               <!-- /FORM INPUT -->
             </div>
             <!-- /FORM ITEM -->
           </div>
           <!-- /FORM ROW -->
-          <!-- FORM ROW -->
+         <!-- FORM ROW -->
           <div class="form-row">
             <!-- FORM ITEM -->
             <div class="form-item">
               <!-- FORM INPUT -->
               <div class="form-input">
-                <label for="register-password">Password</label>
-                <input type="password" id="register-password" name="userPw">
+                <label for="register-username">Email</label>
+                <input type="text" id="userMail" name="userMail">
               </div>
               <!-- /FORM INPUT -->
             </div>
             <!-- /FORM ITEM -->
           </div>
+          <!-- /FORM ROW -->
     		 <!-- FORM ROW -->
           <div class="form-row">
             <!-- FORM ITEM -->
@@ -289,7 +291,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-username">Birth Day</label>
-                <input type="text" id="register-username" name="userBirthdate">
+                <input type="text" id="userBirthdate" name="userBirthdate">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -303,7 +305,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-username">Phone Number</label>
-                <input type="text" id="register-username" name="userPhone">
+                <input type="text" id="userPhone" name="userPhone">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -339,7 +341,7 @@
             <!-- FORM ITEM -->
             <div class="form-item">
               <!-- BUTTON -->
-              <button class="button medium primary">Register Now!</button>
+              <button class="button medium primary" id= "doSignUp">Register Now!</button>
               <!-- /BUTTON -->
             </div>
             <!-- /FORM ITEM -->
@@ -359,6 +361,8 @@
   <!-- /LANDING -->
 
 <!-- app -->
+<script src="../../js/login.js" type="text/javascript"></script>
+<script src="../../js/register.js" type="text/javascript"></script>
 <script src="js/utils/app.js"></script>
 <!-- XM_Plugins -->
 <script src="js/vendor/xm_plugins.min.js"></script>
