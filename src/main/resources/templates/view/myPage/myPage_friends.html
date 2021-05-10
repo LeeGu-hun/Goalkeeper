@@ -73,47 +73,47 @@
 	            </div>
 	            <!-- /USER AVATAR PROGRESS BORDER -->
         
-            <!-- USER AVATAR BADGE -->
-            <div class="user-avatar-badge">
-              <!-- USER AVATAR BADGE BORDER -->
-              <div class="user-avatar-badge-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-40-44"></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR BADGE BORDER -->
+	            <!-- USER AVATAR BADGE -->
+	            <div class="user-avatar-badge">
+		            <!-- USER AVATAR BADGE BORDER -->
+		            <div class="user-avatar-badge-border">
+		                <!-- HEXAGON -->
+		                <div class="hexagon-40-44"></div>
+		                <!-- /HEXAGON -->
+	            </div>
+	            <!-- /USER AVATAR BADGE BORDER -->
+	        
+            	<!-- USER AVATAR BADGE CONTENT -->
+				<div class="user-avatar-badge-content">
+                	<!-- HEXAGON -->
+                	<div class="hexagon-dark-32-34"></div>
+                	<!-- /HEXAGON -->
+				</div>
+              	<!-- /USER AVATAR BADGE CONTENT -->
         
-              <!-- USER AVATAR BADGE CONTENT -->
-              <div class="user-avatar-badge-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-dark-32-34"></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR BADGE CONTENT -->
-        
-              <!-- USER AVATAR BADGE TEXT -->
-              <p class="user-avatar-badge-text">24</p>
-              <!-- /USER AVATAR BADGE TEXT -->
+              	<!-- USER AVATAR BADGE TEXT -->
+              	<p class="user-avatar-badge-text">24</p>
+              	<!-- /USER AVATAR BADGE TEXT -->
             </div>
             <!-- /USER AVATAR BADGE -->
-          </a>
-          <!-- /USER SHORT DESCRIPTION AVATAR -->
+        </a>
+        <!-- /USER SHORT DESCRIPTION AVATAR -->
   
-          <!-- USER SHORT DESCRIPTION AVATAR -->
-          <a class="user-short-description-avatar user-short-description-avatar-mobile user-avatar medium" href="profile-timeline.html">
+        <!-- USER SHORT DESCRIPTION AVATAR -->
+        <a class="user-short-description-avatar user-short-description-avatar-mobile user-avatar medium" href="profile-timeline.html">
             <!-- USER AVATAR BORDER -->
             <div class="user-avatar-border">
-              <!-- HEXAGON -->
-              <div class="hexagon-120-132"></div>
-              <!-- /HEXAGON -->
+        	    <!-- HEXAGON -->
+            	<div class="hexagon-120-132"></div>
+              	<!-- /HEXAGON -->
             </div>
             <!-- /USER AVATAR BORDER -->
         
             <!-- USER AVATAR CONTENT -->
             <div class="user-avatar-content">
-              <!-- HEXAGON -->
-              <div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
-              <!-- /HEXAGON -->
+            	<!-- HEXAGON -->
+              	<div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
+              	<!-- /HEXAGON -->
             </div>
             <!-- /USER AVATAR CONTENT -->
         
@@ -323,7 +323,7 @@
       <!-- SECTION MENU -->
       <div id="section-navigation-slider" class="section-menu">
         <!-- SECTION MENU ITEM -->
-        <a class="section-menu-item" href="profile-about.html">
+        <a class="section-menu-item" href="myPage">
           <!-- SECTION MENU ITEM ICON -->
           <svg class="section-menu-item-icon icon-profile">
             <use xlink:href="#svg-profile"></use>
@@ -462,13 +462,13 @@
           <!-- FILTER TABS -->
           <div class="filter-tabs">
             <!-- FILTER TAB -->
-            <div class="filter-tab active">
+            <div id="myFriendList" class="filter-tab active" onclick="goMyFriend()">
               <!-- FILTER TAB TEXT -->
               <p class="filter-tab-text">친구 목록</p>
               <!-- /FILTER TAB TEXT -->
             </div>
             <!-- FILTER TAB -->
-            <div class="filter-tab">
+            <div id="newFriendList" class="filter-tab" onclick="goNewFriend()">
               <!-- FILTER TAB TEXT -->
               <p class="filter-tab-text">새 친구 찾기</p>
               <!-- /FILTER TAB TEXT -->
@@ -690,6 +690,16 @@
     <!-- /SECTION -->
   </div>
   <!-- /CONTENT GRID -->
+<script>
+function goMyFriend(){
+	document.getElementById("myFriendList").setAttribute("class", "filter-tab active");
+	document.getElementById("newFriendList").setAttribute("class", "filter-tab");
+}
+function goNewFriend(){
+	document.getElementById("myFriendList").setAttribute("class", "filter-tab");
+	document.getElementById("newFriendList").setAttribute("class", "filter-tab active");
+}
+</script>
 <!-- app -->
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
