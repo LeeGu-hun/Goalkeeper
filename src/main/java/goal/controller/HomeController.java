@@ -36,9 +36,9 @@ public class HomeController {
 	
 	private String referer = null;
 	 
-	@GetMapping("/user_home")
+	@GetMapping("/user")
 	   public ModelAndView openHome(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/user_login");
+	      ModelAndView mv = new ModelAndView("view/home/Old_user_home");
 	      mv = commonService.checkLoginUser(request, mv);
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
@@ -52,10 +52,6 @@ public class HomeController {
 	      return mv;
 	 }
 
-		/*
-		 * @GetMapping("/insertReply") public ModelAndView openInsertReply() {
-		 * ModelAndView mv = new ModelAndView("view/home/user_home"); return mv; }
-		 */
 	@PostMapping("/insertReply")
 		public String insertReply(ReplyVO vo) {
 			replyService.insertReply(vo);
@@ -64,7 +60,7 @@ public class HomeController {
 	
 	@GetMapping("/home")
 	public ModelAndView openLogin(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/home/user_login");
+		ModelAndView mv = new ModelAndView("/view/home/user_home");
 		referer = request.getHeader("REFERER");
 		return mv;
 	}
@@ -76,11 +72,11 @@ public class HomeController {
 		if(user != null) {
 			session.setAttribute("user", user);
 			if(referer == null) {
-				return "redirect:/register";
+				return "redirect:/user";
 			}
 			return "redirect:" + referer;
 		} 
-		return "redirect:/register";
+		return "redirect:/home";
 	   }
 	
 	@GetMapping("/register") 
