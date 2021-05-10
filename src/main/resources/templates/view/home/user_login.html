@@ -71,7 +71,7 @@
         <!-- /FORM BOX TITLE -->
     
         <!-- FORM -->
-        <form class="form">
+        <form class="form" th:action="@{/home}" method="post">
           <!-- FORM ROW -->
           <div class="form-row">
             <!-- FORM ITEM -->
@@ -79,7 +79,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="login-username">Username or Email</label>
-                <input type="text" id="login-username" name="login_username">
+                <input type="text" id="login-username" name="userName">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -94,7 +94,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="login-password">Password</label>
-                <input type="password" id="login-password" name="login_password">
+                <input type="password" id="login-password" name="userPw">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -211,13 +211,13 @@
         <!-- FORM -->
         <form class="form">
           <!-- FORM ROW -->
-          <div class="form-row">
+          <div class="form-row" action="/register" name="register-page" method="post">
             <!-- FORM ITEM -->
             <div class="form-item">
               <!-- FORM INPUT -->
               <div class="form-input">
-                <label for="register-email">Your Email</label>
-                <input type="text" id="register-email" name="register_email">
+                <label for="register-email">Your ID</label>
+                <input type="text" id="register-email" name="userId">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -232,7 +232,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-username">Username</label>
-                <input type="text" id="register-username" name="register_username">
+                <input type="text" id="register-username" name="userName">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -247,7 +247,7 @@
               <!-- FORM INPUT -->
               <div class="form-input">
                 <label for="register-password">Password</label>
-                <input type="password" id="register-password" name="register_password">
+                <input type="password" id="register-password" name="userPw">
               </div>
               <!-- /FORM INPUT -->
             </div>
@@ -269,7 +269,47 @@
             <!-- /FORM ITEM -->
           </div>
           <!-- /FORM ROW -->
-    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="userPw">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+    		 <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-username">Birth Day</label>
+                <input type="text" id="register-username" name="userBirthdate">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+           <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-username">Phone Number</label>
+                <input type="text" id="register-username" name="userPhone">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
           <!-- FORM ROW -->
           <div class="form-row">
             <!-- FORM ITEM -->
