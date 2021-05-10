@@ -104,16 +104,9 @@ public class GroupController {
 			mv.addObject("List", groupList);
 		}
 		return mv;
-	}
-	
-	@GetMapping("/group_create")
-	public ModelAndView openGroupCreate() {
-		ModelAndView mv = new ModelAndView("view/group/group_create");
-		return mv;
-	}
-	
+	}	
 	@PostMapping("/group_create")
-	public String createGroup(GroupVO group, GroupUserVO groups, GroupGoalVO groupGoal, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
+	public String createGroup(GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
@@ -122,7 +115,7 @@ public class GroupController {
 		}
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
-		groupService.createGroup(group, groups, groupGoal);
+		groupService.createGroup(group, groups);
 		groupFile = groupUpload.requestSingleUpload(multi);
 		groupFileService.insertGroupFile(group, groupFile);
 		
@@ -130,7 +123,7 @@ public class GroupController {
 	}
 	@GetMapping("/group_detail")
 	public ModelAndView openDetail(@RequestParam int gno, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/group/group_main");
+		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
 		mv = commonService.checkLoginUser(request, mv);
 		mv = getGroupUser(gno, mv);
 		return mv;

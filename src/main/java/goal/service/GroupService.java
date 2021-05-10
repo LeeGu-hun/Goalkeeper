@@ -9,7 +9,7 @@ import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
 public interface GroupService {
-	void createGroup(GroupVO group, GroupUserVO groupUser, GroupGoalVO groupGoal);
+	void createGroup(GroupVO group, GroupUserVO groupUser);
 	List<GroupVO> selectGroupList(UserVO user);
 	List<GroupVO> allList();
 	GroupVO recentGroup();

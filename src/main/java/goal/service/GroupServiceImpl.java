@@ -31,13 +31,10 @@ public class GroupServiceImpl implements GroupService{
 	private BoardMapper boardMapper;
 	
 	@Override
-	public void createGroup(GroupVO group, GroupUserVO groupUser, GroupGoalVO groupGoal) {
+	public void createGroup(GroupVO group, GroupUserVO groupUser) {
 		groupMapper.createGroup(group);
-		groupGoal.setGno(group.getGno());
-		groupGoal.setGoal_type("A");
 		groupUser.setGno(group.getGno());
 		groupUser.setG_role("ROLE_ADMIN");
-		groupMapper.insertData(groupGoal);
 		groupUserMapper.insertGroupUser(groupUser);
 	}
 
