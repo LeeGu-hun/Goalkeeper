@@ -1,121 +1,332 @@
 <!DOCTYPE html>
-<html lang="en" data-textdirection="ltr" class="loading" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Login Page - Robust Free Bootstrap Admin Template</title>
-    <link rel="apple-touch-icon" sizes="60x60" href="../../app-assets/images/ico/apple-icon-60.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../app-assets/images/ico/apple-icon-76.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../app-assets/images/ico/apple-icon-152.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../app-assets/images/ico/favicon.ico">
-    <link rel="shortcut icon" type="image/png" href="../../app-assets/images/ico/favicon-32.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/bootstrap.css">
-    <!-- font icons-->
-    <link rel="stylesheet" type="text/css" href="../../app-assets/fonts/icomoon.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/vendors/css/extensions/pace.css">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN ROBUST CSS-->
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/app.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/colors.css">
-    <!-- END ROBUST CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../app-assets/css/pages/login-register.css">
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-    <!-- END Custom CSS-->
-  </head>
-  <body data-open="click" data-menu="vertical-menu" data-col="1-column" class="vertical-layout vertical-menu 1-column  blank-page blank-page">
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <div class="app-content content container-fluid">
-      <div class="content-wrapper">
-        <div class="content-header row">
-        </div>
-        <div class="content-body"><section class="flexbox-container">
-    <div class="col-md-4 offset-md-4 col-xs-10 offset-xs-1  box-shadow-2 p-0">
-        <div class="card border-grey border-lighten-3 m-0">
-            <div class="card-header no-border">
-                <div class="card-title text-xs-center">
-                    <div class="p-1"><img src="../../app-assets/images/logo/robust-logo-dark.png" alt="branding logo"></div>
-                </div>
-                <h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2"><span>Login with Robust</span></h6>
-            </div>
-            <div class="card-body collapse in">
-                <div class="card-block">
-                    <form class="form-horizontal form-simple" th:action="@{/login}" method="post" novalidate>
-                        <fieldset class="form-group position-relative has-icon-left mb-0">
-                            <input type="text" class="form-control form-control-lg input-lg" id="u_id" placeholder="Your Username" name="userId" required>
-                            <div class="form-control-position">
-                                <i class="icon-head"></i>
-                            </div>
-                        </fieldset>
-                        <fieldset class="form-group position-relative has-icon-left">
-                            <input type="password" class="form-control form-control-lg input-lg" id="u_password" placeholder="Enter Password" name="userPw" required>
-                            <div class="form-control-position">
-                                <i class="icon-key3"></i>
-                            </div>
-                        </fieldset>
-                        <fieldset class="form-group row">
-                            <div class="col-md-6 col-xs-12 text-xs-center text-md-left">
-                                <fieldset>
-                                    <input type="checkbox" id="remember-me" class="chk-remember">
-                                    <label for="remember-me"> Remember Me</label>
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6 col-xs-12 text-xs-center text-md-right"><a href="recover-password.html" class="card-link">Forgot Password?</a></div>
-                        </fieldset>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" id="doLogin"><i class="icon-unlock2"></i> Login</button><br>
-                        
-                    </form>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="">
-                    <p class="float-sm-left text-xs-center m-0"><a href="recover-password.html" class="card-link">Recover password</a></p>
-                    <p class="float-sm-right text-xs-center m-0">New to Robust? <a href="register" class="card-link">Sign Up</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- bootstrap 4.3.1 -->
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+  <!-- styles -->
+  <link rel="stylesheet" href="css/styles.min.css">
+  <!-- favicon -->
+  <link rel="icon" href="img/favicon.ico">
+  <title>Vikinger | Home</title>
+</head>
 
-        </div>
+<body>
+
+  <!-- LANDING -->
+  <div class="landing">
+    <!-- LANDING DECORATION -->
+    <div class="landing-decoration"></div>
+    <!-- /LANDING DECORATION -->
+
+    <!-- LANDING INFO -->
+    <div class="landing-info">
+      <!-- LOGO -->
+      <div class="logo">
+        <!-- ICON LOGO VIKINGER -->
+        <svg class="icon-logo-vikinger">
+          <use xlink:href="#svg-logo-vikinger"></use>
+        </svg>
+        <!-- /ICON LOGO VIKINGER -->
       </div>
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
+      <!-- /LOGO -->
 
-    <!-- BEGIN VENDOR JS-->
-    <script src="../../app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/tether.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/unison.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/blockUI.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/jquery.matchHeight-min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/ui/screenfull.min.js" type="text/javascript"></script>
-    <script src="../../app-assets/vendors/js/extensions/pace.min.js" type="text/javascript"></script>
-    <script src="../../js/login.js" type="text/javascript"></script>
-    <!-- BEGIN VENDOR JS-->
-    <!-- BEGIN PAGE VENDOR JS-->
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN ROBUST JS-->
-    <script src="../../app-assets/js/core/app-menu.js" type="text/javascript"></script>
-    <script src="../../app-assets/js/core/app.js" type="text/javascript"></script>
-    <!-- END ROBUST JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
-    <!-- END PAGE LEVEL JS-->
-  </body>
+      <!-- LANDING INFO PRETITLE -->
+      <h2 class="landing-info-pretitle">Welcome to</h2>
+      <!-- /LANDING INFO PRETITLE -->
+
+      <!-- LANDING INFO TITLE -->
+      <h1 class="landing-info-title">Vikinger</h1>
+      <!-- /LANDING INFO TITLE -->
+
+      <!-- LANDING INFO TEXT -->
+      <p class="landing-info-text">The next generation social network &amp; community! Connect with your friends and play with our quests and badges gamification system!</p>
+      <!-- /LANDING INFO TEXT -->
+
+      <!-- TAB SWITCH -->
+      <div class="tab-switch">
+        <!-- TAB SWITCH BUTTON -->
+        <p class="tab-switch-button login-register-form-trigger">Login</p>
+        <!-- /TAB SWITCH BUTTON -->
+
+        <!-- TAB SWITCH BUTTON -->
+        <p class="tab-switch-button login-register-form-trigger">Register</p>
+        <!-- /TAB SWITCH BUTTON -->
+      </div>
+      <!-- /TAB SWITCH -->
+    </div>
+    <!-- /LANDING INFO -->
+
+    <!-- LANDING FORM -->
+    <div class="landing-form">
+      <!-- FORM BOX -->
+      <div class="form-box login-register-form-element">
+        <!-- FORM BOX DECORATION -->
+        <img class="form-box-decoration overflowing" src="img/landing/rocket.png" alt="rocket">
+        <!-- /FORM BOX DECORATION -->
+
+        <!-- FORM BOX TITLE -->
+        <h2 class="form-box-title">Account Login</h2>
+        <!-- /FORM BOX TITLE -->
+    
+        <!-- FORM -->
+        <form class="form">
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="login-username">Username or Email</label>
+                <input type="text" id="login-username" name="login_username">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="login_password">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row space-between">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- CHECKBOX WRAP -->
+              <div class="checkbox-wrap">
+                <input type="checkbox" id="login-remember" name="login_remember" checked>
+                <!-- CHECKBOX BOX -->
+                <div class="checkbox-box">
+                  <!-- ICON CROSS -->
+                  <svg class="icon-cross">
+                    <use xlink:href="#svg-cross"></use>
+                  </svg>
+                  <!-- /ICON CROSS -->
+                </div>
+                <!-- /CHECKBOX BOX -->
+                <label for="login-remember">Remember Me</label>
+              </div>
+              <!-- /CHECKBOX WRAP -->
+            </div>
+            <!-- /FORM ITEM -->
+    
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM LINK -->
+              <a class="form-link" href="#">Forgot Password?</a>
+              <!-- /FORM LINK -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- BUTTON -->
+              <button class="button medium secondary">Login to your Account!</button>
+              <!-- /BUTTON -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+        </form>
+        <!-- /FORM -->
+    
+        <!-- LINED TEXT -->
+        <p class="lined-text">Login with your Social Account</p>
+        <!-- /LINED TEXT -->
+    
+        <!-- SOCIAL LINKS -->
+        <div class="social-links">
+          <!-- SOCIAL LINK -->
+          <a class="social-link facebook" href="#">
+            <!-- ICON FACEBOOK -->
+            <svg class="icon-facebook">
+              <use xlink:href="#svg-facebook"></use>
+            </svg>
+            <!-- /ICON FACEBOOK -->
+          </a>
+          <!-- /SOCIAL LINK -->
+    
+          <!-- SOCIAL LINK -->
+          <a class="social-link twitter" href="#">
+            <!-- ICON TWITTER -->
+            <svg class="icon-twitter">
+              <use xlink:href="#svg-twitter"></use>
+            </svg>
+            <!-- /ICON TWITTER -->
+          </a>
+          <!-- /SOCIAL LINK -->
+    
+          <!-- SOCIAL LINK -->
+          <a class="social-link twitch" href="#">
+            <!-- ICON TWITCH -->
+            <svg class="icon-twitch">
+              <use xlink:href="#svg-twitch"></use>
+            </svg>
+            <!-- /ICON TWITCH -->
+          </a>
+          <!-- /SOCIAL LINK -->
+    
+          <!-- SOCIAL LINK -->
+          <a class="social-link youtube" href="#">
+            <!-- ICON YOUTUBE -->
+            <svg class="icon-youtube">
+              <use xlink:href="#svg-youtube"></use>
+            </svg>
+            <!-- /ICON YOUTUBE -->
+          </a>
+          <!-- /SOCIAL LINK -->
+        </div>
+        <!-- /SOCIAL LINKS -->
+      </div>
+      <!-- /FORM BOX -->
+    
+      <!-- FORM BOX -->
+      <div class="form-box login-register-form-element">
+        <!-- FORM BOX DECORATION -->
+        <img class="form-box-decoration" src="img/landing/rocket.png" alt="rocket">
+        <!-- /FORM BOX DECORATION -->
+
+        <!-- FORM BOX TITLE -->
+        <h2 class="form-box-title">Create your Account!</h2>
+        <!-- /FORM BOX TITLE -->
+    
+        <!-- FORM -->
+        <form class="form">
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-email">Your Email</label>
+                <input type="text" id="register-email" name="register_email">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-username">Username</label>
+                <input type="text" id="register-username" name="register_username">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="register_password">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- FORM INPUT -->
+              <div class="form-input">
+                <label for="register-password-repeat">Repeat Password</label>
+                <input type="password" id="register-password-repeat" name="register_password_repeat">
+              </div>
+              <!-- /FORM INPUT -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- CHECKBOX WRAP -->
+              <div class="checkbox-wrap">
+                <input type="checkbox" id="register-newsletter" name="register_newsletter" checked>
+                <!-- CHECKBOX BOX -->
+                <div class="checkbox-box">
+                  <!-- ICON CROSS -->
+                  <svg class="icon-cross">
+                    <use xlink:href="#svg-cross"></use>
+                  </svg>
+                  <!-- /ICON CROSS -->
+                </div>
+                <!-- /CHECKBOX BOX -->
+                <label for="register-newsletter">Send me news and updates via email</label>
+              </div>
+              <!-- /CHECKBOX WRAP -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+    
+          <!-- FORM ROW -->
+          <div class="form-row">
+            <!-- FORM ITEM -->
+            <div class="form-item">
+              <!-- BUTTON -->
+              <button class="button medium primary">Register Now!</button>
+              <!-- /BUTTON -->
+            </div>
+            <!-- /FORM ITEM -->
+          </div>
+          <!-- /FORM ROW -->
+        </form>
+        <!-- /FORM -->
+    
+        <!-- FORM TEXT -->
+        <p class="form-text">You'll receive a confirmation email in your inbox with a link to activate your account. If you have any problems, <a href="#">contact us</a>!</p>
+        <!-- /FORM TEXT -->
+      </div>
+      <!-- /FORM BOX -->
+    </div>
+    <!-- /LANDING FORM -->
+  </div>
+  <!-- /LANDING -->
+
+<!-- app -->
+<script src="js/utils/app.js"></script>
+<!-- XM_Plugins -->
+<script src="js/vendor/xm_plugins.min.js"></script>
+<!-- form.utils -->
+<script src="js/form/form.utils.js"></script>
+<!-- landing.tabs -->
+<script src="js/landing/landing.tabs.js"></script>
+<!-- SVG icons -->
+<script src="js/utils/svg-loader.js"></script>
+</body>
 </html>

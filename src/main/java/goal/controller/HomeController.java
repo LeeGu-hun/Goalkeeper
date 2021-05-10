@@ -38,7 +38,7 @@ public class HomeController {
 	 
 	@GetMapping("/home")
 	   public ModelAndView openHome(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/user_home");
+	      ModelAndView mv = new ModelAndView("view/home/user_login");
 	      mv = commonService.checkLoginUser(request, mv);
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
