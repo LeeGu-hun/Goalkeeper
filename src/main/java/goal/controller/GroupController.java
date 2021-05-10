@@ -53,7 +53,7 @@ public class GroupController {
 	
 	@GetMapping("/myGroup")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/group/group_myList");
+		ModelAndView mv = new ModelAndView("view/group/groups");
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
 		if(user != null) {
