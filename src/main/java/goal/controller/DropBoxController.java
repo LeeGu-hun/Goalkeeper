@@ -9,8 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import goal.service.CommonService;
 import goal.service.UserService;
 import goal.vo.UserVO;
+import lombok.extern.log4j.Log4j;
 
 @Controller
+@Log4j
 public class DropBoxController {
 	
 	@Autowired
@@ -26,6 +28,7 @@ public class DropBoxController {
 	}
 	@PostMapping("/modifyMyInfo")
 	public String modifyMyInfo(UserVO vo) {
+		log.info("vo>>>"+vo);
 		userService.modify(vo);
 		return "redirect:/profileInfo";
 	}
