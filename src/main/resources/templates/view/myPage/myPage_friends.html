@@ -331,20 +331,6 @@
           <!-- /SECTION MENU ITEM ICON -->
   
           <!-- SECTION MENU ITEM TEXT -->
-          <p class="section-menu-item-text">About</p>
-          <!-- /SECTION MENU ITEM TEXT -->
-        </a>
-        <!-- /SECTION MENU ITEM -->
-  
-        <!-- SECTION MENU ITEM -->
-        <a class="section-menu-item" href="profile-timeline.html">
-          <!-- SECTION MENU ITEM ICON -->
-          <svg class="section-menu-item-icon icon-timeline">
-            <use xlink:href="#svg-timeline"></use>
-          </svg>
-          <!-- /SECTION MENU ITEM ICON -->
-  
-          <!-- SECTION MENU ITEM TEXT -->
           <p class="section-menu-item-text">Timeline</p>
           <!-- /SECTION MENU ITEM TEXT -->
         </a>
@@ -462,13 +448,13 @@
           <!-- FILTER TABS -->
           <div class="filter-tabs">
             <!-- FILTER TAB -->
-            <div id="myFriendList" class="filter-tab active" onclick="goMyFriend()">
+            <div id="myFriendList" class="filter-tab active">
               <!-- FILTER TAB TEXT -->
               <p class="filter-tab-text">친구 목록</p>
               <!-- /FILTER TAB TEXT -->
             </div>
             <!-- FILTER TAB -->
-            <div id="newFriendList" class="filter-tab" onclick="goNewFriend()">
+            <div id="newFriendList" class="filter-tab" onclick="location.href='mySearchFriends'">
               <!-- FILTER TAB TEXT -->
               <p class="filter-tab-text">새 친구 찾기</p>
               <!-- /FILTER TAB TEXT -->
@@ -607,7 +593,7 @@
               <form action="myFriends" method="post" class="button secondary">
              	<input type="hidden" th:value="${f.fno}" name="fno">
              	<button type="submit" id="remove"
-					onclick="href='deleteFriend'" style="float:right;">Remove Friend</button>
+					onclick="href='deleteFriend'">Remove Friend</button>
            	  </form>
               <!-- /BUTTON -->
       
@@ -690,16 +676,6 @@
     <!-- /SECTION -->
   </div>
   <!-- /CONTENT GRID -->
-<script>
-function goMyFriend(){
-	document.getElementById("myFriendList").setAttribute("class", "filter-tab active");
-	document.getElementById("newFriendList").setAttribute("class", "filter-tab");
-}
-function goNewFriend(){
-	document.getElementById("myFriendList").setAttribute("class", "filter-tab");
-	document.getElementById("newFriendList").setAttribute("class", "filter-tab active");
-}
-</script>
 <!-- app -->
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
