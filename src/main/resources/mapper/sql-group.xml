@@ -30,7 +30,7 @@
 	</select>
 	<select id="selectSearchList" parameterType="String" resultMap="groupVO">
 		<![CDATA[
-			SELECT * FROM GK_ALLGROUP WHERE G_CATE=#{g_cate}
+			SELECT * FROM GK_ALLGROUP WHERE (G_NAME=#{word} or G_CATE=#{word})
 		]]>
 	</select>
 	<insert id="createGroup" parameterType="goal.vo.GroupVO">

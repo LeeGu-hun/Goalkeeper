@@ -61,6 +61,8 @@ public class MyPageController {
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
+		mv.addObject("userId", vo.getUserId());
+		mv.addObject("userBirthdate", vo.getUserBirthdate());
 		return mv;
 	}
 	

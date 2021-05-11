@@ -86,7 +86,7 @@ window.onload = function() {
 			return false;
 		} 
 		if(!checkExtension(file.name, file.size)) return false;
-		alert($('#g_name').val() + "을(를) 만들었습니다.");
+		alert("그룹을 정상적으로 만들었습니다.");
 		this.submit();
 	});
 	

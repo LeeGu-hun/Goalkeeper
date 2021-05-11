@@ -55,7 +55,7 @@ public class BoardController {
 
 	@PostMapping("/board/insert_board.do")
 	public String insertBoard(
-			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
+			BoardVO board, HttpServletRequest request)
 			throws Exception {
 		UserVO user = new UserVO();
 		BoardFileVO boardFileVO = new BoardFileVO();
@@ -67,20 +67,16 @@ public class BoardController {
 		boardService.insertBoard(board);
 		
 	
-        for(MultipartFile file : files) {
-        	String fileUrl = "C:/uploadfile";
-        	String fileName = file.getOriginalFilename(); 
-            String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
-            String filePath = fileUrl + "/" + uuid;
-            File dest = new File(filePath);
-            file.transferTo(dest);
-            boardFileVO.setUuid(uuid);
-            boardFileVO.setBno(board.getBno());
-            boardFileVO.setFileName(fileName);
-            boardFileVO.setFileUrl(filePath);
-            boardFileService.fileInsert(boardFileVO);
-	}
-	return "redirect:/home";
+		/*
+		 * for(MultipartFile file : files) { String fileUrl = "C:/uploadfile"; String
+		 * fileName = file.getOriginalFilename(); String uuid =
+		 * RandomStringUtils.randomAlphanumeric(32)+"."+"jpg"; String filePath = fileUrl
+		 * + "/" + uuid; File dest = new File(filePath); file.transferTo(dest);
+		 * boardFileVO.setUuid(uuid); boardFileVO.setBno(board.getBno());
+		 * boardFileVO.setFileName(fileName); boardFileVO.setFileUrl(filePath);
+		 * boardFileService.fileInsert(boardFileVO); }
+		 */
+	return "redirect:/boardWrite";
 	}
 
 	@RequestMapping("/boardSearch")
