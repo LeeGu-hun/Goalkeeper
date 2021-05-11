@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import goal.service.CommonService;
+import goal.service.UserService;
 import goal.vo.UserVO;
 
 @Controller
@@ -14,6 +15,8 @@ public class DropBoxController {
 	
 	@Autowired
 	private CommonService commonService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/profileInfo")
 	public ModelAndView openProfileInfo(HttpServletRequest request) {
@@ -23,6 +26,7 @@ public class DropBoxController {
 	}
 	@PostMapping("/modifyMyInfo")
 	public String modifyMyInfo(UserVO vo) {
+		userService.modify(vo);
 		return "redirect:/profileInfo";
 	}
 	

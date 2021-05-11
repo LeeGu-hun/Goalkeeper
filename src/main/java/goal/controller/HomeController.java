@@ -77,9 +77,9 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		if(user != null) {
 			session.setAttribute("user", user);
-			return "/view/home/userLogin";
+			return "redirect:/home";
 		}else {
-			return "redirect:/login";
+			return "/view/home/userLogin";
 		}
 	   }
 	

@@ -13,7 +13,7 @@
 		<id property="userBirthdate" column="userBirthdate"/>
 	</resultMap>
 	
-	<update id="modifyUserInfo">
+	<update id="modifyUserInfo" parameterType="goal.vo.UserVO">
 	<![CDATA[
 		UPDATE GK_USER SET userMail = #{userMail}, userPhone = #{userPhone}, userGender = #{userGender}, userBirthdate= #{userBirthdate}, userPw=#{userPw} WHERE userId = #{userId}
 	]]>
