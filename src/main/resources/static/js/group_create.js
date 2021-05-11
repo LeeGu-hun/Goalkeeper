@@ -164,4 +164,6 @@ window.onload = function() {
 	function goDetail(){
 		$('#goDetail').submit();
 	};
+	var profile = document.getElementById("profile");
+	profile.src = profile.dataset.src; 
 }

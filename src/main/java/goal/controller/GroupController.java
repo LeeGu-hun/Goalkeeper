@@ -52,22 +52,23 @@ public class GroupController {
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	
-	@GetMapping("/myGroup")
+	private int gno = 0;
+	
+	@GetMapping("/groups")
 	public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/groups");
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
-		if(user != null) {
-			group.setUno(user.getUno());
-			List<GroupVO> groupList = getGroupList(user);
-			mv.addObject("list", groupList);
+		List<GroupVO> groupList = groupService.allList();
+		mv.addObject("list", groupList);
+		if(user != null) {		
 			mv.addObject("user", user);
 		} else {
 			mv.addObject("user", null);
 		}
 		return mv;
 	}
-	@PostMapping("/myGroup")
+	@PostMapping("/groups")
 	@ResponseBody
 	public ModelAndView openSearchGroup(@RequestParam("groups_search") String word, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/groups");
@@ -94,59 +95,42 @@ public class GroupController {
 	@PostMapping("/group_create")
 	public String createGroup(GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
-		UserVO user = new UserVO();
-		user = getLoginUser(request);
+		UserVO user = getLoginUser(request);
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups);
 		groupFile = groupUpload.requestSingleUpload(multi);
 		groupFileService.insertGroupFile(group, groupFile);
 		
-		return "redirect:/myGroup";
+		return "redirect:/groups";
 	}
-	@GetMapping("/group_detail")
-	public ModelAndView openDetail(@RequestParam int gno, HttpServletRequest request) {
+	@GetMapping("/group_detail/{gno}")
+	public ModelAndView openDetail(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
 		mv = commonService.checkLoginUser(request, mv);
+		GroupVO group = groupService.selectGroup(gno);
+		this.gno = gno;
+		mv.addObject("group", group);
 		mv = getGroupUser(gno, mv);
 		return mv;
 	}
-	@GetMapping("/group_member")
-	public ModelAndView openMember(@RequestParam int gno, HttpServletRequest request) {
+	@GetMapping("/group_member/{gno}")
+	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
 		mv = commonService.checkLoginUser(request, mv);
-		mv = getGroupUser(gno, mv);
+		GroupVO group = groupService.selectGroup(gno);
+		mv.addObject("group", group);
 		return mv;
 	}
 	
-	@GetMapping("/group_mainGoal")
-	public ModelAndView openMainGoal(@RequestParam int gno, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/group/group_mainGoal");
+	@GetMapping("/group_info/{gno}")
+	public ModelAndView openInfo(@PathVariable("gno") int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_info");
 		mv = commonService.checkLoginUser(request, mv);
-		mv = getGroupUser(gno, mv);
-		List<GroupGoalVO> groupGoal = groupService.findGoalbyId(gno);
-		mv.addObject("goal", groupGoal);
-		
-		return mv;
+		GroupVO group = groupService.selectGroup(gno);
+		mv.addObject("group", group);
+		return mv;	
 	}
-	@PostMapping("/group_mainGoal")
-	public ModelAndView addMainGoal(GroupGoalVO groupGoal, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("redirect:/group_mainGoal");
-		mv = commonService.checkLoginUser(request, mv);
-		groupGoal.setGoal_type("A");
-		groupService.insertGoal(groupGoal);
-		mv.addObject("gno", groupGoal.getGno());
-		return mv;
-	}
-	
-	@GetMapping("/group_singleGoal{gno}")
-	public ModelAndView openSingleGoal(@RequestParam int gno, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/group/group_singleGoal");
-		mv = commonService.checkLoginUser(request, mv);
-		mv = getGroupUser(gno, mv);
-		return mv;
-	}
-	
 	@GetMapping("/group_home")
 	public String openHome() {
 		return "redirect:/group_detail";
@@ -155,12 +139,12 @@ public class GroupController {
 	@RequestMapping(value="/display", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage() throws IOException{
 		MediaUtils mediaUtils = new MediaUtils();
-	      InputStream in = null;
-	      ResponseEntity<byte[]> entity = null;
-	      List<GroupFileVO> groupFileList = groupFileService.selectFileName();
-	      for(GroupFileVO groupFile : groupFileList) {
-	         try {
-	            String fileName = groupFile.getG_filename();
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    List<GroupFileVO> groupFileList = groupFileService.selectFileName();
+	    for(GroupFileVO groupFile : groupFileList) {
+	    	try {
+	    		String fileName = groupFile.getG_filename();
 	            String g_fid = groupFile.getG_fid();
 	            String uploadPath = groupFile.getG_filepath();
 	            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
@@ -177,6 +161,30 @@ public class GroupController {
 	         }
 	      }
 	      return entity;
+	}
+	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> getImage() throws IOException{
+		MediaUtils mediaUtils = new MediaUtils();
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    GroupFileVO groupFile = groupFileService.selectFile(gno);
+    	try {
+            String fileName = groupFile.getG_filename();
+            String g_fid = groupFile.getG_fid();
+            String uploadPath = groupFile.getG_filepath();
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = mediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
+            headers.setContentType(mType);
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+         } catch (IOException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+         } finally {
+            in.close();
+         }
+	     return entity;
 	}
 
 	private List<GroupVO> getGroupList(UserVO user){
