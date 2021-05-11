@@ -27,7 +27,7 @@ import goal.vo.FriendVO;
 import goal.vo.UserVO;
 
 @RestController
-public class MyPageController {
+public class FriendController {
 	
 	@Autowired
 	public FriendService friendService;
@@ -110,9 +110,10 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/myFriends")
-	public ModelAndView searchFriend(FriendVO vo) {
+	public ModelAndView searchFriend(@RequestParam(value="friends_search") String friendName, FriendVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
 		friendService.findMyFriend(vo);
+		vo.setFriendName(friendName);
 		
 		List<FriendVO> friendList = friendService.findMyFriend(vo);
 		mv.addObject("friendList", friendList);
