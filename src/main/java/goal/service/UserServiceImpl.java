@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import goal.mapper.UserMapper;
 
@@ -30,7 +31,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void insertUser(UserVO vo) {
 		mapper.register(vo);
-		
 	}
 	
 	@Override
@@ -48,7 +48,11 @@ public class UserServiceImpl implements UserService{
 	public UserVO getUser(UserVO vo) {
 		return mapper.readUser(vo);
 	}
-
+	
+	@Override
+	public void modify(UserVO vo) {
+		mapper.modifyUserInfo(vo);
+	}
 
 }
 

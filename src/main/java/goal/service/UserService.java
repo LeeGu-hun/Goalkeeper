@@ -14,5 +14,6 @@ public interface UserService {
 	String checkLogin(UserVO vo);
 	String checkId(String userId);
 	UserVO getUser(UserVO vo);
+	void modify(UserVO vo);
 
 }

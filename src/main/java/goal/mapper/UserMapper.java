@@ -18,6 +18,7 @@ public interface UserMapper {
 	
 	public void register(UserVO vo);
 	
+	public void modifyUserInfo(UserVO vo);
 	
 	
 }

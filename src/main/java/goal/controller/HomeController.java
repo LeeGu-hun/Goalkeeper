@@ -41,6 +41,7 @@ public class HomeController {
 		 mv = commonService.checkLoginUser(request, mv);
 		 return mv;
 	}
+	
 	@GetMapping("/user")
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/Old_user_home");

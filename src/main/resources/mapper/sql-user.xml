@@ -13,6 +13,11 @@
 		<id property="userBirthdate" column="userBirthdate"/>
 	</resultMap>
 	
+	<update id="modifyUserInfo">
+	<![CDATA[
+		UPDATE GK_USER SET userMail = #{userMail}, userPhone = #{userPhone}, userGender = #{userGender}, userBirthdate= #{userBirthdate}, userPw=#{userPw} WHERE userId = #{userId}
+	]]>
+	</update>
 	
 	<select id="read" parameterType="goal.vo.UserVO" resultType="String">
 	<![CDATA[
