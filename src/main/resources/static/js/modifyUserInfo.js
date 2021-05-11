@@ -1,7 +1,6 @@
 window.onload = function() {
 	$('#doModify').click(function(e){	 
-		
-	  
+		e.priventDefault();
 	    if($('#userMail') == ""){
 	        alert("이메일을 입력해주세요");
 	        $("#userMail").focus();

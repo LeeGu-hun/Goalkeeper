@@ -100,8 +100,7 @@ public class HomeController {
 	public String logoutUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		referer = request.getHeader("REFERER");
-		return "redirect:"+referer;
+		return "/view/home/userLogin";
 	}
 	
 	@GetMapping("/denied")
