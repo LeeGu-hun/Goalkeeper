@@ -31,5 +31,10 @@ public class FriendServiceImpl implements FriendService{
 	public boolean remove(int fno) {
 		return mapper.deleteFriend(fno) > 0 ? true : false;
 	}
+
+	@Override
+	public List<FriendVO> findMyFriend(FriendVO vo) {
+		return mapper.findMyFriend(vo);
+	}
 	
 }

@@ -98,13 +98,23 @@ public class MyPageController {
 		return mv;
 	}
 	
-	@PostMapping("myFriends")
+	@PostMapping("/myFriends")
 	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
 		friendService.remove(fno);
 		
 		FriendVO friend = new FriendVO();
 		List<FriendVO> friendList = friendService.getFriendsList(friend);
+		mv.addObject("friendList", friendList);
+		return mv;
+	}
+	
+	@RequestMapping("/myFriends")
+	public ModelAndView searchFriend(FriendVO vo) {
+		ModelAndView mv = new ModelAndView("redirect:/myFriends");
+		friendService.findMyFriend(vo);
+		
+		List<FriendVO> friendList = friendService.findMyFriend(vo);
 		mv.addObject("friendList", friendList);
 		return mv;
 	}

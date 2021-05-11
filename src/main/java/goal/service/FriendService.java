@@ -11,4 +11,6 @@ public interface FriendService {
 	boolean addFriend(FriendVO vo);
 	
 	boolean remove(int fno);
+	
+	List<FriendVO> findMyFriend(FriendVO vo);
 }

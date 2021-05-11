@@ -13,4 +13,7 @@ public interface FriendMapper {
 	int addFriend(FriendVO vo);
 	
 	int deleteFriend(int fno);
+	
+	List<FriendVO> findMyFriend(FriendVO vo);
+	
 }
