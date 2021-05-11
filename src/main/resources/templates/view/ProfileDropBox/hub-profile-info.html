@@ -195,7 +195,7 @@
                     <!-- FORM INPUT -->
                     <div class="form-input small active">
                       <label for="profile-name">E-mail</label>
-                      <input type="text" id="userMail" name="userMail" th:value="${user.userMail}">
+                      <input type="text" id="userMail" name="userMail" th:value="${user.userBirthdate}">
                     </div>
                     <!-- /FORM INPUT -->
                   </div>
@@ -228,20 +228,15 @@
                   <!-- FORM ITEM -->
                   <div class="form-item">
                     <!-- FORM INPUT DECORATED -->
-                    <div class="form-input-decorated">
-                      <!-- FORM INPUT -->
-                      <div class="form-input small active">
-                        <label for="profile-birthday">Birthday</label>
-                        <input type="text" id="userBirthdate" name="userBirthdate" th:value="${user.userBirthdate}">
-                      </div>
-                      <!-- /FORM INPUT -->
-          
-                      <!-- FORM INPUT ICON -->
-                      <svg class="form-input-icon icon-events">
-                        <use xlink:href="#svg-events"></use>
-                      </svg>
-                      <!-- /FORM INPUT ICON -->
+                      <div class="form-item">
+                    <!-- FORM INPUT -->
+                    <div class="form-input small active">
+                      <label for="profile-name">Birthday</label>
+                      <input type="text" id="userBirthdate" name="userBirthdate" th:value="${user.userBirthdate}">
                     </div>
+                    <!-- /FORM INPUT -->
+                  </div>
+                    
                     <!-- /FORM INPUT DECORATED -->
                   </div>
                   <!-- /FORM ITEM -->

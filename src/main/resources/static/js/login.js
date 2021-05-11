@@ -2,14 +2,14 @@ window.onload = function() {
 	$('#doLogin').click(function(e){	 
 		
 	  
-	    if($('#u_id').val() == ""){
+	    if($('#userId1').val() == ""){
 	        alert("아이디를 입력해주세요");
-	        $('#u_id').focus();
+	        $('#userId1').focus();
 	        return false;
 	    }
-	    else if($('#u_password').val() == ""){
+	    else if($('#userPw1').val() == ""){
 	        alert("비밀번호를 입력해주세요"); 
-	        $('#u_password').focus();
+	        $('#userPw1').focus();
 	        return false;
 	    }
 	    this.submit(); 

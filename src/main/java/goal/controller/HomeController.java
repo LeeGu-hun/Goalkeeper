@@ -35,7 +35,7 @@ public class HomeController {
 	private CommonService commonService;
 	
 	private String referer = null;
-	@GetMapping("/newsFeed")
+	@GetMapping("/home")
 	   public ModelAndView openNewsFeed(HttpServletRequest request) {
 		 ModelAndView mv = new ModelAndView("view/home/newsFeed");
 		 mv = commonService.checkLoginUser(request, mv);
@@ -44,7 +44,7 @@ public class HomeController {
 	
 	@GetMapping("/user")
 	   public ModelAndView openHome(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/Old_user_home");
+	      ModelAndView mv = new ModelAndView("view/home/Old_userLogin");
 	      mv = commonService.checkLoginUser(request, mv);
 	      HttpSession session = request.getSession(true);
 	      UserVO user = (UserVO) session.getAttribute("user");
@@ -64,25 +64,23 @@ public class HomeController {
 			return "redirect:/home";
 	}
 	
-	@GetMapping("/home")
+	@GetMapping("/login")
 	public ModelAndView openLogin(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/home/user_home");
+		ModelAndView mv = new ModelAndView("/view/home/userLogin");
 		referer = request.getHeader("REFERER");
 		return mv;
 	}
 	
-	@PostMapping("/home")
+	@PostMapping("/login")
 	public String checkLogin(HttpServletRequest request,UserVO vo, Model model) {
 		UserVO user = userService.getUser(vo); //UserVO반환하는 서비스 추가해야함
 		HttpSession session = request.getSession(true);
 		if(user != null) {
 			session.setAttribute("user", user);
-			if(referer == null) {
-				return "redirect:/newsFeed";
-			}
-			return "redirect:" + referer;
-		} 
-		return "redirect:/home";
+			return "/view/home/userLogin";
+		}else {
+			return "redirect:/login";
+		}
 	   }
 	
 	
