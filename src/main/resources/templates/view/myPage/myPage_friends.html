@@ -160,11 +160,11 @@
           <!-- /USER SHORT DESCRIPTION AVATAR -->
     
           <!-- USER SHORT DESCRIPTION TITLE -->
-          <p class="user-short-description-title"><a href="profile-timeline.html" th:text="${userId}"></a></p>
+          <p class="user-short-description-title"><a th:text="${userId}"></a></p>
           <!-- /USER SHORT DESCRIPTION TITLE -->
     
           <!-- USER SHORT DESCRIPTION TEXT -->
-          <p class="user-short-description-text"><a href="#" th:text="${#dates.format(userBirthdate, 'yyyy-MM-dd')}"></a></p>
+          <p class="user-short-description-text"><a th:text="${#dates.format(userBirthdate, 'yyyy-MM-dd')}"></a></p>
           <!-- /USER SHORT DESCRIPTION TEXT -->
         </div>
         <!-- /USER SHORT DESCRIPTION -->
@@ -377,6 +377,20 @@
           <!-- /SECTION MENU ITEM TEXT -->
         </a>
         <!-- /SECTION MENU ITEM -->
+        
+        <!-- SECTION MENU ITEM -->
+        <a class="section-menu-item" href="profile-blog.html">
+          <!-- SECTION MENU ITEM ICON -->
+          <svg class="section-menu-item-icon icon-blog-posts">
+            <use xlink:href="#svg-blog-posts"></use>
+          </svg>
+          <!-- /SECTION MENU ITEM ICON -->
+  
+          <!-- SECTION MENU ITEM TEXT -->
+          <p class="section-menu-item-text">My Data</p>
+          <!-- /SECTION MENU ITEM TEXT -->
+        </a>
+        <!-- /SECTION MENU ITEM -->
    
       </div>
       <!-- /SECTION MENU -->
@@ -432,7 +446,7 @@
               <label for="friends-search">Search Friends</label>
               <input type="text" id="friends-search" name="friends_search">
               <!-- BUTTON -->
-              <button class="button primary">
+              <button class="button primary" type="submit" onclick="location.href='myFriends'">
                 <!-- ICON MAGNIFYING GLASS -->
                 <svg class="icon-magnifying-glass">
                   <use xlink:href="#svg-magnifying-glass"></use>
@@ -676,6 +690,7 @@
     <!-- /SECTION -->
   </div>
   <!-- /CONTENT GRID -->
+
 <!-- app -->
 <script src="js/utils/app.js"></script>
 <!-- page loader -->
