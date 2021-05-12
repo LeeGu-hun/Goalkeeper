@@ -47,9 +47,9 @@ public class BoardFileServiceImpl implements BoardFileService {
 	public BoardFileVO selectFile(int bno) {
 		return boardFileMapper.selectFile(bno);
 	}
-	
-	
 
-	
-
+	@Override
+	public int countFile(int bno) {
+		return boardFileMapper.countFile(bno);
+	}
 }

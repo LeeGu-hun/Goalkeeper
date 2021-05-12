@@ -1079,7 +1079,7 @@
 
 									<!-- OPTION ITEM TITLE -->
 									<p class="option-item-title">그룹 글</p>
-									
+
 									<!-- /OPTION ITEM TITLE -->
 								</div>
 								<!-- /OPTION ITEM -->
@@ -1134,11 +1134,11 @@
 								<!-- /QUICK POST FOOTER ACTION -->
 
 								<input id="pic"
-									style="border-right: none; border-left: none; border-top: none; 
-									cursor: default; width:130px"
+									style="border-right: none; border-left: none; border-top: none; cursor: default; width: 130px"
 									type="text" readonly>
-									
-								<div class="group_form" id="group_form" style="margin-left: 10px">
+
+								<div class="group_form" id="group_form"
+									style="margin-left: 10px">
 									<select id="bo_group" name="bo_group" class="form-control">
 										<option value="">선택해주세요</option>
 										<option th:each="obj:${GrList}" th:value="${obj.g_name}"
@@ -1164,33 +1164,32 @@
 					</div>
 					<!-- /QUICK POST -->
 
-				<!-- MODAL -->
-				<div class="backmodal">
-					<div class="modal">
-						<div class="modal_content">
-							<div class="ocean">
-								<div class="wave"></div>
-								<div class="wave"></div>
-							</div>
-							<H2 style="margin-left: 330px;">
-								<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
-								<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
-							</H2>
+					<!-- MODAL -->
+					<div class="backmodal">
+						<div class="modal">
+							<div class="modal_content">
+								<div class="ocean">
+									<div class="wave"></div>
+									<div class="wave"></div>
+								</div>
+								<H2 style="margin-left: 330px;">
+									<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
+									<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
+								</H2>
 
-							<div style="margin: 5px" id="imgsrc" src=""></div>
+								<div style="margin: 5px" id="imgsrc" src=""></div>
 
-							<div class="filebox">
-								<label for="file">UpLoad</label> <input type="file" id="file"
-									name="files" maxlength="2" multiple accept=".jpg, .jpeg, .png">
+								<div class="filebox">
+									<label for="file">UpLoad</label> <input type="file" id="file"
+										name="files" maxlength="2" multiple accept=".jpg, .jpeg, .png">
+								</div>
+								<span class="file-custom"></span>
 							</div>
-							<span class="file-custom"></span>
+							<button type="button" id="photobtn"
+								style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
 						</div>
-						<button type="button" id="photobtn"
-							style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
 					</div>
-				</div>
-				<!-- /MODAL -->
-
+					<!-- /MODAL -->
 			</form>
 
 			<!-- SIMPLE TAB ITEMS -->
@@ -1240,7 +1239,7 @@
 			<!-- /SIMPLE TAB ITEMS -->
 
 			<!-- WIDGET BOX -->
-			<div th:each="post:${BoList}" class="widget-box no-padding">
+			<div th:each="post, i:${BoList}" class="widget-box no-padding">
 				<!-- WIDGET BOX SETTINGS -->
 				<div class="widget-box-settings">
 					<!-- POST SETTINGS WRAP -->
@@ -1345,12 +1344,12 @@
 							<!-- /USER STATUS AVATAR -->
 
 							<!-- USER STATUS TITLE -->
-							
+
 							<p class="user-status-title medium">
-								<a class="bold" href="profile-timeline.html" th:text="${post.userId}"></a>
-								uploaded a <span class="bold">video</span>
+								<a class="bold" href="profile-timeline.html"
+									th:text="${post.userId}"></a> uploaded a <span class="bold">video</span>
 							</p>
-		
+
 							<!-- /USER STATUS TITLE -->
 
 							<!-- USER STATUS TEXT -->
@@ -1364,11 +1363,126 @@
 						<!-- /WIDGET BOX STATUS TEXT -->
 					</div>
 					<!-- /WIDGET BOX STATUS CONTENT -->
-
+					
 					<!-- IFRAME WRAP -->
-					<div> <!-- class="iframe-wrap" -->
-						<div class="hexagon-image-100-110"
-							th:attr="data-src=@{/boardDisplay/}+${post.bno}"></div>
+					<div>
+						<form id="cntf" action="/count_file" method="POST" th:if="${i.index} == ${count}">
+							<input type="hidden" th:value="${post.bno}" name="bno" id="boardbno">
+							<input type="hidden" th:value="${count}" id="count" >
+						</form>
+					<p th:text="${filecnt}"></p>
+						<!-- class="iframe-wrap" -->
+						<!-- PICTURE COLLAGE -->
+						<div class="picture-collage" th:if="${filecnt} != 0">
+							<!-- PICTURE COLLAGE ROW -->
+							<div class="picture-collage-row medium">
+								<!-- PICTURE COLLAGE ITEM -->
+								<div class="picture-collage-item popup-picture-trigger">
+									<!-- PHOTO PREVIEW -->
+									<div class="photo-preview">
+										<!-- PHOTO PREVIEW IMAGE -->
+										<figure class="photo-preview-image liquid">
+											<img src="img/cover/10.jpg" alt="photo-preview-10">
+										</figure>
+										<!-- /PHOTO PREVIEW IMAGE -->
+
+										<!-- PHOTO PREVIEW INFO -->
+										<div class="photo-preview-info">
+											<!-- REACTION COUNT LIST -->
+											<div class="reaction-count-list">
+												<!-- REACTION COUNT -->
+												<div class="reaction-count negative">
+													<!-- REACTION COUNT ICON -->
+													<svg class="reaction-count-icon icon-thumbs-up">
+                              <use xlink:href="#svg-thumbs-up"></use>
+                            </svg>
+													<!-- /REACTION COUNT ICON -->
+
+													<!-- REACTION COUNT TEXT -->
+													<p class="reaction-count-text">2</p>
+													<!-- /REACTION COUNT TEXT -->
+												</div>
+												<!-- /REACTION COUNT -->
+
+												<!-- REACTION COUNT -->
+												<div class="reaction-count negative">
+													<!-- REACTION COUNT ICON -->
+													<svg class="reaction-count-icon icon-comment">
+                              <use xlink:href="#svg-comment"></use>
+                            </svg>
+													<!-- /REACTION COUNT ICON -->
+
+													<!-- REACTION COUNT TEXT -->
+													<p class="reaction-count-text">5</p>
+													<!-- /REACTION COUNT TEXT -->
+												</div>
+												<!-- /REACTION COUNT -->
+											</div>
+											<!-- /REACTION COUNT LIST -->
+										</div>
+										<!-- /PHOTO PREVIEW INFO -->
+									</div>
+									<!-- /PHOTO PREVIEW -->
+								</div>
+								<!-- /PICTURE COLLAGE ITEM -->
+							</div>
+							<!-- /PICTURE COLLAGE ROW -->
+
+							<!-- PICTURE COLLAGE ROW -->
+							<div class="picture-collage-row">
+								<!-- PICTURE COLLAGE ITEM -->
+								<div class="picture-collage-item popup-picture-trigger">
+									<!-- PHOTO PREVIEW -->
+									<div class="photo-preview">
+										<!-- PHOTO PREVIEW IMAGE -->
+										<figure class="photo-preview-image liquid">
+											<img src="img/cover/16.jpg" alt="photo-preview-16">
+										</figure>
+										<!-- /PHOTO PREVIEW IMAGE -->
+
+										<!-- PHOTO PREVIEW INFO -->
+										<div class="photo-preview-info">
+											<!-- REACTION COUNT LIST -->
+											<div class="reaction-count-list">
+												<!-- REACTION COUNT -->
+												<div class="reaction-count negative">
+													<!-- REACTION COUNT ICON -->
+													<svg class="reaction-count-icon icon-thumbs-up">
+                              <use xlink:href="#svg-thumbs-up"></use>
+                            </svg>
+													<!-- /REACTION COUNT ICON -->
+
+													<!-- REACTION COUNT TEXT -->
+													<p class="reaction-count-text">2</p>
+													<!-- /REACTION COUNT TEXT -->
+												</div>
+												<!-- /REACTION COUNT -->
+
+												<!-- REACTION COUNT -->
+												<div class="reaction-count negative">
+													<!-- REACTION COUNT ICON -->
+													<svg class="reaction-count-icon icon-comment">
+                              <use xlink:href="#svg-comment"></use>
+                            </svg>
+													<!-- /REACTION COUNT ICON -->
+
+													<!-- REACTION COUNT TEXT -->
+													<p class="reaction-count-text">5</p>
+													<!-- /REACTION COUNT TEXT -->
+												</div>
+												<!-- /REACTION COUNT -->
+											</div>
+											<!-- /REACTION COUNT LIST -->
+										</div>
+										<!-- /PHOTO PREVIEW INFO -->
+									</div>
+									<!-- /PHOTO PREVIEW -->
+								</div>
+								<!-- /PICTURE COLLAGE ITEM -->
+							</div>
+							<!-- /PICTURE COLLAGE ROW -->
+						</div>
+						<!-- /PICTURE COLLAGE -->
 					</div>
 					<!-- /IFRAME WRAP -->
 
@@ -1790,7 +1904,7 @@
 			</div>
 			<!-- /WIDGET BOX -->
 
-			
+
 
 			<!-- LOADER BARS -->
 			<div class="loader-bars">

@@ -1,3 +1,7 @@
+	window.onload = function() {
+		var boardBno = $('#boardbno').val();
+		$('#cntf').submit();
+		
 		function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -151,3 +155,4 @@
 						}
 					});//arr.forEach
 		}
+}

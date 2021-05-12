@@ -15,4 +15,6 @@ public interface BoardFileService {
 	List<BoardFileVO> searchFile(BoardFileVO file);
 	List<BoardFileVO> getBoardFileList();
 	BoardFileVO selectFile(int bno);
+	int countFile(int bno);
+
 }
