@@ -38,7 +38,11 @@
    </select>
    
 	<select id="getBoardList" resultMap="boardVO">
-		select * from GK_BOARD order by bno desc
+		select * from GK_BOARD order by bo_date desc
+	</select>
+	
+	<select id="getGroupBoardList" resultMap="boardVO" parameterType="int">
+		select * from GK_BOARD where gno=#{gno} order by bo_date desc
 	</select>
 	
 	<select id="selectBoardList" resultMap="boardVO" parameterType="goal.vo.UserVO">

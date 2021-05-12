@@ -40,5 +40,10 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> searchBoard(BoardVO vo) {
 		return boardMapper.searchBoard(vo);	
 	}
+
+	@Override
+	public List<BoardVO> getGroupBoardList(int gno) {
+		return boardMapper.getGroupBoardList(gno);
+	}
 	
 }

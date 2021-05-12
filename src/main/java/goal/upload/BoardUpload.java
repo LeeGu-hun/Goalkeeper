@@ -38,7 +38,7 @@ public class BoardUpload {
 		BoardFileVO boardFileVO = new BoardFileVO();
 	
 		for(MultipartFile file : files) {
-        	String fileUrl = "C:/uploadfile";
+        	String fileUrl = "C:\\uploadfile";
         	String fileName = file.getOriginalFilename(); 
             String uuid = RandomStringUtils.randomAlphanumeric(32);
             String filesave = fileUrl + "/" + uuid + "_" + fileName;

@@ -4,7 +4,7 @@
 <mapper namespace="goal.mapper.BoardFileMapper">
 	<resultMap type="goal.vo.BoardFileVO" id="boardFileVO">
 		<id property="uuid" column="uuid"/>
-		<id property="filename" column="filename"/>
+		<id property="fileName" column="filename"/>
 		<id property="fileUrl" column="fileUrl"/>
 		<id property="bno" column="bno"/>
 	</resultMap>

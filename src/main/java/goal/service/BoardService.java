@@ -12,4 +12,5 @@ public interface BoardService {
 	List<BoardVO> getBoardList();
 	List<BoardVO> selectBoardList(UserVO vo);
 	BoardVO recentBoard();
+	List<BoardVO> getGroupBoardList(int gno);
 }

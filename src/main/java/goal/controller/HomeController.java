@@ -68,32 +68,25 @@ public class HomeController {
 	   public ModelAndView openNewsFeed(HttpServletRequest request) {
 		 ModelAndView mv = new ModelAndView("view/home/newsFeed");
 		 mv = commonService.checkLoginUser(request, mv);
-		 UserVO user = getLoginUser(request);
+		 UserVO user = commonService.getLoginUser(request);
+		 
+		 List<BoardVO> boardList = boardService.getBoardList();
+		 mv.addObject("BoList", boardList);
 			if (user != null) {
-				List<GroupVO> groupList = groupService.selectGroupList(user);
-				List<BoardVO> boardList = boardService.getBoardList();
+				List<GroupVO> groupList = groupService.selectGroupList(user);	
 			    List<ReplyVO> ReplyList = replyService.getMainReply(); 
-			  
-			    HttpSession session = request.getSession(true);
-			    UserVO user2 = (UserVO) session.getAttribute("user");
 			    
-	
-			    mv.addObject("user", user2);
 			    mv.addObject("GrList", groupList);
-			    mv.addObject("BoList", boardList);
 			    mv.addObject("reply", ReplyList);
-			} else {
-				mv.setViewName("/view/home/userLogin");
-			}
+			} 
 			return mv;
 	}
 	@PostMapping("/home/insert.do")
 	public String insertBoard(
 			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
 			throws Exception {
-		UserVO user = new UserVO();
 		BoardFileVO boardFileVO = new BoardFileVO();
-		user = getLoginUser(request);
+		UserVO user = commonService.getLoginUser(request);
 
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
@@ -191,10 +184,4 @@ public class HomeController {
     public String deniedView() {
         return "view/error/denied";
     }
-	
-	public UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-		UserVO user = (UserVO) session.getAttribute("user");
-		return user;
-	}
 }
