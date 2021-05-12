@@ -191,9 +191,7 @@
 							<!-- /WIDGET BOX TITLE -->
 							<!-- WIDGET BOX CONTENT -->
 							<div class="widget-box-content">
-								<!-- FORM -->
-
-								<!-- FORM ROW -->
+								
 								<div class="form-row split">
 									<!-- FORM ITEM -->
 									<div class="form-item">
@@ -203,28 +201,18 @@
 											<label for="profile-name">E-mail</label> <input type="text"
 												id="userMail" name="userMail" th:value="${user.userMail}">
 										</div>
-										<!-- /FORM INPUT -->
 									</div>
-									<!-- /FORM ITEM -->
-									<!-- FORM ITEM -->
 									<div class="form-item">
-										<!-- FORM INPUT -->
 										<div class="form-input small active">
 											<label for="profile-tagline">Phone Number</label> <input
 												type="text" id="userPhone" name="userPhone"
 												th:value="${user.userPhone}">
 										</div>
-										<!-- /FORM INPUT -->
 									</div>
-									<!-- /FORM ITEM -->
 								</div>
-								<!-- /FORM ROW -->
-
-								<!-- FORM ROW -->
 								<div class="form-row split">
 									<!-- FORM ITEM -->
 									<div class="form-item">
-										<!-- FORM INPUT DECORATED -->
 										<div class="form-item">
 											<!-- FORM INPUT -->
 											<label for="profile-name">Birthday</label>
@@ -232,14 +220,8 @@
 												<input type="date" id="userBirthdate" name="userBirthdate"
 													th:value="${user.userBirthdate}">
 											</div>
-											<!-- /FORM INPUT -->
 										</div>
-
-										<!-- /FORM INPUT DECORATED -->
 									</div>
-									<!-- /FORM ITEM -->
-
-									<!-- FORM ITEM -->
 									<div class="form-item">
 										<!-- FORM INPUT -->
 										<div class="form-select">
@@ -248,55 +230,32 @@
 												<option value="0">Man</option>
 												<option value="1" selected>Women</option>
 											</select>
-											<!-- FORM SELECT ICON -->
 											<svg class="form-select-icon icon-small-arrow">
-                        <use xlink:href="#svg-small-arrow"></use>
-                      </svg>
-											<!-- /FORM SELECT ICON -->
+                       						 <use xlink:href="#svg-small-arrow"></use>
+                     						 </svg>
 										</div>
-										<!-- /FORM INPUT -->
 									</div>
-									<!-- /FORM ITEM -->
 								</div>
-								<!-- /FORM ROW -->
-
-								<!-- FORM ROW -->
 								<div class="form-row split">
-									<!-- FORM ITEM -->
 									<div class="form-item">
-										<!-- FORM SELECT -->
 										<div class="form-input small">
 											<label for="profile-birthplace">New PassWord</label> <input
 												type="password" id="userPw" name="userPw"
 												th:value="${user.userPw}">
 										</div>
-										<!-- /FORM SELECT -->
 									</div>
-									<!-- /FORM ITEM -->
-
-									<!-- FORM ITEM -->
 									<div class="form-item">
 										<!-- FORM INPUT -->
 										<div class="form-input small">
 											<label for="profile-birthplace">Password Check</label> <input
 												type="password" id="re_pw" name="profile_birthplace">
 										</div>
-										<!-- /FORM INPUT -->
 									</div>
-									<!-- /FORM ITEM -->
 								</div>
-								<!-- /FORM ROW -->
-
-								<!-- /FORM ROW -->
-
-								<!-- /FORM -->
 							</div>
-							<!-- WIDGET BOX CONTENT -->
-							<button type="submit" id="doModify"
-								class="dropdown-navigation-button button small secondary">Modify</button>
+							<button type="submit" id="doModify" class="dropdown-navigation-button button small secondary">Modify</button>
 						</div>
 					</form>
-					<!-- /WIDGET BOX -->
 				</div>
 			</div>
 		</div>
