@@ -12,5 +12,7 @@ public interface FriendService {
 	
 	boolean remove(int fno);
 	
+	int countFriends(int uno);
+	
 	List<FriendVO> findMyFriend(Map<String, Object> map);
 }

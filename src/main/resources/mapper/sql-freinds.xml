@@ -26,4 +26,8 @@
 	<select id="findMyFriend" parameterType="java.util.Map" resultMap="friendVO">
 		select * from GK_FRIEND where uno = #{uno} and upper(friendName) like '%' || UPPER(#{word}) || '%'
 	</select>
+	
+	<select id="countFriend" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND where uno = #{uno}
+	</select>
 </mapper>
