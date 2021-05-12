@@ -11,4 +11,5 @@ public interface GroupFileMapper {
 	void insertGroupFile(GroupFileVO groupFile);
 	List<GroupFileVO> selectFileName();
 	int removeGroupFile(int gno);
+	GroupFileVO selectFile(int gno);
 }

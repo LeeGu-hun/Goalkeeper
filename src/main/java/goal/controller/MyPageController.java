@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,13 @@ public class MyPageController {
 	
 	@Autowired
 	public UserService userService;
-	
+
 	@GetMapping("/myPage")
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo) {
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
+		
 		if(vo != null) {
 			mv.addObject("vo", user);
 			mv.addObject("uno", user.getUno());
@@ -110,12 +112,13 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/myFriends")
-	public ModelAndView searchFriend(FriendVO vo) {
+	public ModelAndView searchFriend(@RequestParam(value="friends_search") String friendName, FriendVO vo) {
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
 		friendService.findMyFriend(vo);
+		vo.setFriendName(friendName);
 		
-		List<FriendVO> friendList = friendService.findMyFriend(vo);
-		mv.addObject("friendList", friendList);
+		List<FriendVO> searchFriendList = friendService.findMyFriend(vo);
+		mv.addObject("searchList", searchFriendList);
 		return mv;
 	}
 	

@@ -1,3 +1,5 @@
+	$("#group_form").hide();
+	
 	function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -10,6 +12,8 @@
 			document.getElementById("all").setAttribute("name", "bo_cate");
 			document.getElementById("private").setAttribute("name", "null");
 			document.getElementById("group").setAttribute("name", "null");
+			
+			$('.group_form').hide();
 		}
 		function secrettext() {
 			document.getElementById("text").value = '';
@@ -23,6 +27,8 @@
 			document.getElementById("all").setAttribute("name", "null");
 			document.getElementById("private").setAttribute("name", "bo_cate");
 			document.getElementById("group").setAttribute("name", "null");
+			
+			$('.group_form').hide();
 		}
 		function grouptext() {
 			document.getElementById("text").value = '';
@@ -36,12 +42,14 @@
 			document.getElementById("all").setAttribute("name", "null");
 			document.getElementById("private").setAttribute("name", "null");
 			document.getElementById("group").setAttribute("name", "bo_cate");
+			
+			$('.group_form').show();
 		}
 	
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
 
-			document.form.action = "/board/insert_board.do";
+			document.form.action = "/home/insert.do";
 			document.form.submit();
 			alert("저장되었습니다.");
 		});

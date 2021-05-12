@@ -31,5 +31,10 @@ public class GroupFileServiceImpl implements GroupFileService{
 	public boolean removeGroupFile(int gno) {
 		return groupFileMapper.removeGroupFile(gno)>0 ? true : false;
 	}
+
+	@Override
+	public GroupFileVO selectFile(int gno) {
+		return groupFileMapper.selectFile(gno);
+	}
 	
 }

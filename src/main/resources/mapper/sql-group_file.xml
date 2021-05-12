@@ -15,8 +15,11 @@
 	</insert>
 	<select id="selectFileName" resultMap="groupFileVO">
 		<![CDATA[
-			SELECT * FROM GK_GROUP_PROFILE
+			SELECT * FROM GK_GROUP_PROFILE P, GK_ALLGROUP A where P.GNO = A.GNO and A.g_open='Y' order by A.g_date desc
 		]]>
+	</select>
+	<select id="selectFile" parameterType="int" resultMap="groupFileVO">
+		select * from gk_group_profile where gno=#{gno}
 	</select>
 	<delete id="removeGroupFile" parameterType="int">
 		<![CDATA[

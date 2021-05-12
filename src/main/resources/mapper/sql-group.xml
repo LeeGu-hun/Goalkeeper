@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="allList" resultMap="groupVO">
-		SELECT * FROM GK_ALLGROUP
+		SELECT * FROM GK_ALLGROUP where g_open='Y' order by g_date desc
 	</select>
 	<select id="recentGroup" resultMap="groupVO">
 		<![CDATA[
@@ -30,7 +30,7 @@
 	</select>
 	<select id="selectSearchList" parameterType="String" resultMap="groupVO">
 		<![CDATA[
-			SELECT * FROM GK_ALLGROUP WHERE (G_NAME=#{word} or G_CATE=#{word})
+			SELECT * FROM GK_ALLGROUP WHERE (G_NAME like '%' || #{word} || '%' or G_CATE like '%' || #{word} || '%' or G_INTRO like '%' || #{word} || '%') and g_open = 'Y'
 		]]>
 	</select>
 	<insert id="createGroup" parameterType="goal.vo.GroupVO">
