@@ -36,5 +36,10 @@ public class FriendServiceImpl implements FriendService{
 	public List<FriendVO> findMyFriend(Map<String, Object> map) {
 		return mapper.findMyFriend(map);
 	}
+
+	@Override
+	public int countFriends(int uno) {
+		return mapper.countFriend(uno);
+	}
 	
 }

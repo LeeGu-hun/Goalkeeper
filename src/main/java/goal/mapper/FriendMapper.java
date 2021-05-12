@@ -15,6 +15,8 @@ public interface FriendMapper {
 	
 	int deleteFriend(int fno);
 	
+	int countFriend(int uno);
+	
 	List<FriendVO> findMyFriend(Map<String, Object> map);
 	
 }

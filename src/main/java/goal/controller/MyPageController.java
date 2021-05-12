@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.service.CommonService;
 import goal.service.FriendService;
 import goal.service.SearchFriendService;
 import goal.service.UserService;
@@ -35,15 +36,22 @@ public class MyPageController {
 	@Autowired
 	public UserService userService;
 
+	@Autowired
+	public CommonService commonService;
 	@GetMapping("/myPage")
-	public ModelAndView openHome(HttpServletRequest request, BoardVO vo) {
+	public ModelAndView openHome(HttpServletRequest request, BoardVO vo, FriendVO friend) {
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
+		friend.setUno(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
+		int countFriend = friendService.countFriends(user.getUno());
+		List<FriendVO> list = friendService.getFriendsList(friend);
 		
 		if(vo != null) {
 			mv.addObject("vo", user);
 			mv.addObject("uno", user.getUno());
+			mv.addObject("count", countFriend);
+			mv.addObject("friendList", list);
 		} else {
 			mv.setViewName("view/error/denied");
 		}
@@ -55,18 +63,22 @@ public class MyPageController {
 	public ModelAndView getFriendsList(HttpServletRequest request, UserVO vo, FriendVO friend) {
 		vo = getLoginUser(request);
 		friend.setUno(vo.getUno());
+		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
+		mv.addObject("count", countFriend);
+		
 		return mv;
 	}
 	
 	@PostMapping("/myFriends")
 	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
 		vo = getLoginUser(request);
+		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
@@ -74,6 +86,7 @@ public class MyPageController {
 		
 		List<FriendVO> searchFriendList = friendService.findMyFriend(map);
 		mv.addObject("list", searchFriendList);
+		mv.addObject("count", countFriend);
 		return mv;
 	}
 	
@@ -82,10 +95,12 @@ public class MyPageController {
 		vo = getLoginUser(request);
 		UserVO user = new UserVO();
 		user.setUno(vo.getUno());
+		int countFriend = friendService.countFriends(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		List<UserVO> list = searchFriendService.allUserList(user);
 		mv.addObject("list", list);
+		mv.addObject("count", countFriend);
 		
 		return mv;
 	}
@@ -93,6 +108,7 @@ public class MyPageController {
 	@PostMapping("/mySearchFriends")
 	public ModelAndView searchUser(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
 		vo = getLoginUser(request);
+		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
@@ -100,6 +116,7 @@ public class MyPageController {
 		
 		List<UserVO> searchResult = searchFriendService.searchUser(map);
 		mv.addObject("list", searchResult);
+		mv.addObject("count", countFriend);
 		
 		return mv;
 	}
@@ -132,6 +149,22 @@ public class MyPageController {
 		List<FriendVO> friendList = friendService.getFriendsList(friend);
 		mv.addObject("friendList", friendList);
 		return mv;
+	}
+	
+	@GetMapping("/myGoal")
+	public ModelAndView goalList(HttpServletRequest request, UserVO vo) {
+		UserVO user = new UserVO();
+		user = getLoginUser(request);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_data");
+		
+		if(vo != null) {
+			mv.addObject("vo", user);
+			mv.addObject("uno", user.getUno());
+		} else {
+			mv.setViewName("view/error/denied");
+		}
+		
+		return mv;	
 	}
 	
 	public UserVO getLoginUser(HttpServletRequest request) {

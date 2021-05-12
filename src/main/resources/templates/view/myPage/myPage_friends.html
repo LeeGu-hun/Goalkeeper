@@ -270,7 +270,7 @@
 					<!-- USER STAT -->
 					<div class="user-stat big">
 						<!-- USER STAT TITLE -->
-						<p class="user-stat-title">82</p>
+						<p class="user-stat-title" th:text="${count}"></p>
 						<!-- /USER STAT TITLE -->
 
 						<!-- USER STAT TEXT -->
@@ -328,7 +328,7 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-blog.html"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item" href="myGoal"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-blog-posts">
 			            <use xlink:href="#svg-blog-posts"></use>
 			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -373,7 +373,7 @@
 				<div class="section-header-info">
 					<!-- SECTION TITLE -->
 					<h2 class="section-title">
-						Friends <span class="highlighted">82</span>
+						Friends <span class="highlighted" th:text="${count}"></span>
 					</h2>
 					<!-- /SECTION TITLE -->
 				</div>
@@ -386,7 +386,7 @@
 				<!-- SECTION FILTERS BAR ACTIONS -->
 				<div class="section-filters-bar-actions">
 					<!-- FORM -->
-					<form action="myFriends" class="form" method="post">
+					<form action="/myFriends" class="form" method="post">
 						<!-- FORM INPUT -->
 						<div class="form-input small with-button">
 							<label for="friends-search">Search Friends</label> <input
