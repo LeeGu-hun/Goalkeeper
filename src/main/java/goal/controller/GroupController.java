@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.service.BoardService;
 import goal.service.CommonService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
+import goal.upload.BoardUpload;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
+import goal.vo.BoardVO;
 import goal.vo.GroupFileVO;
-import goal.vo.GroupGoalVO;
 import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
@@ -50,7 +53,13 @@ public class GroupController {
 	@Autowired
 	private CommonService commonService;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	private GroupUpload groupUpload = new GroupUpload();
+	
+	@Autowired
+	private BoardUpload boardUpload;
 	
 	private int gno = 0;
 	
@@ -58,7 +67,7 @@ public class GroupController {
 	public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/groups");
 		UserVO user = new UserVO();
-		user = getLoginUser(request);
+		user = commonService.getLoginUser(request);
 		List<GroupVO> groupList = groupService.allList();
 		mv.addObject("list", groupList);
 		if(user != null) {		
@@ -80,22 +89,10 @@ public class GroupController {
 		mv = commonService.checkLoginUser(request, mv);
 		return mv;
 	}
-	
-	@GetMapping("/openManage")
-	public ModelAndView openManage(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/group/group_manage");
-		mv = commonService.checkLoginUser(request, mv);
-		UserVO user = commonService.getLoginUser(request);
-		if(user!=null) {
-			List<GroupVO> groupList = getGroupList(user);
-			mv.addObject("List", groupList);
-		}
-		return mv;
-	}	
 	@PostMapping("/group_create")
 	public String createGroup(GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
-		UserVO user = getLoginUser(request);
+		UserVO user = commonService.getLoginUser(request);
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
 		groupService.createGroup(group, groups);
@@ -110,10 +107,35 @@ public class GroupController {
 		mv = commonService.checkLoginUser(request, mv);
 		GroupVO group = groupService.selectGroup(gno);
 		this.gno = gno;
+		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
 		mv.addObject("group", group);
+		mv.addObject("BoList", boardList);
 		mv = getGroupUser(gno, mv);
 		return mv;
 	}
+	@PostMapping("/group_detail")
+	public ModelAndView writeGroup(@RequestParam String fileCheck, BoardVO board, GroupVO group, @RequestPart("files") List<MultipartFile> files, HttpServletRequest request) throws IllegalStateException, IOException {
+		String gno = String.valueOf(group.getGno());
+		ModelAndView mv = new ModelAndView("redirect:/group_detail/" + gno);
+		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		board.setBo_group(group.getG_name());
+		board.setUserId(user.getUserId());
+		boardService.insertBoard(board);
+		if(fileCheck.equals("false")) {
+			boardUpload.BoardUpload(board, files);
+		}
+		return mv;
+	}
+	@GetMapping("/group_join")
+	public ModelAndView openJoin(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_join");
+		mv = commonService.checkLoginUser(request, mv);
+		GroupVO group = groupService.selectGroup(this.gno);
+		mv.addObject("group", group);
+		return mv;
+	}
+	
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
@@ -185,15 +207,6 @@ public class GroupController {
 	     return entity;
 	}
 
-	private List<GroupVO> getGroupList(UserVO user){
-		List<GroupVO> groupList = groupService.selectGroupList(user);
-		return groupList;
-	}
-	public UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-	    UserVO user = (UserVO) session.getAttribute("user");
-	    return user;
-	}
 	private ModelAndView getGroupUser(int gno, ModelAndView mv) {
 		GroupUserNameVO groupUser = new GroupUserNameVO();
 		groupUser = groupService.fineUserbyGroup(gno);

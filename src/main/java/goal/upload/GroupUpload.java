@@ -35,30 +35,7 @@ public class GroupUpload {
 
         return groupFile;
     }
-	public List<GroupFileVO> requestMultiUpload(MultipartHttpServletRequest mtfRequest) {
-		List<GroupFileVO> groupFile = null;
-		String path ="C:\\group-image";
-        File uploadPath = new File(path); 
-        if(uploadPath.exists()==false) uploadPath.mkdir();
-        
-        for(GroupFileVO file : groupFile) {
-        	MultipartFile mf = mtfRequest.getFile("file");
-        	String originFileName = mf.getOriginalFilename();
-            originFileName = originFileName.substring(originFileName.lastIndexOf("\\")+1);
-            file.setG_filename(originFileName);
-            UUID uuid = UUID.randomUUID();
-            originFileName = uuid.toString() + "_" + originFileName;
-            
-            try {
-    			mf.transferTo(new File(uploadPath, originFileName));
-    		} catch (IllegalStateException | IOException e1) {
-    			// TODO Auto-generated catch block
-    			e1.printStackTrace();
-    		}
-            file.setG_fid(uuid.toString());
-            file.setG_filepath(path);
-        }
-        return groupFile;
+	public void requestMultiUpload(List<MultipartFile> files) {
     }
 	public void requestMultdddiUpload(MultipartHttpServletRequest mtfRequest) {
         
