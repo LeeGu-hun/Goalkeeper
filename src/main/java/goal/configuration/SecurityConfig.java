@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and();
 		http.csrf().disable();
 		http.authorizeRequests()
-			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			.and()
 		.formLogin()
 			.loginPage("/login")

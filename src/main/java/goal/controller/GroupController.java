@@ -127,6 +127,7 @@ public class GroupController {
 		}
 		return mv;
 	}
+	
 	@GetMapping("/group_join")
 	public ModelAndView openJoin(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_join");

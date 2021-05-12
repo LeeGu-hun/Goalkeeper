@@ -1,4 +1,18 @@
 window.onload = function() {
+	var form = $('#bno').val();
+	$.ajax({
+		type : 'POST',
+		url : 'group_fileCnt',
+		data : {
+			'bno' : form
+		},
+		error : function(error){
+			console.log("error");
+		},
+		success : function(data){
+			$('#bnoFrm').append();
+		}
+	});
 	$('#btnInsert').click(function(e) {
 		e.preventDefault();
 		
