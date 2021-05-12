@@ -24,7 +24,10 @@ import goal.service.UserService;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.UserVO;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Service
 public class BoardUpload {
 
@@ -35,12 +38,19 @@ public class BoardUpload {
 	
 	public void BoardUpload(BoardVO board,List<MultipartFile> files) throws IllegalStateException, IOException {
 		
+		int cnt;
+		/*
+		 * if(files.get(0).isEmpty()) {return;}
+		 */
 		BoardFileVO boardFileVO = new BoardFileVO();
 	
+		String fileUrl = "C:\\uploadGoalfile";
+    	File uploadPath = new File(fileUrl); 
+        if(uploadPath.exists()==false) uploadPath.mkdir();
+		
 		for(MultipartFile file : files) {
-        	String fileUrl = "C:\\uploadfile";
         	String fileName = file.getOriginalFilename(); 
-            String uuid = RandomStringUtils.randomAlphanumeric(32);
+        	String uuid = RandomStringUtils.randomAlphanumeric(32);
             String filesave = fileUrl + "/" + uuid + "_" + fileName;
             
             File dest = new File(filesave);
@@ -48,10 +58,10 @@ public class BoardUpload {
             
             boardFileVO.setUuid(uuid);
             boardFileVO.setBno(board.getBno());
-            boardFileVO.setFileName(fileName);
             boardFileVO.setFileUrl(fileUrl);
-            boardFileService.fileInsert(boardFileVO);
+            boardFileVO.setFileName(fileName);
+    
+            
+            boardFileService.fileInsert(boardFileVO);}
         }
 	}
-	
-}

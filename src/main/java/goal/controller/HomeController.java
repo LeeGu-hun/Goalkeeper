@@ -82,7 +82,7 @@ public class HomeController {
 			return mv;
 	}
 	@PostMapping("/home/insert.do")
-	public String insertBoard(
+	public String insertBoard(@RequestParam String fileCheck,
 			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
 			throws Exception {
 		BoardFileVO boardFileVO = new BoardFileVO();
@@ -91,9 +91,12 @@ public class HomeController {
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
 		boardService.insertBoard(board);	
+		if(fileCheck.equals("false")) {
 		boardUpload.BoardUpload(board, files);
+		}
         return "redirect:/home";
 	}
+	
 	
 	@RequestMapping(value="/boardDisplay/{bno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int bno) throws IOException{

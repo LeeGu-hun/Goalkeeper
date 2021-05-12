@@ -1,5 +1,4 @@
-
-	function alltext() {
+		function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
 					"option-item active");
@@ -50,6 +49,13 @@
 			e.preventDefault();
 
 			document.form.action = "/home/insert.do";
+			
+			if(!$('#file').val()){
+				$('#text').append("<input type='hidden' name='fileCheck' value='true'>");
+			} else {
+				$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
+			}
+			
 			document.form.submit();
 			alert("저장되었습니다.");
 		});
