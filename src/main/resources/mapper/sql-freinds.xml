@@ -23,7 +23,7 @@
 		delete GK_FRIEND where fno = #{fno}
 	</delete>
 	
-	<select id="findMyFriend" parameterType="goal.vo.FriendVO" resultMap="friendVO">
-		select * from GK_FRIEND where uno = #{uno} and friendName like '%' || #{friendName} || '%'
+	<select id="findMyFriend" parameterType="java.util.Map" resultMap="friendVO">
+		select * from GK_FRIEND where uno = #{uno} and upper(friendName) like '%' || UPPER(#{word}) || '%'
 	</select>
 </mapper>
