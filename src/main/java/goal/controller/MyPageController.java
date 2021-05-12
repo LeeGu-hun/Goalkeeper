@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.service.CommonService;
 import goal.service.FriendService;
 import goal.service.SearchFriendService;
 import goal.service.UserService;
@@ -35,6 +36,8 @@ public class MyPageController {
 	@Autowired
 	public UserService userService;
 
+	@Autowired
+	public CommonService commonService;
 	@GetMapping("/myPage")
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo, FriendVO friend) {
 		UserVO user = new UserVO();
@@ -75,6 +78,7 @@ public class MyPageController {
 	@PostMapping("/myFriends")
 	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
 		vo = getLoginUser(request);
+		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
@@ -82,6 +86,7 @@ public class MyPageController {
 		
 		List<FriendVO> searchFriendList = friendService.findMyFriend(map);
 		mv.addObject("list", searchFriendList);
+		mv.addObject("count", countFriend);
 		return mv;
 	}
 	
