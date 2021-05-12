@@ -136,31 +136,29 @@ public class GroupController {
 		return "redirect:/group_detail";
 	}
 	
-	@RequestMapping(value="/display", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> displayImage() throws IOException{
+	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 		MediaUtils mediaUtils = new MediaUtils();
 	    InputStream in = null;
 	    ResponseEntity<byte[]> entity = null;
-	    List<GroupFileVO> groupFileList = groupFileService.selectFileName();
-	    for(GroupFileVO groupFile : groupFileList) {
-	    	try {
-	    		String fileName = groupFile.getG_filename();
-	            String g_fid = groupFile.getG_fid();
-	            String uploadPath = groupFile.getG_filepath();
-	            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	            MediaType mType = mediaUtils.getMediaType(formatName);
-	            HttpHeaders headers = new HttpHeaders();
-	            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
-	            headers.setContentType(mType);
-	            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-	         } finally {
-	            in.close();
-	         }
-	      }
-	      return entity;
+	    GroupFileVO groupFile = groupFileService.selectFile(gno);
+    	try {
+    		String fileName = groupFile.getG_filename();
+            String g_fid = groupFile.getG_fid();
+            String uploadPath = groupFile.getG_filepath();
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = mediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
+            headers.setContentType(mType);
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+         } catch (IOException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+         } finally {
+            in.close();
+         }
+      return entity;
 	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getImage() throws IOException{
