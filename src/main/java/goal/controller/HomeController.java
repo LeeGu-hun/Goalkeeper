@@ -1,17 +1,28 @@
 package goal.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +34,11 @@ import goal.service.CommonService;
 import goal.service.GroupService;
 import goal.service.ReplyService;
 import goal.service.UserService;
+import goal.upload.BoardUpload;
+import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
@@ -44,8 +58,11 @@ public class HomeController {
 	private BoardFileService boardFileService;
 	@Autowired
 	private CommonService commonService;
+	@Autowired
+	private BoardUpload boardUpload;
 	
 	private String referer = null;
+	
 	
 	@GetMapping("/home")
 	   public ModelAndView openNewsFeed(HttpServletRequest request) {
@@ -53,9 +70,18 @@ public class HomeController {
 		 mv = commonService.checkLoginUser(request, mv);
 		 UserVO user = getLoginUser(request);
 			if (user != null) {
-				mv.addObject("user", user);
 				List<GroupVO> groupList = groupService.selectGroupList(user);
-				mv.addObject("List", groupList);
+				List<BoardVO> boardList = boardService.getBoardList();
+			    List<ReplyVO> ReplyList = replyService.getMainReply(); 
+			  
+			    HttpSession session = request.getSession(true);
+			    UserVO user2 = (UserVO) session.getAttribute("user");
+			    
+	
+			    mv.addObject("user", user2);
+			    mv.addObject("GrList", groupList);
+			    mv.addObject("BoList", boardList);
+			    mv.addObject("reply", ReplyList);
 			} else {
 				mv.setViewName("/view/home/userLogin");
 			}
@@ -71,26 +97,35 @@ public class HomeController {
 
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
-			
-		boardService.insertBoard(board);
-		
-	
-        for(MultipartFile file : files) {
-        	String fileUrl = "C:/uploadfile";
-        	String fileName = file.getOriginalFilename(); 
-            String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
-            String filePath = fileUrl + "/" + uuid;
-            File dest = new File(filePath);
-            file.transferTo(dest);
-            boardFileVO.setUuid(uuid);
-            boardFileVO.setBno(board.getBno());
-            boardFileVO.setFileName(fileName);
-            boardFileVO.setFileUrl(filePath);
-            boardFileService.fileInsert(boardFileVO);
-	}
-	return "redirect:/home";
+		boardService.insertBoard(board);	
+		boardUpload.BoardUpload(board, files);
+        return "redirect:/home";
 	}
 	
+	@RequestMapping(value="/boardDisplay/{bno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayImage(@PathVariable int bno) throws IOException{
+		MediaUtils mediaUtils = new MediaUtils();
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    BoardFileVO boardFile = boardFileService.selectFile(bno);
+    	try {
+    		String fileName = boardFile.getFileName();
+            String fileurl = boardFile.getFileUrl();
+            String uuid = boardFile.getUuid();
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = mediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(fileurl + "\\" + uuid + "_" + fileName);
+            headers.setContentType(mType);
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+         } catch (IOException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+         } finally {
+            in.close();
+         }
+      return entity;
+	}
 	@GetMapping("/user")
 	   public ModelAndView openHome(HttpServletRequest request) {
 	      ModelAndView mv = new ModelAndView("view/home/Old_userLogin");

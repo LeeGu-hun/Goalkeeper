@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goal.vo.BoardFileVO;
+import goal.vo.BoardVO;
 
 @Mapper
 public interface BoardFileMapper {
@@ -13,4 +14,6 @@ public interface BoardFileMapper {
 	List<BoardFileVO> selectFileName();
 	int removeBoardFile(int bno);
 	List<BoardFileVO> searchFile(BoardFileVO file);
+	List<BoardFileVO> getBoardFileList();
+	BoardFileVO selectFile(int bno);
 }

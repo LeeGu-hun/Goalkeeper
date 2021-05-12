@@ -38,6 +38,16 @@ public class BoardFileServiceImpl implements BoardFileService {
 		return boardFileMapper.searchFile(file);
 	}
 
+	@Override
+	public List<BoardFileVO> getBoardFileList() {
+		return boardFileMapper.getBoardFileList();
+	}
+
+	@Override
+	public BoardFileVO selectFile(int bno) {
+		return boardFileMapper.selectFile(bno);
+	}
+	
 	
 
 	

@@ -1,5 +1,4 @@
-	$("#group_form").hide();
-	
+
 	function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -45,7 +44,8 @@
 			
 			$('.group_form').show();
 		}
-	
+		$("#group_form").hide();
+		
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
 

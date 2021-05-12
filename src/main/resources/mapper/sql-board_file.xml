@@ -13,7 +13,7 @@
 	   VALUES (#{uuid} ,#{bno},#{fileName},#{fileUrl})
 	</insert>
 
-	<select id="searchFile" resultMap="boardFileVO">
+	<select id="getBoardFileList" resultMap="boardFileVO">
 		<![CDATA[
 			SELECT FileURL FROM GK_FILE where bno = #{bno}
 		]]>
@@ -29,4 +29,7 @@
 			delete GK_FILE WHERE bno=#{bno}
 		]]> 
 	</delete>
+	<select id="selectFile" parameterType="int" resultMap="boardFileVO">
+		select * from GK_FILE where bno=#{bno}
+	</select>
 </mapper>

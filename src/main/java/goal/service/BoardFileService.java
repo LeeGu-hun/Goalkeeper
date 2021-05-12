@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.GroupFileVO;
 
 public interface BoardFileService {
 	List<BoardFileVO> selectFileName();
 	boolean removeBoardFile(int bno);
 	int fileInsert(BoardFileVO file);
 	List<BoardFileVO> searchFile(BoardFileVO file);
+	List<BoardFileVO> getBoardFileList();
+	BoardFileVO selectFile(int bno);
 }

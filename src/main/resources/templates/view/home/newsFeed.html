@@ -1141,7 +1141,7 @@
 								<div class="group_form" id="group_form" style="margin-left: 10px">
 									<select id="bo_group" name="bo_group" class="form-control">
 										<option value="">선택해주세요</option>
-										<option th:each="obj:${List}" th:value="${obj.g_name}"
+										<option th:each="obj:${GrList}" th:value="${obj.g_name}"
 											th:text="${obj.g_name}"></option>
 									</select>
 								</div>
@@ -1240,7 +1240,7 @@
 			<!-- /SIMPLE TAB ITEMS -->
 
 			<!-- WIDGET BOX -->
-			<div class="widget-box no-padding">
+			<div th:each="post:${BoList}" class="widget-box no-padding">
 				<!-- WIDGET BOX SETTINGS -->
 				<div class="widget-box-settings">
 					<!-- POST SETTINGS WRAP -->
@@ -1345,10 +1345,12 @@
 							<!-- /USER STATUS AVATAR -->
 
 							<!-- USER STATUS TITLE -->
+							
 							<p class="user-status-title medium">
-								<a class="bold" href="profile-timeline.html">Neko Bebop</a>
+								<a class="bold" href="profile-timeline.html" th:text="${post.userId}"></a>
 								uploaded a <span class="bold">video</span>
 							</p>
+		
 							<!-- /USER STATUS TITLE -->
 
 							<!-- USER STATUS TEXT -->
@@ -1358,17 +1360,15 @@
 						<!-- /USER STATUS -->
 
 						<!-- WIDGET BOX STATUS TEXT -->
-						<p class="widget-box-status-text">Hi to everyone! Check out my
-							latest video of the outlaws expansion for Court Striker GO. I'm
-							really excited because my last video had almost 50.000 views.</p>
+						<p class="widget-box-status-text" th:text="${post.bo_content}"></p>
 						<!-- /WIDGET BOX STATUS TEXT -->
 					</div>
 					<!-- /WIDGET BOX STATUS CONTENT -->
 
 					<!-- IFRAME WRAP -->
-					<div class="iframe-wrap">
-						<iframe src="https://www.youtube.com/embed/rk-wIgg9fNk"
-							allowfullscreen></iframe>
+					<div> <!-- class="iframe-wrap" -->
+						<div  class="hexagon-image-100-110"
+							th:attr="data-src=@{/boardDisplay/}+${post.bno}"></div>
 					</div>
 					<!-- /IFRAME WRAP -->
 
