@@ -18,5 +18,5 @@ public interface BoardMapper {
 	BoardVO recentBoard();
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getBoardList();
-	List<BoardVO> getGroupBoardList(int gno);
+	List<BoardVO> getGroupBoardList(String bo_group);
 }

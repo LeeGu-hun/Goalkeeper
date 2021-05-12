@@ -92,6 +92,10 @@
 		}
 
 		$("input[type='file']").change(function(e) {
+				if($('#file')[0].files.length > 5) {
+					alert("5장 이하의 사진을 올려주세요");
+					return false;
+				}
 			//div 내용 비워주기
 			$('#imgsrc').empty();
 

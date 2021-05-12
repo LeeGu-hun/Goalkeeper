@@ -8,4 +8,5 @@ public class BoardFileVO {
 	    private int bno;
 	    private String fileName;     //저장할 파일
 	    private String fileUrl;
+	    private int fileCnt;
 }

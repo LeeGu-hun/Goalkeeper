@@ -42,8 +42,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getGroupBoardList(int gno) {
-		return boardMapper.getGroupBoardList(gno);
+	public List<BoardVO> getGroupBoardList(String bo_group) {
+		return boardMapper.getGroupBoardList(bo_group);
 	}
 	
 }

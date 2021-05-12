@@ -7,10 +7,11 @@
 		<id property="fileName" column="filename"/>
 		<id property="fileUrl" column="fileUrl"/>
 		<id property="bno" column="bno"/>
+		<id property="fileCnt" column="fileCnt"/>
 	</resultMap>
 	<insert id="fileInsert" parameterType="goal.vo.BoardFileVO">
-       INSERT INTO GK_FILE (uuid, bno, fileName, fileUrl)
-	   VALUES (#{uuid} ,#{bno},#{fileName},#{fileUrl})
+       INSERT INTO GK_FILE (uuid, bno, fileName, fileUrl, fileCnt)
+	   VALUES (#{uuid} ,#{bno},#{fileName},#{fileUrl}, #{fileCnt})
 	</insert>
 
 	<select id="getBoardFileList" resultMap="boardFileVO">

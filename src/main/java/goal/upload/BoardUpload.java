@@ -36,12 +36,10 @@ public class BoardUpload {
 	@Autowired
 	BoardService boardService;
 	
+	int fileCnt = 1;
+	
 	public void BoardUpload(BoardVO board,List<MultipartFile> files) throws IllegalStateException, IOException {
-		
-		int cnt;
-		/*
-		 * if(files.get(0).isEmpty()) {return;}
-		 */
+			
 		BoardFileVO boardFileVO = new BoardFileVO();
 	
 		String fileUrl = "C:\\uploadGoalfile";
@@ -60,8 +58,10 @@ public class BoardUpload {
             boardFileVO.setBno(board.getBno());
             boardFileVO.setFileUrl(fileUrl);
             boardFileVO.setFileName(fileName);
-    
+            boardFileVO.setFileCnt(fileCnt++);
             
             boardFileService.fileInsert(boardFileVO);}
+		
+		fileCnt = 1;
         }
 	}
