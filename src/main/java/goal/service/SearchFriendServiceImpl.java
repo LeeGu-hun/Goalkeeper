@@ -1,6 +1,7 @@
 package goal.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class SearchFriendServiceImpl implements SearchFriendService{
 	}
 
 	@Override
-	public List<UserVO> searchUser(UserVO vo) {
-		return searchFriendMapper.searchUser(vo);
+	public List<UserVO> searchUser(Map<String, Object> map) {
+		return searchFriendMapper.searchUser(map);
 	}
 
 }

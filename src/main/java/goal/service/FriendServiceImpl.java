@@ -1,6 +1,7 @@
 package goal.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.FriendMapper;
 import goal.vo.FriendVO;
-import goal.vo.UserVO;
 
 @Service
 @Component
@@ -33,8 +33,8 @@ public class FriendServiceImpl implements FriendService{
 	}
 
 	@Override
-	public List<FriendVO> findMyFriend(FriendVO vo) {
-		return mapper.findMyFriend(vo);
+	public List<FriendVO> findMyFriend(Map<String, Object> map) {
+		return mapper.findMyFriend(map);
 	}
 	
 }

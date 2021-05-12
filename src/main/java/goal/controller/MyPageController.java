@@ -1,24 +1,20 @@
 package goal.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goal.service.FriendService;
 import goal.service.SearchFriendService;
@@ -68,6 +64,19 @@ public class MyPageController {
 		return mv;
 	}
 	
+	@PostMapping("/myFriends")
+	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
+		vo = getLoginUser(request);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", vo.getUno());
+		map.put("word", word);
+		
+		List<FriendVO> searchFriendList = friendService.findMyFriend(map);
+		mv.addObject("list", searchFriendList);
+		return mv;
+	}
+	
 	@GetMapping("/mySearchFriends")
 	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
 		vo = getLoginUser(request);
@@ -82,6 +91,20 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/mySearchFriends")
+	public ModelAndView searchUser(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
+		vo = getLoginUser(request);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", vo.getUno());
+		map.put("word", word);
+		
+		List<UserVO> searchResult = searchFriendService.searchUser(map);
+		mv.addObject("list", searchResult);
+		
+		return mv;
+	}
+	
+	@PostMapping("/mySearchFriends/add")
 	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, @RequestParam int friendNo,
 			@RequestParam String friendName, @RequestParam String friendNumber,
 			@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate) {
@@ -100,7 +123,7 @@ public class MyPageController {
 		return mv;
 	}
 	
-	@PostMapping("/myFriends")
+	@PostMapping("/myFriends/delete")
 	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
 		friendService.remove(fno);
@@ -108,17 +131,6 @@ public class MyPageController {
 		FriendVO friend = new FriendVO();
 		List<FriendVO> friendList = friendService.getFriendsList(friend);
 		mv.addObject("friendList", friendList);
-		return mv;
-	}
-	
-	@RequestMapping("/myFriends")
-	public ModelAndView searchFriend(@RequestParam(value="friends_search") String friendName, FriendVO vo) {
-		ModelAndView mv = new ModelAndView("redirect:/myFriends");
-		friendService.findMyFriend(vo);
-		vo.setFriendName(friendName);
-		
-		List<FriendVO> searchFriendList = friendService.findMyFriend(vo);
-		mv.addObject("searchList", searchFriendList);
 		return mv;
 	}
 	

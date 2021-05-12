@@ -15,9 +15,9 @@
 		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno}
 	</select>
 	
-	<select id="searchUser" parameterType="goal.vo.UserVO" resultMap="userVO">
+	<select id="searchUser" parameterType="java.util.Map" resultMap="userVO">
 		SELECT UNO, USERNAME, USERPHONE, USERBIRTHDATE FROM GK_USER 
 		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) 
-		AND NOT UNO = #{uno} AND USERNAME LIKE '%' || #{userName} || '%'
+		AND NOT UNO = #{uno} AND UPPER(USERNAME) LIKE '%' || UPPER(#{word}) || '%'
 	</select>
 </mapper>

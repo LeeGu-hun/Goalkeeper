@@ -1,9 +1,9 @@
 package goal.service;
 
 import java.util.List;
+import java.util.Map;
 
 import goal.vo.FriendVO;
-import goal.vo.UserVO;
 
 public interface FriendService {
 	List<FriendVO> getFriendsList(FriendVO vo);
@@ -12,5 +12,5 @@ public interface FriendService {
 	
 	boolean remove(int fno);
 	
-	List<FriendVO> findMyFriend(FriendVO vo);
+	List<FriendVO> findMyFriend(Map<String, Object> map);
 }

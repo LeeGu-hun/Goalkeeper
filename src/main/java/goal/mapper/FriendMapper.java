@@ -1,6 +1,7 @@
 package goal.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +15,6 @@ public interface FriendMapper {
 	
 	int deleteFriend(int fno);
 	
-	List<FriendVO> findMyFriend(FriendVO vo);
+	List<FriendVO> findMyFriend(Map<String, Object> map);
 	
 }
