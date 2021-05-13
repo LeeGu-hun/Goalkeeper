@@ -50,6 +50,7 @@ public class MyPageController {
 		user = getLoginUser(request);
 		friend.setUno(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
+		mv = commonService.checkLoginUser(request, mv);
 		int countFriend = friendService.countFriends(user.getUno());
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
@@ -71,6 +72,7 @@ public class MyPageController {
 		friend.setUno(vo.getUno());
 		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject("list", list);
@@ -104,6 +106,8 @@ public class MyPageController {
 		int countFriend = friendService.countFriends(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
+		mv = commonService.checkLoginUser(request, mv);
+		
 		List<UserVO> list = searchFriendService.allUserList(user);
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
@@ -163,6 +167,7 @@ public class MyPageController {
 		user = getLoginUser(request);
 		int countFriend = friendService.countFriends(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_data");
+		mv = commonService.checkLoginUser(request, mv);
 		
 		mv.addObject("vo", user);
 		mv.addObject("uno", user.getUno());
