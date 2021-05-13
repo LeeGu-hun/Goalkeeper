@@ -316,7 +316,7 @@
 				<form id="groupWrite" method="post" action="/group_detail"
 					enctype="multipart/form-data">
 					<!-- QUICK POST -->
-					<div class="quick-post" th:if="${user}!=null">
+					<div class="quick-post" th:if="${result}=='WriteSuccess'">
 						<!-- QUICK POST HEADER -->
 						<div class="quick-post-header">
 							<!-- OPTION ITEMS -->

@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import goal.common.GroupFileUtils;
 import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
 import goal.mapper.GroupUserMapper;
@@ -40,12 +37,12 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupVO> selectGroupList(UserVO user) {
+	public List<GroupVO> getGroupList(UserVO user) {
 		return groupMapper.selectGroupList(user);
 	}
 
 	@Override
-	public List<GroupVO> allList() {
+	public List<GroupVO> getAllList() {
 		return groupMapper.allList();
 	}
 
@@ -55,7 +52,7 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupVO> selectSearchList(String g_cate) {
+	public List<GroupVO> getSearchList(String g_cate) {
 		return groupMapper.selectSearchList(g_cate);
 	}
 
@@ -72,12 +69,12 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupGoalVO> findGoalbyId(int gno) {
+	public List<GroupGoalVO> getGoalbyId(int gno) {
 		return groupMapper.findGoalbyId(gno);
 	}
 
 	@Override
-	public GroupVO selectGroup(int gno) {
+	public GroupVO getGroup(int gno) {
 		return groupMapper.selectGroup(gno);
 	}
 
@@ -102,7 +99,7 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupJoinVO> selectGroupJoin(int gno) {
+	public List<GroupJoinVO> getGroupJoin(int gno) {
 		return groupMapper.selectGroupJoin(gno);
 	}
 

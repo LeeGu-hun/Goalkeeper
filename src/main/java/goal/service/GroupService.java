@@ -11,19 +11,19 @@ import goal.vo.UserVO;
 
 public interface GroupService {
 	void createGroup(GroupVO group, GroupUserVO groupUser);
-	List<GroupVO> selectGroupList(UserVO user);
-	List<GroupVO> allList();
+	List<GroupVO> getGroupList(UserVO user);
+	List<GroupVO> getAllList();
 	GroupVO recentGroup();
-	List<GroupVO> selectSearchList(String g_cate);
+	List<GroupVO> getSearchList(String g_cate);
 	boolean removeGroup(int gno);
 	void insertGoal(GroupGoalVO groupGoal);
-	List<GroupGoalVO> findGoalbyId(int gno);
-	GroupVO selectGroup(int gno);
+	List<GroupGoalVO> getGoalbyId(int gno);
+	GroupVO getGroup(int gno);
 	
 	GroupUserNameVO fineUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);
-	List<GroupJoinVO> selectGroupJoin(int gno);
+	List<GroupJoinVO> getGroupJoin(int gno);
 	int checkUserbyGroup(GroupUserVO groupUser);
 }
