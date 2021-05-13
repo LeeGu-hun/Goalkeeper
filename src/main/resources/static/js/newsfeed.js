@@ -1,7 +1,3 @@
-	window.onload = function() {
-		var boardBno = $('#boardbno').val();
-		$('#cntf').submit();
-		
 		function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -49,6 +45,12 @@
 		}
 		$("#group_form").hide();
 		
+		$('#edit_btn').click(function(e){
+			e.preventDefault();
+			$('#modify_form').submit();
+			alert("수정완료");
+		});
+		
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
 
@@ -82,6 +84,24 @@
 			});
 		});
 	
+		
+		$("p[id^='modify']").click(function() {
+			var modify_id = $(this).attr("id");
+			var bno = modify_id.split('a');
+			var content_list = $("div[id^='modify']");
+	
+				$(".content_board").hide();
+				$('div[class=modify]').find(content_list).show();
+				$(".edit_div").show();
+		});	
+	
+		$(".edit_cancelbtn").click(function() {
+			$(".content_board").show();
+			$(".content_boardEdit").hide();
+			$(".content_boardEdit").attr('th:text', '${post.bo_content}');
+			$(".edit_div").hide();
+		});	
+
 		function CheckEnter(frm, objName) {
 			var keycode = event.keyCode;
 			var i = 0;
@@ -155,4 +175,3 @@
 						}
 					});//arr.forEach
 		}
-}
