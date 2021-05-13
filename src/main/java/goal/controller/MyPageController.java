@@ -18,10 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import goal.service.CommonService;
 import goal.service.FriendService;
+import goal.service.MyGoalService;
 import goal.service.SearchFriendService;
 import goal.service.UserService;
 import goal.vo.BoardVO;
 import goal.vo.FriendVO;
+import goal.vo.InputMyDataVO;
+import goal.vo.MyGoalVO;
 import goal.vo.UserVO;
 
 @RestController
@@ -36,6 +39,9 @@ public class MyPageController {
 	@Autowired
 	public UserService userService;
 
+	@Autowired
+	public MyGoalService myGoalService;
+	
 	@Autowired
 	public CommonService commonService;
 	@GetMapping("/myPage")
@@ -155,16 +161,24 @@ public class MyPageController {
 	public ModelAndView goalList(HttpServletRequest request, UserVO vo) {
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
+		int countFriend = friendService.countFriends(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_data");
 		
-		if(vo != null) {
-			mv.addObject("vo", user);
-			mv.addObject("uno", user.getUno());
-		} else {
-			mv.setViewName("view/error/denied");
-		}
-		
+		mv.addObject("vo", user);
+		mv.addObject("uno", user.getUno());
+		mv.addObject("count", countFriend);
+
 		return mv;	
+	}
+	
+	@PostMapping("/makeGoal")
+	public ModelAndView makePrivatGoal(HttpServletRequest request, UserVO vo, MyGoalVO goal) {
+		vo = getLoginUser(request);
+		goal.setUno(vo.getUno());
+		myGoalService.createGoal(goal);
+		ModelAndView mv = new ModelAndView("redirect:/myGoal");
+		
+		return mv;
 	}
 	
 	public UserVO getLoginUser(HttpServletRequest request) {

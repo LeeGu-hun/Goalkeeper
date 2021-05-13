@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.MyGoalMapper">
+	<resultMap type="goal.vo.FriendVO" id="friendVO">
+		<id property="pgno" column="pgno"></id>
+		<id property="uno" column="uno"></id>
+		<id property="privateGoal" column="privateGoal"></id>
+		<id property="goal" column="goal"></id>
+		<id property="deadline" column="deadline"></id>
+	</resultMap>
+	
+	<insert id="createGoal" parameterType="goal.vo.MyGoalVO">
+		insert into GK_PRIVATEGOAL values(GK_PRIGROUP_SEQ.NEXTVAL, #{uno}, #{privateGoal}, #{deadline}, #{goal})
+	</insert>
+</mapper>
