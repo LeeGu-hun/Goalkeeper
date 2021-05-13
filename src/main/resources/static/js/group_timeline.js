@@ -1,20 +1,4 @@
 window.onload = function() {
-	var form1 = $('#bno').val();
-	var form2 = $('#bo_group').val();
-	$.ajax({
-		type : 'POST',
-		url : 'group_fileCnt',
-		data : {
-			'bno' : form1,
-			'bo_group' : form2
-		},
-		error : function(error){
-			console.log("error");
-		},
-		success : function(data){
-			$('#bnoFrm').append();
-		}
-	});
 	$('#btnInsert').click(function(e) {
 		e.preventDefault();
 		

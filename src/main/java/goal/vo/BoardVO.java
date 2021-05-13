@@ -1,6 +1,7 @@
 package goal.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,5 +21,8 @@ public class BoardVO {
    private String bo_search;
    //private String replyList;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
-   private Date bo_date;  
+   private Date bo_date;
+   private String bo_fileCheck;
+   private int bo_fileCount;
+   private List<BoardFileVO> fileList;
 }

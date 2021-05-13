@@ -13,4 +13,5 @@ public interface BoardService {
 	List<BoardVO> selectBoardList(UserVO vo);
 	BoardVO recentBoard();
 	List<BoardVO> getGroupBoardList(String bo_group);
+	void updateBoard(BoardVO board);
 }

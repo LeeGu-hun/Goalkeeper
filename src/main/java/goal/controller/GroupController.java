@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ import goal.service.GroupService;
 import goal.upload.BoardUpload;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
+import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupJoinVO;
@@ -132,22 +134,31 @@ public class GroupController {
 	}
 	@PostMapping("/group_detail")
 	public ModelAndView writeGroup(@RequestParam String fileCheck, BoardVO board, GroupVO group, @RequestPart("files") List<MultipartFile> files, HttpServletRequest request) throws IllegalStateException, IOException {
+		int fileCnt;
 		String gno = String.valueOf(group.getGno());
 		ModelAndView mv = new ModelAndView("redirect:/group_detail/" + gno);
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		board.setBo_group(group.getG_name());
 		board.setUserId(user.getUserId());
-		boardService.insertBoard(board);
 		if(fileCheck.equals("false")) {
-			boardUpload.BoardUpload(board, files);
+			board.setBo_fileCheck("Y");
+			boardService.insertBoard(board);
+			fileCnt = boardUpload.BoardUpload(board, files);
+			board.setBo_fileCount(fileCnt);
+			boardService.updateBoard(board);
+		} else {
+			board.setBo_fileCheck("N");
+			boardService.insertBoard(board);
 		}
 		return mv;
 	}
-	@PostMapping("group_fileCnt")
-	public int getCnt(BoardVO board, RedirectAttributes rttr) {
+	@RequestMapping(value="/group_fileCnt")
+	@ResponseBody
+	public int getCnt(Model model, BoardVO board, RedirectAttributes rttr) {
 		int count = boardFileService.countFilebyGroup(board);
 		rttr.addFlashAttribute("fileCnt", count);
+		log.info(count);
 		return count;
 	}
 	@GetMapping("/group_join")
@@ -191,6 +202,30 @@ public class GroupController {
     		String fileName = groupFile.getG_filename();
             String g_fid = groupFile.getG_fid();
             String uploadPath = groupFile.getG_filepath();
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = mediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
+            headers.setContentType(mType);
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+         } catch (IOException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+         } finally {
+            in.close();
+         }
+      return entity;
+	}
+	@RequestMapping(value="/boardImage/{uuid}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayBoardImage(@PathVariable String uuid) throws IOException{
+		MediaUtils mediaUtils = new MediaUtils();
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    BoardFileVO boardFile = boardFileService.selectFilebyUuid(uuid);
+    	try {
+    		String fileName = boardFile.getFileName();
+            String g_fid = boardFile.getUuid();
+            String uploadPath = boardFile.getFileUrl();
             String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
             MediaType mType = mediaUtils.getMediaType(formatName);
             HttpHeaders headers = new HttpHeaders();

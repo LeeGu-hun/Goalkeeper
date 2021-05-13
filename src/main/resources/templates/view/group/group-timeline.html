@@ -564,22 +564,17 @@
 
 						<!-- IFRAME WRAP -->
 						<div>
-						<form id="bnoFrm">
-							<input id="bno" type="hidden" th:value="${post.bno}">
-							<input id="bo_group" type="hidden" th:value="${post.bo_group}">
-						</form>
-						<p th:text="${fileCnt}"></p>
 							<!-- PICTURE COLLAGE -->
-							<div class="picture-collage">
+							<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row medium">
 									<!-- PICTURE COLLAGE ITEM -->
 									<div class="picture-collage-item popup-picture-trigger">
 										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview">
+										<div class="photo-preview" th:each="file:${post.fileList.sequence(1,2)}">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img src="img/cover/10.jpg" alt="photo-preview-10">
+												<img th:attr="src=@{/boardImage/}+${post.bno}" alt="photo-preview-10">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -626,7 +621,7 @@
 								<!-- /PICTURE COLLAGE ROW -->
 
 								<!-- PICTURE COLLAGE ROW -->
-								<div class="picture-collage-row">
+								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
 									<!-- PICTURE COLLAGE ITEM -->
 									<div class="picture-collage-item popup-picture-trigger">
 										<!-- PHOTO PREVIEW -->

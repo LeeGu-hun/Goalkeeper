@@ -57,4 +57,10 @@ public class BoardFileServiceImpl implements BoardFileService {
 	public int countFilebyGroup(BoardVO board) {
 		return boardFileMapper.countFilebyGroup(board);
 	}
+
+	@Override
+	public BoardFileVO selectFilebyUuid(String uuid) {
+		return boardFileMapper.selectFilebyUuid(uuid);
+	}
+	
 }
