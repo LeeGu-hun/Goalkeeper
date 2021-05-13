@@ -17,5 +17,5 @@ public interface BoardFileMapper {
 	List<BoardFileVO> getBoardFileList();
 	BoardFileVO selectFile(int bno);
 	int countFile(int bno);
-
+	int countFilebyGroup(BoardVO board);
 }

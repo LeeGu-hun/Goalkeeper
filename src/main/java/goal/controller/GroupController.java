@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.CommonService;
 import goal.service.GroupFileService;
@@ -36,12 +38,15 @@ import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardVO;
 import goal.vo.GroupFileVO;
+import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
+import lombok.extern.log4j.Log4j;
 
 @Controller
+@Log4j
 public class GroupController {
 	
 	@Autowired
@@ -55,6 +60,9 @@ public class GroupController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private BoardFileService boardFileService;
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	
@@ -101,6 +109,15 @@ public class GroupController {
 		
 		return "redirect:/groups";
 	}
+	@PostMapping("group_join")
+	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
+		String referer = request.getHeader("referer");
+		UserVO user = commonService.getLoginUser(request);
+		join.setUno(user.getUno());
+		groupService.insertGroupJoin(join);
+		return "redirect:" + referer;
+	}
+	
 	@GetMapping("/group_detail/{gno}")
 	public ModelAndView openDetail(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
@@ -127,7 +144,12 @@ public class GroupController {
 		}
 		return mv;
 	}
-	
+	@PostMapping("group_fileCnt")
+	public int getCnt(BoardVO board, RedirectAttributes rttr) {
+		int count = boardFileService.countFilebyGroup(board);
+		rttr.addFlashAttribute("fileCnt", count);
+		return count;
+	}
 	@GetMapping("/group_join")
 	public ModelAndView openJoin(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_join");

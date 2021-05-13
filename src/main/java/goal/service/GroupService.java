@@ -3,6 +3,7 @@ package goal.service;
 import java.util.List;
 
 import goal.vo.GroupGoalVO;
+import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
@@ -22,4 +23,5 @@ public interface GroupService {
 	GroupUserNameVO fineUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
+	void insertGroupJoin(GroupJoinVO join);
 }

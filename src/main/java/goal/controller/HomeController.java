@@ -158,7 +158,10 @@ public class HomeController {
 		HttpSession session = request.getSession(true);
 		if (user != null) {
 			session.setAttribute("user", user);
-			return "redirect:/home";
+			if(referer.contains("Login")) {
+				return "redirect:/home";
+			}
+			return "redirect:" + referer;
 		} else {
 			return "/view/home/userLogin";
 		}
@@ -181,7 +184,8 @@ public class HomeController {
 	public String logoutUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "/view/home/userLogin";
+		referer = request.getHeader("REFERER");
+		return "redirect:" + referer;
 	}
 
 	@GetMapping("/denied")

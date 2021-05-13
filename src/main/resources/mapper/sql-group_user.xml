@@ -25,4 +25,5 @@
 	<select id="countUserbyGroup" parameterType="int" resultType="int">
 		select count(*) from gk_group_user where gno=#{gno}
 	</select>
+	
 </mapper>

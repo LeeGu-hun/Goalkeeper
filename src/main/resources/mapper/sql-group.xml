@@ -49,6 +49,10 @@
 		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
 		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
 	</insert>
+	<insert id="insertGroupJoin" parameterType="goal.vo.GroupJoinVO">
+		insert into GK_GROUP_JOIN(gno, join_msg, join_date, uno) values
+		(#{gno}, #{join_msg}, sysdate, #{uno})
+	</insert>
 	<delete id="removeGroup" parameterType="int">
 		<![CDATA[
 			delete GK_ALLGROUP WHERE GNO=#{gno}

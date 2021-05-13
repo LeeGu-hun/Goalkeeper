@@ -1,10 +1,12 @@
 window.onload = function() {
-	var form = $('#bno').val();
+	var form1 = $('#bno').val();
+	var form2 = $('#bo_group').val();
 	$.ajax({
 		type : 'POST',
 		url : 'group_fileCnt',
 		data : {
-			'bno' : form
+			'bno' : form1,
+			'bo_group' : form2
 		},
 		error : function(error){
 			console.log("error");
@@ -22,9 +24,10 @@ window.onload = function() {
 			$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 		}
 		
-		document.form.submit();
+		$('#groupWrite').submit();
 		alert("저장되었습니다.");
 	});
+	
 	$(function() {
 		$("#photo").click(function() {
 			$(".backmodal").fadeIn();
