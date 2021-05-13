@@ -545,13 +545,13 @@
 
 								<p class="user-status-title medium">
 									<a class="bold" href="profile-timeline.html"
-										th:text="${post.userId}"></a> uploaded a <span class="bold">video</span>
+										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold" th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
 
 								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">2 minutes ago</p>
+								<p class="user-status-text small" th:text="${#dates.format(post.bo_date, 'yyyy-MM-dd HH:mm')}+'분에 등록됨'"></p>
 								<!-- /USER STATUS TEXT -->
 							</div>
 							<!-- /USER STATUS -->
@@ -569,12 +569,12 @@
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row medium">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger">
+									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}<3">
 										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview" th:each="file:${post.fileList.sequence(1,2)}">
+										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${post.bno}" alt="photo-preview-10">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-10">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -623,12 +623,12 @@
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger">
+									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
 										<!-- PHOTO PREVIEW -->
 										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img src="img/cover/16.jpg" alt="photo-preview-16">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-16">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 

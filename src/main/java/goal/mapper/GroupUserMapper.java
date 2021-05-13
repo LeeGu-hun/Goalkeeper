@@ -10,4 +10,5 @@ public interface GroupUserMapper {
 	void insertGroupUser(GroupUserVO groupUser);
 	GroupUserNameVO fineUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
+	int checkUserbyGroup(GroupUserVO groupUser);
 }

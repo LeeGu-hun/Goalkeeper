@@ -15,48 +15,59 @@
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
 <!-- favicon -->
 <link rel="icon" href="../../img/favicon.ico">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-function joinSubmit(){
-	if($('#join_msg').val()=="" || $('#join_msg').val == null){
-		$('#join_msg').attr('placeholder', '입력되지 않았습니다.');
-		return false;
+	function joinSubmit() {
+		if ($('#join_msg').val() == "" || $('#join_msg').val == null) {
+			$('#join_msg').attr('placeholder', '입력되지 않았습니다.');
+			return false;
+		}
+		alert('가입 신청이 완료되었습니다.');
+		$('form').submit();
 	}
-	alert('가입 신청이 완료되었습니다.');
-	$('form').submit();
-}
 </script>
 </head>
 <body>
-	<div class="widget-box" th:if="${user}!=null">
-		<p class="widget-box-title">그룹 가입하기</p>
-		<div class="widget-box-content">
-			<form class="form" action="/group_join" method="POST">
-				<div class="form-row-split">
-					<div class="form-item">
-						<div class="form-input small active">
-							<lavel>가입할 그룹</lavel>
-							<input type="hidden" name="gno" th:value="${group.gno}">
-							<input type="text" th:value="${group.g_name}" readonly>
+	<div class="widget-box"
+		th:if="${user}!=null">
+		<div th:if="${result}=='joinSuccess'">
+			<p class="widget-box-title">그룹 가입하기</p>
+			<div class="widget-box-content">
+				<form class="form" action="/group_join" method="POST">
+					<div class="form-row-split">
+						<div class="form-item">
+							<div class="form-input small active">
+								<lavel>가입할 그룹</lavel>
+								<input type="hidden" name="gno" th:value="${group.gno}">
+								<input type="text" th:value="${group.g_name}" readonly>
+							</div>
+						</div>
+						<div class="form-item">
+							<div class="form-input small mid-textarea active">
+								<label>한마디</label>
+								<textarea id="join_msg" name="join_msg"></textarea>
+							</div>
 						</div>
 					</div>
-					<div class="form-item">
-						<div class="form-input small mid-textarea active">
-							<label>한마디</label>
-							<textarea id="join_msg" name="join_msg"></textarea>
-						</div>
-					</div>
-				</div>
-				<button type="button" class="button small white add-field-button" style="float:right" onclick="joinSubmit();">가입하기</button>
-			</form>
+					<button type="button" class="button small white add-field-button"
+						style="float: right" onclick="joinSubmit();">가입하기</button>
+				</form>
+			</div>
+		</div>
+		<div class="widget-box-content" th:unless="${result}=='joinSuccess'">
+			<a
+				style="position: absolute; left: 467px; top: 189px; cursor: pointer; font-size: 30px;">이미 가입된 그룹입니다.</a>
 		</div>
 	</div>
 	<div th:unless="${user}!=null">
 		<div class="widget-box-content">
-		<a style="position:absolute; left:467px; top:189px; cursor:pointer; font-size:30px;">로그인이 필요합니다.</a>
+			<a
+				style="position: absolute; left: 467px; top: 189px; cursor: pointer; font-size: 30px;">로그인이
+				필요합니다.</a>
 		</div>
 	</div>
-<!-- app -->
+	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->
 	<script src="../../js/utils/page-loader.js"></script>

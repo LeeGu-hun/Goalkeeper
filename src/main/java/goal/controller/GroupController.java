@@ -165,11 +165,26 @@ public class GroupController {
 	public ModelAndView openJoin(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_join");
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		if(user!=null) {
+			GroupUserVO groupUser = new GroupUserVO();
+			groupUser.setGno(this.gno);
+			groupUser.setUno(user.getUno());
+			int count = groupService.checkUserbyGroup(groupUser);
+			if(count==1) {
+				mv.addObject("result", "JoinDenied");
+			} else {
+				mv.addObject("result", "JoinSuccess");
+			}
+		}	
 		GroupVO group = groupService.selectGroup(this.gno);
 		mv.addObject("group", group);
 		return mv;
 	}
-	
+	@PostMapping("/join_request")
+	public String joinMember(@RequestParam GroupJoinVO groupJoin, HttpServletRequest request) {
+		return "redirect:";
+	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
@@ -191,7 +206,14 @@ public class GroupController {
 	public String openHome() {
 		return "redirect:/group_detail";
 	}
-	
+	@GetMapping("/group_management/{gno}")
+	public ModelAndView openManagement(@PathVariable("gno") int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_management");
+		mv = commonService.checkLoginUser(request, mv);
+		List<GroupJoinVO> groupJoin = groupService.selectGroupJoin(gno);
+		mv.addObject("joinList", groupJoin);
+		return mv;
+	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 		MediaUtils mediaUtils = new MediaUtils();

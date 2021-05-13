@@ -24,4 +24,6 @@ public interface GroupService {
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);
+	List<GroupJoinVO> selectGroupJoin(int gno);
+	int checkUserbyGroup(GroupUserVO groupUser);
 }

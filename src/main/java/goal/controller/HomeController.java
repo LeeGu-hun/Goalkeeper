@@ -156,6 +156,7 @@ public class HomeController {
 	public String checkLogin(HttpServletRequest request, UserVO vo, Model model) {
 		UserVO user = userService.getUser(vo); // UserVO반환하는 서비스 추가해야함
 		HttpSession session = request.getSession(true);
+		session.setMaxInactiveInterval(120*60);
 		if (user != null) {
 			session.setAttribute("user", user);
 			if(referer.contains("Login")) {

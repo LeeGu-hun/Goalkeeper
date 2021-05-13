@@ -100,4 +100,15 @@ public class GroupServiceImpl implements GroupService{
 	public void insertGroupJoin(GroupJoinVO join) {
 		groupMapper.insertGroupJoin(join);
 	}
+
+	@Override
+	public List<GroupJoinVO> selectGroupJoin(int gno) {
+		return groupMapper.selectGroupJoin(gno);
+	}
+
+	@Override
+	public int checkUserbyGroup(GroupUserVO groupUser) {
+		return groupUserMapper.checkUserbyGroup(groupUser);
+	}
+	
 }

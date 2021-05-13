@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- bootstrap 4.3.1 -->
+<link rel="stylesheet" href="../../css/vendor/bootstrap.min.css">
+<!-- styles -->
+<link rel="stylesheet" href="../../css/styles.min.css">
+<!-- simplebar styles -->
+<link rel="stylesheet" href="../../css/vendor/simplebar.css">
+<!-- favicon -->
+<link rel="icon" href="img/favicon.ico">
+<title>Vikinger | Account Hub</title>
+</head>
+<body>
+	<div th:insert="/view/fragments/header.html :: header"></div>
+	<!-- CONTENT GRID -->
+	<div class="content-grid">
+		<!-- SECTION BANNER -->
+		<div class="section-banner">
+			<!-- SECTION BANNER ICON -->
+			<img class="section-banner-icon" src="img/banner/accounthub-icon.png"
+				alt="accounthub-icon">
+			<!-- /SECTION BANNER ICON -->
+
+			<!-- SECTION BANNER TITLE -->
+			<p class="section-banner-title">Account Hub</p>
+			<!-- /SECTION BANNER TITLE -->
+
+			<!-- SECTION BANNER TEXT -->
+			<p class="section-banner-text">Profile info, messages, settings
+				and much more!</p>
+			<!-- /SECTION BANNER TEXT -->
+		</div>
+		<!-- /SECTION BANNER -->
+
+		<!-- GRID -->
+		<div class="grid-column">
+			<!-- GRID COLUMN -->
+			<div class="account-hub-sidebar">
+				<!-- SIDEBAR BOX -->
+				<div class="sidebar-box no-padding">
+					<!-- SIDEBAR MENU -->
+					<div class="sidebar-menu round-borders">
+						<!-- SIDEBAR MENU ITEM -->
+						<div class="sidebar-menu-item">
+							<!-- SIDEBAR MENU HEADER -->
+							<div class="sidebar-menu-header accordion-trigger-linked">
+								<!-- SIDEBAR MENU HEADER ICON -->
+								<svg class="sidebar-menu-header-icon icon-group">
+                  <use xlink:href="#svg-group"></use>
+                </svg>
+								<!-- /SIDEBAR MENU HEADER ICON -->
+
+								<!-- SIDEBAR MENU HEADER CONTROL ICON -->
+								<div class="sidebar-menu-header-control-icon">
+									<!-- SIDEBAR MENU HEADER CONTROL ICON OPEN -->
+									<svg
+										class="sidebar-menu-header-control-icon-open icon-minus-small">
+                    <use xlink:href="#svg-minus-small"></use>
+                  </svg>
+									<!-- /SIDEBAR MENU HEADER CONTROL ICON OPEN -->
+
+									<!-- SIDEBAR MENU HEADER CONTROL ICON CLOSED -->
+									<svg
+										class="sidebar-menu-header-control-icon-closed icon-plus-small">
+                    <use xlink:href="#svg-plus-small"></use>
+                  </svg>
+									<!-- /SIDEBAR MENU HEADER CONTROL ICON CLOSED -->
+								</div>
+								<!-- /SIDEBAR MENU HEADER CONTROL ICON -->
+
+								<!-- SIDEBAR MENU HEADER TITLE -->
+								<p class="sidebar-menu-header-title">그룹 관리</p>
+								<!-- /SIDEBAR MENU HEADER TITLE -->
+
+								<!-- SIDEBAR MENU HEADER TEXT -->
+								<p class="sidebar-menu-header-text">그룹 멤버를 관리하고, 원하는 멤버를 초대할
+									수 있어요</p>
+								<!-- /SIDEBAR MENU HEADER TEXT -->
+							</div>
+							<!-- /SIDEBAR MENU HEADER -->
+
+							<!-- SIDEBAR MENU BODY -->
+							<div
+								class="sidebar-menu-body accordion-content-linked accordion-open">
+								<!-- SIDEBAR MENU LINK -->
+								<a class="sidebar-menu-link active"
+									href="hub-group-management.html">가입 요청</a>
+								<!-- /SIDEBAR MENU LINK -->
+
+								<!-- SIDEBAR MENU LINK -->
+								<a class="sidebar-menu-link" href="hub-group-invitations.html">멤버
+									초대</a>
+								<!-- /SIDEBAR MENU LINK -->
+							</div>
+							<!-- /SIDEBAR MENU BODY -->
+						</div>
+						<!-- /SIDEBAR MENU ITEM -->
+					</div>
+					<!-- /SIDEBAR MENU -->
+				</div>
+				<!-- /SIDEBAR BOX -->
+			</div>
+			<br>
+			<!-- /GRID COLUMN -->
+
+			<!-- GRID COLUMN -->
+			<div class="account-hub-content">
+				<!-- SECTION HEADER -->
+				<div class="section-header">
+					<!-- SECTION HEADER INFO -->
+					<div class="section-header-info">
+						<!-- SECTION PRETITLE -->
+						<p class="section-pretitle">그룹</p>
+						<!-- /SECTION PRETITLE -->
+
+						<!-- SECTION TITLE -->
+						<h2 class="section-title">그룹 관리</h2>
+						<!-- /SECTION TITLE -->
+					</div>
+					<!-- /SECTION HEADER INFO -->
+				</div>
+				<!-- /SECTION HEADER -->
+
+				<!-- WIDGET BOX -->
+				<div>
+					<div class="widget-box" style="height: 300px">
+						<!-- WIDGET BOX TITLE -->
+						<p class="widget-box-title">가입 신청 목록</p>
+						<br>
+						<!-- /WIDGET BOX TITLE -->
+						<div th:if="${joinList}!=null">
+							<!-- TABLE -->
+							<div class="table table-forum-category">
+								<!-- TABLE HEADER -->
+								<div class="table-header">
+									<!-- TABLE HEADER COLUMN -->
+									<div class="table-header-column centered">
+										<!-- TABLE HEADER TITLE -->
+										<p class="table-header-title">아이디 / 메세지</p>
+										<!-- /TABLE HEADER TITLE -->
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+
+									<!-- TABLE HEADER COLUMN -->
+									<div class="table-header-column centered padded-medium">
+										<!-- TABLE HEADER TITLE -->
+										<p class="table-header-title">신청일</p>
+										<!-- /TABLE HEADER TITLE -->
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+
+									<!-- TABLE HEADER COLUMN -->
+									<div class="table-header-column centered padded-medium">
+										<!-- TABLE HEADER TITLE -->
+										<p class="table-header-title">관리</p>
+										<!-- /TABLE HEADER TITLE -->
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+								</div>
+								<!-- /TABLE HEADER -->
+
+								<!-- TABLE BODY -->
+								<div class="table-body" th:if="${joinList}!=null">
+									<!-- TABLE ROW -->
+									<form action="/join_request" method="POST">
+										<div class="table-row big" th:each="join:${joinList}">
+											<!-- TABLE COLUMN -->
+											<div class="table-column">
+												<!-- FORUM CATEGORY -->
+												<div class="forum-category">
+													<div class="user-short-description"
+														style="width: 82px; height: 75px;">
+														<!-- USER SHORT DESCRIPTION AVATAR -->
+														<p
+															style="position: relative; margin-bottom: 10px; text-align: center"
+															class="user-short-description-title"
+															th:text="${join.userName}">
+															<a href="profile-timeline.html"></a>
+														</p>
+														<input type="hidden" name="uno" th:value="${join.uno}">
+														<input type="hidden" name="gno" th:value="${join.gno}">
+														<a class="user-short-description-avatar user-avatar small"
+															href="profile-timeline.html"
+															style="display: inline-block; position: relative; left: 70px; margin-top: -40px;">
+															<!-- USER AVATAR CONTENT -->
+															<div class="user-avatar-content">
+																<!-- HEXAGON -->
+																<div class="hexagon-image-40-44"
+																	data-src="../../img/avatar/01.jpg"></div>
+																<!-- /HEXAGON -->
+															</div> <!-- /USER AVATAR CONTENT -->
+														</a>
+													</div>
+													<!-- /USER SHORT DESCRIPTION AVATAR -->
+
+
+													<!-- USER SHORT DESCRIPTION TITLE -->
+
+													<!-- /USER SHORT DESCRIPTION TITLE -->
+
+													<!-- FORUM CATEGORY INFO -->
+													<div class="forum-category-info">
+														<!-- FORUM CATEGORY TEXT -->
+														<p class="forum-category-text" th:text="${join.join_msg}"></p>
+														<!-- /FORUM CATEGORY TEXT -->
+													</div>
+													<!-- /FORUM CATEGORY INFO -->
+												</div>
+												<!-- /FORUM CATEGORY -->
+											</div>
+											<!-- /TABLE COLUMN -->
+
+											<!-- TABLE COLUMN -->
+											<div class="table-column centered padded-medium">
+												<!-- TABLE TITLE -->
+												<p class="table-title"
+													th:text="${#dates.format(join.join_date, 'yyyy-MM-dd HH:mm')}"></p>
+												<!-- /TABLE TITLE -->
+											</div>
+											<!-- /TABLE COLUMN -->
+
+											<!-- TABLE COLUMN -->
+											<div class="table-column centered padded-medium">
+												<!-- TABLE TITLE -->
+												<button type="submit" class="table-title btn-primary success">수락</button>
+												<button class="table-title btn-primary">거절</button>
+												<!-- /TABLE TITLE -->
+											</div>
+											<!-- /TABLE COLUMN -->
+										</div>
+										<!-- /TABLE ROW -->
+									</form>
+								</div>
+							</div>
+						</div>
+						<div th:unless="${joinList}!=null">
+							<p>가입 신청이 없습니다.</p>
+						</div>
+					</div>
+					<!-- /WIDGET BOX -->
+				</div>
+			</div>
+			<!-- /GRID COLUMN -->
+		</div>
+		<!-- /GRID -->
+	</div>
+	<!-- /CONTENT GRID -->
+
+
+
+	<!-- app -->
+	<script src="../../js/utils/app.js"></script>
+	<!-- page loader -->
+	<script src="../../js/utils/page-loader.js"></script>
+	<!-- simplebar -->
+	<script src="../../js/vendor/simplebar.min.js"></script>
+	<!-- liquidify -->
+	<script src="../../js/utils/liquidify.js"></script>
+	<!-- XM_Plugins -->
+	<script src="../../js/vendor/xm_plugins.min.js"></script>
+	<!-- tiny-slider -->
+	<script src="../../js/vendor/tiny-slider.min.js"></script>
+	<!-- chartJS -->
+	<script src="../../js/vendor/Chart.bundle.min.js"></script>
+	<!-- global.hexagons -->
+	<script src="../../js/global/global.hexagons.js"></script>
+	<!-- global.tooltips -->
+	<script src="../../js/global/global.tooltips.js"></script>
+	<!-- global.chart -->
+	<script src="../../js/global/global.charts.js"></script>
+	<!-- header -->
+	<script src="../../js/header/header.js"></script>
+	<!-- sidebar -->
+	<script src="../../js/sidebar/sidebar.js"></script>
+	<!-- content -->
+	<script src="../../js/content/content.js"></script>
+	<!-- form.utils -->
+	<script src="../../js/form/form.utils.js"></script>
+	<!-- SVG icons -->
+	<script src="../../js/utils/svg-loader.js"></script>
+	<script src="../../js/group_management.js"></script>
+</body>
+</html>

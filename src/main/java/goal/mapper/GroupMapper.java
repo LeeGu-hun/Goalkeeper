@@ -24,4 +24,5 @@ public interface GroupMapper {
 	GroupVO selectGroup(int gno);
 	int countGoalbyId(int gno);
 	void insertGroupJoin(GroupJoinVO join);
+	List<GroupJoinVO> selectGroupJoin(int gno);
 }

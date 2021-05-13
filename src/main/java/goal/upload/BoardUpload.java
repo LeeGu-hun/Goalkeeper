@@ -36,7 +36,7 @@ public class BoardUpload {
 	@Autowired
 	BoardService boardService;
 	
-	int fileCnt = 1;
+	int fileCnt = 0;
 	
 	public int BoardUpload(BoardVO board,List<MultipartFile> files) throws IllegalStateException, IOException {
 			
