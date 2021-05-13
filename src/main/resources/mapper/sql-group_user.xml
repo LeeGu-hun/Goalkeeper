@@ -25,4 +25,7 @@
 	<select id="countUserbyGroup" parameterType="int" resultType="int">
 		select count(*) from gk_group_user where gno=#{gno}
 	</select>
+	<select id="checkUserbyGroup" parameterType="goal.vo.GroupUserVO" resultType="int">
+		select count(*) from gk_group_user where uno=#{uno} and gno=#{gno}
+	</select>
 </mapper>

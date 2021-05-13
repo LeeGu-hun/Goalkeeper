@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.CommonService;
 import goal.service.GroupFileService;
@@ -34,14 +37,18 @@ import goal.service.GroupService;
 import goal.upload.BoardUpload;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
+import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupFileVO;
+import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
+import lombok.extern.log4j.Log4j;
 
 @Controller
+@Log4j
 public class GroupController {
 	
 	@Autowired
@@ -55,6 +62,9 @@ public class GroupController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private BoardFileService boardFileService;
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	
@@ -101,6 +111,15 @@ public class GroupController {
 		
 		return "redirect:/groups";
 	}
+	@PostMapping("group_join")
+	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
+		String referer = request.getHeader("referer");
+		UserVO user = commonService.getLoginUser(request);
+		join.setUno(user.getUno());
+		groupService.insertGroupJoin(join);
+		return "redirect:" + referer;
+	}
+	
 	@GetMapping("/group_detail/{gno}")
 	public ModelAndView openDetail(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
@@ -115,28 +134,57 @@ public class GroupController {
 	}
 	@PostMapping("/group_detail")
 	public ModelAndView writeGroup(@RequestParam String fileCheck, BoardVO board, GroupVO group, @RequestPart("files") List<MultipartFile> files, HttpServletRequest request) throws IllegalStateException, IOException {
+		int fileCnt;
 		String gno = String.valueOf(group.getGno());
 		ModelAndView mv = new ModelAndView("redirect:/group_detail/" + gno);
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		board.setBo_group(group.getG_name());
 		board.setUserId(user.getUserId());
-		boardService.insertBoard(board);
 		if(fileCheck.equals("false")) {
-			boardUpload.BoardUpload(board, files);
+			board.setBo_fileCheck("Y");
+			boardService.insertBoard(board);
+			fileCnt = boardUpload.BoardUpload(board, files);
+			board.setBo_fileCount(fileCnt);
+			boardService.updateBoard(board);
+		} else {
+			board.setBo_fileCheck("N");
+			boardService.insertBoard(board);
 		}
 		return mv;
 	}
-	
+	@RequestMapping(value="/group_fileCnt")
+	@ResponseBody
+	public int getCnt(Model model, BoardVO board, RedirectAttributes rttr) {
+		int count = boardFileService.countFilebyGroup(board);
+		rttr.addFlashAttribute("fileCnt", count);
+		log.info(count);
+		return count;
+	}
 	@GetMapping("/group_join")
 	public ModelAndView openJoin(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_join");
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		if(user!=null) {
+			GroupUserVO groupUser = new GroupUserVO();
+			groupUser.setGno(this.gno);
+			groupUser.setUno(user.getUno());
+			int count = groupService.checkUserbyGroup(groupUser);
+			if(count==1) {
+				mv.addObject("result", "JoinDenied");
+			} else {
+				mv.addObject("result", "JoinSuccess");
+			}
+		}	
 		GroupVO group = groupService.selectGroup(this.gno);
 		mv.addObject("group", group);
 		return mv;
 	}
-	
+	@PostMapping("/join_request")
+	public String joinMember(@RequestParam GroupJoinVO groupJoin, HttpServletRequest request) {
+		return "redirect:";
+	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
@@ -158,7 +206,14 @@ public class GroupController {
 	public String openHome() {
 		return "redirect:/group_detail";
 	}
-	
+	@GetMapping("/group_management/{gno}")
+	public ModelAndView openManagement(@PathVariable("gno") int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_management");
+		mv = commonService.checkLoginUser(request, mv);
+		List<GroupJoinVO> groupJoin = groupService.selectGroupJoin(gno);
+		mv.addObject("joinList", groupJoin);
+		return mv;
+	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 		MediaUtils mediaUtils = new MediaUtils();
@@ -169,6 +224,30 @@ public class GroupController {
     		String fileName = groupFile.getG_filename();
             String g_fid = groupFile.getG_fid();
             String uploadPath = groupFile.getG_filepath();
+            String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+            MediaType mType = mediaUtils.getMediaType(formatName);
+            HttpHeaders headers = new HttpHeaders();
+            in = new FileInputStream(uploadPath + "\\" + g_fid + "_" + fileName);
+            headers.setContentType(mType);
+            entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+         } catch (IOException e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+         } finally {
+            in.close();
+         }
+      return entity;
+	}
+	@RequestMapping(value="/boardImage/{uuid}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayBoardImage(@PathVariable String uuid) throws IOException{
+		MediaUtils mediaUtils = new MediaUtils();
+	    InputStream in = null;
+	    ResponseEntity<byte[]> entity = null;
+	    BoardFileVO boardFile = boardFileService.selectFilebyUuid(uuid);
+    	try {
+    		String fileName = boardFile.getFileName();
+            String g_fid = boardFile.getUuid();
+            String uploadPath = boardFile.getFileUrl();
             String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
             MediaType mType = mediaUtils.getMediaType(formatName);
             HttpHeaders headers = new HttpHeaders();

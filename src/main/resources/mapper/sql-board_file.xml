@@ -33,9 +33,14 @@
 	<select id="selectFile" parameterType="int" resultMap="boardFileVO">
 		select * from GK_FILE where bno=#{bno}
 	</select>
+	<select id="selectFilebyUuid" parameterType="String" resultMap="boardFileVO">
+		select * from GK_FILE where uuid=#{uuid}
+	</select>
 	
 	<select id="countFile" parameterType="int" resultType="int">
 		select count(*) from GK_FILE where bno = #{bno}
 	</select>
-	
+	<select id="countFilebyGroup" parameterType="goal.vo.BoardVO" resultType="int">
+	select count(*) from gk_file f, gk_board b where b.bo_group = #{bo_group} and f.bno = #{bno}
+	</select>
 </mapper>

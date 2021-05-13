@@ -10,10 +10,15 @@
 		<id property="bo_cate" column="bo_cate"/>
 		<id property="bo_group" column="bo_group"/>
 		<id property="bo_date" column="bo_date"/>
-	<!--<collection property="replyList" column="bno" javaType="java.util.ArrayList" ofType="goal.vo.ReplyVO" select="getReplyListById"/>-->	
+		<id property="bo_fileCheck" column="bo_fileCheck"/>
+		<id property="bo_fileCount" column="bo_fileCount"/>
+		<collection column="bno" property="fileList" javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno"/>
 	</resultMap>
 	<select id="getReplyListById" resultMap="boardVO">
 		select * from GK_COMMENT
+	</select>
+	<select id="getFileByBno" resultType="goal.vo.BoardFileVO">
+		select * from GK_FILE where bno = #{bno}
 	</select>
 	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
 		select bo_content, userid from GK_BOARD 
@@ -21,10 +26,16 @@
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno"  keyColumn="BNO">
 		insert into
-		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group) values
-		(GK_board_SEQ.nextval,#{userId}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group})
+		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group, bo_filecheck, bo_fileCount) values
+		(GK_board_SEQ.nextval,#{userId}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group}, #{bo_fileCheck}, #{bo_fileCount})
 	</insert>
-
+	<update id="updateBoard" parameterType="goal.vo.BoardVO">
+		<![CDATA[
+			UPDATE GK_BOARD 
+			SET bo_content=#{bo_content}, bo_date=sysdate, bo_cate=#{bo_cate}, bo_fileCount=#{bo_fileCount}
+			WHERE bno=#{bno}
+		]]>
+	</update>
 	<select id="recentBoard" resultMap="boardVO">
 		<![CDATA[
 		SELECT ROWNUM, BNO FROM (SELECT * FROM GK_BOARD ORDER BY BNO DESC)WHERE ROWNUM <= 1

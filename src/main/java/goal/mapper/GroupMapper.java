@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.GroupGoalVO;
+import goal.vo.GroupJoinVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -22,4 +23,6 @@ public interface GroupMapper {
 	List<GroupGoalVO> findGoalbyId(int gno);
 	GroupVO selectGroup(int gno);
 	int countGoalbyId(int gno);
+	void insertGroupJoin(GroupJoinVO join);
+	List<GroupJoinVO> selectGroupJoin(int gno);
 }

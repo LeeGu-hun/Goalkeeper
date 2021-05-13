@@ -52,4 +52,15 @@ public class BoardFileServiceImpl implements BoardFileService {
 	public int countFile(int bno) {
 		return boardFileMapper.countFile(bno);
 	}
+
+	@Override
+	public int countFilebyGroup(BoardVO board) {
+		return boardFileMapper.countFilebyGroup(board);
+	}
+
+	@Override
+	public BoardFileVO selectFilebyUuid(String uuid) {
+		return boardFileMapper.selectFilebyUuid(uuid);
+	}
+	
 }

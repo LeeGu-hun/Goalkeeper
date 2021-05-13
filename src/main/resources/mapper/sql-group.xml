@@ -11,6 +11,12 @@
 		<id property="g_cate" column="g_cate"/>
 		<id property="g_open" column="g_open"/>
 	</resultMap>
+	<resultMap type="goal.vo.GroupJoinVO" id="groupJoinVO">
+		<id property="gno" column="gno"/>
+		<id property="join_msg" column="join_msg"/>
+		<id property="join_date" column="join_date"/>
+		<id property="userName" column="userName"/>
+	</resultMap>
 	<select id="selectGroupList" parameterType="goal.vo.UserVO" resultMap="groupVO">
 		<![CDATA[
 			SELECT * FROM GK_ALLGROUP WHERE UNO=#{uno} ORDER BY gno DESC
@@ -49,6 +55,13 @@
 		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
 		(GK_GROUPFILE_SEQ.nextval, #{g_filename}, #{g_filepath}, #{g_gno})
 	</insert>
+	<insert id="insertGroupJoin" parameterType="goal.vo.GroupJoinVO">
+		insert into GK_GROUP_JOIN(gno, join_msg, join_date, uno) values
+		(#{gno}, #{join_msg}, sysdate, #{uno})
+	</insert>
+	<select id="selectGroupJoin" parameterType="int" resultMap="groupJoinVO">
+		select GNO, JOIN_MSG, JOIN_DATE, userName, uno from gk_group_join j, gk_user u where j.uno=u.uno and gno=#{gno}
+	</select>
 	<delete id="removeGroup" parameterType="int">
 		<![CDATA[
 			delete GK_ALLGROUP WHERE GNO=#{gno}

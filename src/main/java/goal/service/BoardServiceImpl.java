@@ -45,5 +45,16 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> getGroupBoardList(String bo_group) {
 		return boardMapper.getGroupBoardList(bo_group);
 	}
+
+	@Override
+	public void updateBoard(BoardVO board) {
+		boardMapper.updateBoard(board);
+	}
+
+	@Override
+	public void modifyBoard(BoardVO board) {
+		boardMapper.modifyBoard(board);
+		
+	}
 	
 }

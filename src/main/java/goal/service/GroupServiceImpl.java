@@ -12,6 +12,7 @@ import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
 import goal.mapper.GroupUserMapper;
 import goal.vo.GroupGoalVO;
+import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
@@ -95,5 +96,19 @@ public class GroupServiceImpl implements GroupService{
 		return groupMapper.countGoalbyId(gno);
 	}
 
+	@Override
+	public void insertGroupJoin(GroupJoinVO join) {
+		groupMapper.insertGroupJoin(join);
+	}
+
+	@Override
+	public List<GroupJoinVO> selectGroupJoin(int gno) {
+		return groupMapper.selectGroupJoin(gno);
+	}
+
+	@Override
+	public int checkUserbyGroup(GroupUserVO groupUser) {
+		return groupUserMapper.checkUserbyGroup(groupUser);
+	}
 	
 }

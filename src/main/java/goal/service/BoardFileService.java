@@ -16,5 +16,6 @@ public interface BoardFileService {
 	List<BoardFileVO> getBoardFileList();
 	BoardFileVO selectFile(int bno);
 	int countFile(int bno);
-
+	int countFilebyGroup(BoardVO board);
+	BoardFileVO selectFilebyUuid(String uuid);
 }
