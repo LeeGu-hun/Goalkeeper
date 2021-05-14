@@ -59,4 +59,10 @@
 	<select id="selectBoardList" resultMap="boardVO" parameterType="goal.vo.UserVO">
 		select * from GK_BOARD where uno=#{uno} order by bno desc
 	</select>
+	
+	<update id="deleteBoard" parameterType="goal.vo.BoardVO">
+		<![CDATA[
+			DELETE FROM GK_BOARD WHERE bno=${bno};
+		]]>
+	</update>
 </mapper>

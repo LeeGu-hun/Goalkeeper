@@ -15,4 +15,5 @@ public interface BoardService {
 	BoardVO recentBoard();
 	List<BoardVO> getGroupBoardList(String bo_group);
 	void updateBoard(BoardVO board);
+	void deleteBoard(BoardVO board);
 }

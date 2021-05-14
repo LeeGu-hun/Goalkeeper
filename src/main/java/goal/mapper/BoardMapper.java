@@ -21,4 +21,5 @@ public interface BoardMapper {
 	List<BoardVO> getBoardList();
 	List<BoardVO> getGroupBoardList(String bo_group);
 	void updateBoard(BoardVO board);
+	void deleteBoard(BoardVO board);
 }

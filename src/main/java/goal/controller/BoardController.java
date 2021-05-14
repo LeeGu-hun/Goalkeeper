@@ -85,6 +85,18 @@ public class BoardController {
 		
 		return "redirect:/home";
 	}
+	
+	@PostMapping("/board/delete.do")
+	public String deleteBoard(BoardVO board, HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
+		
+		board.setUserId(user.getUserId());
+		board.setUno(user.getUno());
+		board.setBno(board.getBno());
+		boardService.deleteBoard(board);
+		
+		return "redirect:/home";
+	}
 
 	@RequestMapping("/boardSearch")
 	public ModelAndView searchBoard(BoardVO vo,BoardFileVO boardFileVO, HttpServletRequest request) {
