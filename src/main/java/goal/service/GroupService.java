@@ -26,4 +26,7 @@ public interface GroupService {
 	void insertGroupJoin(GroupJoinVO join);
 	List<GroupJoinVO> getGroupJoin(int gno);
 	int checkUserbyGroup(GroupUserVO groupUser);
+	String getRolebyUser(GroupUserVO groupUser);
+	void insertGroupUser(GroupUserVO groupUser);
+	void removeGroupJoin(GroupJoinVO join);
 }

@@ -11,4 +11,5 @@ public interface GroupUserMapper {
 	GroupUserNameVO fineUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int checkUserbyGroup(GroupUserVO groupUser);
+	String findRolebyUser(GroupUserVO groupUser);
 }

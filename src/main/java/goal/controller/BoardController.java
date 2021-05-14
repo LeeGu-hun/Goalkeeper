@@ -44,7 +44,7 @@ public class BoardController {
 		UserVO user = getLoginUser(request);
 		if (user != null) {
 			mv.addObject("user", user);
-			List<GroupVO> groupList = groupService.selectGroupList(user);
+			List<GroupVO> groupList = groupService.getGroupList(user);
 			mv.addObject("List", groupList);
 		} else {
 			referer = request.getHeader("REFERER");

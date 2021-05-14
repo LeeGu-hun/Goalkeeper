@@ -60,8 +60,13 @@
 		(#{gno}, #{join_msg}, sysdate, #{uno})
 	</insert>
 	<select id="selectGroupJoin" parameterType="int" resultMap="groupJoinVO">
-		select GNO, JOIN_MSG, JOIN_DATE, userName, uno from gk_group_join j, gk_user u where j.uno=u.uno and gno=#{gno}
+		select GNO, JOIN_MSG, JOIN_DATE, userName, j.uno from gk_group_join j, gk_user u where j.uno=u.uno and gno=#{gno}
 	</select>
+	<delete id="removeGroupJoin" parameterType="goal.vo.GroupJoinVO">
+		<![CDATA[
+			delete gk_group_join WHERE GNO=#{gno} and uno=#{uno}
+		]]> 
+	</delete>
 	<delete id="removeGroup" parameterType="int">
 		<![CDATA[
 			delete GK_ALLGROUP WHERE GNO=#{gno}

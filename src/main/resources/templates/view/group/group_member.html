@@ -26,6 +26,72 @@
 	<div class="content-grid">
 		<!-- PROFILE HEADER -->
 		<div th:insert="/view/fragments/group_header.html :: group_header"></div>
+		<!-- SECTION NAVIGATION -->
+		<nav class="section-navigation">
+			<!-- SECTION MENU -->
+			<div id="section-navigation-medium-slider"
+				class="section-menu secondary">
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" id="section-navigation-medium-slider-item0" th:href="@{/group_detail/{gno}(gno=${group.gno})}">
+				<!-- SECTION MENU ITEM ICON --> 
+				<svg class="section-menu-item-icon icon-timeline">
+            		<use xlink:href="#svg-timeline"></use>
+          		</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+				<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" id="section-navigation-medium-slider-item1" th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-info">
+            <use xlink:href="#svg-info"></use>
+          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Info</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item active" id="section-navigation-medium-slider-item2" th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-members">
+            <use xlink:href="#svg-members"></use>
+          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Members</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" href="#"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-photos">
+            <use xlink:href="#svg-photos"></use>
+          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+			</div>
+			<!-- SLIDER CONTROLS -->
+			<div id="section-navigation-medium-slider-controls"
+				class="slider-controls">
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control left">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+            <use xlink:href="#svg-small-arrow"></use>
+          </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control right">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+            <use xlink:href="#svg-small-arrow"></use>
+          </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+			</div>
+			<!-- /SLIDER CONTROLS -->
+		</nav>
+		<!-- /SECTION NAVIGATION -->
 		<!-- SECTION -->
 		<section class="section">
 			<!-- SECTION HEADER -->

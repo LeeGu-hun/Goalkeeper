@@ -107,5 +107,19 @@ public class GroupServiceImpl implements GroupService{
 	public int checkUserbyGroup(GroupUserVO groupUser) {
 		return groupUserMapper.checkUserbyGroup(groupUser);
 	}
-	
+
+	@Override
+	public String getRolebyUser(GroupUserVO groupUser) {
+		return groupUserMapper.findRolebyUser(groupUser);
+	}
+
+	@Override
+	public void insertGroupUser(GroupUserVO groupUser) {
+		groupUserMapper.insertGroupUser(groupUser);
+	}
+
+	@Override
+	public void removeGroupJoin(GroupJoinVO join) {
+		groupMapper.removeGroupJoin(join);
+	}
 }

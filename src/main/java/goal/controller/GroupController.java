@@ -72,6 +72,7 @@ public class GroupController {
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	private CommonDownload commonDownload = new CommonDownload();
+	private String referer;
 	
 	private int gno = 0;
 	MediaUtils mediaUtils = new MediaUtils();
@@ -135,7 +136,7 @@ public class GroupController {
 		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
 		if(user!=null) {
 			GroupUserVO groupUser = new GroupUserVO();
-			groupUser.setGno(this.gno);
+			groupUser.setGno(gno);
 			groupUser.setUno(user.getUno());
 			int count = groupService.checkUserbyGroup(groupUser);
 			if(count==1) {
@@ -189,8 +190,14 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/join_request")
-	public String joinMember(@RequestParam GroupJoinVO groupJoin, HttpServletRequest request) {
-		return "redirect:";
+	public String joinMember(GroupJoinVO groupJoin, HttpServletRequest request) {
+		GroupUserVO groupUser = new GroupUserVO();
+		groupUser.setGno(groupJoin.getGno());
+		groupUser.setUno(groupJoin.getUno());
+		groupUser.setG_role("ROLE_MEMBER");
+		groupService.insertGroupUser(groupUser);
+		groupService.removeGroupJoin(groupJoin);
+		return "redirect:/group_management/"+groupJoin.getGno();
 	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
@@ -217,6 +224,21 @@ public class GroupController {
 	public ModelAndView openManagement(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_management");
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		referer = request.getHeader("REFERER");
+		if(user!=null) {
+			GroupUserVO groupUser = new GroupUserVO();
+			groupUser.setGno(this.gno);
+			groupUser.setUno(user.getUno());
+			String role = groupService.getRolebyUser(groupUser);
+			if(role!=null) {
+				if(role.equals("ROLE_ADMIN")) {
+					mv.addObject("result", "joinSuccess");
+				}
+			}else {
+				mv.addObject("result", "joinDinied");
+			}
+		}	
 		List<GroupJoinVO> groupJoin = groupService.getGroupJoin(gno);
 		mv.addObject("joinList", groupJoin);
 		return mv;
@@ -233,16 +255,12 @@ public class GroupController {
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, boardFile.getFileName(), boardFile.getUuid(), boardFile.getFileUrl());
 	    return entity;
 	}
-	@RequestMapping(value="/profile", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> getImage() throws IOException{
-	    GroupFileVO groupFile = groupFileService.selectFile(gno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getG_filename(), groupFile.getG_fid(), groupFile.getG_filepath());
-	    return entity;
+	@GetMapping("/back")
+	public String backSite(HttpServletRequest request) {
+		return "redirect:" + referer;
 	}
-
 	private ModelAndView getGroupUser(int gno, ModelAndView mv) {
 		GroupUserNameVO groupUser = new GroupUserNameVO();
-		groupUser = groupService.fineUserbyGroup(gno);
 		int userResult = groupService.countUserbyGroup(gno);
 		int goalResult = groupService.countGoalbyGroup(gno);
 		mv.addObject("goalCount", goalResult);

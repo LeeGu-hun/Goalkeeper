@@ -66,7 +66,7 @@ public class HomeController {
 	private int bno = 0;
 	private int count = 0;
 
-	@GetMapping("/home")
+	@RequestMapping(value={"/home", "/"})
 	public ModelAndView openNewsFeed(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/home/newsFeed");
 		getHome(mv, request);
@@ -200,7 +200,7 @@ public class HomeController {
 		List<BoardVO> boardList = boardService.getBoardList();
 		mv.addObject("BoList", boardList);	
 		if (user != null) {
-			List<GroupVO> groupList = groupService.selectGroupList(user);
+			List<GroupVO> groupList = groupService.getGroupList(user);
 			List<ReplyVO> ReplyList = replyService.getMainReply();
 
 			mv.addObject("GrList", groupList);
