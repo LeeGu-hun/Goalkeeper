@@ -72,8 +72,7 @@ public class HomeController {
 
 	@RequestMapping(value={"/home", "/"})
 	   public ModelAndView openNewsFeed(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/newsFeed");
-	      
+	      ModelAndView mv = new ModelAndView("view/home/newsFeed");      
 	      mv = getHome(mv, request);
 	      
 	       UserVO user = commonService.getLoginUser(request);

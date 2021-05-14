@@ -55,16 +55,6 @@ public class BoardController {
 	private String referer = null;
 	private CommonDownload CommonDownload = new CommonDownload();
 
-	/*
-	 * @RequestMapping("/boardWrite") public ModelAndView
-	 * openBoardWrite(HttpServletRequest request) { ModelAndView mv = new
-	 * ModelAndView("view/board/board_write"); UserVO user = getLoginUser(request);
-	 * if (user != null) { mv.addObject("user", user); List<GroupVO> groupList =
-	 * groupService.getGroupList(user); mv.addObject("List", groupList); } else {
-	 * referer = request.getHeader("REFERER");
-	 * mv.setViewName("view/home/user_login"); } return mv; }
-	 */
-
 	@PostMapping("/home/insert.do")
 	public String insertBoard(@RequestParam String fileCheck,
 			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
@@ -75,7 +65,7 @@ public class BoardController {
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
 		
-		if(board.getBo_group() ==  null) {
+		if(!board.getBo_cate().equals("group")) {
 			board.setBo_group("noGroup");
 		}
 		commonService.fileCheck(board, fileCheck, files);
