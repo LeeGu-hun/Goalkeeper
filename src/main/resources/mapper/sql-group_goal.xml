@@ -14,10 +14,10 @@
 	<insert id="insertData" parameterType="goal.vo.GroupGoalVO">
 		insert into
 		GK_GOAL(dno, gno, goal_name, goal_allcnt, goal_type, goal_enddate) values
-		(GK_DATA_SEQ.nextval, #{gno}, #{goal_name}, #{goal_allcnt}, #{goal_type}, #{goal_enddate})
+		(GK_DATA_SEQ.nextval, #{gno}, #{goal_name}, #{goal_allcnt}, 'A', #{goal_enddate})
 	</insert>
 	<select id="findGoalbyId" parameterType="int" resultMap="groupGoal">
-		select * from GK_GOAL where gno=#{gno} and goal_type='A'
+		select * from GK_GOAL where gno=#{gno}
 	</select>
 	<select id="getMaxDataById" resultType="int">
 		select sum(d_cnt) from gk_data where dno=#{dno}	
