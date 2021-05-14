@@ -12,4 +12,5 @@ public interface UserFileMapper {
 	List<UserFileVO> selectFileName();
 	int removeUserFile(int uno);
 	UserFileVO selectFile(int uno);
+	int checkProfile(int uno);
 }

@@ -7,6 +7,7 @@ import goal.vo.UserFileVO;
 public interface UserFileService {
 	void insertUserFile(UserFileVO vo);
 	List<UserFileVO> selectFileName();
-	boolean removeUserFile(int uno);
+	int removeUserFile(int uno);
 	UserFileVO selectFile(int uno);
+	int checkProfile(int uno);
 }

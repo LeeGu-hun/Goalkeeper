@@ -25,13 +25,17 @@ public class UserFileServiceImpl implements UserFileService{
 	}
 
 	@Override
-	public boolean removeUserFile(int uno) {
-		return mapper.removeUserFile(uno) > 0 ? true : false;
+	public int removeUserFile(int uno) {
+		return mapper.removeUserFile(uno);
 	}
 	
 	@Override
 	public UserFileVO selectFile(int uno) {
 		return mapper.selectFile(uno);
+	}
+	@Override
+	public int checkProfile(int uno) {
+		return mapper.checkProfile(uno);
 	}
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.UserFileMapper">
+	<resultMap type="goal.vo.UserVO" id="userFileVO">
+		<id property="uno" column="uno"/>
+		<id property="userFilename" column="userFilename"/>
+		<id property="userFileId" column="userFileId"/>
+		<id property="userFilePath" column="userFilePath"/>
+	</resultMap>
+	
+	<select id="selectFile" parameterType="int" resultMap="userFileVO">
+		select * from GK_USER_FILE where uno = #{uno}
+	</select>
+	
+	<insert id="insertUserFile" parameterType="goal.vo.UserFileVO">
+		insert into GK_USER_FILE values(#{uno}, #{userFileName}, #{userFileId}, #{userFilePath})
+	</insert>
+	
+	<delete id="removeUserFile" parameterType="int">
+		delete from GK_USER_FILE where uno = #{uno}
+	</delete>
+	
+	<select id="checkProfile" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM GK_USER_FILE WHERE UNO = #{uno}
+		]]>
+	</select>
+</mapper>
