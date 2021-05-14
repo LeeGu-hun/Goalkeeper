@@ -19,7 +19,7 @@ import goal.vo.UserVO;
 public class CommonServiceImpl implements CommonService {
 	@Autowired
 	private BoardService boardService;
-	
+	@Autowired
 	private BoardUpload boardUpload;
 
 	@Override
