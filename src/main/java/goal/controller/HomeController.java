@@ -31,6 +31,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import goal.service.BoardFileService;
 import goal.service.BoardService;
+import goal.service.ChatService;
 import goal.service.CommonService;
 import goal.service.GroupService;
 import goal.service.ReplyService;
@@ -39,6 +40,7 @@ import goal.upload.BoardUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.FriendVO;
 import goal.vo.GroupVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
@@ -60,6 +62,8 @@ public class HomeController {
 	private CommonService commonService;
 	@Autowired
 	private BoardUpload boardUpload;
+	@Autowired
+	private ChatService chatService;
 
 	private String referer = null;
 	
@@ -67,11 +71,19 @@ public class HomeController {
 	private int count = 0;
 
 	@RequestMapping(value={"/home", "/"})
-	public ModelAndView openNewsFeed(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/home/newsFeed");
-		getHome(mv, request);
-		return mv;
-	}
+	   public ModelAndView openNewsFeed(HttpServletRequest request) {
+	      ModelAndView mv = new ModelAndView("view/home/newsFeed");
+	      
+	      mv = getHome(mv, request);
+	      
+	       UserVO user = commonService.getLoginUser(request);
+	       if(user!=null) {
+	          List<FriendVO> friendlist = chatService.findFriendList(user);
+	          mv.addObject("friendlist", friendlist);          
+	       }
+	       
+	      return mv;
+	   }
 
 	@PostMapping("/count_file")
 	public String getbno(@RequestParam int bno, RedirectAttributes rttr, HttpServletRequest request) {
