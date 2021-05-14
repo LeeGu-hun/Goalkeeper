@@ -157,6 +157,7 @@ public class GroupController {
 		UserVO user = commonService.getLoginUser(request);
 		board.setBo_group(group.getG_name());
 		board.setUserId(user.getUserId());
+		board.setBo_cate("group");
 		commonService.fileCheck(board, fileCheck, files);
 		return mv;
 	}
@@ -195,7 +196,11 @@ public class GroupController {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
 		mv = commonService.checkLoginUser(request, mv);
 		GroupVO group = groupService.getGroup(gno);
+		List<GroupUserNameVO> groupUser = groupService.findUserbyGroup(gno);
+		int count = groupService.countUserbyGroup(gno);
 		mv.addObject("group", group);
+		mv.addObject("groupUser", groupUser);
+		mv.addObject("userCount", count);
 		return mv;
 	}
 	

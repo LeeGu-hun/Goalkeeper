@@ -20,7 +20,7 @@ public interface GroupService {
 	List<GroupGoalVO> getGoalbyId(int gno);
 	GroupVO getGroup(int gno);
 	
-	GroupUserNameVO fineUserbyGroup(int gno);
+	List<GroupUserNameVO> findUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);

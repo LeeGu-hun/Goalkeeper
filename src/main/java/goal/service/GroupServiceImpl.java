@@ -79,8 +79,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public GroupUserNameVO fineUserbyGroup(int gno) {
-		return groupUserMapper.fineUserbyGroup(gno);
+	public List<GroupUserNameVO> findUserbyGroup(int gno) {
+		return groupUserMapper.findUserbyGroup(gno);
 	}
 
 	@Override

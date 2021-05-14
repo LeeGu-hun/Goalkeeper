@@ -99,12 +99,12 @@
 				<!-- SECTION HEADER INFO -->
 				<div class="section-header-info">
 					<!-- SECTION PRETITLE -->
-					<p class="section-pretitle">Browse Group</p>
+					<p class="section-pretitle">전체 멤버</p>
 					<!-- /SECTION PRETITLE -->
 
 					<!-- SECTION TITLE -->
 					<h2 class="section-title">
-						Members <span class="highlighted secondary">82</span>
+						<span class="highlighted secondary" th:text="${userCount}+'명'"></span>
 					</h2>
 					<!-- /SECTION TITLE -->
 				</div>
@@ -120,7 +120,7 @@
 					<form class="form">
 						<!-- FORM INPUT -->
 						<div class="form-input small with-button">
-							<label for="members-search">Search Members</label> <input
+							<label for="members-search">멤버 검색</label> <input
 								type="text" id="members-search" name="members_search">
 							<!-- BUTTON -->
 							<button class="button secondary">
@@ -133,59 +133,15 @@
 							<!-- /BUTTON -->
 						</div>
 						<!-- /FORM INPUT -->
-
-						<!-- FORM SELECT -->
-						<div class="form-select">
-							<label for="members-filter-category">Filter By</label> <select
-								id="members-filter-category" name="members_filter_category">
-								<option value="0">Recently Active</option>
-								<option value="1">Newest Members</option>
-								<option value="2">Alphabetical</option>
-							</select>
-							<!-- FORM SELECT ICON -->
-							<svg class="form-select-icon icon-small-arrow">
-                <use xlink:href="#svg-small-arrow"></use>
-              </svg>
-							<!-- /FORM SELECT ICON -->
-						</div>
-						<!-- /FORM SELECT -->
 					</form>
 					<!-- /FORM -->
-
-					<!-- FILTER TABS -->
-					<div class="filter-tabs">
-						<!-- FILTER TAB -->
-						<div class="filter-tab secondary active">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">Recently Active</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-
-						<!-- FILTER TAB -->
-						<div class="filter-tab secondary">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">Newest Members</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-
-						<!-- FILTER TAB -->
-						<div class="filter-tab secondary">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">Alphabetical</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-					</div>
-					<!-- /FILTER TABS -->
 				</div>
 				<!-- /SECTION FILTERS BAR ACTIONS -->
-
+			</div>
 				<!-- GRID -->
 				<div class="grid grid-4-4-4 centered">
 					<!-- USER PREVIEW -->
-					<div class="user-preview">
+					<div class="user-preview" th:each="groupUser:${groupUser}">
 						<!-- USER PREVIEW COVER -->
 						<figure class="user-preview-cover liquid">
 							<img src="../../img/cover/04.jpg" alt="cover-04">
@@ -208,91 +164,17 @@
 										<!-- HEXAGON -->
 										<div class="hexagon-image-82-90" data-src="../../img/avatar/05.jpg"></div>
 										<!-- /HEXAGON -->
-									</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
-									<div class="user-avatar-progress">
-										<!-- HEXAGON -->
-										<div class="hexagon-progress-100-110"></div>
-										<!-- /HEXAGON -->
-									</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
-									<div class="user-avatar-progress-border">
-										<!-- HEXAGON -->
-										<div class="hexagon-border-100-110"></div>
-										<!-- /HEXAGON -->
-									</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
-									<div class="user-avatar-badge">
-										<!-- USER AVATAR BADGE BORDER -->
-										<div class="user-avatar-badge-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-32-36"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR BADGE BORDER -->
-
-										<!-- USER AVATAR BADGE CONTENT -->
-										<div class="user-avatar-badge-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-dark-26-28"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR BADGE CONTENT -->
-
-										<!-- USER AVATAR BADGE TEXT -->
-										<p class="user-avatar-badge-text">12</p>
-										<!-- /USER AVATAR BADGE TEXT -->
-									</div> <!-- /USER AVATAR BADGE -->
+									</div> 
 								</a>
 								<!-- /USER SHORT DESCRIPTION AVATAR -->
 
 								<!-- USER SHORT DESCRIPTION TITLE -->
 								<p class="user-short-description-title">
-									<a href="profile-timeline.html">NekoBebop</a>
+									<a href="profile-timeline.html" th:text="${groupUser.userId}"></a>
 								</p>
 								<!-- /USER SHORT DESCRIPTION TITLE -->
-
-								<!-- USER SHORT DESCRIPTION TEXT -->
-								<p class="user-short-description-text">
-									<a href="#">www.store.com/nekoprints</a>
-								</p>
-								<!-- /USER SHORT DESCRIPTION TEXT -->
 							</div>
 							<!-- /USER SHORT DESCRIPTION -->
-
-							<!-- BADGE LIST -->
-							<div class="badge-list small">
-								<!-- BADGE ITEM -->
-								<div class="badge-item">
-									<img src="../../img/badge/silver-s.png" alt="badge-silver-s">
-								</div>
-								<!-- /BADGE ITEM -->
-
-								<!-- BADGE ITEM -->
-								<div class="badge-item">
-									<img src="../../img/badge/fcultivator-s.png"
-										alt="badge-fcultivator-s">
-								</div>
-								<!-- /BADGE ITEM -->
-
-								<!-- BADGE ITEM -->
-								<div class="badge-item">
-									<img src="../../img/badge/scientist-s.png" alt="badge-scientist-s">
-								</div>
-								<!-- /BADGE ITEM -->
-
-								<!-- BADGE ITEM -->
-								<div class="badge-item">
-									<img src="../../img/badge/rmachine-s.png" alt="badge-rmachine-s">
-								</div>
-								<!-- /BADGE ITEM -->
-
-								<!-- BADGE ITEM -->
-								<a class="badge-item" href="profile-badges.html"> <img
-									src="../../img/badge/blank-s.png" alt="badge-blank-s"> <!-- BADGE ITEM TEXT -->
-									<p class="badge-item-text">+29</p> <!-- /BADGE ITEM TEXT -->
-								</a>
-								<!-- /BADGE ITEM -->
-							</div>
-							<!-- /BADGE LIST -->
-
 							<!-- USER PREVIEW STATS SLIDES -->
 							<div id="user-preview-stats-slides-01"
 								class="user-preview-stats-slides">
@@ -307,7 +189,7 @@
 											<!-- /USER STAT TITLE -->
 
 											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">posts</p>
+											<p class="user-stat-text">작성글</p>
 											<!-- /USER STAT TEXT -->
 										</div>
 										<!-- /USER STAT -->
@@ -319,7 +201,7 @@
 											<!-- /USER STAT TITLE -->
 
 											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">friends</p>
+											<p class="user-stat-text">친구</p>
 											<!-- /USER STAT TEXT -->
 										</div>
 										<!-- /USER STAT -->
@@ -331,22 +213,12 @@
 											<!-- /USER STAT TITLE -->
 
 											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">visits</p>
+											<p class="user-stat-text">달성목표</p>
 											<!-- /USER STAT TEXT -->
 										</div>
 										<!-- /USER STAT -->
 									</div>
 									<!-- /USER STATS -->
-								</div>
-								<!-- /USER PREVIEW STATS SLIDE -->
-
-								<!-- USER PREVIEW STATS SLIDE -->
-								<div class="user-preview-stats-slide">
-									<!-- USER PREVIEW TEXT -->
-									<p class="user-preview-text">Hello! I'm James Hart, but I
-										go by the name of Destroy Dex on my stream channel. Come to
-										check out the latest gaming news!</p>
-									<!-- /USER PREVIEW TEXT -->
 								</div>
 								<!-- /USER PREVIEW STATS SLIDE -->
 							</div>
@@ -358,57 +230,16 @@
 								<!-- SLIDER ROSTER ITEM -->
 								<div class="slider-roster-item"></div>
 								<!-- /SLIDER ROSTER ITEM -->
-
-								<!-- SLIDER ROSTER ITEM -->
-								<div class="slider-roster-item"></div>
-								<!-- /SLIDER ROSTER ITEM -->
 							</div>
 							<!-- /USER PREVIEW STATS ROSTER -->
-
-							<!-- SOCIAL LINKS -->
-							<div class="social-links small">
-								<!-- SOCIAL LINK -->
-								<a class="social-link small twitter" href="#"> <!-- SOCIAL LINK ICON -->
-									<svg class="social-link-icon icon-twitter">
-                  <use xlink:href="#svg-twitter"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-								</a>
-								<!-- /SOCIAL LINK -->
-
-								<!-- SOCIAL LINK -->
-								<a class="social-link small instagram" href="#"> <!-- SOCIAL LINK ICON -->
-									<svg class="social-link-icon icon-instagram">
-                  <use xlink:href="#svg-instagram"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-								</a>
-								<!-- /SOCIAL LINK -->
-
-								<!-- SOCIAL LINK -->
-								<a class="social-link small twitch" href="#"> <!-- SOCIAL LINK ICON -->
-									<svg class="social-link-icon icon-twitch">
-                  <use xlink:href="#svg-twitch"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-								</a>
-								<!-- /SOCIAL LINK -->
-
-								<!-- SOCIAL LINK -->
-								<a class="social-link small discord" href="#"> <!-- SOCIAL LINK ICON -->
-									<svg class="social-link-icon icon-discord">
-                  <use xlink:href="#svg-discord"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-								</a>
-								<!-- /SOCIAL LINK -->
-							</div>
-							<!-- /SOCIAL LINKS -->
-
 							<!-- USER PREVIEW ACTIONS -->
 							<div class="user-preview-actions">
 								<!-- BUTTON -->
-								<p class="button secondary">Add Friend +</p>
+								<p class="button secondary">친구 추가하기</p>
 								<!-- /BUTTON -->
 
 								<!-- BUTTON -->
-								<p class="button primary">Send Message</p>
+								<p class="button primary">메세지 보내기</p>
 								<!-- /BUTTON -->
 							</div>
 							<!-- /USER PREVIEW ACTIONS -->

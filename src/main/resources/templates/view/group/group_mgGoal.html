@@ -110,7 +110,7 @@
 							<div
 								class="sidebar-menu-body accordion-content-linked accordion-open">
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link active" href="/group_mgJoin">가입
+								<a class="sidebar-menu-link active" th:href="@{/group_mgJoin/{gno}(gno=${gno})}">가입
 									요청</a>
 								<!-- /SIDEBAR MENU LINK -->
 
@@ -131,7 +131,7 @@
 							<div class="sidebar-menu-header accordion-trigger-linked">
 								<!-- SIDEBAR MENU HEADER ICON -->
 
-								<svg class="icon-trophy">
+								<svg class="sidebar-menu-header-icon icon-trophy">
 							      <use xlink:href="#svg-trophy"></use>
 							    </svg>
 								<!-- /SIDEBAR MENU HEADER ICON -->
@@ -212,7 +212,7 @@
 						<!-- /WIDGET BOX TITLE -->
 						<div th:if="${groupGoal}!=null">
 							<!-- TABLE -->
-							<div class="table table-forum-category">
+							<div class="table table-forum-category" th:each="goalList:${groupGoal}">
 								<!-- TABLE HEADER -->
 								<div class="table-header">
 									<!-- TABLE HEADER COLUMN -->
@@ -234,6 +234,13 @@
 									<!-- TABLE HEADER COLUMN -->
 									<div class="table-header-column centered padded-medium">
 										<!-- TABLE HEADER TITLE -->
+										<p class="table-header-title">달성률</p>
+										<!-- /TABLE HEADER TITLE -->
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+									<!-- TABLE HEADER COLUMN -->
+									<div class="table-header-column centered padded-medium">
+										<!-- TABLE HEADER TITLE -->
 										<p class="table-header-title">등록일</p>
 										<!-- /TABLE HEADER TITLE -->
 									</div>
@@ -241,7 +248,7 @@
 									<!-- TABLE HEADER COLUMN -->
 									<div class="table-header-column centered padded-medium">
 										<!-- TABLE HEADER TITLE -->
-										<p class="table-header-title">달성률</p>
+										<p class="table-header-title">관리</p>
 										<!-- /TABLE HEADER TITLE -->
 									</div>
 									<!-- /TABLE HEADER COLUMN -->
@@ -254,24 +261,30 @@
 										<div class="table-row big">
 											<!-- TABLE COLUMN -->
 											<div class="table-column">
-												<!-- FORUM CATEGORY -->
-												<div class="forum-category">
-													<!-- FORUM CATEGORY INFO -->
-													<div class="forum-category-info">
-														<!-- FORUM CATEGORY TEXT -->
-														<p class="forum-category-text"></p>
-														<!-- /FORUM CATEGORY TEXT -->
-													</div>
-													<!-- /FORUM CATEGORY INFO -->
-												</div>
-												<!-- /FORUM CATEGORY -->
+												<!-- TABLE TITLE -->
+												<p class="forum-category-text" style="text-align:center" th:text="${goalList.goal_name}"></p>
+												<!-- /TABLE TITLE -->
+											</div>
+											<!-- /TABLE COLUMN -->
+											<!-- TABLE COLUMN -->
+											<div class="table-column">
+												<!-- TABLE TITLE -->
+												<p class="forum-category-text" style="text-align:center" th:text="${goalList.goal_allcnt}"></p>
+												<!-- /TABLE TITLE -->
+											</div>
+											<!-- /TABLE COLUMN -->
+											<!-- TABLE COLUMN -->
+											<div class="table-column">
+												<!-- TABLE TITLE -->
+												<p class="forum-category-text" style="text-align:center">20%</p>
+												<!-- /TABLE TITLE -->
 											</div>
 											<!-- /TABLE COLUMN -->
 											<!-- TABLE COLUMN -->
 											<div class="table-column centered padded-medium">
 												<!-- TABLE TITLE -->
-												<p class="table-title"
-													th:text="${#dates.format(join.join_date, 'yyyy-MM-dd HH:mm')}"></p>
+												<p class="table-title" style="text-align:center"
+													th:text="${#dates.format(goalList.goal_enddate, 'yyyy-MM-dd HH:mm')}"></p>
 												<!-- /TABLE TITLE -->
 											</div>
 											<!-- /TABLE COLUMN -->
@@ -279,8 +292,8 @@
 											<!-- TABLE COLUMN -->
 											<div class="table-column centered padded-medium">
 												<!-- TABLE TITLE -->
-												<button type="text" class="table-title btn-primary success">수락</button>
-												<button class="table-title btn-primary">거절</button>
+												<button type="text" class="table-title btn-primary success">삭제</button><br>
+												<button class="table-title btn-primary">수정</button>
 												<!-- /TABLE TITLE -->
 											</div>
 											<!-- /TABLE COLUMN -->

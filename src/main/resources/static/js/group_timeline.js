@@ -9,14 +9,27 @@ window.onload = function() {
 		}
 		alert("등록되었습니다.");
 		$('#groupWrite').submit();
-	});
+	})
 	
 	$(function() {
 		$("#photo").click(function() {
 			$(".backmodal").fadeIn();
 			$(".modal").fadeIn();
 		});
-	});
+	})
+	function fnEdit(bno){	
+		$('#'+bno).hide();
+		$('#modify'+bno).show();	
+		$('.edit_btn').click(function(e){
+			e.preventDefault();
+			$('#modify_form').submit();
+			alert("수정완료");
+		});	
+		$(".edit_cancelbtn").click(function() {
+			$('#'+bno).show();
+			$('#modify'+bno).hide();
+		});		
+	}
 	
 	$(function() {
 		$("#photobtn").click(function() {
@@ -25,7 +38,7 @@ window.onload = function() {
 			document.getElementById("pic").setAttribute("value",
 					$('div[name=picdiv]').length + " 장의 사진");
 		});
-	});
+	})
 
 	function CheckEnter(frm, objName) {
 		var keycode = event.keyCode;

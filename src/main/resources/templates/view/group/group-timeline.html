@@ -33,16 +33,19 @@
 			<div id="section-navigation-medium-slider"
 				class="section-menu secondary">
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item active" id="section-navigation-medium-slider-item0" th:href="@{/group_detail/{gno}(gno=${group.gno})}">
-				<!-- SECTION MENU ITEM ICON --> 
-				<svg class="section-menu-item-icon icon-timeline">
+				<a class="section-menu-item active"
+					id="section-navigation-medium-slider-item0"
+					th:href="@{/group_detail/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-timeline">
             		<use xlink:href="#svg-timeline"></use>
           		</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-				<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
 				</a>
 				<!-- /SECTION MENU ITEM -->
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" id="section-navigation-medium-slider-item1" th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item"
+					id="section-navigation-medium-slider-item1"
+					th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-info">
             <use xlink:href="#svg-info"></use>
           </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -51,7 +54,9 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" id="section-navigation-medium-slider-item2" th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item"
+					id="section-navigation-medium-slider-item2"
+					th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-members">
             <use xlink:href="#svg-members"></use>
           </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -394,7 +399,6 @@
 									value="group">
 									<input type="hidden" th:value="${group.g_name}" name="g_name">
 									<input type="hidden" th:value="${group.gno}" name="gno">
-									<input type="hidden" value="all" name="bo_cate">
 									<!-- OPTION ITEM ICON -->
 									<svg class="option-item-icon icon-poll">
 					                  <use xlink:href="#svg-poll"></use>
@@ -472,8 +476,7 @@
 							<!-- /QUICK POST FOOTER ACTIONS -->
 						</div>
 						<!-- /QUICK POST FOOTER -->
-						<div class="quick-post-footer">
-						</div>
+						<div class="quick-post-footer"></div>
 					</div>
 					<!-- /QUICK POST -->
 
@@ -523,27 +526,25 @@
 							<!-- /POST SETTINGS -->
 
 							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Edit Post</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
+							<div class="simple-dropdown widget-box-post-settings-dropdown"
+								th:if="${user} == null"></div>
+							<div class="simple-dropdown widget-box-post-settings-dropdown"
+								th:unless="${user} == null">
+								<div th:if="${post.userId} == ${user.userId}">
 
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Delete Post</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
+									<!-- SIMPLE DROPDOWN LINK -->
+									<p class="simple-dropdown-link"
+										th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
+									<!-- /SIMPLE DROPDOWN LINK -->
 
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Make it Featured</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Report Post</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Report Author</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
+									<!-- SIMPLE DROPDOWN LINK -->
+									<p class="simple-dropdown-link"
+										th:onclick="|javascript:fnDelete('${post.bno}')|">Delete
+										Post</p>
+									<!-- /SIMPLE DROPDOWN LINK -->
+								</div>
 							</div>
+
 							<!-- /SIMPLE DROPDOWN -->
 						</div>
 						<!-- /POST SETTINGS WRAP -->
@@ -615,13 +616,15 @@
 
 								<p class="user-status-title medium">
 									<a class="bold" href="profile-timeline.html"
-										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold" th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
+										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold"
+										th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
 
 								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small" th:text="${#dates.format(post.bo_date, 'yyyy-MM-dd HH:mm')}+'분에 등록됨'"></p>
+								<p class="user-status-text small"
+									th:text="${#dates.format(post.bo_date, 'yyyy-MM-dd HH:mm')}+'분에 등록됨'"></p>
 								<!-- /USER STATUS TEXT -->
 							</div>
 							<!-- /USER STATUS -->
@@ -631,6 +634,29 @@
 							<!-- /WIDGET BOX STATUS TEXT -->
 						</div>
 						<!-- /WIDGET BOX STATUS CONTENT -->
+						<!-- WIDGET BOX STATUS TEXT -->
+						<form id="modify_form" method="post" enctype="multipart/form-data"
+							action="/board/modify.do">
+
+							<p th:attr="id=${post.bno}" class="widget-box-status-text content_board"
+								th:text="${post.bo_content}"></p>
+
+							<input type="hidden" th:value="${post.bno}" name="bno"
+								id="boardbno"> 
+							<input type="hidden"
+								th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
+
+							<div class="modify" th:attr="id='modify'+${post.bno}"
+								style="margin-bottom: 60px; display: none">
+								<textarea name="bo_content"
+									th:text="${post.bo_content}"></textarea>
+								<button type=submit class="button small secondary edit_btn"
+									style="width: 80px; float: right;">수정완료</button>
+								<p class="button small edit_cancelbtn"
+									style="width: 80px; float: right;">취소</p>
+							</div>
+						</form>
+						<!-- /WIDGET BOX STATUS TEXT -->
 
 						<!-- IFRAME WRAP -->
 						<div>
@@ -639,12 +665,14 @@
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row medium">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}<3">
+									<div class="picture-collage-item popup-picture-trigger"
+										th:each="file, i:${post.fileList}" th:if="${i.index}<3">
 										<!-- PHOTO PREVIEW -->
 										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-10">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}"
+													alt="photo-preview-10">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -693,12 +721,14 @@
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
+									<div class="picture-collage-item popup-picture-trigger"
+										th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
 										<!-- PHOTO PREVIEW -->
 										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-16">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}"
+													alt="photo-preview-16">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -4479,7 +4509,7 @@
 		<!-- /POST COMMENT LIST -->
 	</div>
 	<!-- /POPUP EVENT -->
-<script>
+	<script>
 	function goJoin(){
 		var popupWidth = 1215;
 		var popupHeight = 391;

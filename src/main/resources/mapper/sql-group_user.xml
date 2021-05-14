@@ -17,7 +17,7 @@
 		(GK_SGROUP_SEQ.currval, #{uno}, #{gno},
 		#{g_role}, sysdate)
 	</insert>
-	<select id="fineUserbyGroup" parameterType="int" resultMap="groupUserVO">
+	<select id="findUserbyGroup" parameterType="int" resultMap="groupUserVO">
 		<![CDATA[
 			select sno, userId, gno, g_role, g_date from GK_GROUP_USER G, GK_USER U where G.UNO = U.UNO and g.gno=#{gno}
 		]]>
