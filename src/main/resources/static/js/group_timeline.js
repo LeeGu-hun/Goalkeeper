@@ -7,9 +7,8 @@ window.onload = function() {
 		} else {
 			$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 		}
-		
+		alert("등록되었습니다.");
 		$('#groupWrite').submit();
-		alert("저장되었습니다.");
 	});
 	
 	$(function() {
