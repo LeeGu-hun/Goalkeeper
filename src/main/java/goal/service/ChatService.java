@@ -10,7 +10,7 @@ import goal.vo.UserVO;
 
 public interface ChatService {
 	
-	void findFriendList(FriendVO vo);		
+	List<FriendVO> findFriendList(UserVO vo);		
 	
 
 }

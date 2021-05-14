@@ -2626,7 +2626,9 @@
     <!-- /BAR ACTIONS -->
   </aside>
   <!-- /FLOATY BAR -->
- <div th:insert="/view/fragments/chatBar.html :: chatBar"></div>
+<div th:if="${user}!=null">
+	 <div th:insert="/view/fragments/chatBar.html :: chatBar"></div>
+</div>
   </div>
 </body>
 </html>

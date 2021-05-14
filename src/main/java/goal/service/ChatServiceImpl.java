@@ -29,8 +29,10 @@ public class ChatServiceImpl implements ChatService{
 	private ChatMapper mapper;
 	
 	@Override
-	public void findFriendList(FriendVO vo) {
-		mapper.chatFriendList(vo);
+	public List<FriendVO> findFriendList(UserVO vo) {
+		
+		return mapper.chatFriendList(vo);
+		
 	}
 
 }

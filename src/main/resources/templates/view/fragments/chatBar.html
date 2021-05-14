@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body> 
-<div th:fragment="chatBar" th:each="fl:${friendList}">
+<div th:fragment="chatBar" >
  <aside id="chat-widget-messages" class="chat-widget sidebar right closed">
     <!-- CHAT WIDGET MESSAGES -->
     <div class="chat-widget-messages" data-simplebar="init" style="height: 809px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
       <!-- CHAT WIDGET MESSAGE -->
-      <div class="chat-widget-message">
+      <div class="chat-widget-message" th:each="fl:${friendlist}">
         <!-- USER STATUS -->
         <div class="user-status">
           <!-- USER STATUS AVATAR -->
@@ -66,7 +66,7 @@
           <!-- /USER STATUS AVATAR -->
       
           <!-- USER STATUS TITLE -->
-          <p class="user-status-title"><span class="bold">Nick Grissom</span></p>
+          <p class="user-status-title" th:text="${fl.friendName}"></p>
           <!-- /USER STATUS TITLE -->
       
           <!-- USER STATUS TEXT -->
