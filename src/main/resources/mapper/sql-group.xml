@@ -22,7 +22,11 @@
 			SELECT * FROM GK_ALLGROUP WHERE UNO=#{uno} ORDER BY gno DESC
 		]]>
 	</select>
-	
+	<select id="findGnobyName" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT gno FROM GK_ALLGROUP WHERE g_name=#{g_name}
+		]]>
+	</select>
 	<select id="allList" resultMap="groupVO">
 		SELECT * FROM GK_ALLGROUP where g_open='Y' order by g_date desc
 	</select>

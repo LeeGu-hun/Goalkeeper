@@ -17,20 +17,6 @@ window.onload = function() {
 			$(".modal").fadeIn();
 		});
 	})
-	function fnEdit(bno){	
-		$('#'+bno).hide();
-		$('#modify'+bno).show();	
-		$('.edit_btn').click(function(e){
-			e.preventDefault();
-			$('#modify_form').submit();
-			alert("수정완료");
-		});	
-		$(".edit_cancelbtn").click(function() {
-			$('#'+bno).show();
-			$('#modify'+bno).hide();
-		});		
-	}
-	
 	$(function() {
 		$("#photobtn").click(function() {
 			$(".backmodal").fadeOut();
@@ -115,3 +101,16 @@ window.onload = function() {
 	}
 
 }
+function fnEdit(bno){	
+		$('#'+bno).hide();
+		$('#modify'+bno).show();	
+		$('.edit_btn').click(function(e){
+			e.preventDefault();
+			$('#modify_form').submit();
+			alert("수정완료");
+		});	
+		$(".edit_cancelbtn").click(function() {
+			$('#'+bno).show();
+			$('#modify'+bno).hide();
+		});		
+	}

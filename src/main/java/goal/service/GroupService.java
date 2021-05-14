@@ -19,7 +19,7 @@ public interface GroupService {
 	void insertGoal(GroupGoalVO groupGoal);
 	List<GroupGoalVO> getGoalbyId(int gno);
 	GroupVO getGroup(int gno);
-	
+	int findGnobyName(String g_name);
 	List<GroupUserNameVO> findUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);

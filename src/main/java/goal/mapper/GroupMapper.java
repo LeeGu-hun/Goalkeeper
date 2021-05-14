@@ -22,6 +22,7 @@ public interface GroupMapper {
 	void insertData(GroupGoalVO groupGoal);
 	List<GroupGoalVO> findGoalbyId(int gno);
 	GroupVO selectGroup(int gno);
+	int findGnobyName(String g_name);
 	int countGoalbyId(int gno);
 	void insertGroupJoin(GroupJoinVO join);
 	List<GroupJoinVO> selectGroupJoin(int gno);

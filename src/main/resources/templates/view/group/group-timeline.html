@@ -628,11 +628,6 @@
 								<!-- /USER STATUS TEXT -->
 							</div>
 							<!-- /USER STATUS -->
-
-							<!-- WIDGET BOX STATUS TEXT -->
-							<p class="widget-box-status-text" th:text="${post.bo_content}"></p>
-							<!-- /WIDGET BOX STATUS TEXT -->
-						</div>
 						<!-- /WIDGET BOX STATUS CONTENT -->
 						<!-- WIDGET BOX STATUS TEXT -->
 						<form id="modify_form" method="post" enctype="multipart/form-data"
@@ -645,6 +640,7 @@
 								id="boardbno"> 
 							<input type="hidden"
 								th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
+							<input type="hidden" th:value="group" name="placeCheck">
 
 							<div class="modify" th:attr="id='modify'+${post.bno}"
 								style="margin-bottom: 60px; display: none">
@@ -1195,7 +1191,7 @@
 					<!-- /POST OPTIONS -->
 				</div>
 				<!-- /WIDGET BOX -->
-
+							</div>
 				<!-- LOADER BARS -->
 				<div class="loader-bars">
 					<div class="loader-bar"></div>
@@ -1208,8 +1204,9 @@
 					<div class="loader-bar"></div>
 				</div>
 				<!-- /LOADER BARS -->
-			</div>
+
 			<!-- /GRID COLUMN -->
+			</div>
 
 			<!-- GRID COLUMN -->
 			<div class="grid-column">

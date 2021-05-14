@@ -64,6 +64,11 @@ public class GroupServiceImpl implements GroupService{
 	
 
 	@Override
+	public int findGnobyName(String g_name) {
+		return groupMapper.findGnobyName(g_name);
+	}
+
+	@Override
 	public void insertGoal(GroupGoalVO groupGoal) {
 		groupMapper.insertData(groupGoal);
 	}
