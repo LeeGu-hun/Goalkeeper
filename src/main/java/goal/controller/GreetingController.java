@@ -1,6 +1,7 @@
 package goal.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,6 +15,7 @@ import goal.domain.Chat;
 import goal.domain.Greeting;
 import goal.domain.HelloMessage;
 import goal.service.CommonService;
+import goal.vo.UserVO;
 
 @Controller
 
@@ -25,6 +27,9 @@ public class GreetingController {
 	public ModelAndView openNewsFeed(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/home/index");
 		mv = commonService.checkLoginUser(request, mv);
+		HttpSession session = request.getSession(true);
+		UserVO user = (UserVO) session.getAttribute("user");
+		mv.addObject("user", user);
 		return mv;
 	}
 
