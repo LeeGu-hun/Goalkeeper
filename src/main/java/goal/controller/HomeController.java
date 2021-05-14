@@ -197,12 +197,12 @@ public class HomeController {
 	private ModelAndView getHome(ModelAndView mv, HttpServletRequest request) {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
-		List<BoardVO> boardList = boardService.getBoardList();
+		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
 		mv.addObject("BoList", boardList);	
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 			List<ReplyVO> ReplyList = replyService.getMainReply();
-
+			
 			mv.addObject("GrList", groupList);
 			mv.addObject("reply", ReplyList);
 		}
