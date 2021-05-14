@@ -19,27 +19,28 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
+                    <div id="connect" class="chat-widget-message" type="submit">Connect</div>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect</button>
                 </div>
             </form>
         </div>
         <div class="col-md-6" >
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <a type="hidden" th:value="${user.userId}" id="name" class="form-control"></a>
+                    <label for="name">your ID:</label>
+                    <p th:text="${user.userId}"></p>
+                    <input type="hidden" th:value="${user.userId}" class="chatUserId"  />
                 </div>
                 <div class="form-group">
                 	<label for="message">Input Message</label>
-                	<input type="text" id="chatMessage" class="form-control" placeholder="message.." />
+                	<input type="text" id="chatMessage" class="chat-widget-message-text" placeholder="message.." />
                 </div>
-                <button id="chatSend" class="btn btn-default" type="button">Chat Send</button>
+                
             </form>
         </div>
     </div>
     <div class="row">
+    
         <div class="col-md-12">
             <table id="conversation" class="table table-striped">
                 <thead>
@@ -47,7 +48,7 @@
                     <th>Messages</th>
                 </tr>
                 </thead>
-                <tbody id="greetings">
+                <tbody id="greetings" class="simplebar-content-wrapper">
                 </tbody>
             </table>
         </div>

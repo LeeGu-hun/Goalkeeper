@@ -55,7 +55,7 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( ".chat-widget-message" ).click(function() { connect(); });
+    $( ".chat-widget-message" ).click(function() { console.log("작동됨");connect(); alert("클릭 작동");});
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
     $( ".chat-widget-message-text" ).keypress(function(event){
