@@ -1359,7 +1359,8 @@
 						<!-- /USER STATUS -->
 
 						<!-- WIDGET BOX STATUS TEXT -->
-						<form th:attr="id='modify_form'+${post.bno}" method="post" enctype="multipart/form-data"
+						<form style="margin-top:30px" th:attr="id='modify_form'+${post.bno}" 
+						method="post" enctype="multipart/form-data"
 							action="/board/modify.do">
 				
 							<p th:attr="id=${post.bno}" class="widget-box-status-text content_board"

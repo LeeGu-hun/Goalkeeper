@@ -12,6 +12,7 @@
 			document.getElementById("group").setAttribute("name", "null");
 			
 			$('.group_form').hide();
+			$("#bo_group option:eq(0)").prop("selected", true);
 		}
 		function secrettext() {
 			document.getElementById("text").value = '';
@@ -27,6 +28,8 @@
 			document.getElementById("group").setAttribute("name", "null");
 			
 			$('.group_form').hide();
+		
+			$("#bo_group option:eq(0)").prop("selected", true);
 		}
 		function grouptext() {
 			document.getElementById("text").value = '';
@@ -43,6 +46,7 @@
 			
 			$('.group_form').show();
 		}
+		
 		$("#group_form").hide();
 		
 		$('#edit_btn').click(function(e){
@@ -174,9 +178,9 @@
 		}
 	
 		function fnDelete(bno){
-			$('#delete'+bno).click(function(){
-				$('#delte_form'+bno).submit();
-			});
+
+				$('#delete_form'+bno).submit();
+	
 		}
 		
 		
