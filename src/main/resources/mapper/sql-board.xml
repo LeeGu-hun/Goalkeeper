@@ -60,9 +60,7 @@
 		select * from GK_BOARD where uno=#{uno} order by bno desc
 	</select>
 	
-	<update id="deleteBoard" parameterType="goal.vo.BoardVO">
-		<![CDATA[
+	<delete id="deleteBoard" parameterType="int">
 			DELETE FROM GK_BOARD WHERE bno=${bno};
-		]]>
-	</update>
+	</delete>
 </mapper>

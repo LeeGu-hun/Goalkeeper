@@ -75,15 +75,19 @@ public class BoardController {
 	
 	
 	@PostMapping("/board/modify.do")
-	public String modifyBoard(BoardVO board, HttpServletRequest request) {
+	public String modifyBoard(@RequestParam String placeCheck, BoardVO board, HttpServletRequest request) {
 		UserVO user = commonService.getLoginUser(request);
 		
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
 		board.setBno(board.getBno());
 		boardService.updateBoard(board);
-		
+		if(placeCheck.equals("board")) {
 		return "redirect:/home";
+		} else {
+			int gno = groupService.findGnobyName(board.getBo_group());
+			return "redirect:/group_detail/" + gno;
+		}
 	}
 	
 	@PostMapping("/board/delete.do")

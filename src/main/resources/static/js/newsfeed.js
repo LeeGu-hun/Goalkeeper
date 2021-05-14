@@ -163,7 +163,7 @@
 			
 			$('.edit_btn').click(function(e){
 			e.preventDefault();
-			$('#modify_form').submit();
+			$('#modify_form'+bno).submit();
 			alert("수정완료");
 		});	
 			
@@ -175,7 +175,7 @@
 	
 		function fnDelete(bno){
 			$('#delete'+bno).click(function(){
-				$('#delte_form').submit();
+				$('#delte_form'+bno).submit();
 			});
 		}
 		
