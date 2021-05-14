@@ -95,45 +95,7 @@ public class HomeController {
 		return "redirect:/home";
 	}
 
-	@PostMapping("/home/insert.do")
-	public String insertBoard(@RequestParam String fileCheck, BoardVO board, HttpServletRequest request,
-			@RequestPart("files") List<MultipartFile> files) throws Exception {
-		BoardFileVO boardFileVO = new BoardFileVO();
-		UserVO user = commonService.getLoginUser(request);
 
-		board.setUserId(user.getUserId());
-		board.setUno(user.getUno());
-		boardService.insertBoard(board);
-		if (fileCheck.equals("false")) {
-			boardUpload.BoardUpload(board, files);
-		}
-		return "redirect:/home";
-	}
-
-	@RequestMapping(value = "/boardDisplay/{bno}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> displayImage(@PathVariable int bno) throws IOException {
-		MediaUtils mediaUtils = new MediaUtils();
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		BoardFileVO boardFile = boardFileService.selectFile(bno);
-		try {
-			String fileName = boardFile.getFileName();
-			String fileurl = boardFile.getFileUrl();
-			String uuid = boardFile.getUuid();
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = mediaUtils.getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			in = new FileInputStream(fileurl + "\\" + uuid + "_" + fileName);
-			headers.setContentType(mType);
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (IOException e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
-		return entity;
-	}
 
 	@GetMapping("/user")
 	public ModelAndView openHome(HttpServletRequest request) {
