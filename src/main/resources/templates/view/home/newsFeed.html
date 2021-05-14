@@ -1024,7 +1024,7 @@
 			</div>
 			<!-- /GRID COLUMN -->
 
-			<form name="form" method="post" enctype="multipart/form-data">
+			<form name="form" id="boardWrite" action="/home/insert.do" method="post" enctype="multipart/form-data">
 				<!-- GRID COLUMN -->
 				<div class="grid-column">
 					<!-- QUICK POST -->
@@ -1239,12 +1239,7 @@
 			<!-- /SIMPLE TAB ITEMS -->
 
 			<!-- WIDGET BOX -->
-			
-			<figure class="widget-box-picture popup-picture-trigger">
-              <img src="img/cover/04.jpg" alt="cover-04">
-            </figure>
-            
-			
+
 			<div th:each="post, i:${BoList}" class="widget-box no-padding">
 				<!-- WIDGET BOX SETTINGS -->
 				<div class="widget-box-settings">
@@ -1255,34 +1250,29 @@
 							class="post-settings widget-box-post-settings-dropdown-trigger">
 							<!-- POST SETTINGS ICON -->
 							<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
+           				       <use xlink:href="#svg-more-dots"></use>
+              			  </svg>
 							<!-- /POST SETTINGS ICON -->
 						</div>
 						<!-- /POST SETTINGS -->
 
 						<!-- SIMPLE DROPDOWN -->
-						<div class="simple-dropdown widget-box-post-settings-dropdown">
-							<!-- SIMPLE DROPDOWN LINK -->
-							<p class="simple-dropdown-link" th:id="'modifya'+${post.bno}">Edit Post</p>
-							<!-- /SIMPLE DROPDOWN LINK -->
-
-							<!-- SIMPLE DROPDOWN LINK -->
-							<p class="simple-dropdown-link">Delete Post</p>
-							<!-- /SIMPLE DROPDOWN LINK -->
-
-							<!-- SIMPLE DROPDOWN LINK -->
-							<p class="simple-dropdown-link">Make it Featured</p>
-							<!-- /SIMPLE DROPDOWN LINK -->
-
-							<!-- SIMPLE DROPDOWN LINK -->
-							<p class="simple-dropdown-link">Report Post</p>
-							<!-- /SIMPLE DROPDOWN LINK -->
-
-							<!-- SIMPLE DROPDOWN LINK -->
-							<p class="simple-dropdown-link">Report Author</p>
-							<!-- /SIMPLE DROPDOWN LINK -->
+					<div class="simple-dropdown widget-box-post-settings-dropdown" 
+									th:if="${user} == null"></div>
+						<div class="simple-dropdown widget-box-post-settings-dropdown"  
+									th:unless="${user} == null">
+							<div th:if="${post.userId} == ${user.userId}">
+								
+								<!-- SIMPLE DROPDOWN LINK -->
+								<p class="simple-dropdown-link" th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
+								<!-- /SIMPLE DROPDOWN LINK -->
+	
+								<!-- SIMPLE DROPDOWN LINK -->
+								<p class="simple-dropdown-link" th:onclick="|javascript:fnDelete('${post.bno}')|">Delete Post</p>
+								<!-- /SIMPLE DROPDOWN LINK -->
+							</div>
 						</div>
+						
 						<!-- /SIMPLE DROPDOWN -->
 					</div>
 					<!-- /POST SETTINGS WRAP -->
@@ -1365,145 +1355,146 @@
 						<!-- /USER STATUS -->
 
 						<!-- WIDGET BOX STATUS TEXT -->
-						<form id="modify_form" method="post" enctype="multipart/form-data" action="/home/modify.do">
-						
-							<p  class="widget-box-status-text content_board" th:text="${post.bo_content}"></p>
-							
-							<input type="hidden" th:value="${post.bno}" name="bno" id="boardbno">
-							<input type="hidden" th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
-							
-								<div class="modify" th:attr="id='modify'+${post.bno}" style="margin-bottom:60px; display:none">
-								<textarea  
-									name="bo_content" style="display:none" th:text="${post.bo_content}"></textarea>
-									<button type=submit  class="button small secondary edit_btn" style="width:80px; float:right; ">수정완료</button>
-									<p  class="button small edit_cancelbtn"  style="width:80px; float:right;">취소</p>
-								</div>
+						<form id="modify_form" method="post" enctype="multipart/form-data"
+							action="/board/modify.do">
+
+							<p th:attr="id=${post.bno}" class="widget-box-status-text content_board"
+								th:text="${post.bo_content}"></p>
+
+							<input type="hidden" th:value="${post.bno}" name="bno"
+								id="boardbno"> 
+							<input type="hidden"
+								th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
+
+							<div class="modify" th:attr="id='modify'+${post.bno}"
+								style="margin-bottom: 60px; display: none">
+								<textarea name="bo_content"
+									th:text="${post.bo_content}"></textarea>
+								<button type=submit class="button small secondary edit_btn"
+									style="width: 80px; float: right;">수정완료</button>
+								<p class="button small edit_cancelbtn"
+									style="width: 80px; float: right;">취소</p>
+							</div>
 						</form>
 						<!-- /WIDGET BOX STATUS TEXT -->
 					</div>
 					<!-- /WIDGET BOX STATUS CONTENT -->
-					
+
 					<!-- IFRAME WRAP -->
-					<div>
-					<!-- 	<form id="cntf" action="/count_file" method="get" th:if="${i.index} == ${count}">
-							<input type="hidden" th:value="${post.bno}" name="bno" id="boardbno">
-							<input type="hidden" th:value="${count}" id="count" >
-						</form> -->
-					<p th:text="${filecnt}"></p>
-						<!-- class="iframe-wrap" -->
-						<!-- PICTURE COLLAGE -->
-						<div class="picture-collage" th:if="${filecnt} != 0">
-							<!-- PICTURE COLLAGE ROW -->
-							<div class="picture-collage-row medium">
-								<!-- PICTURE COLLAGE ITEM -->
-								<div class="picture-collage-item popup-picture-trigger">
-									<!-- PHOTO PREVIEW -->
-									<div class="photo-preview">
-										<!-- PHOTO PREVIEW IMAGE -->
-										<figure class="photo-preview-image liquid">
-											<img src="img/cover/10.jpg" alt="photo-preview-10">
-										</figure>
-										<!-- /PHOTO PREVIEW IMAGE -->
+						<div>
+							<!-- PICTURE COLLAGE -->
+							<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
+								<!-- PICTURE COLLAGE ROW -->
+								<div class="picture-collage-row medium">
+									<!-- PICTURE COLLAGE ITEM -->
+									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}<3">
+										<!-- PHOTO PREVIEW -->
+										<div class="photo-preview">
+											<!-- PHOTO PREVIEW IMAGE -->
+											<figure class="photo-preview-image liquid">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-10">
+											</figure>
+											<!-- /PHOTO PREVIEW IMAGE -->
 
-										<!-- PHOTO PREVIEW INFO -->
-										<div class="photo-preview-info">
-											<!-- REACTION COUNT LIST -->
-											<div class="reaction-count-list">
-												<!-- REACTION COUNT -->
-												<div class="reaction-count negative">
-													<!-- REACTION COUNT ICON -->
-													<svg class="reaction-count-icon icon-thumbs-up">
+											<!-- PHOTO PREVIEW INFO -->
+											<div class="photo-preview-info">
+												<!-- REACTION COUNT LIST -->
+												<div class="reaction-count-list">
+													<!-- REACTION COUNT -->
+													<div class="reaction-count negative">
+														<!-- REACTION COUNT ICON -->
+														<svg class="reaction-count-icon icon-thumbs-up">
                               <use xlink:href="#svg-thumbs-up"></use>
                             </svg>
-													<!-- /REACTION COUNT ICON -->
+														<!-- /REACTION COUNT ICON -->
 
-													<!-- REACTION COUNT TEXT -->
-													<p class="reaction-count-text">2</p>
-													<!-- /REACTION COUNT TEXT -->
-												</div>
-												<!-- /REACTION COUNT -->
+														<!-- REACTION COUNT TEXT -->
+														<p class="reaction-count-text">2</p>
+														<!-- /REACTION COUNT TEXT -->
+													</div>
+													<!-- /REACTION COUNT -->
 
-												<!-- REACTION COUNT -->
-												<div class="reaction-count negative">
-													<!-- REACTION COUNT ICON -->
-													<svg class="reaction-count-icon icon-comment">
+													<!-- REACTION COUNT -->
+													<div class="reaction-count negative">
+														<!-- REACTION COUNT ICON -->
+														<svg class="reaction-count-icon icon-comment">
                               <use xlink:href="#svg-comment"></use>
                             </svg>
-													<!-- /REACTION COUNT ICON -->
+														<!-- /REACTION COUNT ICON -->
 
-													<!-- REACTION COUNT TEXT -->
-													<p class="reaction-count-text">5</p>
-													<!-- /REACTION COUNT TEXT -->
+														<!-- REACTION COUNT TEXT -->
+														<p class="reaction-count-text">5</p>
+														<!-- /REACTION COUNT TEXT -->
+													</div>
+													<!-- /REACTION COUNT -->
 												</div>
-												<!-- /REACTION COUNT -->
+												<!-- /REACTION COUNT LIST -->
 											</div>
-											<!-- /REACTION COUNT LIST -->
+											<!-- /PHOTO PREVIEW INFO -->
 										</div>
-										<!-- /PHOTO PREVIEW INFO -->
+										<!-- /PHOTO PREVIEW -->
 									</div>
-									<!-- /PHOTO PREVIEW -->
+									<!-- /PICTURE COLLAGE ITEM -->
 								</div>
-								<!-- /PICTURE COLLAGE ITEM -->
-							</div>
-							<!-- /PICTURE COLLAGE ROW -->
+								<!-- /PICTURE COLLAGE ROW -->
 
-							<!-- PICTURE COLLAGE ROW -->
-							<div class="picture-collage-row">
-								<!-- PICTURE COLLAGE ITEM -->
-								<div class="picture-collage-item popup-picture-trigger">
-									<!-- PHOTO PREVIEW -->
-									<div class="photo-preview">
-										<!-- PHOTO PREVIEW IMAGE -->
-										<figure class="photo-preview-image liquid">
-											<img src="img/cover/16.jpg" alt="photo-preview-16">
-										</figure>
-										<!-- /PHOTO PREVIEW IMAGE -->
+								<!-- PICTURE COLLAGE ROW -->
+								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
+									<!-- PICTURE COLLAGE ITEM -->
+									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
+										<!-- PHOTO PREVIEW -->
+										<div class="photo-preview">
+											<!-- PHOTO PREVIEW IMAGE -->
+											<figure class="photo-preview-image liquid">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-16">
+											</figure>
+											<!-- /PHOTO PREVIEW IMAGE -->
 
-										<!-- PHOTO PREVIEW INFO -->
-										<div class="photo-preview-info">
-											<!-- REACTION COUNT LIST -->
-											<div class="reaction-count-list">
-												<!-- REACTION COUNT -->
-												<div class="reaction-count negative">
-													<!-- REACTION COUNT ICON -->
-													<svg class="reaction-count-icon icon-thumbs-up">
+											<!-- PHOTO PREVIEW INFO -->
+											<div class="photo-preview-info">
+												<!-- REACTION COUNT LIST -->
+												<div class="reaction-count-list">
+													<!-- REACTION COUNT -->
+													<div class="reaction-count negative">
+														<!-- REACTION COUNT ICON -->
+														<svg class="reaction-count-icon icon-thumbs-up">
                               <use xlink:href="#svg-thumbs-up"></use>
                             </svg>
-													<!-- /REACTION COUNT ICON -->
+														<!-- /REACTION COUNT ICON -->
 
-													<!-- REACTION COUNT TEXT -->
-													<p class="reaction-count-text">2</p>
-													<!-- /REACTION COUNT TEXT -->
-												</div>
-												<!-- /REACTION COUNT -->
+														<!-- REACTION COUNT TEXT -->
+														<p class="reaction-count-text">2</p>
+														<!-- /REACTION COUNT TEXT -->
+													</div>
+													<!-- /REACTION COUNT -->
 
-												<!-- REACTION COUNT -->
-												<div class="reaction-count negative">
-													<!-- REACTION COUNT ICON -->
-													<svg class="reaction-count-icon icon-comment">
+													<!-- REACTION COUNT -->
+													<div class="reaction-count negative">
+														<!-- REACTION COUNT ICON -->
+														<svg class="reaction-count-icon icon-comment">
                               <use xlink:href="#svg-comment"></use>
                             </svg>
-													<!-- /REACTION COUNT ICON -->
+														<!-- /REACTION COUNT ICON -->
 
-													<!-- REACTION COUNT TEXT -->
-													<p class="reaction-count-text">5</p>
-													<!-- /REACTION COUNT TEXT -->
+														<!-- REACTION COUNT TEXT -->
+														<p class="reaction-count-text">5</p>
+														<!-- /REACTION COUNT TEXT -->
+													</div>
+													<!-- /REACTION COUNT -->
 												</div>
-												<!-- /REACTION COUNT -->
+												<!-- /REACTION COUNT LIST -->
 											</div>
-											<!-- /REACTION COUNT LIST -->
+											<!-- /PHOTO PREVIEW INFO -->
 										</div>
-										<!-- /PHOTO PREVIEW INFO -->
+										<!-- /PHOTO PREVIEW -->
 									</div>
-									<!-- /PHOTO PREVIEW -->
+									<!-- /PICTURE COLLAGE ITEM -->
 								</div>
-								<!-- /PICTURE COLLAGE ITEM -->
+								<!-- /PICTURE COLLAGE ROW -->
 							</div>
-							<!-- /PICTURE COLLAGE ROW -->
+							<!-- /PICTURE COLLAGE -->
 						</div>
-						<!-- /PICTURE COLLAGE -->
-					</div>
-					<!-- /IFRAME WRAP -->
+						<!-- /IFRAME WRAP -->
 
 					<!-- WIDGET BOX STATUS CONTENT -->
 					<div class="widget-box-status-content">
@@ -3532,1342 +3523,1797 @@
 	</div>
 	<!-- /CONTENT GRID -->
 
-	<div class="popup-picture" style="position: fixed; left: 50%; z-index: 100001; opacity: 1; visibility: visible; transform: translate(0px, 0px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s; top: 98px; margin-left: -547px;">
-    <!-- POPUP CLOSE BUTTON -->
-    <div class="popup-close-button popup-picture-trigger">
-      <!-- POPUP CLOSE BUTTON ICON -->
-      <svg class="popup-close-button-icon icon-cross">
+	<div class="popup-picture"
+		style="position: fixed; left: 50%; z-index: 100001; opacity: 1; visibility: visible; transform: translate(0px, 0px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s; top: 98px; margin-left: -547px;">
+		<!-- POPUP CLOSE BUTTON -->
+		<div class="popup-close-button popup-picture-trigger">
+			<!-- POPUP CLOSE BUTTON ICON -->
+			<svg class="popup-close-button-icon icon-cross">
         <use xlink:href="#svg-cross"></use>
       </svg>
-      <!-- /POPUP CLOSE BUTTON ICON -->
-    </div>
-    <!-- /POPUP CLOSE BUTTON -->
+			<!-- /POPUP CLOSE BUTTON ICON -->
+		</div>
+		<!-- /POPUP CLOSE BUTTON -->
 
-    <!-- WIDGET BOX -->
-    <div class="widget-box no-padding">
-      <!-- WIDGET BOX SCROLLABLE -->
-      <div class="widget-box-scrollable" data-simplebar="init" style="height: 682px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-        <!-- WIDGET BOX SETTINGS -->
-        <div class="widget-box-settings">
-          <!-- POST SETTINGS WRAP -->
-          <div class="post-settings-wrap" style="position: relative;">
-            <!-- POST SETTINGS -->
-            <div class="post-settings widget-box-post-settings-dropdown-trigger">
-              <!-- POST SETTINGS ICON -->
-              <svg class="post-settings-icon icon-more-dots">
+		<!-- WIDGET BOX -->
+		<div class="widget-box no-padding">
+			<!-- WIDGET BOX SCROLLABLE -->
+			<div class="widget-box-scrollable" data-simplebar="init"
+				style="height: 682px;">
+				<div class="simplebar-wrapper" style="margin: 0px;">
+					<div class="simplebar-height-auto-observer-wrapper">
+						<div class="simplebar-height-auto-observer"></div>
+					</div>
+					<div class="simplebar-mask">
+						<div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+							<div class="simplebar-content-wrapper"
+								style="height: 100%; overflow: hidden scroll;">
+								<div class="simplebar-content" style="padding: 0px;">
+									<!-- WIDGET BOX SETTINGS -->
+									<div class="widget-box-settings">
+										<!-- POST SETTINGS WRAP -->
+										<div class="post-settings-wrap" style="position: relative;">
+											<!-- POST SETTINGS -->
+											<div
+												class="post-settings widget-box-post-settings-dropdown-trigger">
+												<!-- POST SETTINGS ICON -->
+												<svg class="post-settings-icon icon-more-dots">
                 <use xlink:href="#svg-more-dots"></use>
               </svg>
-              <!-- /POST SETTINGS ICON -->
-            </div>
-            <!-- /POST SETTINGS -->
-    
-            <!-- SIMPLE DROPDOWN -->
-            <div class="simple-dropdown widget-box-post-settings-dropdown" style="position: absolute; z-index: 9999; top: 30px; right: 9px; opacity: 0; visibility: hidden; transform: translate(0px, -20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-              <!-- SIMPLE DROPDOWN LINK -->
-              <p class="simple-dropdown-link">Edit Post</p>
-              <!-- /SIMPLE DROPDOWN LINK -->
-    
-              <!-- SIMPLE DROPDOWN LINK -->
-              <p class="simple-dropdown-link">Delete Post</p>
-              <!-- /SIMPLE DROPDOWN LINK -->
-    
-              <!-- SIMPLE DROPDOWN LINK -->
-              <p class="simple-dropdown-link">Make it Featured</p>
-              <!-- /SIMPLE DROPDOWN LINK -->
-    
-              <!-- SIMPLE DROPDOWN LINK -->
-              <p class="simple-dropdown-link">Report Post</p>
-              <!-- /SIMPLE DROPDOWN LINK -->
-    
-              <!-- SIMPLE DROPDOWN LINK -->
-              <p class="simple-dropdown-link">Report Author</p>
-              <!-- /SIMPLE DROPDOWN LINK -->
-            </div>
-            <!-- /SIMPLE DROPDOWN -->
-          </div>
-          <!-- /POST SETTINGS WRAP -->
-        </div>
-        <!-- /WIDGET BOX SETTINGS -->
-        
-        <!-- WIDGET BOX STATUS -->
-        <div class="widget-box-status">
-          <!-- WIDGET BOX STATUS CONTENT -->
-          <div class="widget-box-status-content">
-            <!-- USER STATUS -->
-            <div class="user-status">
-              <!-- USER STATUS AVATAR -->
-              <a class="user-status-avatar" href="profile-timeline.html">
-                <!-- USER AVATAR -->
-                <div class="user-avatar small no-outline">
-                  <!-- USER AVATAR CONTENT -->
-                  <div class="user-avatar-content">
-                    <!-- HEXAGON -->
-                    <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                    <!-- /HEXAGON -->
-                  </div>
-                  <!-- /USER AVATAR CONTENT -->
-              
-                  <!-- USER AVATAR PROGRESS -->
-                  <div class="user-avatar-progress">
-                    <!-- HEXAGON -->
-                    <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                    <!-- /HEXAGON -->
-                  </div>
-                  <!-- /USER AVATAR PROGRESS -->
-              
-                  <!-- USER AVATAR PROGRESS BORDER -->
-                  <div class="user-avatar-progress-border">
-                    <!-- HEXAGON -->
-                    <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                    <!-- /HEXAGON -->
-                  </div>
-                  <!-- /USER AVATAR PROGRESS BORDER -->
-              
-                  <!-- USER AVATAR BADGE -->
-                  <div class="user-avatar-badge">
-                    <!-- USER AVATAR BADGE BORDER -->
-                    <div class="user-avatar-badge-border">
-                      <!-- HEXAGON -->
-                      <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                      <!-- /HEXAGON -->
-                    </div>
-                    <!-- /USER AVATAR BADGE BORDER -->
-              
-                    <!-- USER AVATAR BADGE CONTENT -->
-                    <div class="user-avatar-badge-content">
-                      <!-- HEXAGON -->
-                      <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                      <!-- /HEXAGON -->
-                    </div>
-                    <!-- /USER AVATAR BADGE CONTENT -->
-              
-                    <!-- USER AVATAR BADGE TEXT -->
-                    <p class="user-avatar-badge-text">24</p>
-                    <!-- /USER AVATAR BADGE TEXT -->
-                  </div>
-                  <!-- /USER AVATAR BADGE -->
-                </div>
-                <!-- /USER AVATAR -->
-              </a>
-              <!-- /USER STATUS AVATAR -->
-          
-              <!-- USER STATUS TITLE -->
-              <p class="user-status-title medium"><a class="bold" href="profile-timeline.html">Marina Valentine</a></p>
-              <!-- /USER STATUS TITLE -->
-          
-              <!-- USER STATUS TEXT -->
-              <p class="user-status-text small">29 minutes ago</p>
-              <!-- /USER STATUS TEXT -->
-            </div>
-            <!-- /USER STATUS -->
-            
-            <!-- WIDGET BOX STATUS TEXT -->
-            <p class="widget-box-status-text">Here's a sneak peek of the official box cover art for <a href="#">Machine Wasteland II</a>! Remember that I'll be having a stream showing a preview tommorrow at 9PM PCT!</p>
-            <!-- /WIDGET BOX STATUS TEXT -->
+												<!-- /POST SETTINGS ICON -->
+											</div>
+											<!-- /POST SETTINGS -->
 
-            <!-- TAG LIST -->
-            <div class="tag-list">
-              <!-- TAG ITEM -->
-              <a class="tag-item secondary" href="newsfeed.html">Cover</a>
-              <!-- /TAG ITEM -->
-    
-              <!-- TAG ITEM -->
-              <a class="tag-item secondary" href="newsfeed.html">Preview</a>
-              <!-- /TAG ITEM -->
-    
-              <!-- TAG ITEM -->
-              <a class="tag-item secondary" href="newsfeed.html">Art</a>
-              <!-- /TAG ITEM -->
-    
-              <!-- TAG ITEM -->
-              <a class="tag-item secondary" href="newsfeed.html">Machine</a>
-              <!-- /TAG ITEM -->
-    
-              <!-- TAG ITEM -->
-              <a class="tag-item secondary" href="newsfeed.html">Wasteland</a>
-              <!-- /TAG ITEM -->
-            </div>
-            <!-- /TAG LIST -->
-    
-            <!-- CONTENT ACTIONS -->
-            <div class="content-actions">
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LIST -->
-                  <div class="meta-line-list reaction-item-list">
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/love.png" alt="reaction-love">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/love.png" alt="reaction-love"> <span class="bold">Love</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Destroy Dex</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">The Green Goo</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Bearded Wonder</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Sandra Strange</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Matt Parker</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">James Murdock</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-    
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><span class="bold">and 14 more...</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-    
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/wow.png" alt="reaction-wow">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/wow.png" alt="reaction-wow"> <span class="bold">Wow</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Jett Spiegel</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-    
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/like.png" alt="reaction-like"> <span class="bold">Like</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Neko Bebop</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-          
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Nick Grissom</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-          
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Sarah Diamond</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-                  </div>
-                  <!-- /META LINE LIST -->
-          
-                  <!-- META LINE TEXT -->
-                  <p class="meta-line-text">24</p>
-                  <!-- /META LINE TEXT -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-          
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link">13 Comments</p>
-                  <!-- /META LINE LINK -->
-                </div>
-                <!-- /META LINE -->
-          
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE TEXT -->
-                  <p class="meta-line-text">0 Shares</p>
-                  <!-- /META LINE TEXT -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-            </div>
-            <!-- /CONTENT ACTIONS -->
-          </div>
-          <!-- /WIDGET BOX STATUS CONTENT -->
-        </div>
-        <!-- /WIDGET BOX STATUS -->
-    
-        <!-- POST OPTIONS -->
-        <div class="post-options">
-          <!-- POST OPTION WRAP -->
-          <div class="post-option-wrap" style="position: relative;">
-            <!-- POST OPTION -->
-            <div class="post-option no-text reaction-options-dropdown-trigger">
-              <!-- POST OPTION ICON -->
-              <svg class="post-option-icon icon-thumbs-up">
+											<!-- SIMPLE DROPDOWN -->
+											<div
+												class="simple-dropdown widget-box-post-settings-dropdown"
+												style="position: absolute; z-index: 9999; top: 30px; right: 9px; opacity: 0; visibility: hidden; transform: translate(0px, -20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+												<!-- SIMPLE DROPDOWN LINK -->
+												<p class="simple-dropdown-link">Edit Post</p>
+												<!-- /SIMPLE DROPDOWN LINK -->
+
+												<!-- SIMPLE DROPDOWN LINK -->
+												<p class="simple-dropdown-link">Delete Post</p>
+												<!-- /SIMPLE DROPDOWN LINK -->
+
+												<!-- SIMPLE DROPDOWN LINK -->
+												<p class="simple-dropdown-link">Make it Featured</p>
+												<!-- /SIMPLE DROPDOWN LINK -->
+
+												<!-- SIMPLE DROPDOWN LINK -->
+												<p class="simple-dropdown-link">Report Post</p>
+												<!-- /SIMPLE DROPDOWN LINK -->
+
+												<!-- SIMPLE DROPDOWN LINK -->
+												<p class="simple-dropdown-link">Report Author</p>
+												<!-- /SIMPLE DROPDOWN LINK -->
+											</div>
+											<!-- /SIMPLE DROPDOWN -->
+										</div>
+										<!-- /POST SETTINGS WRAP -->
+									</div>
+									<!-- /WIDGET BOX SETTINGS -->
+
+									<!-- WIDGET BOX STATUS -->
+									<div class="widget-box-status">
+										<!-- WIDGET BOX STATUS CONTENT -->
+										<div class="widget-box-status-content">
+											<!-- USER STATUS -->
+											<div class="user-status">
+												<!-- USER STATUS AVATAR -->
+												<a class="user-status-avatar" href="profile-timeline.html">
+													<!-- USER AVATAR -->
+													<div class="user-avatar small no-outline">
+														<!-- USER AVATAR CONTENT -->
+														<div class="user-avatar-content">
+															<!-- HEXAGON -->
+															<div class="hexagon-image-30-32"
+																data-src="img/avatar/01.jpg"
+																style="width: 30px; height: 32px; position: relative;">
+																<canvas width="30" height="32"
+																	style="position: absolute; top: 0px; left: 0px;"></canvas>
+															</div>
+															<!-- /HEXAGON -->
+														</div>
+														<!-- /USER AVATAR CONTENT -->
+
+														<!-- USER AVATAR PROGRESS -->
+														<div class="user-avatar-progress">
+															<!-- HEXAGON -->
+															<div class="hexagon-progress-40-44"
+																style="width: 40px; height: 44px; position: relative;">
+																<canvas width="40" height="44"
+																	style="position: absolute; top: 0px; left: 0px;"></canvas>
+															</div>
+															<!-- /HEXAGON -->
+														</div>
+														<!-- /USER AVATAR PROGRESS -->
+
+														<!-- USER AVATAR PROGRESS BORDER -->
+														<div class="user-avatar-progress-border">
+															<!-- HEXAGON -->
+															<div class="hexagon-border-40-44"
+																style="width: 40px; height: 44px; position: relative;">
+																<canvas width="40" height="44"
+																	style="position: absolute; top: 0px; left: 0px;"></canvas>
+															</div>
+															<!-- /HEXAGON -->
+														</div>
+														<!-- /USER AVATAR PROGRESS BORDER -->
+
+														<!-- USER AVATAR BADGE -->
+														<div class="user-avatar-badge">
+															<!-- USER AVATAR BADGE BORDER -->
+															<div class="user-avatar-badge-border">
+																<!-- HEXAGON -->
+																<div class="hexagon-22-24"
+																	style="width: 22px; height: 24px; position: relative;">
+																	<canvas width="22" height="24"
+																		style="position: absolute; top: 0px; left: 0px;"></canvas>
+																</div>
+																<!-- /HEXAGON -->
+															</div>
+															<!-- /USER AVATAR BADGE BORDER -->
+
+															<!-- USER AVATAR BADGE CONTENT -->
+															<div class="user-avatar-badge-content">
+																<!-- HEXAGON -->
+																<div class="hexagon-dark-16-18"
+																	style="width: 16px; height: 18px; position: relative;">
+																	<canvas width="16" height="18"
+																		style="position: absolute; top: 0px; left: 0px;"></canvas>
+																</div>
+																<!-- /HEXAGON -->
+															</div>
+															<!-- /USER AVATAR BADGE CONTENT -->
+
+															<!-- USER AVATAR BADGE TEXT -->
+															<p class="user-avatar-badge-text">24</p>
+															<!-- /USER AVATAR BADGE TEXT -->
+														</div>
+														<!-- /USER AVATAR BADGE -->
+													</div> <!-- /USER AVATAR -->
+												</a>
+												<!-- /USER STATUS AVATAR -->
+
+												<!-- USER STATUS TITLE -->
+												<p class="user-status-title medium">
+													<a class="bold" href="profile-timeline.html">Marina
+														Valentine</a>
+												</p>
+												<!-- /USER STATUS TITLE -->
+
+												<!-- USER STATUS TEXT -->
+												<p class="user-status-text small">29 minutes ago</p>
+												<!-- /USER STATUS TEXT -->
+											</div>
+											<!-- /USER STATUS -->
+
+											<!-- WIDGET BOX STATUS TEXT -->
+											<p class="widget-box-status-text">
+												Here's a sneak peek of the official box cover art for <a
+													href="#">Machine Wasteland II</a>! Remember that I'll be
+												having a stream showing a preview tommorrow at 9PM PCT!
+											</p>
+											<!-- /WIDGET BOX STATUS TEXT -->
+
+											<!-- TAG LIST -->
+											<div class="tag-list">
+												<!-- TAG ITEM -->
+												<a class="tag-item secondary" href="newsfeed.html">Cover</a>
+												<!-- /TAG ITEM -->
+
+												<!-- TAG ITEM -->
+												<a class="tag-item secondary" href="newsfeed.html">Preview</a>
+												<!-- /TAG ITEM -->
+
+												<!-- TAG ITEM -->
+												<a class="tag-item secondary" href="newsfeed.html">Art</a>
+												<!-- /TAG ITEM -->
+
+												<!-- TAG ITEM -->
+												<a class="tag-item secondary" href="newsfeed.html">Machine</a>
+												<!-- /TAG ITEM -->
+
+												<!-- TAG ITEM -->
+												<a class="tag-item secondary" href="newsfeed.html">Wasteland</a>
+												<!-- /TAG ITEM -->
+											</div>
+											<!-- /TAG LIST -->
+
+											<!-- CONTENT ACTIONS -->
+											<div class="content-actions">
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LIST -->
+														<div class="meta-line-list reaction-item-list">
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/love.png" alt="reaction-love">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/love.png"
+																			alt="reaction-love"> <span class="bold">Love</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Destroy Dex</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">The Green Goo</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Bearded Wonder</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Sandra Strange</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Matt Parker</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">James Murdock</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<span class="bold">and 14 more...</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/wow.png" alt="reaction-wow">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/wow.png"
+																			alt="reaction-wow"> <span class="bold">Wow</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Jett Spiegel</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/like.png"
+																			alt="reaction-like"> <span class="bold">Like</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Neko Bebop</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Nick Grissom</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Sarah Diamond</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+														</div>
+														<!-- /META LINE LIST -->
+
+														<!-- META LINE TEXT -->
+														<p class="meta-line-text">24</p>
+														<!-- /META LINE TEXT -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LINK -->
+														<p class="meta-line-link">13 Comments</p>
+														<!-- /META LINE LINK -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE TEXT -->
+														<p class="meta-line-text">0 Shares</p>
+														<!-- /META LINE TEXT -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+											</div>
+											<!-- /CONTENT ACTIONS -->
+										</div>
+										<!-- /WIDGET BOX STATUS CONTENT -->
+									</div>
+									<!-- /WIDGET BOX STATUS -->
+
+									<!-- POST OPTIONS -->
+									<div class="post-options">
+										<!-- POST OPTION WRAP -->
+										<div class="post-option-wrap" style="position: relative;">
+											<!-- POST OPTION -->
+											<div
+												class="post-option no-text reaction-options-dropdown-trigger">
+												<!-- POST OPTION ICON -->
+												<svg class="post-option-icon icon-thumbs-up">
                 <use xlink:href="#svg-thumbs-up"></use>
               </svg>
-              <!-- /POST OPTION ICON -->
-            </div>
-            <!-- /POST OPTION -->
-    
-            <!-- REACTION OPTIONS -->
-            <div class="reaction-options small reaction-options-dropdown" style="position: absolute; z-index: 9999; bottom: 54px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Like" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/like.png" alt="reaction-like">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Like</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Love" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/love.png" alt="reaction-love">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Love</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Dislike" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/dislike.png" alt="reaction-dislike">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Dislike</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Happy" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/happy.png" alt="reaction-happy">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Happy</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Funny" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/funny.png" alt="reaction-funny">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Funny</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Wow" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/wow.png" alt="reaction-wow">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Wow</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Angry" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/angry.png" alt="reaction-angry">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Angry</p></div></div>
-              <!-- /REACTION OPTION -->
-    
-              <!-- REACTION OPTION -->
-              <div class="reaction-option text-tooltip-tft" data-title="Sad" style="position: relative;">
-                <!-- REACTION OPTION IMAGE -->
-                <img class="reaction-option-image" src="img/reaction/sad.png" alt="reaction-sad">
-                <!-- /REACTION OPTION IMAGE -->
-              <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Sad</p></div></div>
-              <!-- /REACTION OPTION -->
-            </div>
-            <!-- /REACTION OPTIONS -->
-          </div>
-          <!-- /POST OPTION WRAP -->
-    
-          <!-- POST OPTION -->
-          <div class="post-option no-text active">
-            <!-- POST OPTION ICON -->
-            <svg class="post-option-icon icon-comment">
+												<!-- /POST OPTION ICON -->
+											</div>
+											<!-- /POST OPTION -->
+
+											<!-- REACTION OPTIONS -->
+											<div class="reaction-options small reaction-options-dropdown"
+												style="position: absolute; z-index: 9999; bottom: 54px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Like" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/like.png" alt="reaction-like">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Like</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Love" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/love.png" alt="reaction-love">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Love</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Dislike" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/dislike.png" alt="reaction-dislike">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Dislike</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Happy" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/happy.png" alt="reaction-happy">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Happy</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Funny" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/funny.png" alt="reaction-funny">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Funny</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Wow" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/wow.png" alt="reaction-wow">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Wow</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Angry" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/angry.png" alt="reaction-angry">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Angry</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+
+												<!-- REACTION OPTION -->
+												<div class="reaction-option text-tooltip-tft"
+													data-title="Sad" style="position: relative;">
+													<!-- REACTION OPTION IMAGE -->
+													<img class="reaction-option-image"
+														src="img/reaction/sad.png" alt="reaction-sad">
+													<!-- /REACTION OPTION IMAGE -->
+													<div class="xm-tooltip"
+														style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+														<p class="xm-tooltip-text">Sad</p>
+													</div>
+												</div>
+												<!-- /REACTION OPTION -->
+											</div>
+											<!-- /REACTION OPTIONS -->
+										</div>
+										<!-- /POST OPTION WRAP -->
+
+										<!-- POST OPTION -->
+										<div class="post-option no-text active">
+											<!-- POST OPTION ICON -->
+											<svg class="post-option-icon icon-comment">
               <use xlink:href="#svg-comment"></use>
             </svg>
-            <!-- /POST OPTION ICON -->
-          </div>
-          <!-- /POST OPTION -->
-    
-          <!-- POST OPTION -->
-          <div class="post-option no-text">
-            <!-- POST OPTION ICON -->
-            <svg class="post-option-icon icon-share">
+											<!-- /POST OPTION ICON -->
+										</div>
+										<!-- /POST OPTION -->
+
+										<!-- POST OPTION -->
+										<div class="post-option no-text">
+											<!-- POST OPTION ICON -->
+											<svg class="post-option-icon icon-share">
               <use xlink:href="#svg-share"></use>
             </svg>
-            <!-- /POST OPTION ICON -->
-          </div>
-          <!-- /POST OPTION -->
-        </div>
-        <!-- /POST OPTIONS -->
-    
-        <!-- POST COMMENT LIST -->
-        <div class="post-comment-list">
-          <!-- POST COMMENT -->
-          <div class="post-comment">
-            <!-- USER AVATAR -->
-            <a class="user-avatar small no-outline" href="profile-timeline.html">
-              <!-- USER AVATAR CONTENT -->
-              <div class="user-avatar-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" data-src="img/avatar/05.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR CONTENT -->
-          
-              <!-- USER AVATAR PROGRESS -->
-              <div class="user-avatar-progress">
-                <!-- HEXAGON -->
-                <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS -->
-          
-              <!-- USER AVATAR PROGRESS BORDER -->
-              <div class="user-avatar-progress-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS BORDER -->
-          
-              <!-- USER AVATAR BADGE -->
-              <div class="user-avatar-badge">
-                <!-- USER AVATAR BADGE BORDER -->
-                <div class="user-avatar-badge-border">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE BORDER -->
-          
-                <!-- USER AVATAR BADGE CONTENT -->
-                <div class="user-avatar-badge-content">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE CONTENT -->
-          
-                <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text">12</p>
-                <!-- /USER AVATAR BADGE TEXT -->
-              </div>
-              <!-- /USER AVATAR BADGE -->
-            </a>
-            <!-- /USER AVATAR -->
-      
-            <!-- POST COMMENT TEXT -->
-            <p class="post-comment-text"><a class="post-comment-text-author" href="profile-timeline.html">Neko Bebop</a>It's always a pleasure to do this streams with you! If we have at least half the fun than last time it will be an incredible success!</p>
-            <!-- /POST COMMENT TEXT -->
-      
-            <!-- CONTENT ACTIONS -->
-            <div class="content-actions">
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LIST -->
-                  <div class="meta-line-list reaction-item-list small">
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/happy.png" alt="reaction-happy">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/happy.png" alt="reaction-happy"> <span class="bold">Happy</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Marcus Jhonson</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-          
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/like.png" alt="reaction-like"> <span class="bold">Like</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Neko Bebop</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-          
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Nick Grissom</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-          
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Sarah Diamond</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-                  </div>
-                  <!-- /META LINE LIST -->
-          
-                  <!-- META LINE TEXT -->
-                  <p class="meta-line-text">4</p>
-                  <!-- /META LINE TEXT -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line" style="position: relative;">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
-                  <!-- /META LINE LINK -->
-      
-                  <!-- REACTION OPTIONS -->
-                  <div class="reaction-options small reaction-options-small-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Like" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Like</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Love" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/love.png" alt="reaction-love">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Love</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Dislike" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/dislike.png" alt="reaction-dislike">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Dislike</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Happy" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/happy.png" alt="reaction-happy">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Happy</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Funny" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/funny.png" alt="reaction-funny">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Funny</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Wow" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/wow.png" alt="reaction-wow">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Wow</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Angry" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/angry.png" alt="reaction-angry">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Angry</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Sad" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/sad.png" alt="reaction-sad">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Sad</p></div></div>
-                    <!-- /REACTION OPTION -->
-                  </div>
-                  <!-- /REACTION OPTIONS -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light">Reply</p>
-                  <!-- /META LINE LINK -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE TIMESTAMP -->
-                  <p class="meta-line-timestamp">15 min ago</p>
-                  <!-- /META LINE TIMESTAMP -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line settings">
-                  <!-- POST SETTINGS WRAP -->
-                  <div class="post-settings-wrap" style="position: relative;">
-                    <!-- POST SETTINGS -->
-                    <div class="post-settings post-settings-dropdown-trigger">
-                      <!-- POST SETTINGS ICON -->
-                      <svg class="post-settings-icon icon-more-dots">
-                        <use xlink:href="#svg-more-dots"></use>
-                      </svg>
-                      <!-- /POST SETTINGS ICON -->
-                    </div>
-                    <!-- /POST SETTINGS -->
-      
-                    <!-- SIMPLE DROPDOWN -->
-                    <div class="simple-dropdown post-settings-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                      <!-- SIMPLE DROPDOWN LINK -->
-                      <p class="simple-dropdown-link">Report Post</p>
-                      <!-- /SIMPLE DROPDOWN LINK -->
-                    </div>
-                    <!-- /SIMPLE DROPDOWN -->
-                  </div>
-                  <!-- /POST SETTINGS WRAP -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-            </div>
-            <!-- /CONTENT ACTIONS -->
-          </div>
-          <!-- /POST COMMENT -->
-      
-          <!-- POST COMMENT -->
-          <div class="post-comment unread reply-2">
-            <!-- USER AVATAR -->
-            <a class="user-avatar small no-outline" href="profile-timeline.html">
-              <!-- USER AVATAR CONTENT -->
-              <div class="user-avatar-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" data-src="img/avatar/03.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR CONTENT -->
-          
-              <!-- USER AVATAR PROGRESS -->
-              <div class="user-avatar-progress">
-                <!-- HEXAGON -->
-                <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS -->
-          
-              <!-- USER AVATAR PROGRESS BORDER -->
-              <div class="user-avatar-progress-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS BORDER -->
-          
-              <!-- USER AVATAR BADGE -->
-              <div class="user-avatar-badge">
-                <!-- USER AVATAR BADGE BORDER -->
-                <div class="user-avatar-badge-border">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE BORDER -->
-          
-                <!-- USER AVATAR BADGE CONTENT -->
-                <div class="user-avatar-badge-content">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE CONTENT -->
-          
-                <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text">16</p>
-                <!-- /USER AVATAR BADGE TEXT -->
-              </div>
-              <!-- /USER AVATAR BADGE -->
-            </a>
-            <!-- /USER AVATAR -->
-      
-            <!-- POST COMMENT TEXT -->
-            <p class="post-comment-text"><a class="post-comment-text-author" href="profile-timeline.html">Nick Grissom</a>I wouldn't miss it for anything!! Love both streams!</p>
-            <!-- /POST COMMENT TEXT -->
-      
-            <!-- CONTENT ACTIONS -->
-            <div class="content-actions">
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LIST -->
-                  <div class="meta-line-list reaction-item-list small">
-                    <!-- REACTION ITEM -->
-                    <div class="reaction-item" style="position: relative;">
-                      <!-- REACTION IMAGE -->
-                      <img class="reaction-image reaction-item-dropdown-trigger" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION IMAGE -->
-          
-                      <!-- SIMPLE DROPDOWN -->
-                      <div class="simple-dropdown padded reaction-item-dropdown" style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text"><img class="reaction" src="img/reaction/like.png" alt="reaction-like"> <span class="bold">Like</span></p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      
-                        <!-- SIMPLE DROPDOWN TEXT -->
-                        <p class="simple-dropdown-text">Neko Bebop</p>
-                        <!-- /SIMPLE DROPDOWN TEXT -->
-                      </div>
-                      <!-- /SIMPLE DROPDOWN -->
-                    </div>
-                    <!-- /REACTION ITEM -->
-                  </div>
-                  <!-- /META LINE LIST -->
-          
-                  <!-- META LINE TEXT -->
-                  <p class="meta-line-text">1</p>
-                  <!-- /META LINE TEXT -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line" style="position: relative;">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
-                  <!-- /META LINE LINK -->
-      
-                  <!-- REACTION OPTIONS -->
-                  <div class="reaction-options small reaction-options-small-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Like" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Like</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Love" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/love.png" alt="reaction-love">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Love</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Dislike" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/dislike.png" alt="reaction-dislike">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Dislike</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Happy" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/happy.png" alt="reaction-happy">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Happy</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Funny" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/funny.png" alt="reaction-funny">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Funny</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Wow" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/wow.png" alt="reaction-wow">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Wow</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Angry" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/angry.png" alt="reaction-angry">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Angry</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Sad" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/sad.png" alt="reaction-sad">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Sad</p></div></div>
-                    <!-- /REACTION OPTION -->
-                  </div>
-                  <!-- /REACTION OPTIONS -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light">Reply</p>
-                  <!-- /META LINE LINK -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE TIMESTAMP -->
-                  <p class="meta-line-timestamp">2 min ago</p>
-                  <!-- /META LINE TIMESTAMP -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line settings">
-                  <!-- POST SETTINGS WRAP -->
-                  <div class="post-settings-wrap" style="position: relative;">
-                    <!-- POST SETTINGS -->
-                    <div class="post-settings post-settings-dropdown-trigger">
-                      <!-- POST SETTINGS ICON -->
-                      <svg class="post-settings-icon icon-more-dots">
-                        <use xlink:href="#svg-more-dots"></use>
-                      </svg>
-                      <!-- /POST SETTINGS ICON -->
-                    </div>
-                    <!-- /POST SETTINGS -->
-      
-                    <!-- SIMPLE DROPDOWN -->
-                    <div class="simple-dropdown post-settings-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                      <!-- SIMPLE DROPDOWN LINK -->
-                      <p class="simple-dropdown-link">Report Post</p>
-                      <!-- /SIMPLE DROPDOWN LINK -->
-                    </div>
-                    <!-- /SIMPLE DROPDOWN -->
-                  </div>
-                  <!-- /POST SETTINGS WRAP -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-            </div>
-            <!-- /CONTENT ACTIONS -->
-          </div>
-          <!-- /POST COMMENT -->
-    
-          <!-- POST COMMENT -->
-          <div class="post-comment">
-            <!-- USER AVATAR -->
-            <a class="user-avatar small no-outline" href="profile-timeline.html">
-              <!-- USER AVATAR CONTENT -->
-              <div class="user-avatar-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" data-src="img/avatar/02.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR CONTENT -->
-          
-              <!-- USER AVATAR PROGRESS -->
-              <div class="user-avatar-progress">
-                <!-- HEXAGON -->
-                <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS -->
-          
-              <!-- USER AVATAR PROGRESS BORDER -->
-              <div class="user-avatar-progress-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS BORDER -->
-          
-              <!-- USER AVATAR BADGE -->
-              <div class="user-avatar-badge">
-                <!-- USER AVATAR BADGE BORDER -->
-                <div class="user-avatar-badge-border">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE BORDER -->
-          
-                <!-- USER AVATAR BADGE CONTENT -->
-                <div class="user-avatar-badge-content">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE CONTENT -->
-          
-                <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text">19</p>
-                <!-- /USER AVATAR BADGE TEXT -->
-              </div>
-              <!-- /USER AVATAR BADGE -->
-            </a>
-            <!-- /USER AVATAR -->
-      
-            <!-- POST COMMENT TEXT -->
-            <p class="post-comment-text"><a class="post-comment-text-author" href="profile-timeline.html">Destroy Dex</a>YEAHHH!! <a href="profile-timeline.html">@MarinaValentine</a> I really enjoyed your last stream and it also was really funny! Can't wait!</p>
-            <!-- /POST COMMENT TEXT -->
-      
-            <!-- CONTENT ACTIONS -->
-            <div class="content-actions">
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line" style="position: relative;">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
-                  <!-- /META LINE LINK -->
-      
-                  <!-- REACTION OPTIONS -->
-                  <div class="reaction-options small reaction-options-small-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Like" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Like</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Love" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/love.png" alt="reaction-love">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Love</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Dislike" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/dislike.png" alt="reaction-dislike">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Dislike</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Happy" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/happy.png" alt="reaction-happy">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Happy</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Funny" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/funny.png" alt="reaction-funny">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Funny</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Wow" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/wow.png" alt="reaction-wow">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Wow</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Angry" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/angry.png" alt="reaction-angry">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Angry</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Sad" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/sad.png" alt="reaction-sad">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Sad</p></div></div>
-                    <!-- /REACTION OPTION -->
-                  </div>
-                  <!-- /REACTION OPTIONS -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light">Reply</p>
-                  <!-- /META LINE LINK -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE TIMESTAMP -->
-                  <p class="meta-line-timestamp">27 min ago</p>
-                  <!-- /META LINE TIMESTAMP -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line settings">
-                  <!-- POST SETTINGS WRAP -->
-                  <div class="post-settings-wrap" style="position: relative;">
-                    <!-- POST SETTINGS -->
-                    <div class="post-settings post-settings-dropdown-trigger">
-                      <!-- POST SETTINGS ICON -->
-                      <svg class="post-settings-icon icon-more-dots">
-                        <use xlink:href="#svg-more-dots"></use>
-                      </svg>
-                      <!-- /POST SETTINGS ICON -->
-                    </div>
-                    <!-- /POST SETTINGS -->
-      
-                    <!-- SIMPLE DROPDOWN -->
-                    <div class="simple-dropdown post-settings-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                      <!-- SIMPLE DROPDOWN LINK -->
-                      <p class="simple-dropdown-link">Report Post</p>
-                      <!-- /SIMPLE DROPDOWN LINK -->
-                    </div>
-                    <!-- /SIMPLE DROPDOWN -->
-                  </div>
-                  <!-- /POST SETTINGS WRAP -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-            </div>
-            <!-- /CONTENT ACTIONS -->
-          </div>
-          <!-- /POST COMMENT -->
-    
-          <!-- POST COMMENT -->
-          <div class="post-comment">
-            <!-- USER AVATAR -->
-            <a class="user-avatar small no-outline" href="profile-timeline.html">
-              <!-- USER AVATAR CONTENT -->
-              <div class="user-avatar-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" data-src="img/avatar/07.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR CONTENT -->
-          
-              <!-- USER AVATAR PROGRESS -->
-              <div class="user-avatar-progress">
-                <!-- HEXAGON -->
-                <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS -->
-          
-              <!-- USER AVATAR PROGRESS BORDER -->
-              <div class="user-avatar-progress-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS BORDER -->
-          
-              <!-- USER AVATAR BADGE -->
-              <div class="user-avatar-badge">
-                <!-- USER AVATAR BADGE BORDER -->
-                <div class="user-avatar-badge-border">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE BORDER -->
-          
-                <!-- USER AVATAR BADGE CONTENT -->
-                <div class="user-avatar-badge-content">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE CONTENT -->
-          
-                <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text">26</p>
-                <!-- /USER AVATAR BADGE TEXT -->
-              </div>
-              <!-- /USER AVATAR BADGE -->
-            </a>
-            <!-- /USER AVATAR -->
-      
-            <!-- POST COMMENT TEXT -->
-            <p class="post-comment-text"><a class="post-comment-text-author" href="profile-timeline.html">Sarah Diamond</a>That sounds awesome Marina! And also thanks a lot for the art sneak peek! I went to the GameCon last week and had a great time playing the game's open demo.</p>
-            <!-- /POST COMMENT TEXT -->
-      
-            <!-- CONTENT ACTIONS -->
-            <div class="content-actions">
-              <!-- CONTENT ACTION -->
-              <div class="content-action">
-                <!-- META LINE -->
-                <div class="meta-line" style="position: relative;">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
-                  <!-- /META LINE LINK -->
-      
-                  <!-- REACTION OPTIONS -->
-                  <div class="reaction-options small reaction-options-small-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Like" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/like.png" alt="reaction-like">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Like</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Love" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/love.png" alt="reaction-love">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Love</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Dislike" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/dislike.png" alt="reaction-dislike">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Dislike</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Happy" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/happy.png" alt="reaction-happy">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Happy</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Funny" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/funny.png" alt="reaction-funny">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Funny</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Wow" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/wow.png" alt="reaction-wow">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Wow</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Angry" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/angry.png" alt="reaction-angry">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Angry</p></div></div>
-                    <!-- /REACTION OPTION -->
-          
-                    <!-- REACTION OPTION -->
-                    <div class="reaction-option text-tooltip-tft" data-title="Sad" style="position: relative;">
-                      <!-- REACTION OPTION IMAGE -->
-                      <img class="reaction-option-image" src="img/reaction/sad.png" alt="reaction-sad">
-                      <!-- /REACTION OPTION IMAGE -->
-                    <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;"><p class="xm-tooltip-text">Sad</p></div></div>
-                    <!-- /REACTION OPTION -->
-                  </div>
-                  <!-- /REACTION OPTIONS -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE LINK -->
-                  <p class="meta-line-link light">Reply</p>
-                  <!-- /META LINE LINK -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line">
-                  <!-- META LINE TIMESTAMP -->
-                  <p class="meta-line-timestamp">39 min ago</p>
-                  <!-- /META LINE TIMESTAMP -->
-                </div>
-                <!-- /META LINE -->
-      
-                <!-- META LINE -->
-                <div class="meta-line settings">
-                  <!-- POST SETTINGS WRAP -->
-                  <div class="post-settings-wrap" style="position: relative;">
-                    <!-- POST SETTINGS -->
-                    <div class="post-settings post-settings-dropdown-trigger">
-                      <!-- POST SETTINGS ICON -->
-                      <svg class="post-settings-icon icon-more-dots">
-                        <use xlink:href="#svg-more-dots"></use>
-                      </svg>
-                      <!-- /POST SETTINGS ICON -->
-                    </div>
-                    <!-- /POST SETTINGS -->
-      
-                    <!-- SIMPLE DROPDOWN -->
-                    <div class="simple-dropdown post-settings-dropdown" style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
-                      <!-- SIMPLE DROPDOWN LINK -->
-                      <p class="simple-dropdown-link">Report Post</p>
-                      <!-- /SIMPLE DROPDOWN LINK -->
-                    </div>
-                    <!-- /SIMPLE DROPDOWN -->
-                  </div>
-                  <!-- /POST SETTINGS WRAP -->
-                </div>
-                <!-- /META LINE -->
-              </div>
-              <!-- /CONTENT ACTION -->
-            </div>
-            <!-- /CONTENT ACTIONS -->
-          </div>
-          <!-- /POST COMMENT -->
-      
-          <!-- POST COMMENT HEADING -->
-          <p class="post-comment-heading">Load More Comments <span class="highlighted">9+</span></p>
-          <!-- /POST COMMENT HEADING -->
-        </div>
-        <!-- /POST COMMENT LIST -->
-      </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 1106px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 420px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
-      <!-- /WIDGET BOX SCROLLABLE -->
+											<!-- /POST OPTION ICON -->
+										</div>
+										<!-- /POST OPTION -->
+									</div>
+									<!-- /POST OPTIONS -->
 
-      <!-- POST COMMENT FORM -->
-      <div class="post-comment-form bordered-top">
-        <!-- USER AVATAR -->
-        <div class="user-avatar small no-outline">
-          <!-- USER AVATAR CONTENT -->
-          <div class="user-avatar-content">
-            <!-- HEXAGON -->
-            <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR CONTENT -->
-      
-          <!-- USER AVATAR PROGRESS -->
-          <div class="user-avatar-progress">
-            <!-- HEXAGON -->
-            <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR PROGRESS -->
-      
-          <!-- USER AVATAR PROGRESS BORDER -->
-          <div class="user-avatar-progress-border">
-            <!-- HEXAGON -->
-            <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR PROGRESS BORDER -->
-      
-          <!-- USER AVATAR BADGE -->
-          <div class="user-avatar-badge">
-            <!-- USER AVATAR BADGE BORDER -->
-            <div class="user-avatar-badge-border">
-              <!-- HEXAGON -->
-              <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR BADGE BORDER -->
-      
-            <!-- USER AVATAR BADGE CONTENT -->
-            <div class="user-avatar-badge-content">
-              <!-- HEXAGON -->
-              <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR BADGE CONTENT -->
-      
-            <!-- USER AVATAR BADGE TEXT -->
-            <p class="user-avatar-badge-text">24</p>
-            <!-- /USER AVATAR BADGE TEXT -->
-          </div>
-          <!-- /USER AVATAR BADGE -->
-        </div>
-        <!-- /USER AVATAR -->
-  
-        <!-- FORM -->
-        <form class="form">
-          <!-- FORM ROW -->
-          <div class="form-row">
-            <!-- FORM ITEM -->
-            <div class="form-item">
-              <!-- FORM INPUT -->
-              <div class="form-input small">
-                <label for="popup-post-reply">Your Reply</label>
-                <input type="text" id="popup-post-reply" name="popup_post_reply">
-              </div>
-              <!-- /FORM INPUT -->
-            </div>
-            <!-- /FORM ITEM -->
-          </div>
-          <!-- /FORM ROW -->
-        </form>
-        <!-- /FORM -->
-      </div>
-      <!-- /POST COMMENT FORM -->
-    </div>
-    <!-- /WIDGET BOX -->
+									<!-- POST COMMENT LIST -->
+									<div class="post-comment-list">
+										<!-- POST COMMENT -->
+										<div class="post-comment">
+											<!-- USER AVATAR -->
+											<a class="user-avatar small no-outline"
+												href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
+												<div class="user-avatar-content">
+													<!-- HEXAGON -->
+													<div class="hexagon-image-30-32"
+														data-src="img/avatar/05.jpg"
+														style="width: 30px; height: 32px; position: relative;">
+														<canvas width="30" height="32"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+												<div class="user-avatar-progress">
+													<!-- HEXAGON -->
+													<div class="hexagon-progress-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+												<div class="user-avatar-progress-border">
+													<!-- HEXAGON -->
+													<div class="hexagon-border-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
+												<div class="user-avatar-badge">
+													<!-- USER AVATAR BADGE BORDER -->
+													<div class="user-avatar-badge-border">
+														<!-- HEXAGON -->
+														<div class="hexagon-22-24"
+															style="width: 22px; height: 24px; position: relative;">
+															<canvas width="22" height="24"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE BORDER -->
 
-    <!-- POPUP PICTURE IMAGE WRAP -->
-    <div class="popup-picture-image-wrap">
-      <!-- POPUP PICTURE IMAGE -->
-      <figure class="popup-picture-image">
-        <img src="img/cover/04.jpg" alt="cover-04">
-      </figure>
-      <!-- /POPUP PICTURE IMAGE -->
-    </div>
-    <!-- /POPUP PICTURE IMAGE WRAP -->
-  </div>
-  <div style="width: 100%; height: 100%; background-color: rgba(21, 21, 31, 0.96); position: fixed; top: 0px; left: 0px; z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;"></div>
-  <div style="width: 100%; height: 100%; background-color: rgba(21, 21, 31, 0.96); position: fixed; top: 0px; left: 0px; z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;"></div>
+													<!-- USER AVATAR BADGE CONTENT -->
+													<div class="user-avatar-badge-content">
+														<!-- HEXAGON -->
+														<div class="hexagon-dark-16-18"
+															style="width: 16px; height: 18px; position: relative;">
+															<canvas width="16" height="18"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE CONTENT -->
+
+													<!-- USER AVATAR BADGE TEXT -->
+													<p class="user-avatar-badge-text">12</p>
+													<!-- /USER AVATAR BADGE TEXT -->
+												</div> <!-- /USER AVATAR BADGE -->
+											</a>
+											<!-- /USER AVATAR -->
+
+											<!-- POST COMMENT TEXT -->
+											<p class="post-comment-text">
+												<a class="post-comment-text-author"
+													href="profile-timeline.html">Neko Bebop</a>It's always a
+												pleasure to do this streams with you! If we have at least
+												half the fun than last time it will be an incredible
+												success!
+											</p>
+											<!-- /POST COMMENT TEXT -->
+
+											<!-- CONTENT ACTIONS -->
+											<div class="content-actions">
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LIST -->
+														<div class="meta-line-list reaction-item-list small">
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/happy.png" alt="reaction-happy">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/happy.png"
+																			alt="reaction-happy"> <span class="bold">Happy</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Marcus Jhonson</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/like.png"
+																			alt="reaction-like"> <span class="bold">Like</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Neko Bebop</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Nick Grissom</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Sarah Diamond</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+														</div>
+														<!-- /META LINE LIST -->
+
+														<!-- META LINE TEXT -->
+														<p class="meta-line-text">4</p>
+														<!-- /META LINE TEXT -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line" style="position: relative;">
+														<!-- META LINE LINK -->
+														<p
+															class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
+														<!-- /META LINE LINK -->
+
+														<!-- REACTION OPTIONS -->
+														<div
+															class="reaction-options small reaction-options-small-dropdown"
+															style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Like" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Like</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Love" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/love.png" alt="reaction-love">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Love</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Dislike" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/dislike.png" alt="reaction-dislike">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Dislike</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Happy" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/happy.png" alt="reaction-happy">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Happy</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Funny" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/funny.png" alt="reaction-funny">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Funny</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Wow" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/wow.png" alt="reaction-wow">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Wow</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Angry" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/angry.png" alt="reaction-angry">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Angry</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Sad" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/sad.png" alt="reaction-sad">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Sad</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+														</div>
+														<!-- /REACTION OPTIONS -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LINK -->
+														<p class="meta-line-link light">Reply</p>
+														<!-- /META LINE LINK -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE TIMESTAMP -->
+														<p class="meta-line-timestamp">15 min ago</p>
+														<!-- /META LINE TIMESTAMP -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line settings">
+														<!-- POST SETTINGS WRAP -->
+														<div class="post-settings-wrap"
+															style="position: relative;">
+															<!-- POST SETTINGS -->
+															<div class="post-settings post-settings-dropdown-trigger">
+																<!-- POST SETTINGS ICON -->
+																<svg class="post-settings-icon icon-more-dots">
+                        <use xlink:href="#svg-more-dots"></use>
+                      </svg>
+																<!-- /POST SETTINGS ICON -->
+															</div>
+															<!-- /POST SETTINGS -->
+
+															<!-- SIMPLE DROPDOWN -->
+															<div class="simple-dropdown post-settings-dropdown"
+																style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																<!-- SIMPLE DROPDOWN LINK -->
+																<p class="simple-dropdown-link">Report Post</p>
+																<!-- /SIMPLE DROPDOWN LINK -->
+															</div>
+															<!-- /SIMPLE DROPDOWN -->
+														</div>
+														<!-- /POST SETTINGS WRAP -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+											</div>
+											<!-- /CONTENT ACTIONS -->
+										</div>
+										<!-- /POST COMMENT -->
+
+										<!-- POST COMMENT -->
+										<div class="post-comment unread reply-2">
+											<!-- USER AVATAR -->
+											<a class="user-avatar small no-outline"
+												href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
+												<div class="user-avatar-content">
+													<!-- HEXAGON -->
+													<div class="hexagon-image-30-32"
+														data-src="img/avatar/03.jpg"
+														style="width: 30px; height: 32px; position: relative;">
+														<canvas width="30" height="32"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+												<div class="user-avatar-progress">
+													<!-- HEXAGON -->
+													<div class="hexagon-progress-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+												<div class="user-avatar-progress-border">
+													<!-- HEXAGON -->
+													<div class="hexagon-border-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
+												<div class="user-avatar-badge">
+													<!-- USER AVATAR BADGE BORDER -->
+													<div class="user-avatar-badge-border">
+														<!-- HEXAGON -->
+														<div class="hexagon-22-24"
+															style="width: 22px; height: 24px; position: relative;">
+															<canvas width="22" height="24"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE BORDER -->
+
+													<!-- USER AVATAR BADGE CONTENT -->
+													<div class="user-avatar-badge-content">
+														<!-- HEXAGON -->
+														<div class="hexagon-dark-16-18"
+															style="width: 16px; height: 18px; position: relative;">
+															<canvas width="16" height="18"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE CONTENT -->
+
+													<!-- USER AVATAR BADGE TEXT -->
+													<p class="user-avatar-badge-text">16</p>
+													<!-- /USER AVATAR BADGE TEXT -->
+												</div> <!-- /USER AVATAR BADGE -->
+											</a>
+											<!-- /USER AVATAR -->
+
+											<!-- POST COMMENT TEXT -->
+											<p class="post-comment-text">
+												<a class="post-comment-text-author"
+													href="profile-timeline.html">Nick Grissom</a>I wouldn't
+												miss it for anything!! Love both streams!
+											</p>
+											<!-- /POST COMMENT TEXT -->
+
+											<!-- CONTENT ACTIONS -->
+											<div class="content-actions">
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LIST -->
+														<div class="meta-line-list reaction-item-list small">
+															<!-- REACTION ITEM -->
+															<div class="reaction-item" style="position: relative;">
+																<!-- REACTION IMAGE -->
+																<img
+																	class="reaction-image reaction-item-dropdown-trigger"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION IMAGE -->
+
+																<!-- SIMPLE DROPDOWN -->
+																<div
+																	class="simple-dropdown padded reaction-item-dropdown"
+																	style="position: absolute; z-index: 9999; bottom: 38px; left: -16px; opacity: 0; visibility: hidden; transform: translate(0px, 20px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">
+																		<img class="reaction" src="img/reaction/like.png"
+																			alt="reaction-like"> <span class="bold">Like</span>
+																	</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+
+																	<!-- SIMPLE DROPDOWN TEXT -->
+																	<p class="simple-dropdown-text">Neko Bebop</p>
+																	<!-- /SIMPLE DROPDOWN TEXT -->
+																</div>
+																<!-- /SIMPLE DROPDOWN -->
+															</div>
+															<!-- /REACTION ITEM -->
+														</div>
+														<!-- /META LINE LIST -->
+
+														<!-- META LINE TEXT -->
+														<p class="meta-line-text">1</p>
+														<!-- /META LINE TEXT -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line" style="position: relative;">
+														<!-- META LINE LINK -->
+														<p
+															class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
+														<!-- /META LINE LINK -->
+
+														<!-- REACTION OPTIONS -->
+														<div
+															class="reaction-options small reaction-options-small-dropdown"
+															style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Like" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Like</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Love" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/love.png" alt="reaction-love">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Love</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Dislike" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/dislike.png" alt="reaction-dislike">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Dislike</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Happy" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/happy.png" alt="reaction-happy">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Happy</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Funny" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/funny.png" alt="reaction-funny">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Funny</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Wow" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/wow.png" alt="reaction-wow">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Wow</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Angry" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/angry.png" alt="reaction-angry">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Angry</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Sad" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/sad.png" alt="reaction-sad">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Sad</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+														</div>
+														<!-- /REACTION OPTIONS -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LINK -->
+														<p class="meta-line-link light">Reply</p>
+														<!-- /META LINE LINK -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE TIMESTAMP -->
+														<p class="meta-line-timestamp">2 min ago</p>
+														<!-- /META LINE TIMESTAMP -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line settings">
+														<!-- POST SETTINGS WRAP -->
+														<div class="post-settings-wrap"
+															style="position: relative;">
+															<!-- POST SETTINGS -->
+															<div class="post-settings post-settings-dropdown-trigger">
+																<!-- POST SETTINGS ICON -->
+																<svg class="post-settings-icon icon-more-dots">
+                        <use xlink:href="#svg-more-dots"></use>
+                      </svg>
+																<!-- /POST SETTINGS ICON -->
+															</div>
+															<!-- /POST SETTINGS -->
+
+															<!-- SIMPLE DROPDOWN -->
+															<div class="simple-dropdown post-settings-dropdown"
+																style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																<!-- SIMPLE DROPDOWN LINK -->
+																<p class="simple-dropdown-link">Report Post</p>
+																<!-- /SIMPLE DROPDOWN LINK -->
+															</div>
+															<!-- /SIMPLE DROPDOWN -->
+														</div>
+														<!-- /POST SETTINGS WRAP -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+											</div>
+											<!-- /CONTENT ACTIONS -->
+										</div>
+										<!-- /POST COMMENT -->
+
+										<!-- POST COMMENT -->
+										<div class="post-comment">
+											<!-- USER AVATAR -->
+											<a class="user-avatar small no-outline"
+												href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
+												<div class="user-avatar-content">
+													<!-- HEXAGON -->
+													<div class="hexagon-image-30-32"
+														data-src="img/avatar/02.jpg"
+														style="width: 30px; height: 32px; position: relative;">
+														<canvas width="30" height="32"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+												<div class="user-avatar-progress">
+													<!-- HEXAGON -->
+													<div class="hexagon-progress-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+												<div class="user-avatar-progress-border">
+													<!-- HEXAGON -->
+													<div class="hexagon-border-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
+												<div class="user-avatar-badge">
+													<!-- USER AVATAR BADGE BORDER -->
+													<div class="user-avatar-badge-border">
+														<!-- HEXAGON -->
+														<div class="hexagon-22-24"
+															style="width: 22px; height: 24px; position: relative;">
+															<canvas width="22" height="24"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE BORDER -->
+
+													<!-- USER AVATAR BADGE CONTENT -->
+													<div class="user-avatar-badge-content">
+														<!-- HEXAGON -->
+														<div class="hexagon-dark-16-18"
+															style="width: 16px; height: 18px; position: relative;">
+															<canvas width="16" height="18"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE CONTENT -->
+
+													<!-- USER AVATAR BADGE TEXT -->
+													<p class="user-avatar-badge-text">19</p>
+													<!-- /USER AVATAR BADGE TEXT -->
+												</div> <!-- /USER AVATAR BADGE -->
+											</a>
+											<!-- /USER AVATAR -->
+
+											<!-- POST COMMENT TEXT -->
+											<p class="post-comment-text">
+												<a class="post-comment-text-author"
+													href="profile-timeline.html">Destroy Dex</a>YEAHHH!! <a
+													href="profile-timeline.html">@MarinaValentine</a> I really
+												enjoyed your last stream and it also was really funny! Can't
+												wait!
+											</p>
+											<!-- /POST COMMENT TEXT -->
+
+											<!-- CONTENT ACTIONS -->
+											<div class="content-actions">
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line" style="position: relative;">
+														<!-- META LINE LINK -->
+														<p
+															class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
+														<!-- /META LINE LINK -->
+
+														<!-- REACTION OPTIONS -->
+														<div
+															class="reaction-options small reaction-options-small-dropdown"
+															style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Like" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Like</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Love" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/love.png" alt="reaction-love">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Love</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Dislike" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/dislike.png" alt="reaction-dislike">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Dislike</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Happy" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/happy.png" alt="reaction-happy">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Happy</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Funny" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/funny.png" alt="reaction-funny">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Funny</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Wow" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/wow.png" alt="reaction-wow">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Wow</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Angry" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/angry.png" alt="reaction-angry">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Angry</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Sad" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/sad.png" alt="reaction-sad">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Sad</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+														</div>
+														<!-- /REACTION OPTIONS -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LINK -->
+														<p class="meta-line-link light">Reply</p>
+														<!-- /META LINE LINK -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE TIMESTAMP -->
+														<p class="meta-line-timestamp">27 min ago</p>
+														<!-- /META LINE TIMESTAMP -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line settings">
+														<!-- POST SETTINGS WRAP -->
+														<div class="post-settings-wrap"
+															style="position: relative;">
+															<!-- POST SETTINGS -->
+															<div class="post-settings post-settings-dropdown-trigger">
+																<!-- POST SETTINGS ICON -->
+																<svg class="post-settings-icon icon-more-dots">
+                        <use xlink:href="#svg-more-dots"></use>
+                      </svg>
+																<!-- /POST SETTINGS ICON -->
+															</div>
+															<!-- /POST SETTINGS -->
+
+															<!-- SIMPLE DROPDOWN -->
+															<div class="simple-dropdown post-settings-dropdown"
+																style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																<!-- SIMPLE DROPDOWN LINK -->
+																<p class="simple-dropdown-link">Report Post</p>
+																<!-- /SIMPLE DROPDOWN LINK -->
+															</div>
+															<!-- /SIMPLE DROPDOWN -->
+														</div>
+														<!-- /POST SETTINGS WRAP -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+											</div>
+											<!-- /CONTENT ACTIONS -->
+										</div>
+										<!-- /POST COMMENT -->
+
+										<!-- POST COMMENT -->
+										<div class="post-comment">
+											<!-- USER AVATAR -->
+											<a class="user-avatar small no-outline"
+												href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
+												<div class="user-avatar-content">
+													<!-- HEXAGON -->
+													<div class="hexagon-image-30-32"
+														data-src="img/avatar/07.jpg"
+														style="width: 30px; height: 32px; position: relative;">
+														<canvas width="30" height="32"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+												<div class="user-avatar-progress">
+													<!-- HEXAGON -->
+													<div class="hexagon-progress-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+												<div class="user-avatar-progress-border">
+													<!-- HEXAGON -->
+													<div class="hexagon-border-40-44"
+														style="width: 40px; height: 44px; position: relative;">
+														<canvas width="40" height="44"
+															style="position: absolute; top: 0px; left: 0px;"></canvas>
+													</div>
+													<!-- /HEXAGON -->
+												</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
+												<div class="user-avatar-badge">
+													<!-- USER AVATAR BADGE BORDER -->
+													<div class="user-avatar-badge-border">
+														<!-- HEXAGON -->
+														<div class="hexagon-22-24"
+															style="width: 22px; height: 24px; position: relative;">
+															<canvas width="22" height="24"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE BORDER -->
+
+													<!-- USER AVATAR BADGE CONTENT -->
+													<div class="user-avatar-badge-content">
+														<!-- HEXAGON -->
+														<div class="hexagon-dark-16-18"
+															style="width: 16px; height: 18px; position: relative;">
+															<canvas width="16" height="18"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR BADGE CONTENT -->
+
+													<!-- USER AVATAR BADGE TEXT -->
+													<p class="user-avatar-badge-text">26</p>
+													<!-- /USER AVATAR BADGE TEXT -->
+												</div> <!-- /USER AVATAR BADGE -->
+											</a>
+											<!-- /USER AVATAR -->
+
+											<!-- POST COMMENT TEXT -->
+											<p class="post-comment-text">
+												<a class="post-comment-text-author"
+													href="profile-timeline.html">Sarah Diamond</a>That sounds
+												awesome Marina! And also thanks a lot for the art sneak
+												peek! I went to the GameCon last week and had a great time
+												playing the game's open demo.
+											</p>
+											<!-- /POST COMMENT TEXT -->
+
+											<!-- CONTENT ACTIONS -->
+											<div class="content-actions">
+												<!-- CONTENT ACTION -->
+												<div class="content-action">
+													<!-- META LINE -->
+													<div class="meta-line" style="position: relative;">
+														<!-- META LINE LINK -->
+														<p
+															class="meta-line-link light reaction-options-small-dropdown-trigger">React!</p>
+														<!-- /META LINE LINK -->
+
+														<!-- REACTION OPTIONS -->
+														<div
+															class="reaction-options small reaction-options-small-dropdown"
+															style="position: absolute; z-index: 9999; bottom: 30px; left: -80px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Like" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/like.png" alt="reaction-like">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -22px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Like</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Love" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/love.png" alt="reaction-love">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -23.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Love</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Dislike" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/dislike.png" alt="reaction-dislike">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -28px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Dislike</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Happy" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/happy.png" alt="reaction-happy">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Happy</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Funny" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/funny.png" alt="reaction-funny">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -27px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Funny</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Wow" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/wow.png" alt="reaction-wow">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -24px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Wow</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Angry" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/angry.png" alt="reaction-angry">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -26.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Angry</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+
+															<!-- REACTION OPTION -->
+															<div class="reaction-option text-tooltip-tft"
+																data-title="Sad" style="position: relative;">
+																<!-- REACTION OPTION IMAGE -->
+																<img class="reaction-option-image"
+																	src="img/reaction/sad.png" alt="reaction-sad">
+																<!-- /REACTION OPTION IMAGE -->
+																<div class="xm-tooltip"
+																	style="white-space: nowrap; position: absolute; z-index: 99999; top: -28px; left: 50%; margin-left: -21.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
+																	<p class="xm-tooltip-text">Sad</p>
+																</div>
+															</div>
+															<!-- /REACTION OPTION -->
+														</div>
+														<!-- /REACTION OPTIONS -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE LINK -->
+														<p class="meta-line-link light">Reply</p>
+														<!-- /META LINE LINK -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line">
+														<!-- META LINE TIMESTAMP -->
+														<p class="meta-line-timestamp">39 min ago</p>
+														<!-- /META LINE TIMESTAMP -->
+													</div>
+													<!-- /META LINE -->
+
+													<!-- META LINE -->
+													<div class="meta-line settings">
+														<!-- POST SETTINGS WRAP -->
+														<div class="post-settings-wrap"
+															style="position: relative;">
+															<!-- POST SETTINGS -->
+															<div class="post-settings post-settings-dropdown-trigger">
+																<!-- POST SETTINGS ICON -->
+																<svg class="post-settings-icon icon-more-dots">
+                        <use xlink:href="#svg-more-dots"></use>
+                      </svg>
+																<!-- /POST SETTINGS ICON -->
+															</div>
+															<!-- /POST SETTINGS -->
+
+															<!-- SIMPLE DROPDOWN -->
+															<div class="simple-dropdown post-settings-dropdown"
+																style="position: absolute; z-index: 9999; bottom: 30px; right: 0px; opacity: 0; visibility: hidden; transform: translate(0px, 16px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;">
+																<!-- SIMPLE DROPDOWN LINK -->
+																<p class="simple-dropdown-link">Report Post</p>
+																<!-- /SIMPLE DROPDOWN LINK -->
+															</div>
+															<!-- /SIMPLE DROPDOWN -->
+														</div>
+														<!-- /POST SETTINGS WRAP -->
+													</div>
+													<!-- /META LINE -->
+												</div>
+												<!-- /CONTENT ACTION -->
+											</div>
+											<!-- /CONTENT ACTIONS -->
+										</div>
+										<!-- /POST COMMENT -->
+
+										<!-- POST COMMENT HEADING -->
+										<p class="post-comment-heading">
+											Load More Comments <span class="highlighted">9+</span>
+										</p>
+										<!-- /POST COMMENT HEADING -->
+									</div>
+									<!-- /POST COMMENT LIST -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="simplebar-placeholder"
+						style="width: auto; height: 1106px;"></div>
+				</div>
+				<div class="simplebar-track simplebar-horizontal"
+					style="visibility: hidden;">
+					<div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+				</div>
+				<div class="simplebar-track simplebar-vertical"
+					style="visibility: visible;">
+					<div class="simplebar-scrollbar"
+						style="height: 420px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+				</div>
+			</div>
+			<!-- /WIDGET BOX SCROLLABLE -->
+
+			<!-- POST COMMENT FORM -->
+			<div class="post-comment-form bordered-top">
+				<!-- USER AVATAR -->
+				<div class="user-avatar small no-outline">
+					<!-- USER AVATAR CONTENT -->
+					<div class="user-avatar-content">
+						<!-- HEXAGON -->
+						<div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"
+							style="width: 30px; height: 32px; position: relative;">
+							<canvas width="30" height="32"
+								style="position: absolute; top: 0px; left: 0px;"></canvas>
+						</div>
+						<!-- /HEXAGON -->
+					</div>
+					<!-- /USER AVATAR CONTENT -->
+
+					<!-- USER AVATAR PROGRESS -->
+					<div class="user-avatar-progress">
+						<!-- HEXAGON -->
+						<div class="hexagon-progress-40-44"
+							style="width: 40px; height: 44px; position: relative;">
+							<canvas width="40" height="44"
+								style="position: absolute; top: 0px; left: 0px;"></canvas>
+						</div>
+						<!-- /HEXAGON -->
+					</div>
+					<!-- /USER AVATAR PROGRESS -->
+
+					<!-- USER AVATAR PROGRESS BORDER -->
+					<div class="user-avatar-progress-border">
+						<!-- HEXAGON -->
+						<div class="hexagon-border-40-44"
+							style="width: 40px; height: 44px; position: relative;">
+							<canvas width="40" height="44"
+								style="position: absolute; top: 0px; left: 0px;"></canvas>
+						</div>
+						<!-- /HEXAGON -->
+					</div>
+					<!-- /USER AVATAR PROGRESS BORDER -->
+
+					<!-- USER AVATAR BADGE -->
+					<div class="user-avatar-badge">
+						<!-- USER AVATAR BADGE BORDER -->
+						<div class="user-avatar-badge-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-22-24"
+								style="width: 22px; height: 24px; position: relative;">
+								<canvas width="22" height="24"
+									style="position: absolute; top: 0px; left: 0px;"></canvas>
+							</div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR BADGE BORDER -->
+
+						<!-- USER AVATAR BADGE CONTENT -->
+						<div class="user-avatar-badge-content">
+							<!-- HEXAGON -->
+							<div class="hexagon-dark-16-18"
+								style="width: 16px; height: 18px; position: relative;">
+								<canvas width="16" height="18"
+									style="position: absolute; top: 0px; left: 0px;"></canvas>
+							</div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR BADGE CONTENT -->
+
+						<!-- USER AVATAR BADGE TEXT -->
+						<p class="user-avatar-badge-text">24</p>
+						<!-- /USER AVATAR BADGE TEXT -->
+					</div>
+					<!-- /USER AVATAR BADGE -->
+				</div>
+				<!-- /USER AVATAR -->
+
+				<!-- FORM -->
+				<form class="form">
+					<!-- FORM ROW -->
+					<div class="form-row">
+						<!-- FORM ITEM -->
+						<div class="form-item">
+							<!-- FORM INPUT -->
+							<div class="form-input small">
+								<label for="popup-post-reply">Your Reply</label> <input
+									type="text" id="popup-post-reply" name="popup_post_reply">
+							</div>
+							<!-- /FORM INPUT -->
+						</div>
+						<!-- /FORM ITEM -->
+					</div>
+					<!-- /FORM ROW -->
+				</form>
+				<!-- /FORM -->
+			</div>
+			<!-- /POST COMMENT FORM -->
+		</div>
+		<!-- /WIDGET BOX -->
+
+		<!-- POPUP PICTURE IMAGE WRAP -->
+		<div class="popup-picture-image-wrap">
+			<!-- POPUP PICTURE IMAGE -->
+			<figure class="popup-picture-image">
+				<img src="img/cover/04.jpg" alt="cover-04">
+			</figure>
+			<!-- /POPUP PICTURE IMAGE -->
+		</div>
+		<!-- /POPUP PICTURE IMAGE WRAP -->
+	</div>
+	<div
+		style="width: 100%; height: 100%; background-color: rgba(21, 21, 31, 0.96); position: fixed; top: 0px; left: 0px; z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;"></div>
+
+	<div
+		style="width: 100%; height: 100%; background-color: rgba(21, 21, 31, 0.96); position: fixed; top: 0px; left: 0px; z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;"></div>
 	<!-- app -->
-	<script src="../../js/newsfeed.js"></script>
+	</script>
+	<script src="../../js/newsfeed.js?ver=1.2"></script>
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->
 	<script src="../../js/utils/page-loader.js"></script>

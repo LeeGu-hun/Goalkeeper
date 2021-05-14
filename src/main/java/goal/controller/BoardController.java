@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import goal.service.BoardFileService;
 import goal.service.BoardService;
+import goal.service.CommonService;
 import goal.service.GroupService;
 import goal.service.UserService;
 import goal.vo.BoardFileVO;
@@ -27,6 +29,8 @@ import goal.vo.UserVO;
 @Controller
 public class BoardController {
 
+	@Autowired
+	private CommonService commonService;
 	@Autowired
 	private BoardService boardService;
 	@Autowired
@@ -54,33 +58,42 @@ public class BoardController {
 	}
 
 	@PostMapping("/board/insert_board.do")
-	public String insertBoard(
+	public String insertBoard(@RequestParam String fileCheck,
 			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
 			throws Exception {
 		UserVO user = new UserVO();
-		BoardFileVO boardFileVO = new BoardFileVO();
 		user = getLoginUser(request);
 
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
-			
-		boardService.insertBoard(board);
 		
+		if(board.getBo_group() ==  null) {
+			board.setBo_group("noGroup");
+		}
+		commonService.fileCheck(board, fileCheck, files);
 	
-        for(MultipartFile file : files) {
-        	String fileUrl = "C:/uploadfile";
-        	String fileName = file.getOriginalFilename(); 
-            String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
-            String filePath = fileUrl + "/" + uuid;
-            File dest = new File(filePath);
-            file.transferTo(dest);
-            boardFileVO.setUuid(uuid);
-            boardFileVO.setBno(board.getBno());
-            boardFileVO.setFileName(fileName);
-            boardFileVO.setFileUrl(filePath);
-            boardFileService.fileInsert(boardFileVO);
-	}
+		/*
+		 * for(MultipartFile file : files) { String fileUrl = "C:/uploadfile"; String
+		 * fileName = file.getOriginalFilename(); String uuid =
+		 * RandomStringUtils.randomAlphanumeric(32)+"."+"jpg"; String filePath = fileUrl
+		 * + "/" + uuid; File dest = new File(filePath); file.transferTo(dest);
+		 * boardFileVO.setUuid(uuid); boardFileVO.setBno(board.getBno());
+		 * boardFileVO.setFileName(fileName); boardFileVO.setFileUrl(filePath);
+		 * boardFileService.fileInsert(boardFileVO); }
+		 */
 	return "redirect:/boardWrite";
+	}
+	
+	@PostMapping("/board/modify.do")
+	public String modifyBoard(BoardVO board, HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
+		
+		board.setUserId(user.getUserId());
+		board.setUno(user.getUno());
+		board.setBno(board.getBno());
+		boardService.updateBoard(board);
+		
+		return "redirect:/home";
 	}
 
 	@RequestMapping("/boardSearch")

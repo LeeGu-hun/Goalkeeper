@@ -68,7 +68,7 @@
 					<!-- SIDEBAR MENU -->
 					<div class="sidebar-menu round-borders">
 						<!-- SIDEBAR MENU ITEM -->
-						<div class="sidebar-menu-item">
+						<div class="sidebar-menu-item selected">
 							<!-- SIDEBAR MENU HEADER -->
 							<div class="sidebar-menu-header accordion-trigger-linked">
 								<!-- SIDEBAR MENU HEADER ICON -->
@@ -108,9 +108,9 @@
 
 							<!-- SIDEBAR MENU BODY -->
 							<div
-								class="sidebar-menu-body accordion-content-linked accordion-open">
+								class="sidebar-menu-body accordion-content-linked">
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link active" href="/group_management">가입
+								<a class="sidebar-menu-link active" th:href="@{/group_mgJoin/{gno}(gno=${gno})}">가입
 									요청</a>
 								<!-- /SIDEBAR MENU LINK -->
 
@@ -122,16 +122,12 @@
 							<!-- /SIDEBAR MENU BODY -->
 						</div>
 						<!-- /SIDEBAR MENU ITEM -->
-					</div>
-					<!-- /SIDEBAR MENU -->
-					<div class="sidebar-menu round-borders">
 						<!-- SIDEBAR MENU ITEM -->
 						<div class="sidebar-menu-item">
 							<!-- SIDEBAR MENU HEADER -->
 							<div class="sidebar-menu-header accordion-trigger-linked">
 								<!-- SIDEBAR MENU HEADER ICON -->
-
-								<svg class="icon-trophy">
+								<svg class="sidebar-menu-header-icon icon-trophy">
 							      <use xlink:href="#svg-trophy"></use>
 							    </svg>
 								<!-- /SIDEBAR MENU HEADER ICON -->
@@ -159,27 +155,27 @@
 								<!-- /SIDEBAR MENU HEADER TITLE -->
 
 								<!-- SIDEBAR MENU HEADER TEXT -->
-								<p class="sidebar-menu-header-text">그룹만의 유일한 목표를 만들고 관리할 수 있습니다.</p>
+								<p class="sidebar-menu-header-text">그룹만의 유일한 목표를 만들고 관리할 수
+									있습니다.</p>
 								<!-- /SIDEBAR MENU HEADER TEXT -->
 							</div>
 							<!-- /SIDEBAR MENU HEADER -->
 
 							<!-- SIDEBAR MENU BODY -->
-							<div
-								class="sidebar-menu-body accordion-content-linked accordion-open">
+							<div class="sidebar-menu-body accordion-content-linked">
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link" href="/group_management">목표 관리</a>
+								<a class="sidebar-menu-link" th:href="@{/group_mgGoal/{gno}(gno=${gno})}">목표 관리</a>
 								<!-- /SIDEBAR MENU LINK -->
 
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link" href="hub-group-invitations.html">목표 통계</a>
+								<a class="sidebar-menu-link" href="hub-group-invitations.html">목표
+									통계</a>
 								<!-- /SIDEBAR MENU LINK -->
 							</div>
 							<!-- /SIDEBAR MENU BODY -->
 						</div>
 						<!-- /SIDEBAR MENU ITEM -->
 					</div>
-					<!-- /SIDEBAR MENU -->
 				</div>
 				<!-- /SIDEBAR BOX -->
 			</div>
@@ -359,6 +355,7 @@
 	<script src="../../js/global/global.tooltips.js"></script>
 	<!-- global.chart -->
 	<script src="../../js/global/global.charts.js"></script>
+	<script src="../../js/global/global.accordions.js"></script>
 	<!-- header -->
 	<script src="../../js/header/header.js"></script>
 	<!-- sidebar -->
