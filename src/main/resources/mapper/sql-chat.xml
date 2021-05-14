@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.FriendMapper">
+	
+	<select id="chatFriendList"  parameterType="goal.vo.UserVO">
+		select * from GK_FRIEND where uno = #{uno}
+	</select>
+
+</mapper>
