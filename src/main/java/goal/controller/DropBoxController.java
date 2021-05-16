@@ -3,6 +3,8 @@ package goal.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import goal.common.CommonDownload;
+import goal.common.UserCommonDownload;
 import goal.service.CommonService;
 import goal.service.UserFileService;
 import goal.service.UserService;
@@ -41,7 +44,7 @@ public class DropBoxController {
 	@Autowired
 	private UserFileService userFileService;
 	
-	private CommonDownload commonDownload = new CommonDownload();
+	private UserCommonDownload commonDownload = new UserCommonDownload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -102,19 +105,22 @@ public class DropBoxController {
 		int check = userFileService.checkProfile(vo.getUno());
 		
 		String fileUrl = "C:/profile";	
+		File uploadPath = new File(fileUrl);
     	String fileName = files.getOriginalFilename(); 
         String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
-        String filePath = fileUrl + "/" + uuid + "/" + fileName;
+        String filePath = fileUrl + "/" + uuid;
+        
         File dest = new File(filePath);
         files.transferTo(dest);
-
+        
+        if (uploadPath.exists() == false) {
+        	uploadPath.mkdirs();
+        }
+        
         vo.setUserFileId(uuid);
         vo.setUserFileName(fileName);
         vo.setUserFilePath(filePath);
         
-    	if (dest.exists() == false) {
-    		dest.mkdirs();
-		}
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());
 			userFileService.insertUserFile(vo);
