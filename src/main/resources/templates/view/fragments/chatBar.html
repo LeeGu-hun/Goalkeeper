@@ -3,87 +3,15 @@
 <head>
     <link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="/main.css" rel="stylesheet"> -->
-    <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
-    <!-- <script src="../../js/chat.js"></script> -->
+    
 </head>
 <body> 
-<script>
-var stompClient = null;
-
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $(".simplebar-content-wrapper").html("");
-}
-
-function connect() {
-    var socket = new SockJS('/websocket');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
-        });
-        stompClient.subscribe('/topic/chat', function (chat) {
-        	showChat(JSON.parse(chat.body));
-        });
-    });
-}
-
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
-
-function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $(".chatUserId").val()}));
-}
-
-function sendChat() {
-	stompClient.send("/app/chat", {}, JSON.stringify({'name': $(".chatUserId").val(), 'message': $(".chat-widget-message-text").val()}));
-	document.getElementById("chatMessage").value = "";
-}
-
-function showGreeting(message) {
-    $(".simplebar-content-wrapper").append("<tr><td>" + message + "</td></tr>");
-}
-function showChat(chat) {
-    $(".simplebar-content-wrapper").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
-}
-
-$(function () {
-    $("form").on('submit', function (e) {
-        e.preventDefault();
-    });
-    $( ".chat-widget-message" ).click(function() { console.log("작동됨");connect(); alert("클릭 작동");});
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
-    $( ".chat-widget-message-text" ).keypress(function(event){
-    	console.log(event.keyCode);
-    	if(event.keyCode == 13){
-     		sendChat();
-     	 }
-     });
-});
-
-</script>
-
-<div th:fragment="chatBar" >
+<div th:fragment="chatBar">
+<input type="hidden" th:value="${user.userId}" id="chatUserId" class="chatUserId"/>
  <aside id="chat-widget-messages" class="chat-widget sidebar right closed">
     <!-- CHAT WIDGET MESSAGES -->
     <div class="chat-widget-messages" data-simplebar="init" style="height: 809px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+		
       <!-- CHAT WIDGET MESSAGE -->
       <div class="chat-widget-message" th:each="fl:${friendlist}">
         <!-- USER STATUS -->
@@ -135,7 +63,7 @@ $(function () {
                 <!-- /USER AVATAR BADGE CONTENT -->
           
                 <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text">16</p>
+                <p class="user-avatar-badge-text" >16</p>
                 <!-- /USER AVATAR BADGE TEXT -->
               </div>
               <!-- /USER AVATAR BADGE -->
@@ -149,15 +77,16 @@ $(function () {
           <!-- /USER STATUS TITLE -->
       
           <!-- USER STATUS TEXT -->
-          <p class="user-status-text small">Can you stream the new game?</p>
+          <p class="user-status-text small" >Can you stream the new game?</p>
           <!-- /USER STATUS TEXT -->
       
           <!-- USER STATUS TIMESTAMP -->
           <p class="user-status-timestamp floaty">2hrs</p>
           <!-- /USER STATUS TIMESTAMP -->
-        </div>
+       
         <!-- /USER STATUS -->
       </div>
+  
       <!-- /CHAT WIDGET MESSAGE -->
 
 
@@ -286,7 +215,7 @@ $(function () {
               <!-- /USER AVATAR BADGE CONTENT -->
         
               <!-- USER AVATAR BADGE TEXT -->
-              <p class="user-avatar-badge-text">16</p>
+              <p class="user-avatar-badge-text" >16</p>
               <!-- /USER AVATAR BADGE TEXT -->
             </div>
             <!-- /USER AVATAR BADGE -->
@@ -358,7 +287,7 @@ $(function () {
     <form class="chat-widget-form">
       <!-- INTERACTIVE INPUT -->
       <div class="interactive-input small">
-        <input type="text" id="chat-widget-message-text" name="chat_widget_message_text" placeholder="Write a message...">
+        <input type="text" id="chat-widget-message-text" class="chat-widget-message-text"  placeholder="Write a message...">
         <!-- INTERACTIVE INPUT ICON WRAP -->
         <div class="interactive-input-icon-wrap">
           <!-- INTERACTIVE INPUT ICON -->
@@ -383,9 +312,11 @@ $(function () {
     </form>
     <!-- /CHAT WIDGET FORM -->
   </aside>
-  
-  <!-- <div class="content-grid" style="transform: translate(0px, 0px); transition: transform 0.4s ease-in-out 0s;"> 
-  </div> -->
+
+	<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+	<script src="../../js/chat.js"></script>
   
 </div>
 </body>

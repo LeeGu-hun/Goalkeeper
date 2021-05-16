@@ -48,4 +48,15 @@ window.onload = function() {
 		}
 		$("#userBirthdate").attr('value', birthDate);
 	});
+	
+$('#userId').on("propertychange change keyup paste input", function(){
+
+	console.log("keyup 테스트");	
+	var memberId = $('#userId').val();			// .id_input에 입력되는 값
+	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+	
+
+
+});
+
 }

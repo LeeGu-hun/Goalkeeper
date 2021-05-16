@@ -2,7 +2,7 @@ var stompClient = null;
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
+    $(".chat-widget-close-button").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
     }
@@ -41,7 +41,7 @@ function sendName() {
 
 function sendChat() {
 	stompClient.send("/app/chat", {}, JSON.stringify({'name': $(".chatUserId").val(), 'message': $(".chat-widget-message-text").val()}));
-	document.getElementById("chatMessage").value = "";
+	document.getElementById("chat-widget-message-text").value = "";
 }
 
 function showGreeting(message) {
@@ -56,12 +56,12 @@ $(function () {
         e.preventDefault();
     });
     $( ".chat-widget-message" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
+    $( ".chat-widget-close-button" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
     $( ".chat-widget-message-text" ).keypress(function(event){
     	console.log(event.keyCode);
     	if(event.keyCode == 13){
-     		sendChat();
+    		sendChat();
      	 }
      });
 });
