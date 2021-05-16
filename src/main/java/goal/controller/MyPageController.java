@@ -1,5 +1,7 @@
 package goal.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,21 +12,28 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.common.UserCommonDownload;
 import goal.service.CommonService;
 import goal.service.FriendService;
 import goal.service.MyGoalService;
 import goal.service.SearchFriendService;
+import goal.service.UserFileService;
 import goal.service.UserService;
+import goal.util.MediaUtils;
 import goal.vo.BoardVO;
 import goal.vo.FriendVO;
-import goal.vo.InputMyDataVO;
 import goal.vo.MyGoalVO;
+import goal.vo.UserFileVO;
 import goal.vo.UserVO;
 
 @RestController
@@ -40,10 +49,21 @@ public class MyPageController {
 	public UserService userService;
 
 	@Autowired
+	public CommonService commonService;
+
+	@Autowired
 	public MyGoalService myGoalService;
 	
 	@Autowired
-	public CommonService commonService;
+	public UserFileService userFileService;
+	
+	private UserCommonDownload commonDownload = new UserCommonDownload();
+	
+	MediaUtils mediaUtils = new MediaUtils();
+    InputStream in = null;
+    ResponseEntity<byte[]> entity = null;
+    
+    
 	@GetMapping("/myPage")
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo, FriendVO friend) {
 		UserVO user = new UserVO();
@@ -53,6 +73,7 @@ public class MyPageController {
 		mv = commonService.checkLoginUser(request, mv);
 		int countFriend = friendService.countFriends(user.getUno());
 		List<FriendVO> list = friendService.getFriendsList(friend);
+		userFileService.selectFile(user.getUno());
 		
 		if(vo != null) {
 			mv.addObject("vo", user);
@@ -75,6 +96,7 @@ public class MyPageController {
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
+		mv.addObject("uno", vo.getUno());
 		mv.addObject("list", list);
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
@@ -109,6 +131,7 @@ public class MyPageController {
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<UserVO> list = searchFriendService.allUserList(user);
+		mv.addObject("uno", vo.getUno());
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
 		
@@ -125,6 +148,7 @@ public class MyPageController {
 		map.put("word", word);
 		
 		List<UserVO> searchResult = searchFriendService.searchUser(map);
+		mv.addObject("user", vo.getUno());
 		mv.addObject("list", searchResult);
 		mv.addObject("count", countFriend);
 		
@@ -184,6 +208,13 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("redirect:/myGoal");
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
+	    UserFileVO groupFile = userFileService.selectFile(uno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getUserFileName(), groupFile.getUserFileId(), groupFile.getUserFilePath());
+	    return entity;
 	}
 	
 	public UserVO getLoginUser(HttpServletRequest request) {
