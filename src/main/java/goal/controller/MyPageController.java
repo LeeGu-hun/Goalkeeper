@@ -96,6 +96,7 @@ public class MyPageController {
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
+		
 		mv.addObject("uno", vo.getUno());
 		mv.addObject("list", list);
 		mv.addObject("userId", vo.getUserId());
@@ -148,7 +149,7 @@ public class MyPageController {
 		map.put("word", word);
 		
 		List<UserVO> searchResult = searchFriendService.searchUser(map);
-		mv.addObject("user", vo.getUno());
+		mv.addObject("uno", vo.getUno());
 		mv.addObject("list", searchResult);
 		mv.addObject("count", countFriend);
 		
@@ -212,8 +213,8 @@ public class MyPageController {
 	
 	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
-	    UserFileVO groupFile = userFileService.selectFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getUserFileName(), groupFile.getUserFileId(), groupFile.getUserFilePath());
+	    UserFileVO userFile = userFileService.selectFile(uno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 	    return entity;
 	}
 	

@@ -16,7 +16,6 @@ public class UserCommonDownload {
 	public ResponseEntity<byte[]> getImageEntity(ResponseEntity<byte[]> entity, MediaUtils mediaUtils, InputStream in, String vo_name, String vo_uuid, String vo_path) throws IOException{
 		try {
 			String fileName = vo_name;
-			String uuid = vo_uuid;
 			String uploadPath = vo_path;
 			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
             MediaType mType = mediaUtils.getMediaType(formatName);

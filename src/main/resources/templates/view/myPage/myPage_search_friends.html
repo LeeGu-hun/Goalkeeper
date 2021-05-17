@@ -19,7 +19,7 @@
 <title>Vikinger | Profile</title>
 </head>
 <style>
-#addBtn {
+.addBtn {
 	background-color: #14e36e;
 	color: white;
 }
@@ -47,22 +47,34 @@
 							<!-- HEXAGON -->
 							<div class="hexagon-148-164"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+						</div>
+						<!-- /USER AVATAR BORDER -->
+						
+						<!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
 							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+						</div>
+						<!-- /USER AVATAR CONTENT -->
+						
+						<!-- USER AVATAR PROGRESS -->
 						<div class="user-avatar-progress">
 							<!-- HEXAGON -->
 							<div class="hexagon-progress-124-136"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+						</div>
+						<!-- /USER AVATAR PROGRESS -->
+						
+						<!-- USER AVATAR PROGRESS BORDER -->
 						<div class="user-avatar-progress-border">
 							<!-- HEXAGON -->
 							<div class="hexagon-border-124-136"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR PROGRESS BORDER --> <!-- USER AVATAR BADGE -->
+						</div>
+						<!-- /USER AVATAR PROGRESS BORDER -->
+						
+						<!-- USER AVATAR BADGE -->
 						<div class="user-avatar-badge">
 							<!-- USER AVATAR BADGE BORDER -->
 							<div class="user-avatar-badge-border">
@@ -278,7 +290,6 @@
 						<!-- /USER STAT TEXT -->
 					</div>
 					<!-- /USER STAT -->
-
 				</div>
 				<!-- /USER STATS -->
 			</div>
@@ -452,7 +463,7 @@
 								</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<div class="hexagon-image-82-90" data-src="img/avatar/05.jpg"></div>
+									<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${u.uno}"></div>
 									<!-- /HEXAGON -->
 								</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
 								<div class="user-avatar-progress">
@@ -554,7 +565,7 @@
 									name="friendNumber"> <input type="hidden"
 									th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}"
 									name="friendBirthdate">
-								<button type="submit" id="addBtn" onclick="href='addFriend'">Add
+								<button type="submit" class="addBtn" onclick="href='addFriend'">Add
 									Friend</button>
 							</form>
 							<!-- /BUTTON -->

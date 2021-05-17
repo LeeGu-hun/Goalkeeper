@@ -104,19 +104,20 @@ public class DropBoxController {
 		vo.setUno(user.getUno());
 		int check = userFileService.checkProfile(vo.getUno());
 		
-		String fileUrl = "C:/profile";	
+		String fileUrl = "C:/profile";
 		File uploadPath = new File(fileUrl);
+		
+	    if (uploadPath.exists() == false) {
+        	uploadPath.mkdirs();
+        }
+		   
     	String fileName = files.getOriginalFilename(); 
         String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
         String filePath = fileUrl + "/" + uuid;
         
         File dest = new File(filePath);
         files.transferTo(dest);
-        
-        if (uploadPath.exists() == false) {
-        	uploadPath.mkdirs();
-        }
-        
+           
         vo.setUserFileId(uuid);
         vo.setUserFileName(fileName);
         vo.setUserFilePath(filePath);
@@ -133,8 +134,8 @@ public class DropBoxController {
 	
 	@RequestMapping(value="/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
-	    UserFileVO groupFile = userFileService.selectFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getUserFileName(), groupFile.getUserFileId(), groupFile.getUserFilePath());
+	    UserFileVO userFile = userFileService.selectFile(uno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 	    return entity;
 	}
 	
