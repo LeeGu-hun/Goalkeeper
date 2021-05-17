@@ -27,12 +27,14 @@ import goal.service.CommonService;
 import goal.service.FriendService;
 import goal.service.MyGoalService;
 import goal.service.SearchFriendService;
+import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
 import goal.vo.BoardVO;
 import goal.vo.FriendVO;
 import goal.vo.MyGoalVO;
+import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
 import goal.vo.UserVO;
 
@@ -56,6 +58,9 @@ public class MyPageController {
 	
 	@Autowired
 	public UserFileService userFileService;
+	
+	@Autowired
+	public UserBackFileService userBackFileService;
 	
 	private UserCommonDownload commonDownload = new UserCommonDownload();
 	
@@ -215,6 +220,13 @@ public class MyPageController {
 	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+	    return entity;
+	}
+	
+	@RequestMapping(value="/user/background/{uno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
+	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
 	}
 	

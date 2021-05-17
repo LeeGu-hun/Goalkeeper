@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
 
 @Mapper

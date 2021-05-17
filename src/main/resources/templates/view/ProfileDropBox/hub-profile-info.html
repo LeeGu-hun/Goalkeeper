@@ -72,7 +72,7 @@
 						<div class="user-preview small fixed-height">
 							<!-- USER PREVIEW COVER -->
 							<figure class="user-preview-cover liquid">
-								<img src="img/cover/01.jpg" alt="cover-01">
+								<img th:src="@{/background/}+${uno}" alt="cover-01">
 							</figure>
 							<!-- /USER PREVIEW COVER -->
 
@@ -113,30 +113,6 @@
 											<!-- /HEXAGON -->
 										</div>
 										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-28-32"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">24</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
 									</div>
 									<!-- /USER SHORT DESCRIPTION AVATAR -->
 								</div>
@@ -162,22 +138,19 @@
 						<!-- /UPLOAD BOX -->
 
 						<!-- UPLOAD BOX -->
-					<div class="upload-box">
-						<!-- UPLOAD BOX ICON -->
-						<svg class="upload-box-icon icon-photos">
-			                <use xlink:href="#svg-photos"></use>
-			            </svg>
-						<!-- /UPLOAD BOX ICON -->
-
-						<!-- UPLOAD BOX TITLE -->
-						<p class="upload-box-title">Change Cover</p>
-						<!-- /UPLOAD BOX TITLE -->
-
-						<!-- UPLOAD BOX TEXT -->
-						<p class="upload-box-text">1184x300px size minimum</p>
-						<!-- /UPLOAD BOX TEXT -->
-					</div>
-					<!-- /UPLOAD BOX -->
+						<form method="post" action="/profileInfo/background"
+							enctype="multipart/form-data">
+							<div class="upload-box">
+								<!-- UPLOAD BOX ICON -->
+								<svg class="upload-box-icon icon-photos">
+					                <use xlink:href="#svg-photos"></use>
+					            </svg>
+								<!-- /UPLOAD BOX ICON -->
+								<input type="file" name="backFiles" accept=".jpg, .jpeg, .png">
+								<button>upload</button>
+							</div>
+						</form>
+						<!-- /UPLOAD BOX -->
 				</div>
 				<!-- /GRID -->
 				<!-- WIDGET BOX -->

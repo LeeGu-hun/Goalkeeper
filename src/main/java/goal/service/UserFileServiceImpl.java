@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.UserFileMapper;
-import goal.vo.GroupFileVO;
 import goal.vo.UserFileVO;
 
 @Service

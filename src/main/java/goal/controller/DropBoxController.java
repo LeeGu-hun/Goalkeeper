@@ -25,9 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
 import goal.service.CommonService;
+import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
+import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
 import goal.vo.UserVO;
 import lombok.extern.log4j.Log4j;
@@ -44,6 +46,9 @@ public class DropBoxController {
 	@Autowired
 	private UserFileService userFileService;
 	
+	@Autowired
+	private UserBackFileService userBackFileService;
+	
 	private UserCommonDownload commonDownload = new UserCommonDownload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
@@ -54,11 +59,13 @@ public class DropBoxController {
 	public ModelAndView openProfileInfo(HttpServletRequest request, UserVO vo) {
 		vo = getLoginUser(request);
 		UserFileVO file = new UserFileVO();
+		UserBackVO back = new UserBackVO();
 		file.setUno(vo.getUno());
+		back.setUno(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
 		mv = commonService.checkLoginUser(request, mv);
-		mv.addObject("uno", file.getUno());
+		mv.addObject("uno", back.getUno());
 		return mv;
 	}
 	
@@ -102,7 +109,7 @@ public class DropBoxController {
 		UserFileVO vo = new UserFileVO();
 		user = getLoginUser(request);
 		vo.setUno(user.getUno());
-		int check = userFileService.checkProfile(vo.getUno());
+		int check = userBackFileService.checkUserBack(vo.getUno());
 		
 		String fileUrl = "C:/profile";
 		File uploadPath = new File(fileUrl);
@@ -132,10 +139,53 @@ public class DropBoxController {
         return "redirect:/profileInfo";
 	}
 	
+	@PostMapping("/profileInfo/background")
+	public String insertBackground(UserVO user, HttpServletRequest request, @RequestPart("backFiles") MultipartFile backFiles)
+			throws Exception {
+		UserBackVO vo = new UserBackVO();
+		user = getLoginUser(request);
+		vo.setUno(user.getUno());
+		int check = userBackFileService.checkUserBack(vo.getUno());
+		
+		String fileUrl = "C:/userbackground";
+		File uploadPath = new File(fileUrl);
+		
+	    if (uploadPath.exists() == false) {
+        	uploadPath.mkdirs();
+        }
+		   
+    	String fileName = backFiles.getOriginalFilename(); 
+        String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
+        String filePath = fileUrl + "/" + uuid;
+        
+        File dest = new File(filePath);
+        backFiles.transferTo(dest);
+           
+        vo.setBackId(uuid);
+        vo.setBackName(fileName);
+        vo.setBackPath(filePath);
+        
+		if(check != 0) {
+			userBackFileService.removeBackFile(vo.getUno());
+			userBackFileService.insertUserBackFile(vo);
+		} else {
+			userBackFileService.insertUserBackFile(vo);
+		}
+		
+        return "redirect:/profileInfo";
+	}
+	
 	@RequestMapping(value="/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+	    return entity;
+	}
+	
+	@RequestMapping(value="/background/{uno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
+	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
 	}
 	

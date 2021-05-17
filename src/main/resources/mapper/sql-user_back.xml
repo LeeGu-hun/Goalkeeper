@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.UserBackFileMapper">
+	<resultMap type="goal.vo.UserBackVO" id="userBackVO">
+		<id property="uno" column="uno"/>
+		<id property="backName" column="backName"/>
+		<id property="backId" column="backId"/>
+		<id property="backPath" column="backPath"/>
+	</resultMap>
+	
+	<select id="selectBackFile" parameterType="int" resultMap="userBackVO">
+		select * from GK_USER_BACKGROUND where uno = #{uno}
+	</select>
+	
+	<insert id="insertUserBackFile" parameterType="goal.vo.UserBackVO">
+		insert into GK_USER_BACKGROUND values(#{uno}, #{backName}, #{backId}, #{backPath})
+	</insert>
+	
+	<delete id="removeUserBackFile" parameterType="int">
+		delete from GK_USER_BACKGROUND where uno = #{uno}
+	</delete>
+	
+	<select id="checkUserBack" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM GK_USER_BACKGROUND WHERE UNO = #{uno}
+		]]>
+	</select>
+</mapper>
