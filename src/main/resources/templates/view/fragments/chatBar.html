@@ -23,7 +23,7 @@
               <!-- USER AVATAR CONTENT -->
               <div class="user-avatar-content">
                 <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" data-src="img/avatar/03.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
+                <div class="hexagon-image-30-32" th:attr="data-src=@{/profile/}+${fl.friendNo}" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
                 <!-- /HEXAGON -->
               </div>
               <!-- /USER AVATAR CONTENT -->
@@ -44,29 +44,7 @@
               </div>
               <!-- /USER AVATAR PROGRESS BORDER -->
           
-              <!-- USER AVATAR BADGE -->
-              <div class="user-avatar-badge">
-                <!-- USER AVATAR BADGE BORDER -->
-                <div class="user-avatar-badge-border">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE BORDER -->
-          
-                <!-- USER AVATAR BADGE CONTENT -->
-                <div class="user-avatar-badge-content">
-                  <!-- HEXAGON -->
-                  <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                  <!-- /HEXAGON -->
-                </div>
-                <!-- /USER AVATAR BADGE CONTENT -->
-          
-                <!-- USER AVATAR BADGE TEXT -->
-                <p class="user-avatar-badge-text" >16</p>
-                <!-- /USER AVATAR BADGE TEXT -->
-              </div>
-              <!-- /USER AVATAR BADGE -->
+              
             </div>
             <!-- /USER AVATAR -->
           </div>

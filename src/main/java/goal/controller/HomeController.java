@@ -101,18 +101,12 @@ public class HomeController {
     }
  
  
- @PostMapping("/memberIdChk")
- @ResponseBody
- public String memberIdChkPOST(String memberId) throws Exception{
-    
-    int result = userService.idCheck(memberId);
-
-    if(result != 0) {
-       return "fail";   // 중복 아이디가 존재   
-    } else {
-       return "success";   // 중복 아이디 x
-    }
- }
+	@ResponseBody
+	@RequestMapping(value="/memberIdChk", method = RequestMethod.POST)
+	public int idChk(UserVO vo) throws Exception {
+		 int result = userService.idCheck(vo);
+		return result;
+	}
 
 
 	@PostMapping("/count_file")
