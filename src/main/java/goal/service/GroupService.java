@@ -24,6 +24,7 @@ public interface GroupService {
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);
+	void updateBgiCheck(String bgi_check);
 	List<GroupJoinVO> getGroupJoin(int gno);
 	int checkUserbyGroup(GroupUserVO groupUser);
 	String getRolebyUser(GroupUserVO groupUser);

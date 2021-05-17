@@ -49,12 +49,11 @@
 			<!-- /SECTION BANNER ICON -->
 
 			<!-- SECTION BANNER TITLE -->
-			<p class="section-banner-title">Account Hub</p>
+			<p class="section-banner-title">그룹 관리</p>
 			<!-- /SECTION BANNER TITLE -->
 
 			<!-- SECTION BANNER TEXT -->
-			<p class="section-banner-text">Profile info, messages, settings
-				and much more!</p>
+			<p class="section-banner-text">멤버 관리, 옵션 설정 그리고 목표까지!</p>
 			<!-- /SECTION BANNER TEXT -->
 		</div>
 		<!-- /SECTION BANNER -->
@@ -96,7 +95,7 @@
 								<!-- /SIDEBAR MENU HEADER CONTROL ICON -->
 
 								<!-- SIDEBAR MENU HEADER TITLE -->
-								<p class="sidebar-menu-header-title">그룹 관리</p>
+								<p class="sidebar-menu-header-title">멤버 관리</p>
 								<!-- /SIDEBAR MENU HEADER TITLE -->
 
 								<!-- SIDEBAR MENU HEADER TEXT -->
@@ -110,8 +109,8 @@
 							<div
 								class="sidebar-menu-body accordion-content-linked accordion-open">
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link active" th:href="@{/group_mgJoin/{gno}(gno=${gno})}">가입
-									요청</a>
+								<a class="sidebar-menu-link active"
+									th:href="@{/group_mgJoin/{gno}(gno=${gno})}">가입 요청</a>
 								<!-- /SIDEBAR MENU LINK -->
 
 								<!-- SIDEBAR MENU LINK -->
@@ -159,7 +158,8 @@
 								<!-- /SIDEBAR MENU HEADER TITLE -->
 
 								<!-- SIDEBAR MENU HEADER TEXT -->
-								<p class="sidebar-menu-header-text">그룹만의 유일한 목표를 만들고 관리할 수 있습니다.</p>
+								<p class="sidebar-menu-header-text">그룹만의 유일한 목표를 만들고 관리할 수
+									있습니다.</p>
 								<!-- /SIDEBAR MENU HEADER TEXT -->
 							</div>
 							<!-- /SIDEBAR MENU HEADER -->
@@ -168,11 +168,66 @@
 							<div
 								class="sidebar-menu-body accordion-content-linked accordion-open">
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link active" th:href="@{/group_mgGoal/{gno}(gno=${gno})}">목표 관리</a>
+								<a class="sidebar-menu-link active"
+									th:href="@{/group_mgGoal/{gno}(gno=${gno})}">목표 관리</a>
 								<!-- /SIDEBAR MENU LINK -->
 
 								<!-- SIDEBAR MENU LINK -->
-								<a class="sidebar-menu-link" href="hub-group-invitations.html">목표 통계</a>
+								<a class="sidebar-menu-link" href="hub-group-invitations.html">목표
+									통계</a>
+								<!-- /SIDEBAR MENU LINK -->
+							</div>
+							<!-- /SIDEBAR MENU BODY -->
+						</div>
+						<!-- /SIDEBAR MENU ITEM -->
+						<!-- /SIDEBAR MENU ITEM -->
+						<!-- SIDEBAR MENU ITEM -->
+						<div class="sidebar-menu-item">
+							<!-- SIDEBAR MENU HEADER -->
+							<div class="sidebar-menu-header accordion-trigger-linked">
+								<!-- SIDEBAR MENU HEADER ICON -->
+								<svg class="sidebar-menu-header-icon icon-trophy">
+							      <use xlink:href="#svg-settings"></use>
+							    </svg>
+								<!-- /SIDEBAR MENU HEADER ICON -->
+
+								<!-- SIDEBAR MENU HEADER CONTROL ICON -->
+								<div class="sidebar-menu-header-control-icon">
+									<!-- SIDEBAR MENU HEADER CONTROL ICON OPEN -->
+									<svg
+										class="sidebar-menu-header-control-icon-open icon-minus-small">
+                    <use xlink:href="#svg-minus-small"></use>
+                  </svg>
+									<!-- /SIDEBAR MENU HEADER CONTROL ICON OPEN -->
+
+									<!-- SIDEBAR MENU HEADER CONTROL ICON CLOSED -->
+									<svg
+										class="sidebar-menu-header-control-icon-closed icon-plus-small">
+                    <use xlink:href="#svg-plus-small"></use>
+                  </svg>
+									<!-- /SIDEBAR MENU HEADER CONTROL ICON CLOSED -->
+								</div>
+								<!-- /SIDEBAR MENU HEADER CONTROL ICON -->
+
+								<!-- SIDEBAR MENU HEADER TITLE -->
+								<p class="sidebar-menu-header-title">옵션</p>
+								<!-- /SIDEBAR MENU HEADER TITLE -->
+
+								<!-- SIDEBAR MENU HEADER TEXT -->
+								<p class="sidebar-menu-header-text">그룹의 프로필, 배경 수정 등 여러 옵션과 알림사항을 변경할 수 있습니다.</p>
+								<!-- /SIDEBAR MENU HEADER TEXT -->
+							</div>
+							<!-- /SIDEBAR MENU HEADER -->
+
+							<!-- SIDEBAR MENU BODY -->
+							<div class="sidebar-menu-body accordion-content-linked">
+								<!-- SIDEBAR MENU LINK -->
+								<a class="sidebar-menu-link"
+									th:href="@{/group_mgSetting/{gno}(gno=${gno})}">일반 옵션</a>
+								<!-- /SIDEBAR MENU LINK -->
+
+								<!-- SIDEBAR MENU LINK -->
+								<a class="sidebar-menu-link" href="hub-group-invitations.html">알림 사항</a>
 								<!-- /SIDEBAR MENU LINK -->
 							</div>
 							<!-- /SIDEBAR MENU BODY -->
@@ -200,6 +255,9 @@
 						<!-- /SECTION TITLE -->
 					</div>
 					<!-- /SECTION HEADER INFO -->
+					<p class="button secondary full popup-manage-group-trigger"
+						style="width: 20%" href="#">그룹 만들기</p>
+
 				</div>
 				<!-- /SECTION HEADER -->
 
@@ -212,7 +270,8 @@
 						<!-- /WIDGET BOX TITLE -->
 						<div th:if="${groupGoal}!=null">
 							<!-- TABLE -->
-							<div class="table table-forum-category" th:each="goalList:${groupGoal}">
+							<div class="table table-forum-category"
+								th:each="goalList:${groupGoal}">
 								<!-- TABLE HEADER -->
 								<div class="table-header">
 									<!-- TABLE HEADER COLUMN -->
@@ -258,47 +317,50 @@
 								<!-- TABLE BODY -->
 								<div class="table-body">
 									<!-- TABLE ROW -->
-										<div class="table-row big">
-											<!-- TABLE COLUMN -->
-											<div class="table-column">
-												<!-- TABLE TITLE -->
-												<p class="forum-category-text" style="text-align:center" th:text="${goalList.goal_name}"></p>
-												<!-- /TABLE TITLE -->
-											</div>
-											<!-- /TABLE COLUMN -->
-											<!-- TABLE COLUMN -->
-											<div class="table-column">
-												<!-- TABLE TITLE -->
-												<p class="forum-category-text" style="text-align:center" th:text="${goalList.goal_allcnt}"></p>
-												<!-- /TABLE TITLE -->
-											</div>
-											<!-- /TABLE COLUMN -->
-											<!-- TABLE COLUMN -->
-											<div class="table-column">
-												<!-- TABLE TITLE -->
-												<p class="forum-category-text" style="text-align:center">20%</p>
-												<!-- /TABLE TITLE -->
-											</div>
-											<!-- /TABLE COLUMN -->
-											<!-- TABLE COLUMN -->
-											<div class="table-column centered padded-medium">
-												<!-- TABLE TITLE -->
-												<p class="table-title" style="text-align:center"
-													th:text="${#dates.format(goalList.goal_enddate, 'yyyy-MM-dd HH:mm')}"></p>
-												<!-- /TABLE TITLE -->
-											</div>
-											<!-- /TABLE COLUMN -->
-
-											<!-- TABLE COLUMN -->
-											<div class="table-column centered padded-medium">
-												<!-- TABLE TITLE -->
-												<button type="text" class="table-title btn-primary success">삭제</button><br>
-												<button class="table-title btn-primary">수정</button>
-												<!-- /TABLE TITLE -->
-											</div>
-											<!-- /TABLE COLUMN -->
+									<div class="table-row big">
+										<!-- TABLE COLUMN -->
+										<div class="table-column">
+											<!-- TABLE TITLE -->
+											<p class="forum-category-text" style="text-align: center"
+												th:text="${goalList.goal_name}"></p>
+											<!-- /TABLE TITLE -->
 										</div>
-										<!-- /TABLE ROW -->
+										<!-- /TABLE COLUMN -->
+										<!-- TABLE COLUMN -->
+										<div class="table-column">
+											<!-- TABLE TITLE -->
+											<p class="forum-category-text" style="text-align: center"
+												th:text="${goalList.goal_allcnt}"></p>
+											<!-- /TABLE TITLE -->
+										</div>
+										<!-- /TABLE COLUMN -->
+										<!-- TABLE COLUMN -->
+										<div class="table-column">
+											<!-- TABLE TITLE -->
+											<p class="forum-category-text" style="text-align: center">20%</p>
+											<!-- /TABLE TITLE -->
+										</div>
+										<!-- /TABLE COLUMN -->
+										<!-- TABLE COLUMN -->
+										<div class="table-column centered padded-medium">
+											<!-- TABLE TITLE -->
+											<p class="table-title" style="text-align: center"
+												th:text="${#dates.format(goalList.goal_enddate, 'yyyy-MM-dd HH:mm')}"></p>
+											<!-- /TABLE TITLE -->
+										</div>
+										<!-- /TABLE COLUMN -->
+
+										<!-- TABLE COLUMN -->
+										<div class="table-column centered padded-medium">
+											<!-- TABLE TITLE -->
+											<button type="text" class="table-title btn-primary success">삭제</button>
+											<br>
+											<button id="modifyGoal" class="table-title btn-primary">수정</button>
+											<!-- /TABLE TITLE -->
+										</div>
+										<!-- /TABLE COLUMN -->
+									</div>
+									<!-- /TABLE ROW -->
 								</div>
 							</div>
 						</div>
@@ -323,7 +385,92 @@
 		</div>
 		<span class="blank"></span>
 	</div>
+	<!-- POPUP BOX -->
+	<div class="popup-box mid popup-manage-group">
+		<!-- POPUP CLOSE BUTTON -->
+		<div class="popup-close-button popup-manage-group-trigger">
+			<!-- POPUP CLOSE BUTTON ICON -->
+			<svg class="popup-close-button-icon icon-cross">
+        <use xlink:href="#svg-cross"></use>
+      </svg>
+			<!-- /POPUP CLOSE BUTTON ICON -->
+		</div>
+		<!-- /POPUP CLOSE BUTTON -->
+		<!-- POPUP BOX CONTENT -->
+		<div class="popup-box-content">
+			<!-- WIDGET BOX -->
+			<div class="widget-box">
+				<!-- WIDGET BOX TITLE -->
+				<p class="widget-box-title">목표 추가</p>
+				<!-- /WIDGET BOX TITLE -->
 
+				<!-- WIDGET BOX CONTENT -->
+				<div class="widget-box-content">
+					<!-- FORM -->
+					<form id="addFrm" class="form" action="/group_addGoal"
+						method="POST">
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<input type="hidden" name="gno" th:value="${gno}">
+								<div class="form-input small active">
+									<label for="group-name">목표 이름</label> <input type="text"
+										id="goal_name" name="goal_name">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<div class="form-input small active">
+									<label for="group-name">목표 횟수</label> <input type="text"
+										id="goal_allcnt" name="goal_allcnt">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<label for="group-public-email">목표 달성일</label>
+								<div class="form-input small active">
+									<input type="date" id="goal_enddate" name="goal_enddate">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+					</form>
+					<!-- /FORM -->
+					<!-- BUTTON -->
+					<button id="addGoal" type="submit" class="button secondary full">저장하기</button>
+					<!-- /BUTTON -->
+
+					<!-- BUTTON -->
+					<p class="button white full popup-manage-group-trigger">취소</p>
+					<!-- /BUTTON -->
+				</div>
+				<!-- WIDGET BOX CONTENT -->
+			</div>
+			<!-- /WIDGET BOX -->
+		</div>
+		<!-- /POPUP BOX CONTENT -->
+	</div>
+	<!-- /POPUP BOX -->
 
 
 	<!-- app -->
@@ -346,6 +493,8 @@
 	<script src="../../js/global/global.tooltips.js"></script>
 	<!-- global.chart -->
 	<script src="../../js/global/global.charts.js"></script>
+	<script src="../../js/global/global.popups.js"></script>
+	<script src="../../js/global/global.accordions.js"></script>
 	<!-- header -->
 	<script src="../../js/header/header.js"></script>
 	<!-- sidebar -->
@@ -356,6 +505,6 @@
 	<script src="../../js/form/form.utils.js"></script>
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
-	<script src="../../js/group_management.js"></script>
+	<script src="../../js/group_mgGoal.js"></script>
 </body>
 </html>

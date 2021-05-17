@@ -85,6 +85,11 @@ window.onload = function() {
 			alert("목표 달성일을 설정해주세요.");
 			return false;
 		} 
+		if(!$('#g_profile').val()){
+			$('#g_profile').append("<input type='hidden' name='fileCheck' value='true'>");
+		} else {
+			$('#g_profile').append("<input type='hidden' name='fileCheck' value='false'>");
+		}
 		if(!checkExtension(file.name, file.size)) return false;
 		alert("그룹을 정상적으로 만들었습니다.");
 		this.submit();

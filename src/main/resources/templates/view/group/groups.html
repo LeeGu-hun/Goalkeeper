@@ -80,8 +80,11 @@
 			<!-- USER PREVIEW -->
 			<div class="user-preview" th:each="groupList:${list}">
 				<!-- USER PREVIEW COVER -->
-				<figure class="user-preview-cover liquid">
-					<img src="img/cover/29.jpg" alt="cover-29">
+				<figure class="user-preview-cover liquid" th:if="${groupList.bgi_check}=='Y'">
+					<img th:attr="src=@{/background/}+${groupList.gno}" alt="cover-29">
+				</figure>
+				<figure class="user-preview-cover liquid" th:unless="${groupList.bgi_check}=='Y'">
+					<img src="../../img/group_baseBgi.png" alt="cover-29">
 				</figure>
 				<!-- /USER PREVIEW COVER -->
 
@@ -115,9 +118,13 @@
 							</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 							<div class="user-avatar-content">
 								<!-- HEXAGON -->
-								<figure class="user-preview-cover liquid">
+								<figure class="user-preview-cover liquid" th:if="${groupList.file_check}=='Y'">
 									<div id="profile" class="hexagon-image-100-110"
 										th:attr="data-src=@{/display/}+${groupList.gno}"></div>
+								</figure>
+								<figure class="user-preview-cover liquid" th:unless="${groupList.file_check}=='Y'">
+									<div id="profile" class="hexagon-image-100-110"
+										data-src="../../img/group_baseProfile.png"></div>
 								</figure>
 								<!-- /HEXAGON -->
 							</div> <!-- /USER AVATAR CONTENT -->

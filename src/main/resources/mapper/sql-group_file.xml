@@ -8,10 +8,21 @@
 		<id property="g_filepath" column="g_filepath"/>
 		<id property="gno" column="gno"/>
 	</resultMap>
+	<resultMap type="goal.vo.GroupBgiVO" id="groupBgiVO">
+		<id property="gno" column="gno"/>
+		<id property="fileName" column="fileName"/>
+		<id property="uuid" column="uuid"/>
+		<id property="filePath" column="filePath"/>
+	</resultMap>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
 		insert into
 		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
 		(#{g_fid}, #{g_filename}, #{g_filepath}, #{gno})
+	</insert>
+	<insert id="insertGroupBgi" parameterType="goal.vo.GroupBgiVO">
+		insert into
+		GK_GROUP_BGI(gno, filename, uuid, filepath) values
+		(#{gno}, #{fileName}, #{uuid}, #{filePath})
 	</insert>
 	<select id="selectFileName" resultMap="groupFileVO">
 		<![CDATA[
@@ -21,6 +32,23 @@
 	<select id="selectFile" parameterType="int" resultMap="groupFileVO">
 		select * from gk_group_profile where gno=#{gno}
 	</select>
+	<select id="selectBgi" parameterType="int" resultMap="groupBgiVO">
+		select * from gk_group_Bgi where gno=#{gno}
+	</select>
+	<select id="checkFilebyGno" parameterType="int" resultType="int">
+		select count(*) from gk_group_profile where gno=#{gno}
+	</select>
+	<select id="checkBgibyGno" parameterType="int" resultType="int">
+		select count(*) from gk_group_bgi where gno=#{gno}
+	</select>
+	<update id="updateGroupFile" parameterType="goal.vo.GroupFileVO">
+		UPDATE GK_GROUP_PROFILE
+		set g_fid=#{g_fid}, g_filename=#{g_filename}, g_filepath=#{g_filepath} where gno=#{gno}
+	</update>
+	<update id="updateGroupBgi" parameterType="goal.vo.GroupBgiVO">
+		UPDATE GK_GROUP_BGI
+		set uuid=#{uuid}, filename=#{fileName}, filepath=#{filePath} where gno=#{gno}
+	</update>
 	<delete id="removeGroupFile" parameterType="int">
 		<![CDATA[
 			delete GK_GROUP_PROFILE WHERE GNO=#{gno}
