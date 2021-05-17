@@ -25,4 +25,5 @@
 			SELECT COUNT(*) FROM GK_USER_FILE WHERE UNO = #{uno}
 		]]>
 	</select>
+
 </mapper>

@@ -109,7 +109,7 @@ public class DropBoxController {
 		UserFileVO vo = new UserFileVO();
 		user = getLoginUser(request);
 		vo.setUno(user.getUno());
-		int check = userBackFileService.checkUserBack(vo.getUno());
+		int check = userFileService.checkProfile(vo.getUno());
 		
 		String fileUrl = "C:/profile";
 		File uploadPath = new File(fileUrl);

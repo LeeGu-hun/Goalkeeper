@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/view/fragments/header.html :: header">
-</head>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -25,14 +23,14 @@
 }
 </style>
 <body>
-	<div id="header"></div>
+<div th:insert="/view/fragments/header.html :: header"></div>
 	<!-- CONTENT GRID -->
 	<div class="content-grid">
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
 			<figure class="profile-header-cover liquid">
-				<img src="img/cover/01.jpg" alt="cover-01">
+				<img th:src="@{/user/background/}+${uno}" alt="cover-01">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -53,7 +51,7 @@
 						<!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
 							<!-- /HEXAGON -->
 						</div>
 						<!-- /USER AVATAR CONTENT -->
@@ -401,7 +399,7 @@
 				<div class="user-preview" th:each="u:${list}">
 					<!-- USER PREVIEW COVER -->
 					<figure class="user-preview-cover liquid">
-						<img src="img/cover/04.jpg" alt="cover-04">
+						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 

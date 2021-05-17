@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/view/fragments/header.html :: header">
-</head>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -25,7 +23,7 @@
 }
 </style>
 <body>
-	<div id="header"></div>
+<div th:insert="/view/fragments/header.html :: header"></div>
 	<!-- CONTENT GRID -->
 	<div class="content-grid">
 		<!-- PROFILE HEADER -->
@@ -400,7 +398,7 @@
 				<div class="user-preview" th:each="f:${list}">
 					<!-- USER PREVIEW COVER -->
 					<figure class="user-preview-cover liquid">
-						<img src="img/cover/04.jpg" alt="cover-04">
+						<img th:src="@{/user/background/}+${f.friendNo}" alt="사진 필요!!">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 

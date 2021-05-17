@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/view/fragments/header.html :: header">
-</head>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -23,13 +21,13 @@
 <title>Vikinger | Profile</title>
 </head>
 <body>
-	<div id="header"></div>
+	<div th:insert="/view/fragments/header.html :: header"></div>
 	<div class="content-grid">
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
 			<figure class="profile-header-cover liquid">
-				<img src="img/cover/01.jpg" alt="cover-01">
+				<img th:src="@{/user/background/}+${uno}" alt="C:\profile\default.jpg">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -299,8 +297,8 @@
 				<div class="slider-control left">
 					<!-- SLIDER CONTROL ICON -->
 					<svg class="slider-control-icon icon-small-arrow">
-            <use xlink:href="#svg-small-arrow"></use>
-          </svg>
+			            <use xlink:href="#svg-small-arrow"></use>
+			        </svg>
 					<!-- /SLIDER CONTROL ICON -->
 				</div>
 				<!-- /SLIDER CONTROL -->
@@ -571,10 +569,10 @@
 							<div class="quick-post-footer-action text-tooltip-tft-medium"
 								data-title="Insert Photo" style="position: relative;">
 								<!-- QUICK POST FOOTER ACTION ICON -->
-								<a id="photo"> <svg
-										class="quick-post-footer-action-icon icon-camera">
-                  	<use xlink:href="#svg-camera"></use>
-                </svg>
+								<a id="photo">
+								<svg class="quick-post-footer-action-icon icon-camera">
+				                  	<use xlink:href="#svg-camera"></use>
+				                </svg>
 								</a>
 								<!-- /QUICK POST FOOTER ACTION ICON -->
 								<div class="xm-tooltip"
@@ -652,7 +650,7 @@
 							<div class="picture-item">
 								<!-- PICTURE -->
 								<figure class="picture round liquid">
-									<img src="img/cover/06.jpg" alt="avatar-06">
+									<img th:src="@{/user/background/}+${uno}" alt="avatar-06">
 								</figure>
 								<!-- /PICTURE -->
 							</div>
