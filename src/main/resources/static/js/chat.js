@@ -52,7 +52,7 @@ function showChat(chat) {
 }
 
 $(function () {
-    $("form").on('submit', function (e) {
+    $(".chat-widget-form").on('submit', function (e) {
         e.preventDefault();
     });
     $( ".chat-widget-message" ).click(function() { connect(); });

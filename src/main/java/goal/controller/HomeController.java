@@ -81,8 +81,8 @@ public class HomeController {
         UserVO user = commonService.getLoginUser(request);
         if(user!=null) {
            List<FriendVO> friendlist = chatService.findFriendList(user);
-           UserVO user1 = (UserVO) session.getAttribute("user");
-           mv.addObject("user", user1);
+          
+           mv.addObject("user", user);
            mv.addObject("friendlist", friendlist);          
         }
         

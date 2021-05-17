@@ -44,7 +44,7 @@
   <!-- NAVIGATION WIDGET -->
   <nav id="navigation-widget-small" class="navigation-widget navigation-widget-desktop closed sidebar left delayed">
     <!-- USER AVATAR -->
-    <a class="user-avatar small no-outline online" href="profile-timeline.html">
+    <a class="user-avatar small no-outline online" href="/myPage">
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
@@ -645,7 +645,7 @@
     <!-- HEADER ACTIONS -->
     <div class="header-actions">
       <!-- HEADER BRAND -->
-      <div class="header-brand">
+      <div class="header-brand" OnClick="location.href ='/home'" style="cursor:pointer;">
         <!-- LOGO -->
         <div class="logo">
           <!-- ICON LOGO VIKINGER -->
@@ -703,15 +703,16 @@
           <!-- MENU MAIN ITEM -->
           <li class="menu-main-item">
             <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="#">Home</a>
+            <a class="menu-main-item-link" href="/home">Home</a>
             <!-- /MENU MAIN ITEM LINK -->
           </li>
           <!-- /MENU MAIN ITEM -->
 
           <!-- MENU MAIN ITEM -->
           <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="#">Careers</a>
+            <!-- MENUmenu-main-item-link MAIN ITEM LINK -->
+            <a th:if="${user!=null}" class="menu-main-item-link" href="/myFriends">Friends</a>
+            <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');" class="menu-main-item-link" id="logOutFriendPage">Friends</a>
             <!-- /MENU MAIN ITEM LINK -->
           </li>
           <!-- /MENU MAIN ITEM -->
@@ -2630,5 +2631,6 @@
 	 <div th:insert="/view/fragments/chatBar.html :: chatBar"></div>
 </div>
   </div>
+<script src="../../js/header.js" type="text/javascript"></script>
 </body>
 </html>
