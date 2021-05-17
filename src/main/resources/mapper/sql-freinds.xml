@@ -5,7 +5,7 @@
 		<id property="fno" column="fno"></id>
 		<id property="uno" column="uno"></id>
 		<id property="friendNo" column="friendNo"></id>
-		<id property="friendName" column="friendName"></id>
+		<id property="friendId" column="friendId"></id>
 		<id property="friendNumber" column="friendNumber"></id>
 		<id property="friendBirthdate" column="friendBirthdate"></id>
 	</resultMap>
@@ -16,7 +16,7 @@
 	
 	<insert id="addFriend" parameterType="goal.vo.FriendVO">
 		insert into GK_FRIEND
-		values (GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendName}, #{friendNumber}, #{friendBirthdate})
+		values (GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate})
 	</insert>
 	
 	<delete id="deleteFriend" parameterType="int">
@@ -24,7 +24,7 @@
 	</delete>
 	
 	<select id="findMyFriend" parameterType="java.util.Map" resultMap="friendVO">
-		select * from GK_FRIEND where uno = #{uno} and upper(friendName) like '%' || UPPER(#{word}) || '%'
+		select * from GK_FRIEND where uno = #{uno} and upper(friendId) like '%' || UPPER(#{word}) || '%'
 	</select>
 	
 	<select id="countFriend" parameterType="int" resultType="int">

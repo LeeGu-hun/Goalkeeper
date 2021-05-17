@@ -11,7 +11,7 @@ import lombok.Data;
 @Alias("friendVO")
 public class FriendVO {
 	private int fno, uno, friendNo;
-	private String friendName;
+	private String friendId;
 	private String friendNumber;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

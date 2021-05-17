@@ -163,13 +163,13 @@ public class MyPageController {
 	
 	@PostMapping("/mySearchFriends/add")
 	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, @RequestParam int friendNo,
-			@RequestParam String friendName, @RequestParam String friendNumber,
+			@RequestParam String friendId, @RequestParam String friendNumber,
 			@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate) {
 		vo = getLoginUser(request);
 		FriendVO friend = new FriendVO();
 		friend.setUno(vo.getUno());
 		friend.setFriendNo(friendNo);
-		friend.setFriendName(friendName);
+		friend.setFriendId(friendId);
 		friend.setFriendNumber(friendNumber);
 		friend.setFriendBirthdate(friendBirthdate);
 		friendService.addFriend(friend);
