@@ -30,20 +30,24 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import goal.common.UserCommonDownload;
 import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.ChatService;
 import goal.service.CommonService;
 import goal.service.GroupService;
 import goal.service.ReplyService;
+import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.upload.BoardUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.FriendVO;
 import goal.vo.GroupVO;
 import goal.vo.ReplyVO;
+import goal.vo.UserFileVO;
 import goal.vo.UserVO;
 
 @Controller
@@ -65,13 +69,21 @@ public class HomeController {
 	private BoardUpload boardUpload;
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private UserFileService userFileService;
 
 	private String referer = null;
 	
 	private int bno = 0;
 	private int count = 0;
+	
+	private UserCommonDownload commonDownload = new UserCommonDownload();
+	
+	MediaUtils mediaUtils = new MediaUtils();
+    InputStream in = null;
+    ResponseEntity<byte[]> entity = null;
 
-	@RequestMapping(value={"/home", "/"})
+    @RequestMapping(value={"/home", "/"})
     public ModelAndView openNewsFeed(HttpServletRequest request) {
        ModelAndView mv = new ModelAndView("view/home/newsFeed");      
        mv = getHome(mv, request);
@@ -80,7 +92,7 @@ public class HomeController {
        
         UserVO user = commonService.getLoginUser(request);
         if(user!=null) {
-           List<FriendVO> friendlist = chatService.findFriendList(user);
+           List<ChatVO> friendlist = chatService.findFriendList(user);
           
            mv.addObject("user", user);
            mv.addObject("friendlist", friendlist);          
@@ -88,20 +100,28 @@ public class HomeController {
         
        return mv;
     }
+	
+	
+	
  
- 
- @PostMapping("/memberIdChk")
- @ResponseBody
- public String memberIdChkPOST(String memberId) throws Exception{
-    
-    int result = userService.idCheck(memberId);
-
-    if(result != 0) {
-       return "fail";   // 중복 아이디가 존재   
-    } else {
-       return "success";   // 중복 아이디 x
-    }
- }
+	@RequestMapping("/Search")
+	   public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
+	      ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
+	      mv = getHome(mv, request);
+	      UserVO user = commonService.getLoginUser(request);
+	      if (user != null) {
+	         List<BoardVO> boardlist = boardService.searchBoard(vo);
+	         mv.addObject("searchlist", boardlist);
+	         mv.addObject("user", user);
+	      }
+	      return mv;
+	   }
+	@ResponseBody
+	@RequestMapping(value="/memberIdChk", method = RequestMethod.POST)
+	public int idChk(UserVO vo) throws Exception {
+		 int result = userService.idCheck(vo);
+		return result;
+	}
 
 
 	@PostMapping("/count_file")
@@ -164,12 +184,13 @@ public class HomeController {
 	@PostMapping("/register")
 	public String insertUser(UserVO vo, Model model) {
 		String idCheck = userService.checkId(vo.getUserId());
+		
 		if (idCheck == null) {
 			userService.insertUser(vo);
-			return "redirect:/home";
+			return "redirect:/login";
 		} else {
 			model.addAttribute("msg", "중복된 아이디 입니다.");
-			return "redirect:/register";
+			return "redirect:/login";
 
 		}
 	}
@@ -201,5 +222,10 @@ public class HomeController {
 		}
 		return mv;
 	}
-	
+	@RequestMapping(value="/home/{uno}", method=RequestMethod.GET)
+	   public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
+	       UserFileVO userFile = userFileService.selectFile(uno);
+	       entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+	       return entity;
+	   }
 }

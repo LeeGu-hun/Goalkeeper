@@ -22,7 +22,7 @@
 	</select>
 	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
 		select bo_content, userid from GK_BOARD 
-		where userid like '%' || #{bo_search} || '%' or bo_content like '%' || #{bo_search} || '%' 
+		where userid like '%' || #{search_result} || '%' or bo_content like '%' || #{search_result} || '%' 
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno"  keyColumn="BNO">
 		insert into

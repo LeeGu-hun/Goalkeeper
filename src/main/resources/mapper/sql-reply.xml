@@ -16,12 +16,10 @@
 		]]> -->
 	</select>
 	
-	<select id="readDetailMainReply" parameterType="int" resultMap="replyVO">
-		
-		<![CDATA[
-			select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = #{bno}
-		]]> 
-	</select>
+	<select id="countReply" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM GK_COMMENT where bno=#{bno}
+    </select>
+	
 	<insert id="insertReply" parameterType="goal.vo.ReplyVO">
 		insert into
 		GK_COMMENT(rno, bno, replyWriter ,replyContent ,replyDate) values

@@ -20,7 +20,7 @@ public interface UserMapper {
 	
 	public void modifyUserInfo(UserVO vo);
 	
-	public int idCheck(String memberId);
+	public int idCheck(UserVO vo);
 
 	
 }

@@ -1,3 +1,4 @@
+/*글범위*/
 		function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -49,15 +50,17 @@
 		
 		$("#group_form").hide();
 		
-		$('#edit_btn').click(function(e){
-			e.preventDefault();
-			$('#modify_form').submit();
-			alert("수정완료");
-		});
-		
+/*글업로드*/
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
-
+			
+			if (document.getElementById("text").value == "" && 
+				document.getElementById("file").value == "") {
+					alert("범위를 설정해주세요.");
+					return false;
+					/*나중에모달추가*/
+			} 
+			
 			
 			if(!$('#file').val()){
 				$('#text').append("<input type='hidden' name='fileCheck' value='true'>");
@@ -65,12 +68,13 @@
 				$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 			}
 			
+		
 			$("#boardWrite").submit();
 			alert("저장되었습니다.");
 		});
 	
 		document.getElementById("bo_group").value;
-	
+/*사진업로드*/	
 		$(function() {
 			$("#photo").click(function() {
 				$(".backmodal").fadeIn();
@@ -86,7 +90,7 @@
 						$('div[name=picdiv]').length + " 장의 사진");
 			});
 		});	
-
+/*enter키 작동*/
 		function CheckEnter(frm, objName) {
 			var keycode = event.keyCode;
 			var i = 0;
@@ -99,6 +103,7 @@
 				frm[++i].focus();
 			}
 		}
+		
 
 		$("input[type='file']").change(function(e) {
 				if($('#file')[0].files.length > 5) {
@@ -161,6 +166,7 @@
 					});//arr.forEach
 		}
 		
+/*수정*/	
 		function fnEdit(bno){	
 			$('#'+bno).hide();
 			$('#modify'+bno).show();
@@ -176,15 +182,54 @@
 				$('#modify'+bno).hide();
 			});		
 		}
-	
+		
+/*삭제*/
 		function fnDelete(bno){
 
 				$('#delete_form'+bno).submit();
-	
 		}
 		
-		
-		
+/*댓글*/	
+var bno = '300';
+
+$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+    commentInsert(insertData); //Insert 함수호출(아래)
+});
+
+
+function commentList(){
+    $.ajax({
+        url : '/replylist',
+        type : 'post',
+        data : {'300':bno},
+        success : function(data){
+            var a =''; 
+            $.each(data, function(key, value){ 
+                a += '<h1>'+'테스트중'+'</h1>';
+            });
+            
+            $(".commentList").html(a);
+        }
+    });
+}
+ 
+/*댓글 등록*/
+function commentInsert(insertData){
+    $.ajax({
+        url : 'replyinsert',
+        type : 'post',
+        data : insertData,
+        success : function(data){
+            if(data == 1) {
+                commentList(); //댓글 작성 후 댓글 목록 reload
+                $('[name=content]').val('');
+            }
+        }
+    });
+}
+
+
 		
 		
 		

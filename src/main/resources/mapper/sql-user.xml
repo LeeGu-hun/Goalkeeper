@@ -48,10 +48,10 @@
    </select>
    
    <!-- 아이디 중복검사 -->
-     <select id="idCheck" resultType="int">
+     <select id="idCheck" parameterType="goal.vo.UserVO" resultType="int">
      <![CDATA[
-        select userId from GK_USER
-      where userId = #{userId} and userPw= #{userPw}
+        select COUNT(*) from GK_USER
+      where userId = #{userId}
      ]]>
      </select>
    

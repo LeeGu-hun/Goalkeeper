@@ -17,12 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,11 +33,13 @@ import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.CommonService;
 import goal.service.GroupService;
+import goal.service.ReplyService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Controller
@@ -51,6 +55,8 @@ public class BoardController {
 	private UserService userService;
 	@Autowired
 	private BoardFileService boardFileService;
+	@Autowired
+	private ReplyService replyService;
 
 	private String referer = null;
 	private CommonDownload CommonDownload = new CommonDownload();
@@ -101,23 +107,26 @@ public class BoardController {
 		
 		return "redirect:/home";
 	}
-
-	@RequestMapping("/boardSearch")
-	public ModelAndView searchBoard(BoardVO vo,BoardFileVO boardFileVO, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/board/board_search");
-		UserVO user = getLoginUser(request);
-		if (user != null) {
-			mv.addObject("user", user);
-			List<BoardVO> boardlist = boardService.searchBoard(vo);
-			List<BoardFileVO> boardFile = boardFileService.searchFile(boardFileVO);
-			boardFileVO.setBno(vo.getBno());
-			mv.addObject("List", boardlist);
-			mv.addObject("imgList",boardFile);
-		} else {
-			mv.setViewName("view/error/denied");
-		}
-		return mv;
-	}
+	
+	@RequestMapping("/replylist") //댓글 리스트
+    @ResponseBody
+    private List<ReplyVO> replyList(Model model) throws Exception{
+        return replyService.getMainReply();
+    }
+	
+	@RequestMapping("/replyinsert") //댓글 작성 
+    @ResponseBody
+    private int mCommentServiceInsert(@RequestParam int bno, @RequestParam String content, HttpServletRequest request) throws Exception{
+		UserVO user = commonService.getLoginUser(request);
+		
+        ReplyVO reply = new ReplyVO();
+        reply.setBno(bno);
+        reply.setReplyContent(content);
+        reply.setReplyWriter(user.getUserId());  
+        
+        return replyService.insertReply(reply);
+    }
+	
 	
 	@RequestMapping(value = "/boardDisplay/{bno}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int bno) throws IOException {

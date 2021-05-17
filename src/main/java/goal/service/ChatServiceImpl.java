@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goal.mapper.ChatMapper;
 import goal.mapper.UserMapper;
+import goal.vo.ChatVO;
 import goal.vo.FriendVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
@@ -29,7 +30,7 @@ public class ChatServiceImpl implements ChatService{
 	private ChatMapper mapper;
 	
 	@Override
-	public List<FriendVO> findFriendList(UserVO vo) {
+	public List<ChatVO> findFriendList(UserVO vo) {
 		
 		return mapper.chatFriendList(vo);
 		
