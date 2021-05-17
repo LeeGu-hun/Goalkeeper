@@ -15,5 +15,6 @@ public interface UserService {
 	String checkId(String userId);
 	UserVO getUser(UserVO vo);
 	void modify(UserVO vo);
+	public int idCheck(String memberId) throws Exception;
 
 }
