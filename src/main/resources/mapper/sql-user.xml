@@ -47,7 +47,13 @@
       ]]>
    </select>
    
-   
+   <!-- 아이디 중복검사 -->
+     <select id="idCheck" resultType="int">
+     <![CDATA[
+        select userId from GK_USER
+      where userId = #{userId} and userPw= #{userPw}
+     ]]>
+     </select>
    
 	<!-- <select id="getReply" parameterType="goal.vo.ReplyVO" resultMap="replyVO">	
      <![CDATA[

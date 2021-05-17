@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -71,18 +72,37 @@ public class HomeController {
 	private int count = 0;
 
 	@RequestMapping(value={"/home", "/"})
-	   public ModelAndView openNewsFeed(HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/newsFeed");      
-	      mv = getHome(mv, request);
-	      
-	       UserVO user = commonService.getLoginUser(request);
-	       if(user!=null) {
-	          List<FriendVO> friendlist = chatService.findFriendList(user);
-	          mv.addObject("friendlist", friendlist);          
-	       }
-	       
-	      return mv;
-	   }
+    public ModelAndView openNewsFeed(HttpServletRequest request) {
+       ModelAndView mv = new ModelAndView("view/home/newsFeed");      
+       mv = getHome(mv, request);
+       HttpSession session = request.getSession(true);
+       
+       
+        UserVO user = commonService.getLoginUser(request);
+        if(user!=null) {
+           List<FriendVO> friendlist = chatService.findFriendList(user);
+           UserVO user1 = (UserVO) session.getAttribute("user");
+           mv.addObject("user", user1);
+           mv.addObject("friendlist", friendlist);          
+        }
+        
+       return mv;
+    }
+ 
+ 
+ @PostMapping("/memberIdChk")
+ @ResponseBody
+ public String memberIdChkPOST(String memberId) throws Exception{
+    
+    int result = userService.idCheck(memberId);
+
+    if(result != 0) {
+       return "fail";   // 중복 아이디가 존재   
+    } else {
+       return "success";   // 중복 아이디 x
+    }
+ }
+
 
 	@PostMapping("/count_file")
 	public String getbno(@RequestParam int bno, RedirectAttributes rttr, HttpServletRequest request) {

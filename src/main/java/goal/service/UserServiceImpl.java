@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService{
 	public void modify(UserVO vo) {
 		mapper.modifyUserInfo(vo);
 	}
+	@Override
+	   public int idCheck(String memberId) throws Exception {
+	      
+	      return mapper.idCheck(memberId);
+	   }
 
 }
 
