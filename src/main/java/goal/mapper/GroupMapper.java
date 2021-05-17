@@ -25,6 +25,7 @@ public interface GroupMapper {
 	int findGnobyName(String g_name);
 	int countGoalbyId(int gno);
 	void insertGroupJoin(GroupJoinVO join);
+	void updateBgiCheck(String bgi_check);
 	List<GroupJoinVO> selectGroupJoin(int gno);
 	void removeGroupJoin(GroupJoinVO join);
 }

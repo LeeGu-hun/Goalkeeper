@@ -14,5 +14,6 @@ public class GroupVO {
 	private String g_name, g_intro, g_open, g_cate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date g_date, g_goaldate;
+	private String file_check, bgi_check;
 	private List<GroupUserVO> groupUser;
 }

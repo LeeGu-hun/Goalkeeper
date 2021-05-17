@@ -12,5 +12,5 @@ public interface ReplyService {
 	
 	List<ReplyVO> getMainReply();
 	List<ReplyVO> getDetailMainReply(int bno);
-	void insertReply(ReplyVO vo);
+	int insertReply(ReplyVO replyVO);
 }

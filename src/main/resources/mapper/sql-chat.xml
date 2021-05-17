@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goal.mapper.ChatMapper">
-	<resultMap type="goal.vo.FriendVO" id="friendVO">
-		<id property="fno" column="fno"></id>
+	<resultMap type="goal.vo.ChatVO" id="chatVO">
+		<id property="userId" column="userId"></id>
 		<id property="uno" column="uno"></id>
 		<id property="friendNo" column="friendNo"></id>
-		<id property="friendName" column="friendName"></id>
-		<id property="friendNumber" column="friendNumber"></id>
-		<id property="friendBirthdate" column="friendBirthdate"></id>
 	</resultMap>
 	
-	<select id="chatFriendList" resultMap="friendVO" parameterType="goal.vo.UserVO">
-		select * from GK_FRIEND where uno = #{uno}
+	<select id="chatFriendList" resultMap="chatVO" parameterType="goal.vo.UserVO">
+		select  F.uno, F.friendNo, U.userId from GK_FRIEND F left outer join  GK_user U  on F.friendNo = U.uno where F.uno = #{uno}
 	</select>
 	
 	

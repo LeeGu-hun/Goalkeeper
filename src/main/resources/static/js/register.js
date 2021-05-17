@@ -52,10 +52,25 @@ window.onload = function() {
 $('#userId').on("propertychange change keyup paste input", function(){
 
 	console.log("keyup 테스트");	
-	var memberId = $('#userId').val();			// .id_input에 입력되는 값
-	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-	
 
+			$.ajax({
+				url : "/memberIdChk",
+				type : "post",
+				dataType : "json",
+				data : {"userId" : $("#userId").val()},
+				success : function(data){
+					if(data == 1){
+						$('.id_input_re_2').css("display","inline-block");
+						$('.id_input_re_1').css("display", "none");	
+						$("#doSignUp").attr("disabled", "disabled");
+					}else if(data == 0){
+						$("#doSignUp").removeAttr("disabled");
+						$('.id_input_re_1').css("display","inline-block");
+						$('.id_input_re_2').css("display", "none");	
+					}
+				}
+			})
+		
 
 });
 
