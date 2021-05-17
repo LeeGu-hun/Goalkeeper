@@ -202,7 +202,7 @@ function commentList(){
     $.ajax({
         url : '/replylist',
         type : 'post',
-        data : {'300':bno},
+        data : $('#commentInsertForm').serialize(),
         success : function(data){
             var a =''; 
             $.each(data, function(key, value){ 

@@ -102,7 +102,6 @@ public class HomeController {
     }
 	
 	
-	
  
 	@RequestMapping("/Search")
 	   public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {

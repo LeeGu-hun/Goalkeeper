@@ -1917,11 +1917,12 @@
 				<!-- /POST OPTIONS -->
 				<!-- reply -->
 					<div style="height:150px" th:each="reply:${reply}" >
+					<form id="commentInsertForm" name="commentInsertForm">
 					  <div class="container">
         				<div class="commentList"></div>
     				  </div>
 
-					<form name="commentInsertForm">
+					
 			            <div class="input-group">
 			               <input type="hidden" name="bno" value="${post.bno}"/>
 			               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
