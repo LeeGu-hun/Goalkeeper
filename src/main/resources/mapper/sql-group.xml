@@ -10,6 +10,7 @@
 		<id property="g_intro" column="g_intro"/>
 		<id property="g_cate" column="g_cate"/>
 		<id property="g_open" column="g_open"/>
+		<collection column="gno" property="groupUser" javaType="List" ofType="goal.vo.GroupUserVO" select="getGroupUser"/>
 	</resultMap>
 	<resultMap type="goal.vo.GroupJoinVO" id="groupJoinVO">
 		<id property="gno" column="gno"/>
@@ -17,6 +18,9 @@
 		<id property="join_date" column="join_date"/>
 		<id property="userName" column="userName"/>
 	</resultMap>
+	<select id="getGroupUser" resultType="goal.vo.GroupUserVO">
+		SELECT * FROM gk_group_user where gno=#{gno}
+	</select>
 	<select id="selectGroupList" parameterType="goal.vo.UserVO" resultMap="groupVO">
 		<![CDATA[
 			SELECT * FROM GK_ALLGROUP WHERE UNO=#{uno} ORDER BY gno DESC
