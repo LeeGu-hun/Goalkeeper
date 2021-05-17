@@ -43,12 +43,12 @@
 
   <!-- NAVIGATION WIDGET -->
   <nav id="navigation-widget-small" class="navigation-widget navigation-widget-desktop closed sidebar left delayed">
-    <!-- USER AVATAR -->
-    <a class="user-avatar small no-outline online" href="/myPage">
+    <!-- 로그아웃 왼쪽 메뉴 프로필 사진 -->
+    <a th:unless="${user!=null}" class="user-avatar small no-outline online" href="/login">
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+        <div class="hexagon-image-30-32" data-src=""></div>
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
@@ -68,30 +68,34 @@
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR PROGRESS BORDER -->
-  
-      <!-- USER AVATAR BADGE -->
-      <div class="user-avatar-badge">
-        <!-- USER AVATAR BADGE BORDER -->
-        <div class="user-avatar-badge-border">
-          <!-- HEXAGON -->
-          <div class="hexagon-22-24"></div>
-          <!-- /HEXAGON -->
-        </div>
-        <!-- /USER AVATAR BADGE BORDER -->
-  
-        <!-- USER AVATAR BADGE CONTENT -->
-        <div class="user-avatar-badge-content">
-          <!-- HEXAGON -->
-          <div class="hexagon-dark-16-18"></div>
-          <!-- /HEXAGON -->
-        </div>
-        <!-- /USER AVATAR BADGE CONTENT -->
-  
-        <!-- USER AVATAR BADGE TEXT -->
-        <p class="user-avatar-badge-text">24</p>
-        <!-- /USER AVATAR BADGE TEXT -->
+
+    </a>
+    <!-- 로그인 후, 왼쪽 프로필 사진 -->
+    <a th:if="${user!=null}" class="user-avatar small no-outline online" href="/myPage">
+      <!-- USER AVATAR CONTENT -->
+      <div class="user-avatar-content">
+        <!-- HEXAGON -->
+        <div class="hexagon-image-30-32" th:attr="data-src=@{/profile/}+${user.uno}"></div>
+        <!-- /HEXAGON -->
       </div>
-      <!-- /USER AVATAR BADGE -->
+      <!-- /USER AVATAR CONTENT -->
+  
+      <!-- USER AVATAR PROGRESS -->
+      <div class="user-avatar-progress">
+        <!-- HEXAGON -->
+        <div class="hexagon-progress-40-44"></div>
+        <!-- /HEXAGON -->
+      </div>
+      <!-- /USER AVATAR PROGRESS -->
+  
+      <!-- USER AVATAR PROGRESS BORDER -->
+      <div class="user-avatar-progress-border">
+        <!-- HEXAGON -->
+        <div class="hexagon-border-40-44"></div>
+        <!-- /HEXAGON -->
+      </div>
+      <!-- /USER AVATAR PROGRESS BORDER -->
+
     </a>
     <!-- /USER AVATAR -->
 
@@ -187,8 +191,9 @@
 
     <!-- USER SHORT DESCRIPTION -->
     <div class="user-short-description">
-      <!-- USER SHORT DESCRIPTION AVATAR -->
-      <a class="user-short-description-avatar user-avatar medium" href="profile-timeline.html">
+    
+      <!-- 로그아웃 왼쪽 상세보기 프로파일 사진 -->
+      <a th:unless="${user!=null}" class="user-short-description-avatar user-avatar medium" href="/login">
         <!-- USER AVATAR BORDER -->
         <div class="user-avatar-border">
           <!-- HEXAGON -->
@@ -200,7 +205,41 @@
         <!-- USER AVATAR CONTENT -->
         <div class="user-avatar-content">
           <!-- HEXAGON -->
-          <div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
+          <div class="hexagon-image-82-90" ></div>
+          <!-- /HEXAGON -->
+        </div>
+        <!-- /USER AVATAR CONTENT -->
+    
+        <!-- USER AVATAR PROGRESS -->
+        <div class="user-avatar-progress">
+          <!-- HEXAGON -->
+          <div class="hexagon-progress-100-110"></div>
+          <!-- /HEXAGON -->
+        </div>
+        <!-- /USER AVATAR PROGRESS -->
+    
+        <!-- USER AVATAR PROGRESS BORDER -->
+        <div class="user-avatar-progress-border">
+          <!-- HEXAGON -->
+          <div class="hexagon-border-100-110"></div>
+          <!-- /HEXAGON -->
+        </div>
+        <!-- /USER AVATAR PROGRESS BORDER -->
+      </a>
+      <!-- 로그인 후 왼쪽 상세보기 프로필 사진 -->
+      <a th:if="${user!=null}"class="user-short-description-avatar user-avatar medium" href="/myPage">
+        <!-- USER AVATAR BORDER -->
+        <div class="user-avatar-border">
+          <!-- HEXAGON -->
+          <div class="hexagon-120-132"></div>
+          <!-- /HEXAGON -->
+        </div>
+        <!-- /USER AVATAR BORDER -->
+    
+        <!-- USER AVATAR CONTENT -->
+        <div class="user-avatar-content">
+          <!-- HEXAGON -->
+          <div class="hexagon-image-82-90" th:attr="data-src=@{/profile/}+${user.uno}"></div>
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
@@ -238,21 +277,28 @@
             <!-- /HEXAGON -->
           </div>
           <!-- /USER AVATAR BADGE CONTENT -->
-    
-          <!-- USER AVATAR BADGE TEXT -->
-          <p class="user-avatar-badge-text">24</p>
-          <!-- /USER AVATAR BADGE TEXT -->
+      
         </div>
         <!-- /USER AVATAR BADGE -->
       </a>
       <!-- /USER SHORT DESCRIPTION AVATAR -->
 
       <!-- USER SHORT DESCRIPTION TITLE -->
-      <p class="user-short-description-title"><a href="profile-timeline.html">Marina Valentine</a></p>
+      <p th:unless="${user!=null}" class="user-short-description-title">
+      	<a  href="/login">로그인 하기</a>
+      </p>
+      <p th:if="${user!=null}" class="user-short-description-title">
+      	<a th:text="${user.userId}" href="/myPage"></a>
+      </p>
       <!-- /USER SHORT DESCRIPTION TITLE -->
 
       <!-- USER SHORT DESCRIPTION TEXT -->
-      <p class="user-short-description-text"><a href="#">www.gamehuntress.com</a></p>
+      <p th:if="${user!=null}" class="user-short-description-text">
+     	 <a th:text="${user.userMail}" href="/myPage"></a>
+      </p>
+      <p th:unless="${user!=null}" class="user-short-description-text">
+     	 <a></a>
+      </p>
       <!-- /USER SHORT DESCRIPTION TEXT -->
     </div>
     <!-- /USER SHORT DESCRIPTION -->
@@ -339,7 +385,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="/newsfeed">
+        <a class="menu-item-link" href="/home">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-newsfeed">
             <use xlink:href="#svg-newsfeed"></use>
@@ -353,8 +399,17 @@
 
       <!-- MENU ITEM -->
       <li class="menu-item">
-        <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="overview.html">
+        <!-- 로그아웃 -->
+        <a th:unless="${user!=null}"class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-overview">
+            <use xlink:href="#svg-overview"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+          Overview
+        </a>
+        <!-- 로그인 후 -->
+        <a th:if="${user!=null}"class="menu-item-link" href="overview.html">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
@@ -368,8 +423,17 @@
 
       <!-- MENU ITEM -->
       <li class="menu-item">
-        <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="/groups">
+        <!-- 로그아웃 -->
+        <a th:unless="${user!=null}" class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-group">
+            <use xlink:href="#svg-group"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+          Groups
+        </a>
+        <!-- 로그인 -->
+        <a th:if="${user!=null}"class="menu-item-link" href="/groups">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
@@ -383,8 +447,17 @@
 
       <!-- MENU ITEM -->
       <li class="menu-item">
-        <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="/members">
+        <!-- 로그아웃 -->
+        <a th:unless="${user!=null}"class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-members">
+            <use xlink:href="#svg-members"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+          Members
+        </a>
+        <!-- 로그인 후 -->
+        <a th:if="${user!=null}"class="menu-item-link" href="/members">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-members">
             <use xlink:href="#svg-members"></use>
@@ -452,16 +525,10 @@
             </div>
             <!-- /USER AVATAR BADGE BORDER -->
       
-            <!-- USER AVATAR BADGE CONTENT -->
-            <div class="user-avatar-badge-content">
-              <!-- HEXAGON -->
-              <div class="hexagon-dark-16-18"></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR BADGE CONTENT -->
+          
       
             <!-- USER AVATAR BADGE TEXT -->
-            <p class="user-avatar-badge-text">24</p>
+            <p class="user-avatar-badge-text">1211124</p>
             <!-- /USER AVATAR BADGE TEXT -->
           </div>
           <!-- /USER AVATAR BADGE -->
@@ -2460,13 +2527,13 @@
             <!-- USER STATUS -->
             <div class="user-status">
               <!-- USER STATUS AVATAR -->
-              <a class="user-status-avatar" href="profile-timeline.html">
+              <a class="user-status-avatar" href="/myPage">
                 <!-- USER AVATAR -->
                 <div class="user-avatar small no-outline">
                   <!-- USER AVATAR CONTENT -->
                   <div class="user-avatar-content">
                     <!-- HEXAGON -->
-                    <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+                    <div class="hexagon-image-30-32" th:attr="data-src=@{/profile/}+${user.uno}"></div>
                     <!-- /HEXAGON -->
                   </div>
                   <!-- /USER AVATAR CONTENT -->
@@ -2486,37 +2553,13 @@
                     <!-- /HEXAGON -->
                   </div>
                   <!-- /USER AVATAR PROGRESS BORDER -->
-              
-                  <!-- USER AVATAR BADGE -->
-                  <div class="user-avatar-badge">
-                    <!-- USER AVATAR BADGE BORDER -->
-                    <div class="user-avatar-badge-border">
-                      <!-- HEXAGON -->
-                      <div class="hexagon-22-24"></div>
-                      <!-- /HEXAGON -->
-                    </div>
-                    <!-- /USER AVATAR BADGE BORDER -->
-              
-                    <!-- USER AVATAR BADGE CONTENT -->
-                    <div class="user-avatar-badge-content">
-                      <!-- HEXAGON -->
-                      <div class="hexagon-dark-16-18"></div>
-                      <!-- /HEXAGON -->
-                    </div>
-                    <!-- /USER AVATAR BADGE CONTENT -->
-              
-                    <!-- USER AVATAR BADGE TEXT -->
-                    <p class="user-avatar-badge-text">24</p>
-                    <!-- /USER AVATAR BADGE TEXT -->
-                  </div>
-                  <!-- /USER AVATAR BADGE -->
                 </div>
                 <!-- /USER AVATAR -->
               </a>
               <!-- /USER STATUS AVATAR -->
           
               <!-- USER STATUS TITLE -->
-              <p class="user-status-title" th:text="'hi! '+${user.userId}"><span class="bold">Hi Marina!</span></p>
+              <p class="user-status-title" th:text="'hi! '+${user.userId}"></p>
               <!-- /USER STATUS TITLE -->
           
               <!-- USER STATUS TEXT -->
@@ -2532,7 +2575,7 @@
           <!-- /DROPDOWN NAVIGATION CATEGORY -->
       
           <!-- DROPDOWN NAVIGATION LINK -->
-          <a class="dropdown-navigation-link" href="/profileInfo">Profile Info</a>
+          <a class="dropdown-navigation-link" href="/profileInfo">Profile Modify</a>
           <!-- /DROPDOWN NAVIGATION LINK -->
       
           <!-- DROPDOWN NAVIGATION LINK -->

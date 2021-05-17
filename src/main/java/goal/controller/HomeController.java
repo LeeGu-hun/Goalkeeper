@@ -30,12 +30,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import goal.common.UserCommonDownload;
 import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.ChatService;
 import goal.service.CommonService;
 import goal.service.GroupService;
 import goal.service.ReplyService;
+import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.upload.BoardUpload;
 import goal.util.MediaUtils;
@@ -44,6 +46,7 @@ import goal.vo.BoardVO;
 import goal.vo.FriendVO;
 import goal.vo.GroupVO;
 import goal.vo.ReplyVO;
+import goal.vo.UserFileVO;
 import goal.vo.UserVO;
 
 @Controller
@@ -65,11 +68,19 @@ public class HomeController {
 	private BoardUpload boardUpload;
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private UserFileService userFileService;
 
 	private String referer = null;
 	
 	private int bno = 0;
 	private int count = 0;
+	
+	private UserCommonDownload commonDownload = new UserCommonDownload();
+	
+	MediaUtils mediaUtils = new MediaUtils();
+    InputStream in = null;
+    ResponseEntity<byte[]> entity = null;
 
 	@RequestMapping(value={"/home", "/"})
     public ModelAndView openNewsFeed(HttpServletRequest request) {
@@ -201,5 +212,10 @@ public class HomeController {
 		}
 		return mv;
 	}
-	
+	@RequestMapping(value="/home/{uno}", method=RequestMethod.GET)
+	   public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
+	       UserFileVO userFile = userFileService.selectFile(uno);
+	       entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+	       return entity;
+	   }
 }
