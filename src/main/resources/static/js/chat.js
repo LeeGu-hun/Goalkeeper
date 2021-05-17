@@ -9,7 +9,7 @@ function setConnected(connected) {
     else {
         $("#conversation").hide();
     }
-    $(".simplebar-content-wrapper").html("");
+    $(".chat-widget-conversation").html("");
 }
 
 function connect() {
@@ -45,10 +45,10 @@ function sendChat() {
 }
 
 function showGreeting(message) {
-    $(".simplebar-content-wrapper").append("<tr><td>" + message + "</td></tr>");
+    $(".chat-widget-conversation").append("<tr><td>" + message + "</td></tr>");
 }
 function showChat(chat) {
-    $(".simplebar-content-wrapper").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
+    $(".chat-widget-conversation").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
 }
 
 $(function () {

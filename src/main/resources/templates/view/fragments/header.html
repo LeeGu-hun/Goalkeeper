@@ -110,11 +110,18 @@
         <!-- /MENU ITEM LINK -->
       </li>
       <!-- /MENU ITEM -->
-
+	
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="overview.html" data-title="Overview">
+        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');"class="menu-item-link text-tooltip-tfr"  data-title="Overview">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-overview">
+            <use xlink:href="#svg-overview"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+        </a>
+        <a th:if="${user!=null}" class="menu-item-link text-tooltip-tfr" href="overview.html" data-title="Overview">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-overview">
             <use xlink:href="#svg-overview"></use>
@@ -124,11 +131,17 @@
         <!-- /MENU ITEM LINK -->
       </li>
       <!-- /MENU ITEM -->
-
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="/groups" data-title="Groups">
+        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');" class="menu-item-link text-tooltip-tfr" data-title="Groups">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-group">
+            <use xlink:href="#svg-group"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+        </a>
+         <a th:if="${user!=null}" class="menu-item-link text-tooltip-tfr" href="/groups" data-title="Groups">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
@@ -142,7 +155,14 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a class="menu-item-link text-tooltip-tfr" href="/myFriends" data-title="Members">
+        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');"class="menu-item-link text-tooltip-tfr" data-title="Members">
+          <!-- MENU ITEM LINK ICON -->
+          <svg class="menu-item-link-icon icon-members">
+            <use xlink:href="#svg-members"></use>
+          </svg>
+          <!-- /MENU ITEM LINK ICON -->
+        </a>
+        <a th:if="${user!=null}" class="menu-item-link text-tooltip-tfr" href="/myFriends" data-title="Members">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-members">
             <use xlink:href="#svg-members"></use>
