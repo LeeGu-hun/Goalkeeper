@@ -57,7 +57,14 @@
 		
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
-
+			
+			if (document.getElementById("text").value == "" && 
+				document.getElementById("file").value == "") {
+					alert("범위를 설정해주세요.");
+					return false;
+					/*나중에모달추가*/
+			} 
+			
 			
 			if(!$('#file').val()){
 				$('#text').append("<input type='hidden' name='fileCheck' value='true'>");
@@ -65,12 +72,13 @@
 				$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 			}
 			
+		
 			$("#boardWrite").submit();
 			alert("저장되었습니다.");
 		});
 	
 		document.getElementById("bo_group").value;
-	
+/*사진업로드*/	
 		$(function() {
 			$("#photo").click(function() {
 				$(".backmodal").fadeIn();
@@ -86,7 +94,7 @@
 						$('div[name=picdiv]').length + " 장의 사진");
 			});
 		});	
-
+/*enter키 작동*/
 		function CheckEnter(frm, objName) {
 			var keycode = event.keyCode;
 			var i = 0;
@@ -99,6 +107,7 @@
 				frm[++i].focus();
 			}
 		}
+		
 
 		$("input[type='file']").change(function(e) {
 				if($('#file')[0].files.length > 5) {
@@ -161,6 +170,7 @@
 					});//arr.forEach
 		}
 		
+/*수정*/	
 		function fnEdit(bno){	
 			$('#'+bno).hide();
 			$('#modify'+bno).show();
@@ -176,11 +186,11 @@
 				$('#modify'+bno).hide();
 			});		
 		}
-	
+		
+/*삭제*/
 		function fnDelete(bno){
 
 				$('#delete_form'+bno).submit();
-	
 		}
 		
 		

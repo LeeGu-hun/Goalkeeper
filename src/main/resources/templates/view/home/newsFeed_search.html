@@ -14,7 +14,6 @@
 <!-- favicon -->
 <link rel="icon" href="img/favicon.ico">
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
-
 <title>Vikinger | NewsFeeds</title>
 </head>
 <body>
@@ -1235,7 +1234,7 @@
 			<!-- /SIMPLE TAB ITEMS -->
 
 			<!-- WIDGET BOX -->
-			<div th:each="post, i:${BoList}" class="widget-box no-padding">
+			<div th:each="post, i:${searchlist}" class="widget-box no-padding">
 				<form th:attr="id='delete_form'+${post.bno}" method="post" enctype="multipart/form-data" 
 						action="/board/delete.do">
 					<input type="hidden" th:value="${post.bno}" name="bno"> 
@@ -1911,29 +1910,7 @@
 					<!-- /POST OPTION -->
 				</div>
 				<!-- /POST OPTIONS -->
-				<!-- reply -->
-					<div style="height:150px" th:each="reply:${reply}" th:if="${post.bno} == ${reply.bno}">
-					  <div style="width:150px; background-color:pink; float:left; height:100px"  >
-					  <p th:text="${reply.replyWriter}"></p>
-					  </div>
-					  <div style="width:470px; background-color:red; float:right; height:100px"  >
-					  <p th:text="${reply.replyContent}"></p>
-					  </div> 
-				<form name="commentInsertForm">
-		            <div class="input-group">
-		               <input type="hidden" name="bno" value="${post.bno}"/>
-		               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-		               <span class="input-group-btn">
-		               		<button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
-		               </span>
-		              </div>
-       			 </form>
-
-        		</div>
-        		
-        		<!-- /reply -->
 			</div>
-			
 			<!-- /WIDGET BOX -->
 
 
