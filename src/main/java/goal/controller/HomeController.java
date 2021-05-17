@@ -43,6 +43,7 @@ import goal.upload.BoardUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.FriendVO;
 import goal.vo.GroupVO;
 import goal.vo.ReplyVO;
@@ -82,7 +83,7 @@ public class HomeController {
     InputStream in = null;
     ResponseEntity<byte[]> entity = null;
 
-	@RequestMapping(value={"/home", "/"})
+    @RequestMapping(value={"/home", "/"})
     public ModelAndView openNewsFeed(HttpServletRequest request) {
        ModelAndView mv = new ModelAndView("view/home/newsFeed");      
        mv = getHome(mv, request);
@@ -91,7 +92,7 @@ public class HomeController {
        
         UserVO user = commonService.getLoginUser(request);
         if(user!=null) {
-           List<FriendVO> friendlist = chatService.findFriendList(user);
+           List<ChatVO> friendlist = chatService.findFriendList(user);
           
            mv.addObject("user", user);
            mv.addObject("friendlist", friendlist);          
@@ -99,6 +100,9 @@ public class HomeController {
         
        return mv;
     }
+	
+	
+	
  
 	@RequestMapping("/Search")
 	   public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
@@ -108,9 +112,7 @@ public class HomeController {
 	      if (user != null) {
 	         List<BoardVO> boardlist = boardService.searchBoard(vo);
 	         mv.addObject("searchlist", boardlist);
-	         List<FriendVO> friendlist = chatService.findFriendList(user); 
-	           mv.addObject("user", user);
-	           mv.addObject("friendlist", friendlist); 
+	         mv.addObject("user", user);
 	      }
 	      return mv;
 	   }

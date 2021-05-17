@@ -1,3 +1,4 @@
+/*글범위*/
 		function alltext() {
 			document.getElementById("text").value = '';
 			document.getElementById("alltext").setAttribute("class",
@@ -49,12 +50,7 @@
 		
 		$("#group_form").hide();
 		
-		$('#edit_btn').click(function(e){
-			e.preventDefault();
-			$('#modify_form').submit();
-			alert("수정완료");
-		});
-		
+/*글업로드*/
 		$('#btnInsert').click(function(e) {
 			e.preventDefault();
 			
@@ -193,8 +189,47 @@
 				$('#delete_form'+bno).submit();
 		}
 		
-		
-		
+/*댓글*/	
+var bno = '300';
+
+$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+    commentInsert(insertData); //Insert 함수호출(아래)
+});
+
+
+function commentList(){
+    $.ajax({
+        url : '/replylist',
+        type : 'post',
+        data : {'300':bno},
+        success : function(data){
+            var a =''; 
+            $.each(data, function(key, value){ 
+                a += '<h1>'+'테스트중'+'</h1>';
+            });
+            
+            $(".commentList").html(a);
+        }
+    });
+}
+ 
+/*댓글 등록*/
+function commentInsert(insertData){
+    $.ajax({
+        url : 'replyinsert',
+        type : 'post',
+        data : insertData,
+        success : function(data){
+            if(data == 1) {
+                commentList(); //댓글 작성 후 댓글 목록 reload
+                $('[name=content]').val('');
+            }
+        }
+    });
+}
+
+
 		
 		
 		

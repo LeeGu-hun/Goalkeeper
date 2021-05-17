@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,7 +108,13 @@ public class BoardController {
 		return "redirect:/home";
 	}
 	
-	@RequestMapping("/insert") //댓글 작성 
+	@RequestMapping("/replylist") //댓글 리스트
+    @ResponseBody
+    private List<ReplyVO> replyList(Model model) throws Exception{
+        return replyService.getMainReply();
+    }
+	
+	@RequestMapping("/replyinsert") //댓글 작성 
     @ResponseBody
     private int mCommentServiceInsert(@RequestParam int bno, @RequestParam String content, HttpServletRequest request) throws Exception{
 		UserVO user = commonService.getLoginUser(request);
