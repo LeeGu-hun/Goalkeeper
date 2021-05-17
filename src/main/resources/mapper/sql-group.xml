@@ -61,7 +61,7 @@
 		)
 	</insert>
 	<update id="updateBgiCheck" parameterType="String">
-		update into gk_group_bgi
+		update gk_allgroup
 		set bgi_check=#{bgi_check}
 	</update>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">

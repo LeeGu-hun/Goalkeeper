@@ -115,11 +115,11 @@ public class GroupController {
 		group.setUno(user.getUno());
 		group.setBgi_check("N");
 		if(fileCheck.equals("false")) {
+			group.setFile_check("Y");
+			groupService.createGroup(group, groups);
 			groupFile = groupUpload.requestSingleUpload(multi, groupFile);
 			groupFile.setGno(group.getGno());
 			groupFileService.insertGroupFile(groupFile);
-			group.setFile_check("Y");
-			groupService.createGroup(group, groups);
 		} else {
 			group.setFile_check("N");
 			groupService.createGroup(group, groups);
