@@ -40,6 +40,7 @@ import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.GroupBgiVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
@@ -107,15 +108,22 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/group_create")
-	public String createGroup(GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
+	public String createGroup(@RequestParam String fileCheck, GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();
 		UserVO user = commonService.getLoginUser(request);
 		groups.setUno(user.getUno());
 		group.setUno(user.getUno());
-		groupService.createGroup(group, groups);
-		groupFile = groupUpload.requestSingleUpload(multi);
-		groupFileService.insertGroupFile(group, groupFile);
-		
+		group.setBgi_check("N");
+		if(fileCheck.equals("false")) {
+			group.setFile_check("Y");
+			groupService.createGroup(group, groups);
+			groupFile = groupUpload.requestSingleUpload(multi, groupFile);
+			groupFile.setGno(group.getGno());
+			groupFileService.insertGroupFile(groupFile);
+		} else {
+			group.setFile_check("N");
+			groupService.createGroup(group, groups);
+		}
 		return "redirect:/groups";
 	}
 	@PostMapping("group_join")
@@ -222,10 +230,9 @@ public class GroupController {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		referer = request.getHeader("REFERER");
-		mv = getManageJoin(mv, user);
+		mv = getManageJoin(mv, user, gno);
 		List<GroupJoinVO> groupJoin = groupService.getGroupJoin(gno);
 		mv.addObject("joinList", groupJoin);
-		mv.addObject("gno", gno);
 		return mv;
 	}
 	@GetMapping("/group_mgGoal/{gno}")
@@ -235,13 +242,57 @@ public class GroupController {
 		UserVO user = commonService.getLoginUser(request);
 		List<GroupGoalVO> groupGoal = groupService.getGoalbyId(gno);
 		mv.addObject("groupGoal", groupGoal);
-		mv = getManageJoin(mv, user);
+		mv = getManageJoin(mv, user, gno);
 		return mv;
+	}
+	@GetMapping("/group_mgSetting/{gno}")
+	public ModelAndView openManageSetting(@PathVariable("gno") int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("/view/group/group_mgSetting");
+		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		mv = getManageJoin(mv, user, gno);
+		return mv;
+	}
+	@PostMapping("/group_addGoal")
+	public String addGoal(GroupGoalVO groupGoal) {
+		groupService.insertGoal(groupGoal);
+		return "redirect:/group_addGoal/" + groupGoal.getGno();
+	}
+	@PostMapping("/group_modifyProfile")
+	public String modifyProfile(GroupFileVO groupFile, MultipartHttpServletRequest multi) {
+		int count = groupFileService.checkFilebyGno(groupFile.getGno());
+		if(count > 0) {
+			groupFile = groupUpload.requestSingleUpload(multi, groupFile);
+			groupFileService.updateGroupFile(groupFile);
+		} else {
+			groupFile = groupUpload.requestSingleUpload(multi, groupFile);
+			groupFileService.insertGroupFile(groupFile);
+		}
+		return "redirect:/group_mgSetting/" + groupFile.getGno();
+	}
+	@PostMapping("/group_modifyBgi")
+	public String modifyBgi(GroupBgiVO groupBgi, MultipartHttpServletRequest multi) {
+		int count = groupFileService.checkBgibyGno(groupBgi.getGno());
+		if(count > 0) {
+			groupBgi = groupUpload.requestBackgroundUpload(multi, groupBgi);
+			groupFileService.updateGroupBgi(groupBgi);	
+		} else {
+			groupBgi = groupUpload.requestBackgroundUpload(multi, groupBgi);
+			groupService.updateBgiCheck("Y");
+			groupFileService.insertGroupBgi(groupBgi);
+		}
+		return "redirect:/group_mgSetting/" + groupBgi.getGno();
 	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 	    GroupFileVO groupFile = groupFileService.selectFile(gno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getG_filename(), groupFile.getG_fid(), groupFile.getG_filepath());
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupFile.getG_filename(), groupFile.getG_fid(), groupFile.getG_filepath());	    	
+	    return entity;
+	}
+	@RequestMapping(value="/background/{gno}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> backgroundImage(@PathVariable int gno) throws IOException{
+	    GroupBgiVO groupBgi = groupFileService.selectBgi(gno);
+	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, groupBgi.getFileName(), groupBgi.getUuid(), groupBgi.getFilePath());
 	    return entity;
 	}
 	@RequestMapping(value="/boardImage/{uuid}", method=RequestMethod.GET)
@@ -252,9 +303,9 @@ public class GroupController {
 	}
 	@GetMapping("/back")
 	public String backSite(HttpServletRequest request) {
-		return "redirect:" + referer;
+		return "redirect:/groups";
 	}
-	private ModelAndView getManageJoin(ModelAndView mv, UserVO user) {
+	private ModelAndView getManageJoin(ModelAndView mv, UserVO user, int gno) {
 		if(user!=null) {
 			GroupUserVO groupUser = new GroupUserVO();
 			groupUser.setGno(this.gno);
@@ -267,7 +318,8 @@ public class GroupController {
 			}else {
 				mv.addObject("result", "joinDinied");
 			}
-		}	
+		}
+		mv.addObject("gno", gno);
 		return mv;
 	}
 	private ModelAndView getGroupUser(int gno, ModelAndView mv) {

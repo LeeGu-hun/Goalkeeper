@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.GroupFileMapper;
+import goal.vo.GroupBgiVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
 
@@ -16,9 +17,33 @@ public class GroupFileServiceImpl implements GroupFileService{
 	private GroupFileMapper groupFileMapper;
 	
 	@Override
-	public void insertGroupFile(GroupVO group, GroupFileVO groupFile) {
-		groupFile.setGno(group.getGno());
+	public void insertGroupFile(GroupFileVO groupFile) {
 		groupFileMapper.insertGroupFile(groupFile);
+	}
+	
+	@Override
+	public void insertGroupBgi(GroupBgiVO groupBgi) {
+		groupFileMapper.insertGroupBgi(groupBgi);
+	}
+	
+	@Override
+	public void updateGroupFile(GroupFileVO groupFile) {
+		groupFileMapper.updateGroupFile(groupFile);
+	}
+
+	@Override
+	public void updateGroupBgi(GroupBgiVO groupBgi) {
+		groupFileMapper.updateGroupBgi(groupBgi);
+	}
+
+	@Override
+	public int checkFilebyGno(int gno) {
+		return groupFileMapper.checkFilebyGno(gno);
+	}
+	
+	@Override
+	public int checkBgibyGno(int gno) {
+		return groupFileMapper.checkBgibyGno(gno);
 	}
 
 	@Override
@@ -35,6 +60,11 @@ public class GroupFileServiceImpl implements GroupFileService{
 	@Override
 	public GroupFileVO selectFile(int gno) {
 		return groupFileMapper.selectFile(gno);
+	}
+
+	@Override
+	public GroupBgiVO selectBgi(int gno) {
+		return groupFileMapper.selectBgi(gno);
 	}
 	
 }

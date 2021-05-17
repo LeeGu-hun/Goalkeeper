@@ -102,6 +102,11 @@ public class GroupServiceImpl implements GroupService{
 	public void insertGroupJoin(GroupJoinVO join) {
 		groupMapper.insertGroupJoin(join);
 	}
+	
+	@Override
+	public void updateBgiCheck(String bgi_check) {
+		groupMapper.updateBgiCheck(bgi_check);
+	}
 
 	@Override
 	public List<GroupJoinVO> getGroupJoin(int gno) {

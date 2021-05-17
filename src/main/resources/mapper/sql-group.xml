@@ -10,6 +10,8 @@
 		<id property="g_intro" column="g_intro"/>
 		<id property="g_cate" column="g_cate"/>
 		<id property="g_open" column="g_open"/>
+		<id property="file_check" column="file_check"/>
+		<id property="bgi_check" column="bgi_check"/>
 		<collection column="gno" property="groupUser" javaType="List" ofType="goal.vo.GroupUserVO" select="getGroupUser"/>
 	</resultMap>
 	<resultMap type="goal.vo.GroupJoinVO" id="groupJoinVO">
@@ -53,11 +55,15 @@
 		</selectKey>
 		insert into
 		GK_ALLGROUP(gno, uno, g_name, g_intro, g_date, g_cate,
-		g_open) values
+		g_open, file_check, bgi_check) values
 		(GK_ALLGROUP_SEQ.currval, #{uno}, #{g_name},
-		#{g_intro}, sysdate, #{g_cate}, #{g_open}
+		#{g_intro}, sysdate, #{g_cate}, #{g_open}, #{file_check}, 'N'
 		)
 	</insert>
+	<update id="updateBgiCheck" parameterType="String">
+		update gk_allgroup
+		set bgi_check=#{bgi_check}
+	</update>
 	<insert id="insertGroupFile" parameterType="goal.vo.GroupFileVO">
 		insert into
 		GK_GROUP_PROFILE(g_fid, g_filename, g_filepath, gno) values
