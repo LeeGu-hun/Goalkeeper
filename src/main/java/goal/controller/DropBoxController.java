@@ -182,7 +182,7 @@ public class DropBoxController {
 	    return entity;
 	}
 	
-	@RequestMapping(value="/background/{uno}", method=RequestMethod.GET)
+	@RequestMapping(value="/backgroundProfile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
 	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
