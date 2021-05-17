@@ -52,25 +52,6 @@ window.onload = function() {
 $('#userId').on("propertychange change keyup paste input", function(){
 
 	console.log("keyup 테스트");	
-	/*var memberId = $('#userId').val();			// .id_input에 입력되는 값
-	var data = {userId : userId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
-	$.ajax({
-		type : "post",
-		url : "/member/memberIdChk",
-		data : data,
-		success : function(result){
-		if(data == 1){
-			alert("중복된 아이디입니다.");
-					
-		} else {
-			alert("사용가능한 아이디입니다.");
-			$('.id_input_re_2').css("display","inline-block");
-			$('.id_input_re_1').css("display", "none");				
-		}
-		
-		}// success 종료
-	}); // ajax 종료*/
-	
 
 			$.ajax({
 				url : "/memberIdChk",
@@ -80,8 +61,10 @@ $('#userId').on("propertychange change keyup paste input", function(){
 				success : function(data){
 					if(data == 1){
 						$('.id_input_re_2').css("display","inline-block");
-						$('.id_input_re_1').css("display", "none");		
+						$('.id_input_re_1').css("display", "none");	
+						$("#doSignUp").attr("disabled", "disabled");
 					}else if(data == 0){
+						$("#doSignUp").removeAttr("disabled");
 						$('.id_input_re_1').css("display","inline-block");
 						$('.id_input_re_2').css("display", "none");	
 					}

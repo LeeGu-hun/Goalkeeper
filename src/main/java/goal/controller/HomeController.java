@@ -100,7 +100,20 @@ public class HomeController {
        return mv;
     }
  
- 
+	@RequestMapping("/Search")
+	   public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
+	      ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
+	      mv = getHome(mv, request);
+	      UserVO user = commonService.getLoginUser(request);
+	      if (user != null) {
+	         List<BoardVO> boardlist = boardService.searchBoard(vo);
+	         mv.addObject("searchlist", boardlist);
+	         List<FriendVO> friendlist = chatService.findFriendList(user); 
+	           mv.addObject("user", user);
+	           mv.addObject("friendlist", friendlist); 
+	      }
+	      return mv;
+	   }
 	@ResponseBody
 	@RequestMapping(value="/memberIdChk", method = RequestMethod.POST)
 	public int idChk(UserVO vo) throws Exception {
@@ -169,12 +182,13 @@ public class HomeController {
 	@PostMapping("/register")
 	public String insertUser(UserVO vo, Model model) {
 		String idCheck = userService.checkId(vo.getUserId());
+		
 		if (idCheck == null) {
 			userService.insertUser(vo);
-			return "redirect:/home";
+			return "redirect:/login";
 		} else {
 			model.addAttribute("msg", "중복된 아이디 입니다.");
-			return "redirect:/register";
+			return "redirect:/login";
 
 		}
 	}
