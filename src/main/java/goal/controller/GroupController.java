@@ -4,11 +4,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +40,7 @@ import goal.service.BoardService;
 import goal.service.CommonService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
+import goal.service.ReactService;
 import goal.upload.BoardUpload;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
@@ -44,9 +50,9 @@ import goal.vo.GroupBgiVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
-import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
+import goal.vo.ReactVO;
 import goal.vo.UserVO;
 import lombok.extern.log4j.Log4j;
 
@@ -70,7 +76,7 @@ public class GroupController {
 	private BoardFileService boardFileService;
 	
 	@Autowired
-	private BoardUpload boardUpload;
+	private ReactService reactService;
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	private CommonDownload commonDownload = new CommonDownload();
@@ -126,7 +132,7 @@ public class GroupController {
 		}
 		return "redirect:/groups";
 	}
-	@PostMapping("group_join")
+	@PostMapping("/group_join")
 	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
 		String referer = request.getHeader("referer");
 		UserVO user = commonService.getLoginUser(request);
@@ -143,15 +149,17 @@ public class GroupController {
 		UserVO user = commonService.getLoginUser(request);
 		this.gno = gno;
 		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
+		List<BoardFileVO> groupFile = groupService.findFilebyGroup(group);
 		if(user!=null) {
-			GroupUserVO groupUser = new GroupUserVO();
-			groupUser.setGno(gno);
-			groupUser.setUno(user.getUno());
-			int count = groupService.checkUserbyGroup(groupUser);
+			GroupUserVO checkUser = new GroupUserVO();
+			checkUser.setGno(gno);
+			checkUser.setUno(user.getUno());
+			int count = groupService.checkUserbyGroup(checkUser);
 			if(count==1) {
 				mv.addObject("result", "WriteSuccess");
 			} 
 		}	
+		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
 		mv = getGroupUser(gno, mv);
@@ -180,9 +188,9 @@ public class GroupController {
 			groupUser.setUno(user.getUno());
 			int count = groupService.checkUserbyGroup(groupUser);
 			if(count==1) {
-				mv.addObject("result", "JoinDenied");
+				mv.addObject("result", "joinDenied");
 			} else {
-				mv.addObject("result", "JoinSuccess");
+				mv.addObject("result", "joinSuccess");
 			}
 		}	
 		GroupVO group = groupService.getGroup(this.gno);
@@ -204,7 +212,7 @@ public class GroupController {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
 		mv = commonService.checkLoginUser(request, mv);
 		GroupVO group = groupService.getGroup(gno);
-		List<GroupUserNameVO> groupUser = groupService.findUserbyGroup(gno);
+		List<GroupUserVO> groupUser = groupService.findUserbyGroup(gno);
 		int count = groupService.countUserbyGroup(gno);
 		mv.addObject("group", group);
 		mv.addObject("groupUser", groupUser);
@@ -283,6 +291,22 @@ public class GroupController {
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
 	}
+	@RequestMapping(value="/group_react", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+	        produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ReactVO>> react(@RequestBody ReactVO react, HttpServletRequest requst) throws JSONException {
+		ReactVO reactCheck = reactService.findReactbyUser(react);
+		react.setReact_name("like");
+		if(reactCheck == null) {
+			reactService.insertReact(react);
+		} else if(reactCheck.getReact_name().equals(react.getReact_name())){
+			reactService.deleteReact(react);
+		} else {
+			reactService.updateReact(react);
+		}
+		List<ReactVO> reactList = reactService.findReactbyBno(react);
+		return new ResponseEntity<List<ReactVO>>(reactList,HttpStatus.OK);
+	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 	    GroupFileVO groupFile = groupFileService.selectFile(gno);
@@ -323,7 +347,7 @@ public class GroupController {
 		return mv;
 	}
 	private ModelAndView getGroupUser(int gno, ModelAndView mv) {
-		GroupUserNameVO groupUser = new GroupUserNameVO();
+		List<GroupUserVO> groupUser = groupService.findUserbyGroup(gno);
 		int userResult = groupService.countUserbyGroup(gno);
 		int goalResult = groupService.countGoalbyGroup(gno);
 		mv.addObject("goalCount", goalResult);

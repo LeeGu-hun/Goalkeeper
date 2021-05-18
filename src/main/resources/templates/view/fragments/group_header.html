@@ -10,8 +10,11 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header v2">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid">
+			<figure class="profile-header-cover liquid" th:if="${group.bgi_check}=='Y'">
 				<img th:attr="src=@{/background/}+${group.gno}" alt="cover-29">
+			</figure>
+			<figure class="profile-header-cover liquid" th:unless="${group.bgi_check}=='Y'">
+				<img src="../../img/group_baseBgi.png" alt="cover-29">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -27,11 +30,14 @@
 							<div class="hexagon-148-164"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
-						<div class="user-avatar-content">
+						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-124-136" th:attr="data-src=@{/display/}+${group.gno}"></div>
+							<div class="hexagon-image-100-110" th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
+						<div class="user-avatar-content" th:unless="${group.bgi_check}=='Y'">
+							<div class="hexagon-image-100-110" data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
 
@@ -44,11 +50,14 @@
 							<div class="hexagon-120-130"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
-						<div class="user-avatar-content">
+						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
 							<!-- HEXAGON -->
 							<div class="hexagon-image-100-110" th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
+						<div class="user-avatar-content" th:unless="${group.bgi_check}=='Y'">
+							<div class="hexagon-image-100-110" data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
 
@@ -97,7 +106,7 @@
 						<!-- /USER STAT TITLE -->
 
 						<!-- USER STAT TEXT -->
-						<p class="user-stat-text">members</p>
+						<p class="user-stat-text">멤버</p>
 						<!-- /USER STAT TEXT -->
 					</div>
 					<!-- /USER STAT -->
@@ -105,11 +114,11 @@
 					<!-- USER STAT -->
 					<div class="user-stat big">
 						<!-- USER STAT TITLE -->
-						<p class="user-stat-title">105</p>
+						<p class="user-stat-title" th:text="${group.boardCount}"></p>
 						<!-- /USER STAT TITLE -->
 
 						<!-- USER STAT TEXT -->
-						<p class="user-stat-text">posts</p>
+						<p class="user-stat-text">게시글</p>
 						<!-- /USER STAT TEXT -->
 					</div>
 					<!-- /USER STAT -->
@@ -117,11 +126,11 @@
 					<!-- USER STAT -->
 					<div class="user-stat big">
 						<!-- USER STAT TITLE -->
-						<p class="user-stat-title">7.3k</p>
+						<p class="user-stat-title">2</p>
 						<!-- /USER STAT TITLE -->
 
 						<!-- USER STAT TEXT -->
-						<p class="user-stat-text">visits</p>
+						<p class="user-stat-text">목표</p>
 						<!-- /USER STAT TEXT -->
 					</div>
 					<!-- /USER STAT -->

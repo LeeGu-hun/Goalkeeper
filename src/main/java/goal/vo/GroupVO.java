@@ -16,4 +16,5 @@ public class GroupVO {
 	private Date g_date, g_goaldate;
 	private String file_check, bgi_check;
 	private List<GroupUserVO> groupUser;
+	private int userCount, boardCount;
 }

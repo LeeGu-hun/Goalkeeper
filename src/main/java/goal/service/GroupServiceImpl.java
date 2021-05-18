@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import goal.mapper.BoardFileMapper;
 import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
 import goal.mapper.GroupUserMapper;
+import goal.vo.BoardFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
-import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -27,6 +29,9 @@ public class GroupServiceImpl implements GroupService{
 	
 	@Autowired
 	private BoardMapper boardMapper;
+	
+	@Autowired
+	private BoardFileMapper boardFileMapper;
 	
 	@Override
 	public void createGroup(GroupVO group, GroupUserVO groupUser) {
@@ -84,7 +89,7 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public List<GroupUserNameVO> findUserbyGroup(int gno) {
+	public List<GroupUserVO> findUserbyGroup(int gno) {
 		return groupUserMapper.findUserbyGroup(gno);
 	}
 
@@ -132,4 +137,10 @@ public class GroupServiceImpl implements GroupService{
 	public void removeGroupJoin(GroupJoinVO join) {
 		groupMapper.removeGroupJoin(join);
 	}
+
+	@Override
+	public List<BoardFileVO> findFilebyGroup(GroupVO group) {
+		return boardFileMapper.selectFilebyGroup(group);
+	}
+	
 }

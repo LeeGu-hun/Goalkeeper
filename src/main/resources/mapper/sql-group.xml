@@ -13,6 +13,8 @@
 		<id property="file_check" column="file_check"/>
 		<id property="bgi_check" column="bgi_check"/>
 		<collection column="gno" property="groupUser" javaType="List" ofType="goal.vo.GroupUserVO" select="getGroupUser"/>
+		<collection column="gno" property="userCount" javaType="int" ofType="int" select="countUser"/>
+		<collection column="g_name" property="boardCount" javaType="int" ofType="int" select="countBoard"/>
 	</resultMap>
 	<resultMap type="goal.vo.GroupJoinVO" id="groupJoinVO">
 		<id property="gno" column="gno"/>
@@ -22,6 +24,12 @@
 	</resultMap>
 	<select id="getGroupUser" resultType="goal.vo.GroupUserVO">
 		SELECT * FROM gk_group_user where gno=#{gno}
+	</select>
+	<select id="countUser" resultType="int">
+		SELECT count(*) FROM gk_group_user where gno=#{gno}
+	</select>
+	<select id="countBoard" resultType="int">
+		SELECT count(*) FROM gk_board where bo_group=#{g_name}
 	</select>
 	<select id="selectGroupList" parameterType="goal.vo.UserVO" resultMap="groupVO">
 		<![CDATA[
