@@ -108,25 +108,6 @@ public class BoardController {
 		return "redirect:/home";
 	}
 	
-	@RequestMapping("/replylist") //댓글 리스트
-    @ResponseBody
-    private List<ReplyVO> replyList(Model model) throws Exception{
-        return replyService.getMainReply();
-    }
-	
-	@RequestMapping("/replyinsert") //댓글 작성 
-    @ResponseBody
-    private int mCommentServiceInsert(@RequestParam int bno, @RequestParam String content, HttpServletRequest request) throws Exception{
-		UserVO user = commonService.getLoginUser(request);
-		
-        ReplyVO reply = new ReplyVO();
-        reply.setBno(bno);
-        reply.setReplyContent(content);
-        reply.setReplyWriter(user.getUserId());  
-        
-        return replyService.insertReply(reply);
-    }
-	
 	
 	@RequestMapping(value = "/boardDisplay/{bno}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int bno) throws IOException {
