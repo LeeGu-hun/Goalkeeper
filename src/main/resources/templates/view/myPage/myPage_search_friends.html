@@ -29,8 +29,11 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid">
+			<figure class="profile-header-cover liquid" th:if="${userBackFile}=='Y'">
 				<img th:src="@{/user/background/}+${uno}" alt="cover-01">
+			</figure>
+			<figure class="profile-header-cover liquid" th:unless="${userBackFile}=='Y'">
+				<img src="../../img/user_baseBack.png" alt="cover-01">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -51,7 +54,12 @@
 						<!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+							<figure th:if="${userFileCheck}=='Y'">
+								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+							</figure>
+							<figure th:unless="${userFileCheck}=='Y'">
+								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
+							</figure>
 							<!-- /HEXAGON -->
 						</div>
 						<!-- /USER AVATAR CONTENT -->
@@ -402,7 +410,7 @@
 						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
 					</figure>
 					<figure class="user-preview-cover liquid" th:unless="${u.userBackCheck}=='Y'">
-						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
+						<img src="../../img/user_baseBack.png" alt="cover-04">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 

@@ -9,6 +9,8 @@
 		<id property="userMail" column="userMail"/>
 		<id property="userPhone" column="userPhone"/>
 		<id property="userBirthdate" column="userBirthdate"/>
+		<id property="userFileCheck" column="userFileCheck"/>
+		<id property="userBackFile" column="userBackFile"/>
 	</resultMap>
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
 		SELECT * FROM GK_USER 

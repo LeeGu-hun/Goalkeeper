@@ -141,7 +141,10 @@ public class MyPageController {
 		
 		List<UserVO> list = searchFriendService.allUserList(vo);
 		mv.addObject("uno", vo.getUno());
-		mv.addObject("user", user);
+		mv.addObject("userId", vo.getUserId());
+		mv.addObject("userBirthdate", vo.getUserBirthdate());
+		mv.addObject("userFileCheck", vo.getUserFileCheck());
+		mv.addObject("userBackCheck", vo.getUserBackCheck());
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
 		
