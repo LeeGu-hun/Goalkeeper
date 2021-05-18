@@ -11,6 +11,8 @@
 		<id property="userMail" column="userMail"/>
 		<id property="userPhone" column="userPhone"/>
 		<id property="userBirthdate" column="userBirthdate"/>
+		<id property="userFileCheck" column="userFileCheck"/>
+		<id property="userBackFile" column="userBackFile"/>
 	</resultMap>
 	
 	<update id="modifyUserInfo" parameterType="goal.vo.UserVO">
@@ -61,4 +63,11 @@
       ]]>
    </select> -->
 	
+	<update id="profileCheck" parameterType="int">
+		update GK_USER set userFileCheck = 'Y' where uno = #{uno}
+	</update>
+	
+	<update id="backgroundCheck" parameterType="int">
+		update GK_USER set userBackCheck = 'Y' where uno = #{uno}
+	</update>
 </mapper>

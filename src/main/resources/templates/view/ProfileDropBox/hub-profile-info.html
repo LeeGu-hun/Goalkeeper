@@ -93,7 +93,12 @@
 										<!-- USER AVATAR CONTENT -->
 										<div class="user-avatar-content">
 											<!-- HEXAGON -->
-											<div class="hexagon-image-68-74" th:attr="data-src=@{/profile/}+${uno}"></div>
+											<figure th:if="${fileCheck}=='Y'">
+												<div class="hexagon-image-68-74" th:attr="data-src=@{/profile/}+${uno}"></div>
+											</figure>
+											<figure th:unless="${fileCheck}=='Y'">
+												<div class="hexagon-image-68-74" data-src="../../img/user_baseProfile.png"></div>
+											</figure>
 											<!-- /HEXAGON -->
 										</div>
 										<!-- /USER AVATAR CONTENT -->
@@ -231,7 +236,10 @@
 		</div>
 	</div>
 	</div>
-
+<script th:inline="javascript">
+	let msg = [[${fileCheck}]];
+	console.log([[${fileCheck}]]);
+</script>
 	<!-- app -->
 	<script src="../../js/modifyUserInfo.js" type="text/javascript"></script>
 	<script src="js/utils/app.js"></script>

@@ -20,6 +20,7 @@ public class UserVO {
 	private String userMail;
 	private String userPhone;
 	private String userFileCheck;
+	private String userBackCheck;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userBirthdate;

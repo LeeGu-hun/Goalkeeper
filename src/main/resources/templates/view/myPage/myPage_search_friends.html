@@ -398,7 +398,10 @@
 				<!-- USER PREVIEW -->
 				<div class="user-preview" th:each="u:${list}">
 					<!-- USER PREVIEW COVER -->
-					<figure class="user-preview-cover liquid">
+					<figure class="user-preview-cover liquid" th:if="${u.userBackCheck}=='Y'">
+						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
+					</figure>
+					<figure class="user-preview-cover liquid" th:unless="${u.userBackCheck}=='Y'">
 						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
@@ -417,7 +420,12 @@
 								</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${u.uno}"></div>
+									<figure th:if="${u.userFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${u.uno}"></div>
+									</figure>
+									<figure th:unless="${u.userFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" data-src="@{../../img/user_baseProfile.png"></div>
+									</figure>
 									<!-- /HEXAGON -->
 								</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
 								<div class="user-avatar-progress">

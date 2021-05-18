@@ -29,8 +29,11 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid">
+			<figure class="profile-header-cover liquid" th:if="${background}=='Y'">
 				<img th:src="@{/user/background/}+${uno}">
+			</figure>
+			<figure class="profile-header-cover liquid" th:unless="${background}=='Y'">
+				<img src="../../img/user_baseBack.png">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -48,7 +51,12 @@
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+							<figure th:if="${profile}=='Y'">
+								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+							</figure>
+							<figure th:unless="${profile}=='Y'">
+								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
+							</figure>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
 						<div class="user-avatar-progress">
@@ -396,9 +404,13 @@
 			<div class="grid grid-4-4-4 centered">
 				<!-- USER PREVIEW -->
 				<div class="user-preview" th:each="f:${list}">
+					<input type="hidden" th:value="f.friendNo" name="checkUser">
 					<!-- USER PREVIEW COVER -->
-					<figure class="user-preview-cover liquid">
+					<figure class="user-preview-cover liquid" th:if="${f.userBackCheck}=='Y'">
 						<img th:src="@{/user/background/}+${f.friendNo}" alt="사진 필요!!">
+					</figure>
+					<figure class="user-preview-cover liquid" th:unless="${f.userBackCheck}=='Y'">
+						<img src="../../img/user_baseBack.png" alt="사진 필요!!">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 
@@ -419,7 +431,12 @@
 								<!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
+									<figure th:if="${f.userFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
+									</figure>
+									<figure th:unless="${f.userFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
+									</figure>
 									<!-- /HEXAGON -->
 								</div>
 								<!-- /USER AVATAR CONTENT -->
