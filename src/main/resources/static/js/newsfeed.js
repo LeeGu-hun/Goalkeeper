@@ -190,7 +190,7 @@
 		}
 		
 /*댓글*/	
-var bno = '300';
+var bno = "${post.bno}";
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
@@ -202,7 +202,7 @@ function commentList(){
     $.ajax({
         url : '/replylist',
         type : 'post',
-        data : $('#commentInsertForm').serialize(),
+        data : {"bno" : bno},
         success : function(data){
             var a =''; 
             $.each(data, function(key, value){ 

@@ -43,4 +43,9 @@
 	<select id="countFilebyGroup" parameterType="goal.vo.BoardVO" resultType="int">
 	select count(*) from gk_file f, gk_board b where b.bo_group = #{bo_group} and f.bno = #{bno}
 	</select>
+	
+	<select id="selectFilebyGroup" parameterType="goal.vo.GroupVO" resultMap="boardFileVO">
+   	select * from gk_file f, gk_board b where b.bo_group = #{g_name} and f.bno = b.bno
+	</select>
+
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.GroupVO;
 
 @Mapper
 public interface BoardFileMapper {
@@ -19,4 +20,5 @@ public interface BoardFileMapper {
 	int countFile(int bno);
 	int countFilebyGroup(BoardVO board);
 	BoardFileVO selectFilebyUuid(String uuid);
+	List<BoardFileVO> selectFilebyGroup(GroupVO group);
 }
