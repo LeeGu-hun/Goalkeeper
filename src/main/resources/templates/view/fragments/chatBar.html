@@ -3,7 +3,8 @@
 <head>
     <link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="/main.css" rel="stylesheet"> -->
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 </head>
 <body> 
 <div th:fragment="chatBar">
@@ -213,48 +214,32 @@
       <!-- /USER STATUS -->
     </div>
     <!-- /CHAT WIDGET HEADER -->
-
     <!-- CHAT WIDGET CONVERSATION -->
     <div class="chat-widget-conversation" data-simplebar="init" style="height: 629px;"><div class="simplebar-wrapper" style="margin: -35px -28px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 35px 28px;">
-      <!-- CHAT WIDGET SPEAKER -->
-      <div class="chat-widget-speaker left">
-        <!-- CHAT WIDGET SPEAKER AVATAR -->
-        <div class="chat-widget-speaker-avatar">
-          <!-- USER AVATAR -->
-          <div class="user-avatar tiny no-border">
-            <!-- USER AVATAR CONTENT -->
-            <div class="user-avatar-content">
-              <!-- HEXAGON -->
-              <div class="hexagon-image-24-26" data-src="img/avatar/03.jpg" style="width: 24px; height: 26px; position: relative;"><canvas width="24" height="26" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR CONTENT -->
-          </div>
-          <!-- /USER AVATAR -->
-        </div>
-        <!-- /CHAT WIDGET SPEAKER AVATAR -->
+      
+      script id="message-template" class="message-template" type="text/x-handlebars-template">
+		<li class="clearfix">
+			<div class="message-data align-right">
+				<span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
+				<span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+			</div>
+			<div class="message other-message float-right">
+				{{messageOutput}}
+			</div>
+		</li>
+	</script>
 
-        <!-- CHAT WIDGET SPEAKER MESSAGE -->
-        <p class="chat-widget-speaker-message">Hi Marina! It's been a long time!</p>
-        <!-- /CHAT WIDGET SPEAKER MESSAGE -->
-
-        <!-- CHAT WIDGET SPEAKER TIMESTAMP -->
-        <p class="chat-widget-speaker-timestamp">Yesterday at 8:36PM</p>
-        <!-- /CHAT WIDGET SPEAKER TIMESTAMP -->
-      </div>
-      <!-- /CHAT WIDGET SPEAKER -->
-
-      <!-- CHAT WIDGET SPEAKER -->
-      <div class="chat-widget-speaker right">
-        <!-- CHAT WIDGET SPEAKER MESSAGE -->
-        <p class="chat-widget-speaker-message">Hey Nick!</p>
-        <!-- /CHAT WIDGET SPEAKER MESSAGE -->
-
-        <!-- CHAT WIDGET SPEAKER TIMESTAMP -->
-        <p class="chat-widget-speaker-timestamp">10:05AM</p>
-        <!-- /CHAT WIDGET SPEAKER TIMESTAMP -->
-      </div>
-      <!-- /CHAT WIDGET SPEAKER -->
+	<script id="message-response-template" type="text/x-handlebars-template">
+		<li>
+			<div class="message-data">
+				<span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
+				<span class="message-data-time">{{time}}, Today</span>
+			</div>
+			<div class="message my-message">
+				{{response}}
+			</div>
+		</li>
+	</script>
 
      
       <!-- /CHAT WIDGET SPEAKER -->

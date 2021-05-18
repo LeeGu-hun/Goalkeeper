@@ -1,4 +1,5 @@
 var stompClient = null;
+let $chatHistoryList;
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
@@ -44,11 +45,23 @@ function sendChat() {
 	document.getElementById("chat-widget-message-text").value = "";
 }
 
-function showGreeting(message) {
-    $(".chat-widget-conversation").append("<tr><td>" + message + "</td></tr>");
-}
+
 function showChat(chat) {
-    $(".chat-widget-conversation").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
+    console.log(chat.name)
+    sendMsg(chat.name, chat.message);
+    scrollToBottom();
+    if (chat.message.trim() !== '') {
+        var template = Handlebars.compile($(".message-template").html());
+        var context = {
+            messageOutput: chat.message,
+            time: getCurrentTime(),
+            toUserName: chat.name
+        };
+
+        $chatHistoryList.append(template(context));
+        scrollToBottom();
+    }
+
 }
 
 $(function () {
