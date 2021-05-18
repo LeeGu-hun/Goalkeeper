@@ -11,6 +11,7 @@ window.onload = function() {
 		$('#groupWrite').submit();
 	})
 	
+	
 	$(function() {
 		$("#photo").click(function() {
 			$(".backmodal").fadeIn();
@@ -114,3 +115,22 @@ function fnEdit(bno){
 			$('#modify'+bno).hide();
 		});		
 	}
+function react(no, id){
+	var param = {"bno" : no, "userId":id};
+	var reactCount = $('#react'+no);
+	$.ajax({
+	    url: "/group_react",
+	    type: "POST",
+	    cache: false,
+	    data: JSON.stringify(param),
+	    dataType:'json',
+		contentType:'application/json; charset=utf-8',
+	    success: function(data) {
+	   		reactCount.attr("text", data.reactCount);
+	    	alert(reactCount.val());
+		},
+		error: function(request, status, error){
+   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}

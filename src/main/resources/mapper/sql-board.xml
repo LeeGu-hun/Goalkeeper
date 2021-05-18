@@ -13,7 +13,11 @@
 		<id property="bo_fileCheck" column="bo_fileCheck"/>
 		<id property="bo_fileCount" column="bo_fileCount"/>
 		<collection column="bno" property="fileList" javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno"/>
+		<collection column="bno" property="reactCount" javaType="int" ofType="int" select="countReact"/>
 	</resultMap>
+	<select id="countReact" resultType="int">
+		select count(*) from gk_react_list where bno=#{bno}
+	</select>
 	<select id="getReplyListById" resultMap="boardVO">
 		select * from GK_COMMENT
 	</select>

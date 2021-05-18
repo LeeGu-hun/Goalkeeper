@@ -25,4 +25,5 @@ public class BoardVO {
    private String bo_fileCheck;
    private int bo_fileCount;
    private List<BoardFileVO> fileList;
+   private int reactCount;
 }

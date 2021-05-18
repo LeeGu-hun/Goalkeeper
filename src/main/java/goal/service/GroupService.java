@@ -2,9 +2,9 @@ package goal.service;
 
 import java.util.List;
 
+import goal.vo.BoardFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
-import goal.vo.GroupUserNameVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -20,7 +20,7 @@ public interface GroupService {
 	List<GroupGoalVO> getGoalbyId(int gno);
 	GroupVO getGroup(int gno);
 	int findGnobyName(String g_name);
-	List<GroupUserNameVO> findUserbyGroup(int gno);
+	List<GroupUserVO> findUserbyGroup(int gno);
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);
@@ -30,4 +30,5 @@ public interface GroupService {
 	String getRolebyUser(GroupUserVO groupUser);
 	void insertGroupUser(GroupUserVO groupUser);
 	void removeGroupJoin(GroupJoinVO join);
+	List<BoardFileVO> findFilebyGroup(GroupVO group);
 }

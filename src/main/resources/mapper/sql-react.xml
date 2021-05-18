@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.ReactMapper">
+	<resultMap type="goal.vo.ReactVO" id="reactVO">
+		<id property="react_name" column="react_name"/>
+		<id property="bno" column="bno"/>
+		<id property="userId" column="userId"/>
+		<collection column="bno" property="reactCount" javaType="int" ofType="int" select="countReact"/>
+	</resultMap>
+	<select id="countReact" resultType="int">
+		select count(*) from gk_react_list where bno=#{bno}
+	</select>
+	<insert id="insertReact" parameterType="goal.vo.ReactVO">
+		insert into gk_react_list(react_name, bno, userId) values
+		('like', #{bno}, #{userId})
+	</insert>
+	<select id="findReactbyUser" parameterType="goal.vo.ReactVO" resultMap="reactVO">
+		select * from gk_react_list where bno=#{bno} and userId=#{userId}
+	</select>
+	<select id="findReactbyBno" parameterType="goal.vo.ReactVO" resultMap="reactVO">
+		select * from gk_react_list where bno=#{bno}
+	</select>
+	<update id="updateReact" parameterType="goal.vo.ReactVO">
+		update into gk_react_list set(react_name=#{react_name})
+		where bno=#{bno} and userId=#{userId}
+	</update>
+	<delete id="deleteReact" parameterType="goal.vo.ReactVO">
+		DELETE FROM GK_react_list WHERE bno=${bno} and userId=#{userId}
+	</delete>
+</mapper>
