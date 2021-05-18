@@ -189,49 +189,8 @@
 				$('#delete_form'+bno).submit();
 		}
 		
-/*댓글*/	
-var bno = "${post.bno}";
-
-$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
-    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
-    commentInsert(insertData); //Insert 함수호출(아래)
-});
 
 
-function commentList(){
-    $.ajax({
-        url : '/replylist',
-        type : 'post',
-        data : {"bno" : bno},
-        success : function(data){
-            var a =''; 
-            $.each(data, function(key, value){ 
-                a += '<h1>'+'테스트중'+'</h1>';
-            });
-            
-            $(".commentList").html(a);
-        }
-    });
-}
- 
-/*댓글 등록*/
-function commentInsert(insertData){
-    $.ajax({
-        url : 'replyinsert',
-        type : 'post',
-        data : insertData,
-        success : function(data){
-            if(data == 1) {
-                commentList(); //댓글 작성 후 댓글 목록 reload
-                $('[name=content]').val('');
-            }
-        }
-    });
-}
-
-
-		
-		
 		
 		
 		
