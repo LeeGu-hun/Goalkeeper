@@ -55,7 +55,7 @@
 								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
 							</figure>
 							<figure th:unless="${profile}=='Y'">
-								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
+								<div class="hexagon-image-100-110" data-src="../../img/user_base.png"></div>
 							</figure>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
@@ -406,11 +406,8 @@
 				<div class="user-preview" th:each="f:${list}">
 					<input type="hidden" th:value="f.friendNo" name="checkUser">
 					<!-- USER PREVIEW COVER -->
-					<figure class="user-preview-cover liquid" th:if="${f.userBackCheck}=='Y'">
+					<figure class="user-preview-cover liquid">
 						<img th:src="@{/user/background/}+${f.friendNo}" alt="사진 필요!!">
-					</figure>
-					<figure class="user-preview-cover liquid" th:unless="${f.userBackCheck}=='Y'">
-						<img src="../../img/user_baseBack.png" alt="사진 필요!!">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 
@@ -431,12 +428,7 @@
 								<!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<figure th:if="${f.userFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
-									</figure>
-									<figure th:unless="${f.userFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
-									</figure>
+									<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
 									<!-- /HEXAGON -->
 								</div>
 								<!-- /USER AVATAR CONTENT -->
