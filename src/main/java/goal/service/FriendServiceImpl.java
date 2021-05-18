@@ -41,5 +41,15 @@ public class FriendServiceImpl implements FriendService{
 	public int countFriends(int uno) {
 		return mapper.countFriend(uno);
 	}
+
+	@Override
+	public void profileCheck(int friendNo) {
+		mapper.profileCheck(friendNo);
+	}
+
+	@Override
+	public void profileBackCheck(int friendNo) {
+		mapper.profileBackCheck(friendNo);
+	}
 	
 }

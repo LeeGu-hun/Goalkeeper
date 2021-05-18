@@ -13,6 +13,8 @@ public class FriendVO {
 	private int fno, uno, friendNo;
 	private String friendId;
 	private String friendNumber;
+	private String userFileCheck;
+	private String userBackCheck;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date friendBirthdate;

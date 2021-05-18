@@ -109,8 +109,8 @@ public class HomeController {
 	      mv = getHome(mv, request);
 	      UserVO user = commonService.getLoginUser(request);
 	      if (user != null) {
-	         List<BoardVO> boardlist = boardService.searchBoard(vo);
-	         mv.addObject("searchlist", boardlist);
+	         List<BoardVO> searchlist = boardService.searchBoard(vo);
+	         mv.addObject("searchlist", searchlist);
 	         mv.addObject("user", user);
 	      }
 	      return mv;

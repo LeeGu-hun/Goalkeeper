@@ -59,5 +59,15 @@ public class UserServiceImpl implements UserService{
 	      return mapper.idCheck(vo);
 	   }
 
+	@Override
+	public void profileCheck(int uno) {
+		mapper.profileCheck(uno);
+	}
+
+	@Override
+	public void backgroundCheck(int uno) {
+		mapper.backgroundCheck(uno);
+	}
+
 }
 

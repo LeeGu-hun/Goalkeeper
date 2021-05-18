@@ -15,4 +15,8 @@ public interface FriendService {
 	int countFriends(int uno);
 	
 	List<FriendVO> findMyFriend(Map<String, Object> map);
+	
+	void profileCheck(int friendNo);
+	
+	void profileBackCheck(int friendNo);
 }

@@ -8,6 +8,8 @@
 		<id property="friendId" column="friendId"></id>
 		<id property="friendNumber" column="friendNumber"></id>
 		<id property="friendBirthdate" column="friendBirthdate"></id>
+		<id property="userFileCheck" column="userFileCheck"></id>
+		<id property="userBackCheck" column="userBackCheck"></id>
 	</resultMap>
 	
 	<select id="getlistFriend" resultMap="friendVO" parameterType="goal.vo.FriendVO">
@@ -15,7 +17,7 @@
 	</select>
 	
 	<insert id="addFriend" parameterType="goal.vo.FriendVO">
-		insert into GK_FRIEND
+		insert into GK_FRIEND(fno, uno, friendNo, friendId, friendNumber, friendBirthdate)
 		values (GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate})
 	</insert>
 	
@@ -30,4 +32,12 @@
 	<select id="countFriend" parameterType="int" resultType="int">
 		select count(*) from GK_FRIEND where uno = #{uno}
 	</select>
+	
+	<update id="profileCheck" parameterType="int">
+		update GK_FRIEND set userFileCheck = 'Y' where friendNo = #{uno}
+	</update>
+	
+	<update id="profileBackCheck" parameterType="int">
+		update GK_FRIEND set userBackCheck = 'Y' where friendNo = #{uno}
+	</update>
 </mapper>
