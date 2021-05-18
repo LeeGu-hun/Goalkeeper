@@ -138,14 +138,8 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');" class="menu-item-link text-tooltip-tfr" data-title="Groups">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-group">
-            <use xlink:href="#svg-group"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-        </a>
-         <a th:if="${user!=null}" class="menu-item-link text-tooltip-tfr" href="/groups" data-title="Groups">
+        
+         <a class="menu-item-link text-tooltip-tfr" href="/groups" >
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
@@ -422,18 +416,9 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
-        <!-- 로그아웃 -->
-        <a th:unless="${user!=null}" class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-group">
-            <use xlink:href="#svg-group"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-          Groups
-        </a>
+      <li class="menu-item"> 
         <!-- 로그인 -->
-        <a th:if="${user!=null}"class="menu-item-link" href="/groups">
+        <a class="menu-item-link" href="/groups">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-group">
             <use xlink:href="#svg-group"></use>
