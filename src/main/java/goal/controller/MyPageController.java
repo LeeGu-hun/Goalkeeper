@@ -103,6 +103,8 @@ public class MyPageController {
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
 		mv.addObject("uno", vo.getUno());
+		mv.addObject("background", vo.getUserBackCheck());
+		mv.addObject("profile", vo.getUserFileCheck());
 		mv.addObject("list", list);
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
@@ -114,6 +116,7 @@ public class MyPageController {
 	@PostMapping("/myFriends")
 	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
 		vo = getLoginUser(request);
+		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -122,6 +125,7 @@ public class MyPageController {
 		
 		List<FriendVO> searchFriendList = friendService.findMyFriend(map);
 		mv.addObject("list", searchFriendList);
+		mv.addObject("user", user);
 		mv.addObject("count", countFriend);
 		return mv;
 	}
@@ -130,14 +134,14 @@ public class MyPageController {
 	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
 		vo = getLoginUser(request);
 		UserVO user = new UserVO();
-		user.setUno(vo.getUno());
 		int countFriend = friendService.countFriends(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
 		
-		List<UserVO> list = searchFriendService.allUserList(user);
+		List<UserVO> list = searchFriendService.allUserList(vo);
 		mv.addObject("uno", vo.getUno());
+		mv.addObject("user", user);
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
 		

@@ -22,5 +22,7 @@ public interface UserMapper {
 	
 	public int idCheck(UserVO vo);
 
+	public void profileCheck(int uno);
 	
+	public void backgroundCheck(int uno);
 }

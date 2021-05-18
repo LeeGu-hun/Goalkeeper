@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
 import goal.service.CommonService;
+import goal.service.FriendService;
 import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
@@ -32,7 +33,6 @@ import goal.util.MediaUtils;
 import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
 import goal.vo.UserVO;
-import lombok.extern.log4j.Log4j;
 
 @Controller
 public class DropBoxController {
@@ -48,6 +48,9 @@ public class DropBoxController {
 	
 	@Autowired
 	private UserBackFileService userBackFileService;
+	
+	@Autowired
+	private FriendService friendService;
 	
 	private UserCommonDownload commonDownload = new UserCommonDownload();
 	
@@ -67,7 +70,6 @@ public class DropBoxController {
 		mv = commonService.checkLoginUser(request, mv);
 		mv.addObject("uno", back.getUno());
 		mv.addObject("fileCheck", vo.getUserFileCheck());
-		
 		return mv;
 	}
 	
@@ -126,11 +128,12 @@ public class DropBoxController {
         
         File dest = new File(filePath);
         files.transferTo(dest);
-           
+        
         vo.setUserFileId(uuid);
         vo.setUserFileName(fileName);
         vo.setUserFilePath(filePath);
-        user.setUserFileCheck("Y");
+        userService.profileCheck(user.getUno());
+        friendService.profileCheck(user.getUno());
         
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());
@@ -167,6 +170,8 @@ public class DropBoxController {
         vo.setBackId(uuid);
         vo.setBackName(fileName);
         vo.setBackPath(filePath);
+        userService.backgroundCheck(user.getUno());
+        friendService.profileBackCheck(user.getUno());
         
 		if(check != 0) {
 			userBackFileService.removeBackFile(vo.getUno());
