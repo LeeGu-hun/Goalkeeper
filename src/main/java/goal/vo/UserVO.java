@@ -19,6 +19,7 @@ public class UserVO {
 	private String userGender;
 	private String userMail;
 	private String userPhone;
+	private String userFileCheck;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userBirthdate;

@@ -11,7 +11,7 @@
 		<id property="userBirthdate" column="userBirthdate"/>
 	</resultMap>
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
-		SELECT UNO, USERNAME, USERPHONE, USERBIRTHDATE FROM GK_USER 
+		SELECT * FROM GK_USER 
 		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno}
 	</select>
 	

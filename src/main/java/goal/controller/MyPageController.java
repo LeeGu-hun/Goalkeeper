@@ -69,7 +69,7 @@ public class MyPageController {
     ResponseEntity<byte[]> entity = null;
     
     
-	@GetMapping("/myPage")
+	@GetMapping({"/myPage", "/myPage/{userId}"})
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo, FriendVO friend) {
 		UserVO user = new UserVO();
 		user = getLoginUser(request);

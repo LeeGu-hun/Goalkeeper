@@ -66,6 +66,8 @@ public class DropBoxController {
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
 		mv = commonService.checkLoginUser(request, mv);
 		mv.addObject("uno", back.getUno());
+		mv.addObject("fileCheck", vo.getUserFileCheck());
+		
 		return mv;
 	}
 	
@@ -128,6 +130,7 @@ public class DropBoxController {
         vo.setUserFileId(uuid);
         vo.setUserFileName(fileName);
         vo.setUserFilePath(filePath);
+        user.setUserFileCheck("Y");
         
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());
