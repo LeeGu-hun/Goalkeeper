@@ -43,13 +43,13 @@ public class FriendServiceImpl implements FriendService{
 	}
 
 	@Override
-	public void profileCheck(int friendNo) {
-		mapper.profileCheck(friendNo);
+	public void profileCheck(int uno) {
+		mapper.profileCheck(uno);
 	}
 
 	@Override
-	public void profileBackCheck(int friendNo) {
-		mapper.profileBackCheck(friendNo);
+	public void profileBackCheck(int uno) {
+		mapper.profileBackCheck(uno);
 	}
 	
 }

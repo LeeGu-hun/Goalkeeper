@@ -83,6 +83,8 @@ public class MyPageController {
 		if(vo != null) {
 			mv.addObject("vo", user);
 			mv.addObject("uno", user.getUno());
+			mv.addObject("profile", user.getUserFileCheck());
+			mv.addObject("background", user.getUserBackCheck());
 			mv.addObject("count", countFriend);
 			mv.addObject("friendList", list);
 		} else {
@@ -133,7 +135,6 @@ public class MyPageController {
 	@GetMapping("/mySearchFriends")
 	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
 		vo = getLoginUser(request);
-		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
@@ -169,9 +170,8 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/mySearchFriends/add")
-	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, @RequestParam int friendNo,
-			@RequestParam String friendId, @RequestParam String friendNumber,
-			@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate) {
+	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, int friendNo, String friendId, String friendNumber,
+			@DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate, String userFileCheck, String userBackCheck) {
 		vo = getLoginUser(request);
 		FriendVO friend = new FriendVO();
 		friend.setUno(vo.getUno());
@@ -179,6 +179,11 @@ public class MyPageController {
 		friend.setFriendId(friendId);
 		friend.setFriendNumber(friendNumber);
 		friend.setFriendBirthdate(friendBirthdate);
+		if(userFileCheck == "Y") friend.setUserFileCheck(userFileCheck);
+		else friend.setUserFileCheck("N");
+		if(userBackCheck == "Y") friend.setUserBackCheck(userBackCheck);
+		else friend.setUserBackCheck("N");
+		
 		friendService.addFriend(friend);
 		
 		ModelAndView mv = new ModelAndView("redirect:/mySearchFriends");

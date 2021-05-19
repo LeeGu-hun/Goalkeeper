@@ -26,8 +26,11 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid">
+			<figure class="profile-header-cover liquid" th:if="${background}=='Y'">
 				<img th:src="@{/user/background/}+${uno}" alt="C:\profile\default.jpg">
+			</figure>
+			<figure class="profile-header-cover liquid" th:unless="${background}=='Y'">
+				<img src="../../img/user_baseBack.png" alt="C:\profile\default.jpg">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -45,7 +48,12 @@
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+							<figure th:if="${profile}=='Y'">
+								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+							</figure>
+							<figure th:unless="${profile}=='Y'">
+								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
+							</figure>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
 						<div class="user-avatar-progress">

@@ -29,10 +29,10 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid" th:if="${userBackFile}=='Y'">
+			<figure class="profile-header-cover liquid" th:if="${userBackCheck}=='Y'">
 				<img th:src="@{/user/background/}+${uno}" alt="cover-01">
 			</figure>
-			<figure class="profile-header-cover liquid" th:unless="${userBackFile}=='Y'">
+			<figure class="profile-header-cover liquid" th:unless="${userBackCheck}=='Y'">
 				<img src="../../img/user_baseBack.png" alt="cover-01">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
@@ -506,16 +506,14 @@
 						<!-- USER PREVIEW ACTIONS -->
 						<div class="user-preview-actions">
 							<!-- BUTTON -->
-							<form action="mySearchFriends/add" method="post"
-								class="button primary">
+							<form action="mySearchFriends/add" method="post" class="button primary">
 								<input type="hidden" th:value="${u.uno}" name="friendNo">
-								<input type="hidden" th:value="${u.userName}" name="friendId">
-								<input type="hidden" th:value="${u.userPhone}"
-									name="friendNumber"> <input type="hidden"
-									th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}"
-									name="friendBirthdate">
-								<button type="submit" class="addBtn" onclick="href='addFriend'">Add
-									Friend</button>
+								<input type="hidden" th:value="${u.userId}" name="friendId">
+								<input type="hidden" th:value="${u.userPhone}" name="friendNumber">
+								<input type="hidden" th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}" name="friendBirthdate">
+								<input type="hidden" th:value="${u.userFileCheck}" name="userFileCheck">
+								<input type="hidden" th:value="${u.userBackCheck}" name="userBackCheck">
+								<button type="submit" class="addBtn" onclick="href='addFriend'">Add Friend</button>
 							</form>
 							<!-- /BUTTON -->
 

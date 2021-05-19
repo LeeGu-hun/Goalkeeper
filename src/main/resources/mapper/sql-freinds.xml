@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="addFriend" parameterType="goal.vo.FriendVO">
-		insert into GK_FRIEND(fno, uno, friendNo, friendId, friendNumber, friendBirthdate)
-		values (GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate})
+		insert into GK_FRIEND values 
+		(GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate}, #{userFileCheck}, #{userBackCheck})
 	</insert>
 	
 	<delete id="deleteFriend" parameterType="int">
