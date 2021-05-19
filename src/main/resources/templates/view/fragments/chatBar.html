@@ -3,8 +3,10 @@
 <head>
     <link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="/main.css" rel="stylesheet"> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
+          type="text/css"> 
 </head>
 <body> 
 <div th:fragment="chatBar">
@@ -14,9 +16,9 @@
     <div class="chat-widget-messages" data-simplebar="init" style="height: 809px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
 		
       <!-- CHAT WIDGET MESSAGE -->
-      <div class="chat-widget-message" th:each="fl:${friendlist}">
+      <div class="chat-widget-message" th:each="fl:${friendlist}" >
         <!-- USER STATUS -->
-        <div class="user-status">
+        <div class="user-status"  th:attr="onclick=|selectUser('${fl.userId}')|">
           <!-- USER STATUS AVATAR -->
           <div class="user-status-avatar">
             <!-- USER AVATAR -->
@@ -134,7 +136,7 @@
   
   <aside id="chat-widget-message" class="chat-widget chat-widget-overlay hidden sidebar right">
     <!-- CHAT WIDGET HEADER -->
-    <div class="chat-widget-header">
+    <div class="chat-widget-header" >
       <!-- CHAT WIDGET CLOSE BUTTON -->
       <div class="chat-widget-close-button">
         <!-- CHAT WIDGET CLOSE BUTTON ICON -->
@@ -215,42 +217,75 @@
     </div>
     <!-- /CHAT WIDGET HEADER -->
     <!-- CHAT WIDGET CONVERSATION -->
-    <div class="chat-widget-conversation" data-simplebar="init" style="height: 629px;"><div class="simplebar-wrapper" style="margin: -35px -28px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 35px 28px;">
-      
-      script id="message-template" class="message-template" type="text/x-handlebars-template">
-		<li class="clearfix">
-			<div class="message-data align-right">
-				<span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-				<span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
-			</div>
-			<div class="message other-message float-right">
-				{{messageOutput}}
-			</div>
-		</li>
-	</script>
+    <div class="chat-widget-conversation" data-simplebar="init" style="height: 629px;">
+    	<div class="simplebar-wrapper" style="margin: -35px -28px;">
+    	<div class="simplebar-height-auto-observer-wrapper">
+    		<div class="simplebar-height-auto-observer">
+    		</div>
+    	</div>
+    <div class="simplebar-mask">
+    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+    <div class="simplebar-content-wrapper" style="height: 100%; overflow: scroll;">
+    <div class="simplebar-content" style="padding: 35px 28px;">
+     	<div class="chat-history" >
+			<ul>
 
-	<script id="message-response-template" type="text/x-handlebars-template">
-		<li>
-			<div class="message-data">
-				<span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
-				<span class="message-data-time">{{time}}, Today</span>
-			</div>
-			<div class="message my-message">
-				{{response}}
-			</div>
-		</li>
-	</script>
+			</ul>
+		</div>
+     <script id="message-response-template" type="text/x-handlebars-template">
+      <!-- @@@상대방 대화 @@@-->
+       <div class="chat-widget-speaker left">
+        <!-- CHAT WIDGET SPEAKER AVATAR -->
+        <div class="chat-widget-speaker-avatar">
+          <!-- USER AVATAR -->
+          <div class="user-avatar tiny no-border">
+            <!-- USER AVATAR CONTENT -->
+            <div class="user-avatar-content">
+              <!-- HEXAGON -->
+              <div class="hexagon-image-24-26" data-src="img/avatar/03.jpg"></div>
+              <!-- /HEXAGON -->
+            </div>
+            <!-- /USER AVATAR CONTENT -->
+          </div>
+          <!-- /USER AVATAR -->
+        </div>
+        <!-- /CHAT WIDGET SPEAKER AVATAR -->
 
+        <!-- CHAT WIDGET SPEAKER MESSAGE -->
+        <p class="chat-widget-speaker-message">{{response}}</p>
+        <!-- /CHAT WIDGET SPEAKER MESSAGE -->
+
+        <!-- CHAT WIDGET SPEAKER TIMESTAMP -->
+        <p class="chat-widget-speaker-timestamp">{{time}}, Today</p>
+        <!-- /CHAT WIDGET SPEAKER TIMESTAMP -->
+      </div>
+      <!-- /상대방 대화 -->
+	</script>
+	
+	<script id="message-template" type="text/x-handlebars-template">
+      <!-- 내 대화 -->
+      <div class="chat-widget-speaker right">
+
+        <!-- CHAT WIDGET SPEAKER MESSAGE -->
+        <p class="chat-widget-speaker-message">{{messageOutput}}</p>
+        <!-- /CHAT WIDGET SPEAKER MESSAGE -->
+
+        <!-- CHAT WIDGET SPEAKER TIMESTAMP -->
+        <p class="chat-widget-speaker-timestamp">{{time}}, Today</p>
+        <!-- /CHAT WIDGET SPEAKER TIMESTAMP -->
+      </div>
+      <!-- /CHAT WIDGET SPEAKER -->
+	</script>
      
       <!-- /CHAT WIDGET SPEAKER -->
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 542px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
     <!-- /CHAT WIDGET CONVERSATION -->
 
     <!-- CHAT WIDGET FORM -->
-    <form class="chat-widget-form">
+    
       <!-- INTERACTIVE INPUT -->
       <div class="interactive-input small">
-        <input type="text" id="chat-widget-message-text" class="chat-widget-message-text"  placeholder="Write a message...">
+        <input type="text" id="chatSendTextBox" class="chatSendTextBox"  placeholder="Write a message...">
         <!-- INTERACTIVE INPUT ICON WRAP -->
         <div class="interactive-input-icon-wrap">
           <!-- INTERACTIVE INPUT ICON -->
@@ -272,7 +307,7 @@
         <!-- /INTERACTIVE INPUT ACTION -->
       </div>
       <!-- /INTERACTIVE INPUT -->
-    </form>
+   
     <!-- /CHAT WIDGET FORM -->
   </aside>
 
@@ -280,7 +315,13 @@
 	<script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
 	<script src="../../js/chat.js"></script>
-  
+	<script src="../../js/custom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
 </div>
 </body>
 </html>

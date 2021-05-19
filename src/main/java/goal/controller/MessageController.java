@@ -20,9 +20,7 @@ public class MessageController {
     @MessageMapping("/chat/{to}")
     public void sendMessage(@DestinationVariable String to, MessageModel message) {
         System.out.println("handling send message: " + message + " to: " + to);
-        boolean isExists = UserStorage.getInstance().getUsers().contains(to);
-        if (isExists) {
-            simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
-        }
+        simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
+        
     }
 }
