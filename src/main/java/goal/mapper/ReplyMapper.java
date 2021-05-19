@@ -13,7 +13,7 @@ import goal.vo.UserVO;
 
 @Mapper
 public interface ReplyMapper {
-	List<ReplyVO> readMainReply();
+	ReplyVO readMainReply();
 	List<ReplyVO> readDetailMainReply(int bno);
 	int replyCount() throws Exception;
     List<ReplyVO> replyList() throws Exception;

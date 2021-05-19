@@ -10,7 +10,7 @@ import goal.vo.UserVO;
 
 public interface ReplyService {
 	
-	List<ReplyVO> getMainReply();
+	ReplyVO getMainReply();
 	List<ReplyVO> getDetailMainReply(int bno);
 	int insertReply(ReplyVO replyVO);
 }

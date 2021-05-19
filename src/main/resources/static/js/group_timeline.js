@@ -144,3 +144,29 @@ function react(no, id){
 		}
 	});
 }
+$('#replyBtn').click(function(){
+	var params = $('#replyFrm').serialize();
+	$.ajax({
+		url : '/group_reply',
+		type : 'POST',
+		cache: false,
+	    data: JSON.stringify(param),
+		contentType:'application/json; charset=utf-8',
+	    success: function(data) {
+	    
+	    },
+	    error: function(request, status, error){
+   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+});
+var toggle = true;
+	function openReply(){
+		if(toggle){
+		 	$('#replyBox').attr('style', 'display:block');
+		 	toggle = false;	
+		} else{
+			$('#replyBox').attr('style', 'display:none');
+			toggle = true;
+		}
+	}

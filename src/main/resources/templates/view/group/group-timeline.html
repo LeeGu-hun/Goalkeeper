@@ -809,13 +809,13 @@
 														<p class="simple-dropdown-text">
 															<img class="reaction"
 																th:attr="src=@{../../img/reaction/Like.png}"
-																alt="reaction-sad">
-															<span class="bold">Like</span>
+																alt="reaction-sad"> <span class="bold">Like</span>
 														</p>
 														<!-- /SIMPLE DROPDOWN TEXT -->
 
 														<!-- SIMPLE DROPDOWN TEXT -->
-														<div th:each="list:${post.reactList}" th:id="userDiv+${list.bno}">
+														<div th:each="list:${post.reactList}"
+															th:id="userDiv+${list.bno}">
 															<p class="simple-dropdown-text"
 																th:id="user+${list.userId}" th:text="${list.userId}"></p>
 														</div>
@@ -828,7 +828,8 @@
 
 											<!-- META LINE TEXT -->
 											<div th:attr="id='react'+${post.bno}">
-												<p class="meta-line-text" th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
+												<p class="meta-line-text"
+													th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
 											</div>
 											<!-- /META LINE TEXT -->
 										</div>
@@ -841,7 +842,7 @@
 										<!-- META LINE -->
 										<div class="meta-line">
 											<!-- META LINE LINK -->
-											<p class="meta-line-link">2 댓글</p>
+											<p class="meta-line-link" onclick="openReply()">2 댓글</p>
 											<!-- /META LINE LINK -->
 										</div>
 										<!-- /META LINE -->
@@ -867,8 +868,10 @@
 							<!-- POST OPTION WRAP -->
 							<div class="post-option-wrap">
 								<!-- POST OPTION -->
-								<div class="post-option reaction-options-dropdown-trigger" th:if="${user}!=null" th:data-parameter1="${post.bno}" th:data-parameter2="${user.userId}"
-										th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
+								<div class="post-option reaction-options-dropdown-trigger"
+									th:if="${user}!=null" th:data-parameter1="${post.bno}"
+									th:data-parameter2="${user.userId}"
+									th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
 									<!-- POST OPTION ICON -->
 									<svg class="post-option-icon icon-thumbs-up">
                   <use xlink:href="#svg-thumbs-up"></use>
@@ -878,9 +881,11 @@
 									<!-- POST OPTION TEXT -->
 									<p class="post-option-text">좋아요</p>
 									<!-- /POST OPTION TEXT -->
-								<!-- /POST OPTION -->
+									<!-- /POST OPTION -->
 								</div>
-								<div class="post-option reaction-options-dropdown-trigger" th:unless="${user}!=null" style=" cursor: pointer;" onclick="location.href='/login'">
+								<div class="post-option reaction-options-dropdown-trigger"
+									th:unless="${user}!=null" style="cursor: pointer;"
+									onclick="location.href='/login'">
 									<p class="post-option-text">로그인</p>
 								</div>
 								<!-- /REACTION OPTIONS -->
@@ -888,7 +893,7 @@
 							<!-- /POST OPTION WRAP -->
 
 							<!-- POST OPTION -->
-							<div class="post-option">
+							<div class="post-option" onclick="openReply()">
 								<!-- POST OPTION ICON -->
 								<svg class="post-option-icon icon-comment">
                 <use xlink:href="#svg-comment"></use>
@@ -896,7 +901,7 @@
 								<!-- /POST OPTION ICON -->
 
 								<!-- POST OPTION TEXT -->
-								<p class="post-option-text">Comment</p>
+								<p class="post-option-text">댓글</p>
 								<!-- /POST OPTION TEXT -->
 							</div>
 							<!-- /POST OPTION -->
@@ -910,22 +915,122 @@
 								<!-- /POST OPTION ICON -->
 
 								<!-- POST OPTION TEXT -->
-								<p class="post-option-text">Share</p>
+								<p class="post-option-text">공유</p>
 								<!-- /POST OPTION TEXT -->
 							</div>
 							<!-- /POST OPTION -->
 						</div>
 						<!-- /POST OPTIONS -->
 					</div>
-					<div class="post-options">
-						<div class="user-status">
-							<a class="user-status-avatar">
-								<div class="user-avatar-content"></div>
+					<div id="replyBox" style="display: none">
+						<div class="user-status" id="refreshReply" style="margin-left:40px;">
+							<!-- USER STATUS AVATAR -->
+							<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+								<div class="user-avatar small no-outline">
+									<!-- USER AVATAR CONTENT -->
+									<div class="user-avatar-content">
+										<!-- HEXAGON -->
+										<div class="hexagon-image-30-32"
+											th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR CONTENT -->
+
+									<!-- USER AVATAR PROGRESS -->
+									<div class="user-avatar-progress">
+										<!-- HEXAGON -->
+										<div class="hexagon-progress-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS -->
+
+									<!-- USER AVATAR PROGRESS BORDER -->
+									<div class="user-avatar-progress-border">
+										<!-- HEXAGON -->
+										<div class="hexagon-border-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS BORDER -->
+								</div> <!-- /USER AVATAR -->
 							</a>
-							<p class="user-status-title">gg</p>
+							<!-- /USER STATUS AVATAR -->
+							<!-- USER STATUS TEXT -->
+							<p class="user-status-text small">닉네임</p>
+							<!-- /USER STATUS TEXT -->
+							<!-- USER STATUS TITLE -->
+							<p class="user-status-title medium">
+								<span class="bold">내용</span>
+							</p>
+							<p class="user-status-text small">
+								시간<a>답글쓰기</a>
+							</p>
+							<!-- /USER STATUS TITLE -->
+						</div>
+						<div class="user-status" id="ajaxAddReply" style="display: none">
+							<!-- USER STATUS AVATAR -->
+							<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+								<div class="user-avatar small no-outline">
+									<!-- USER AVATAR CONTENT -->
+									<div class="user-avatar-content">
+										<!-- HEXAGON -->
+										<div class="hexagon-image-30-32"
+											th:attr="data-src=@{../../user_baseProfile.png}"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR CONTENT -->
+
+									<!-- USER AVATAR PROGRESS -->
+									<div class="user-avatar-progress">
+										<!-- HEXAGON -->
+										<div class="hexagon-progress-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS -->
+
+									<!-- USER AVATAR PROGRESS BORDER -->
+									<div class="user-avatar-progress-border">
+										<!-- HEXAGON -->
+										<div class="hexagon-border-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS BORDER -->
+								</div> <!-- /USER AVATAR -->
+							</a>
+							<!-- /USER STATUS AVATAR -->
+							<!-- USER STATUS TEXT -->
+							<p class="user-status-text small">닉네임</p>
+							<!-- /USER STATUS TEXT -->
+							<!-- USER STATUS TITLE -->
+							<p class="user-status-title medium">
+								<span class="bold">내용</span>
+							</p>
+							<p class="user-status-text small">
+								시간<a>답글쓰기</a>
+							</p>
+							<!-- /USER STATUS TITLE -->
 						</div>
 						<div class="post-options">
-						
+							<form class="form" id="replyFrm"
+								style="width: 75%; display: inline-block">
+								<div class="form-row">
+									<!-- FORM ITEM -->
+									<div class="form-item">
+										<!-- FORM INPUT -->
+										<div class="form-input">
+											<label>내용</label> <input type="text"
+												class="form-control form-control-lg input-lg"
+												id="replyContent" name="replyContent">
+										</div>
+										<input type="hidden" name="replyWriter"
+											th:value="${post.userId}"> <input type="hidden"
+											name="bno" th:value="${post.bno}">
+										<!-- /FORM INPUT -->
+									</div>
+									<!-- /FORM ITEM -->
+								</div>
+							</form>
+							<button class="button primary" id="replyBtn"
+								style="width: 20%; margin-top: -2px;">쓰기</button>
 						</div>
 					</div>
 					<!-- /WIDGET BOX -->

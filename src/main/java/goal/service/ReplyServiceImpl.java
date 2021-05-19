@@ -29,7 +29,7 @@ public class ReplyServiceImpl implements ReplyService{
 	
 
 	@Override
-	public List<ReplyVO> getMainReply() {
+	public ReplyVO getMainReply() {
 		return mapper.readMainReply();
 	}
 

@@ -143,11 +143,11 @@ public class HomeController {
 		UserVO user = (UserVO) session.getAttribute("user");
 
 		List<BoardVO> boardList = boardService.getBoardList();
-		List<ReplyVO> ReplyList = replyService.getMainReply();
+//		List<ReplyVO> ReplyList = replyService.getMainReply();
 
 		mv.addObject("userInfo", user);
 		mv.addObject("List", boardList);
-		mv.addObject("reply", ReplyList);
+//		mv.addObject("reply", ReplyList);
 		return mv;
 	}
 
@@ -166,7 +166,7 @@ public class HomeController {
 
 	@PostMapping("/login")
 	public String checkLogin(HttpServletRequest request, UserVO vo, Model model) {
-		UserVO user = userService.getUser(vo); // UserVO반환하는 서비스 추가해야함
+		UserVO user = userService.getUser(vo); // UserVO諛섑솚�븯�뒗 �꽌鍮꾩뒪 異붽��빐�빞�븿
 		HttpSession session = request.getSession(true);
 		session.setMaxInactiveInterval(120*60);
 		if (user != null) {
@@ -188,7 +188,7 @@ public class HomeController {
 			userService.insertUser(vo);
 			return "redirect:/login";
 		} else {
-			model.addAttribute("msg", "중복된 아이디 입니다.");
+			model.addAttribute("msg", "以묐났�맂 �븘�씠�뵒 �엯�땲�떎.");
 			return "redirect:/login";
 
 		}
@@ -214,10 +214,10 @@ public class HomeController {
 		mv.addObject("BoList", boardList);	
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
-			List<ReplyVO> ReplyList = replyService.getMainReply();
+//			List<ReplyVO> ReplyList = replyService.getMainReply();
 			
 			mv.addObject("GrList", groupList);
-			mv.addObject("reply", ReplyList);
+//			mv.addObject("reply", ReplyList);
 		}
 		return mv;
 	}

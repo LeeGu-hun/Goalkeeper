@@ -41,6 +41,7 @@ import goal.service.CommonService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
 import goal.service.ReactService;
+import goal.service.ReplyService;
 import goal.upload.BoardUpload;
 import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
@@ -53,6 +54,7 @@ import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.ReactVO;
+import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 import lombok.extern.log4j.Log4j;
 
@@ -76,7 +78,7 @@ public class GroupController {
 	private BoardFileService boardFileService;
 	
 	@Autowired
-	private ReactService reactService;
+	private ReplyService replyService;
 	
 	private GroupUpload groupUpload = new GroupUpload();
 	private CommonDownload commonDownload = new CommonDownload();
@@ -295,6 +297,13 @@ public class GroupController {
 	@ResponseBody
 	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react) throws JSONException {
 		return commonService.react(react);
+	}
+	@RequestMapping(value="/group_reply", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<ReplyVO> reply(@RequestBody ReplyVO reply){
+		replyService.insertReply(reply);
+		ReplyVO recentReply = replyService.getMainReply();
+		return new ResponseEntity<ReplyVO>(recentReply,HttpStatus.OK);
 	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{

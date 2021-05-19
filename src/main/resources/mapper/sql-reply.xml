@@ -10,7 +10,7 @@
 	</resultMap>
 	
 	<select id="readMainReply" parameterType="int" resultMap="replyVO">
-		select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT order by replyDate
+		select * from GK_COMMENT order by replyDate
 		<!-- <![CDATA[
 			select * from( select rownum rn, t.* from(select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = #{bno} ORDER BY replyDate DESC) t) where rn<=2
 		]]> -->
