@@ -10,5 +10,4 @@ public class ReactVO {
 	private String react_name;
 	private int bno;
 	private String userId;
-	private int reactCount;
 }

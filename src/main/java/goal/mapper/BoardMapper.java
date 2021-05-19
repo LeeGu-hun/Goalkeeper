@@ -16,6 +16,7 @@ public interface BoardMapper {
 	void modifyBoard(BoardVO board);
 	List<BoardFileVO> insertBoardFile(List<BoardFileVO> boardFileVO);
 	List<BoardVO> searchBoard(BoardVO vo);
+	BoardVO findBoardbyBno(int bno);
 	BoardVO recentBoard();
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getBoardList();

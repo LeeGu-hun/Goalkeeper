@@ -12,6 +12,7 @@ public interface BoardService {
 	List<BoardVO> searchBoard(BoardVO vo);
 	List<BoardVO> getBoardList();
 	List<BoardVO> selectBoardList(UserVO vo);
+	BoardVO findBoardbyBno(int bno);
 	BoardVO recentBoard();
 	List<BoardVO> getGroupBoardList(String bo_group);
 	void updateBoard(BoardVO board);

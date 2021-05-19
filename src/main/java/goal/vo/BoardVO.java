@@ -26,4 +26,6 @@ public class BoardVO {
    private int bo_fileCount;
    private List<BoardFileVO> fileList;
    private int reactCount;
+   private List<ReactVO> reactList;
+   private int reactType;
 }

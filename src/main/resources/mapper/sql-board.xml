@@ -14,6 +14,12 @@
 		<id property="bo_fileCount" column="bo_fileCount"/>
 		<collection column="bno" property="fileList" javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno"/>
 		<collection column="bno" property="reactCount" javaType="int" ofType="int" select="countReact"/>
+		<collection column="bno" property="reactList" javaType="List" ofType="goal.vo.ReactVO" select="getReactByBno"/>
+	</resultMap>
+	<resultMap type="goal.vo.ReactVO" id="reactVO">
+		<id property="react_name" column="react_name"/>
+		<id property="bno" column="bno"/>
+		<id property="userId" column="userId"/>
 	</resultMap>
 	<select id="countReact" resultType="int">
 		select count(*) from gk_react_list where bno=#{bno}
@@ -23,6 +29,9 @@
 	</select>
 	<select id="getFileByBno" resultType="goal.vo.BoardFileVO">
 		select * from GK_FILE where bno = #{bno}
+	</select>
+	<select id="getReactByBno" resultMap="reactVO">
+		select * from GK_react_list where bno = #{bno}
 	</select>
 	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
 		select bo_content, userid from GK_BOARD 
@@ -51,7 +60,9 @@
    	select u_id, bo_content, bo_DATE, bno, replyWriter, replyContent, replyDate from Gk_BOARD join GK_COMMENT using(bno)
      ]]>
    </select>
-   
+   <select id="findBoardbyBno" parameterType="int" resultMap="boardVO">
+		select * from GK_BOARD where bno=#{bno}
+	</select>
 	<select id="getBoardList" resultMap="boardVO">
 		select * from GK_BOARD order by bo_date desc
 	</select>

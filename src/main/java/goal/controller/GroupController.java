@@ -205,7 +205,7 @@ public class GroupController {
 		groupUser.setG_role("ROLE_MEMBER");
 		groupService.insertGroupUser(groupUser);
 		groupService.removeGroupJoin(groupJoin);
-		return "redirect:/group_management/"+groupJoin.getGno();
+		return "redirect:/group_mgJoin/"+groupJoin.getGno();
 	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
@@ -291,21 +291,25 @@ public class GroupController {
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
 	}
-	@RequestMapping(value="/group_react", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-	        produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/group_react", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<ReactVO>> react(@RequestBody ReactVO react, HttpServletRequest requst) throws JSONException {
+	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react, HttpServletRequest requst) throws JSONException {
 		ReactVO reactCheck = reactService.findReactbyUser(react);
-		react.setReact_name("like");
+		BoardVO preBoardList = boardService.findBoardbyBno(react.getBno());
 		if(reactCheck == null) {
 			reactService.insertReact(react);
-		} else if(reactCheck.getReact_name().equals(react.getReact_name())){
-			reactService.deleteReact(react);
 		} else {
-			reactService.updateReact(react);
+			reactService.deleteReact(react);
+		} 
+		BoardVO boardList = boardService.findBoardbyBno(react.getBno());
+		if(boardList.getReactList() == null) {
+			boardList = new BoardVO();
+			boardList.setReactCount(0);
+		} 
+		if(reactCheck!=null) {
+			boardList.setReactType(boardList.getReactCount()-preBoardList.getReactCount());
 		}
-		List<ReactVO> reactList = reactService.findReactbyBno(react);
-		return new ResponseEntity<List<ReactVO>>(reactList,HttpStatus.OK);
+		return new ResponseEntity<BoardVO>(boardList,HttpStatus.OK);
 	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{

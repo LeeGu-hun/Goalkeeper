@@ -315,7 +315,8 @@
 							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown">
 								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link" th:href="@{/group_member/{gno}(gno=${group.gno})}">더보기</p>
+								<p class="simple-dropdown-link"
+									th:href="@{/group_member/{gno}(gno=${group.gno})}">더보기</p>
 								<!-- /SIMPLE DROPDOWN LINK -->
 							</div>
 							<!-- /SIMPLE DROPDOWN -->
@@ -333,7 +334,8 @@
 						<!-- USER STATUS LIST -->
 						<div class="user-status-list">
 							<!-- USER STATUS -->
-							<div class="user-status request-small" th:each="groupUser:${groupUser}">
+							<div class="user-status request-small"
+								th:each="groupUser:${groupUser}">
 								<!-- USER STATUS AVATAR -->
 								<a class="user-status-avatar" href="profile-timeline.html">
 									<!-- USER AVATAR -->
@@ -352,12 +354,14 @@
 
 								<!-- USER STATUS TITLE -->
 								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html" th:text="${groupUser.userId}"></a>
+									<a class="bold" href="profile-timeline.html"
+										th:text="${groupUser.userId}"></a>
 								</p>
 								<!-- /USER STATUS TITLE -->
 
 								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small" th:text="${groupUser.g_role}=='ROLE_ADMIN'?'관리자':'일반멤버'"></p>
+								<p class="user-status-text small"
+									th:text="${groupUser.g_role}=='ROLE_ADMIN'?'관리자':'일반멤버'"></p>
 								<!-- /USER STATUS TEXT -->
 
 								<!-- ACTION REQUEST LIST -->
@@ -627,411 +631,295 @@
 								<!-- /USER STATUS TEXT -->
 							</div>
 							<!-- /USER STATUS -->
-						<!-- /WIDGET BOX STATUS CONTENT -->
-						<!-- WIDGET BOX STATUS TEXT -->
-						<form id="modify_form" method="post" enctype="multipart/form-data"
-							action="/board/modify.do">
+							<!-- /WIDGET BOX STATUS CONTENT -->
+							<!-- WIDGET BOX STATUS TEXT -->
+							<form id="modify_form" method="post"
+								enctype="multipart/form-data" action="/board/modify.do">
 
-							<p th:attr="id=${post.bno}" class="widget-box-status-text content_board"
-								th:text="${post.bo_content}"></p>
+								<p th:attr="id=${post.bno}"
+									class="widget-box-status-text content_board"
+									th:text="${post.bo_content}"></p>
 
-							<input type="hidden" th:value="${post.bno}" name="bno"
-								id="boardbno"> 
-							<input type="hidden"
-								th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
-							<input type="hidden" value="group" name="placeCheck">
-							<input type="hidden" th:value="${post.bo_group}" name="bo_group">
-							<div class="modify" th:attr="id='modify'+${post.bno}"
-								style="margin-bottom: 60px; display: none">
-								<textarea name="bo_content"
-									th:text="${post.bo_content}"></textarea>
-								<button type=submit class="button small secondary edit_btn"
-									style="width: 80px; float: right;">수정완료</button>
-								<p class="button small edit_cancelbtn"
-									style="width: 80px; float: right;">취소</p>
-							</div>
-						</form>
-						<!-- /WIDGET BOX STATUS TEXT -->
+								<input type="hidden" th:value="${post.bno}" name="bno"
+									id="boardbno"> <input type="hidden"
+									th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
+								<input type="hidden" value="group" name="placeCheck"> <input
+									type="hidden" th:value="${post.bo_group}" name="bo_group">
+								<div class="modify" th:attr="id='modify'+${post.bno}"
+									style="margin-bottom: 60px; display: none">
+									<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
+									<button type=submit class="button small secondary edit_btn"
+										style="width: 80px; float: right;">수정완료</button>
+									<p class="button small edit_cancelbtn"
+										style="width: 80px; float: right;">취소</p>
+								</div>
+							</form>
+							<!-- /WIDGET BOX STATUS TEXT -->
 
-						<!-- IFRAME WRAP -->
-						<div>
-							<!-- PICTURE COLLAGE -->
-							<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
-								<!-- PICTURE COLLAGE ROW -->
-								<div class="picture-collage-row medium">
-									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger"
-										th:each="file, i:${post.fileList}" th:if="${i.index}<3">
-										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview">
-											<!-- PHOTO PREVIEW IMAGE -->
-											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}"
-													alt="photo-preview-10">
-											</figure>
-											<!-- /PHOTO PREVIEW IMAGE -->
+							<!-- IFRAME WRAP -->
+							<div>
+								<!-- PICTURE COLLAGE -->
+								<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
+									<!-- PICTURE COLLAGE ROW -->
+									<div class="picture-collage-row medium">
+										<!-- PICTURE COLLAGE ITEM -->
+										<div class="picture-collage-item popup-picture-trigger"
+											th:each="file, i:${post.fileList}" th:if="${i.index}<3">
+											<!-- PHOTO PREVIEW -->
+											<div class="photo-preview">
+												<!-- PHOTO PREVIEW IMAGE -->
+												<figure class="photo-preview-image liquid">
+													<img th:attr="src=@{/boardImage/}+${file.uuid}"
+														alt="photo-preview-10">
+												</figure>
+												<!-- /PHOTO PREVIEW IMAGE -->
 
-											<!-- PHOTO PREVIEW INFO -->
-											<div class="photo-preview-info">
-												<!-- REACTION COUNT LIST -->
-												<div class="reaction-count-list">
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-thumbs-up">
+												<!-- PHOTO PREVIEW INFO -->
+												<div class="photo-preview-info">
+													<!-- REACTION COUNT LIST -->
+													<div class="reaction-count-list">
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-thumbs-up">
                               <use xlink:href="#svg-thumbs-up"></use>
                             </svg>
-														<!-- /REACTION COUNT ICON -->
+															<!-- /REACTION COUNT ICON -->
 
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">2</p>
-														<!-- /REACTION COUNT TEXT -->
-													</div>
-													<!-- /REACTION COUNT -->
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">2</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
 
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-comment">
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-comment">
                               <use xlink:href="#svg-comment"></use>
                             </svg>
-														<!-- /REACTION COUNT ICON -->
+															<!-- /REACTION COUNT ICON -->
 
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">5</p>
-														<!-- /REACTION COUNT TEXT -->
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">5</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
 													</div>
-													<!-- /REACTION COUNT -->
+													<!-- /REACTION COUNT LIST -->
 												</div>
-												<!-- /REACTION COUNT LIST -->
+												<!-- /PHOTO PREVIEW INFO -->
 											</div>
-											<!-- /PHOTO PREVIEW INFO -->
+											<!-- /PHOTO PREVIEW -->
 										</div>
-										<!-- /PHOTO PREVIEW -->
+										<!-- /PICTURE COLLAGE ITEM -->
 									</div>
-									<!-- /PICTURE COLLAGE ITEM -->
-								</div>
-								<!-- /PICTURE COLLAGE ROW -->
+									<!-- /PICTURE COLLAGE ROW -->
 
-								<!-- PICTURE COLLAGE ROW -->
-								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
-									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger"
-										th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
-										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview">
-											<!-- PHOTO PREVIEW IMAGE -->
-											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}"
-													alt="photo-preview-16">
-											</figure>
-											<!-- /PHOTO PREVIEW IMAGE -->
+									<!-- PICTURE COLLAGE ROW -->
+									<div class="picture-collage-row"
+										th:if="${post.bo_fileCount}>=3">
+										<!-- PICTURE COLLAGE ITEM -->
+										<div class="picture-collage-item popup-picture-trigger"
+											th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
+											<!-- PHOTO PREVIEW -->
+											<div class="photo-preview">
+												<!-- PHOTO PREVIEW IMAGE -->
+												<figure class="photo-preview-image liquid">
+													<img th:attr="src=@{/boardImage/}+${file.uuid}"
+														alt="photo-preview-16">
+												</figure>
+												<!-- /PHOTO PREVIEW IMAGE -->
 
-											<!-- PHOTO PREVIEW INFO -->
-											<div class="photo-preview-info">
-												<!-- REACTION COUNT LIST -->
-												<div class="reaction-count-list">
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-thumbs-up">
+												<!-- PHOTO PREVIEW INFO -->
+												<div class="photo-preview-info">
+													<!-- REACTION COUNT LIST -->
+													<div class="reaction-count-list">
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-thumbs-up">
                               <use xlink:href="#svg-thumbs-up"></use>
                             </svg>
-														<!-- /REACTION COUNT ICON -->
+															<!-- /REACTION COUNT ICON -->
 
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">2</p>
-														<!-- /REACTION COUNT TEXT -->
-													</div>
-													<!-- /REACTION COUNT -->
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">2</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
 
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-comment">
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-comment">
                               <use xlink:href="#svg-comment"></use>
                             </svg>
-														<!-- /REACTION COUNT ICON -->
+															<!-- /REACTION COUNT ICON -->
 
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">5</p>
-														<!-- /REACTION COUNT TEXT -->
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">5</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
 													</div>
-													<!-- /REACTION COUNT -->
+													<!-- /REACTION COUNT LIST -->
 												</div>
-												<!-- /REACTION COUNT LIST -->
+												<!-- /PHOTO PREVIEW INFO -->
 											</div>
-											<!-- /PHOTO PREVIEW INFO -->
+											<!-- /PHOTO PREVIEW -->
 										</div>
-										<!-- /PHOTO PREVIEW -->
+										<!-- /PICTURE COLLAGE ITEM -->
 									</div>
-									<!-- /PICTURE COLLAGE ITEM -->
+									<!-- /PICTURE COLLAGE ROW -->
 								</div>
-								<!-- /PICTURE COLLAGE ROW -->
+								<!-- /PICTURE COLLAGE -->
 							</div>
-							<!-- /PICTURE COLLAGE -->
-						</div>
-						<!-- /IFRAME WRAP -->
+							<!-- /IFRAME WRAP -->
 
-						<!-- WIDGET BOX STATUS CONTENT -->
-						<div class="widget-box-status-content">
-							<!-- TAG LIST -->
-							<div class="tag-list">
-								<!-- TAG ITEM -->
-								<a class="tag-item secondary" href="newsfeed.html">Stream</a>
-								<!-- /TAG ITEM -->
-							</div>
-							<!-- /TAG LIST -->
+							<!-- WIDGET BOX STATUS CONTENT -->
+							<div class="widget-box-status-content">
+								<!-- TAG LIST -->
+								<div class="tag-list">
+									<!-- TAG ITEM -->
+									<a class="tag-item secondary" href="newsfeed.html">Stream</a>
+									<!-- /TAG ITEM -->
+								</div>
+								<!-- /TAG LIST -->
 
-							<!-- CONTENT ACTIONS -->
-							<div class="content-actions">
-								<!-- CONTENT ACTION -->
-								<div class="content-action">
-									<!-- META LINE -->
-									<div class="meta-line">
-										<!-- META LINE LIST -->
-										<div class="meta-line-list reaction-item-list">
-											<!-- REACTION ITEM -->
-											<div class="reaction-item">
-												<!-- REACTION IMAGE -->
-												<img class="reaction-image reaction-item-dropdown-trigger"
-													src="../../img/reaction/love.png" alt="reaction-love">
-												<!-- /REACTION IMAGE -->
+								<!-- CONTENT ACTIONS -->
+								<div class="content-actions">
+									<!-- CONTENT ACTION -->
+									<div class="content-action">
+										<!-- META LINE -->
+										<div class="meta-line">
+											<!-- META LINE LIST -->
+											<div class="meta-line-list reaction-item-list"
+												th:if="${post.reactCount}!=0">
+												<!-- REACTION ITEM -->
+												<div id="reactStartDiv" class="reaction-item">
+													<!-- REACTION IMAGE -->
+													<img class="reaction-image reaction-item-dropdown-trigger"
+														th:attr="src=@{../../img/reaction/Like.png}"
+														alt="reaction-sad">
+													<!-- /REACTION IMAGE -->
 
-												<!-- SIMPLE DROPDOWN -->
-												<div class="simple-dropdown padded reaction-item-dropdown">
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">
-														<img class="reaction" src="../../img/reaction/love.png"
-															alt="reaction-love"> <span class="bold">Love</span>
-													</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
+													<!-- SIMPLE DROPDOWN -->
+													<div class="simple-dropdown padded reaction-item-dropdown">
+														<!-- SIMPLE DROPDOWN TEXT -->
+														<p class="simple-dropdown-text">
+															<img class="reaction"
+																th:attr="src=@{../../img/reaction/Like.png}"
+																alt="reaction-sad">
+															<span class="bold">Like</span>
+														</p>
+														<!-- /SIMPLE DROPDOWN TEXT -->
 
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Matt Parker</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Destroy Dex</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">The Green Goo</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
+														<!-- SIMPLE DROPDOWN TEXT -->
+														<div th:each="list:${post.reactList}" th:id="userDiv+${list.bno}">
+															<p class="simple-dropdown-text"
+																th:id="user+${list.userId}" th:text="${list.userId}"></p>
+														</div>
+														<!-- /SIMPLE DROPDOWN TEXT -->
+													</div>
 												</div>
-												<!-- /SIMPLE DROPDOWN -->
+												<!-- /REACTION ITEM -->
 											</div>
-											<!-- /REACTION ITEM -->
+											<!-- /META LINE LIST -->
 
-											<!-- REACTION ITEM -->
-											<div class="reaction-item">
-												<!-- REACTION IMAGE -->
-												<img class="reaction-image reaction-item-dropdown-trigger"
-													src="../../img/reaction/happy.png" alt="reaction-happy">
-												<!-- /REACTION IMAGE -->
-
-												<!-- SIMPLE DROPDOWN -->
-												<div class="simple-dropdown padded reaction-item-dropdown">
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">
-														<img class="reaction" src="../../img/reaction/happy.png"
-															alt="reaction-happy"> <span class="bold">Happy</span>
-													</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Sandra Strange</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Jane Rodgers</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-												</div>
-												<!-- /SIMPLE DROPDOWN -->
+											<!-- META LINE TEXT -->
+											<div th:attr="id='react'+${post.bno}">
+												<p class="meta-line-text" th:text="${post.reactCount}"></p>
 											</div>
-											<!-- /REACTION ITEM -->
-
-											<!-- REACTION ITEM -->
-											<div class="reaction-item">
-												<!-- REACTION IMAGE -->
-												<img class="reaction-image reaction-item-dropdown-trigger"
-													src="../../img/reaction/like.png" alt="reaction-like">
-												<!-- /REACTION IMAGE -->
-
-												<!-- SIMPLE DROPDOWN -->
-												<div class="simple-dropdown padded reaction-item-dropdown">
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">
-														<img class="reaction" src="../../img/reaction/like.png"
-															alt="reaction-like"> <span class="bold">Like</span>
-													</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Neko Bebop</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Nick Grissom</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Sarah Diamond</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Jett Spiegel</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">Marcus Jhonson</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">
-														<span class="bold">and 6 more...</span>
-													</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-												</div>
-												<!-- /SIMPLE DROPDOWN -->
-											</div>
-											<!-- /REACTION ITEM -->
+											<!-- /META LINE TEXT -->
 										</div>
-										<!-- /META LINE LIST -->
-
-										<!-- META LINE TEXT -->
-										<p th:attr="id='react'+${post.bno}" class="meta-line-text" th:text="${post.reactCount}"></p>
-										<!-- /META LINE TEXT -->
+										<!-- /META LINE -->
 									</div>
-									<!-- /META LINE -->
+									<!-- /CONTENT ACTION -->
+
+									<!-- CONTENT ACTION -->
+									<div class="content-action">
+										<!-- META LINE -->
+										<div class="meta-line">
+											<!-- META LINE LINK -->
+											<p class="meta-line-link">2 댓글</p>
+											<!-- /META LINE LINK -->
+										</div>
+										<!-- /META LINE -->
+
+										<!-- META LINE -->
+										<div class="meta-line">
+											<!-- META LINE TEXT -->
+											<p class="meta-line-text">0 공유</p>
+											<!-- /META LINE TEXT -->
+										</div>
+										<!-- /META LINE -->
+									</div>
+									<!-- /CONTENT ACTION -->
 								</div>
-								<!-- /CONTENT ACTION -->
-
-								<!-- CONTENT ACTION -->
-								<div class="content-action">
-									<!-- META LINE -->
-									<div class="meta-line">
-										<!-- META LINE LINK -->
-										<p class="meta-line-link">2 댓글</p>
-										<!-- /META LINE LINK -->
-									</div>
-									<!-- /META LINE -->
-
-									<!-- META LINE -->
-									<div class="meta-line">
-										<!-- META LINE TEXT -->
-										<p class="meta-line-text">0 공유</p>
-										<!-- /META LINE TEXT -->
-									</div>
-									<!-- /META LINE -->
-								</div>
-								<!-- /CONTENT ACTION -->
+								<!-- /CONTENT ACTIONS -->
 							</div>
-							<!-- /CONTENT ACTIONS -->
+							<!-- /WIDGET BOX STATUS CONTENT -->
 						</div>
-						<!-- /WIDGET BOX STATUS CONTENT -->
-					</div>
-					<!-- /WIDGET BOX STATUS -->
+						<!-- /WIDGET BOX STATUS -->
 
-					<!-- POST OPTIONS -->
-					<div class="post-options">
-						<!-- POST OPTION WRAP -->
-						<div class="post-option-wrap">
-							<!-- POST OPTION -->
-							<div class="post-option reaction-options-dropdown-trigger">
-								<!-- POST OPTION ICON -->
-								<svg class="post-option-icon icon-thumbs-up">
+						<!-- POST OPTIONS -->
+						<div class="post-options">
+							<!-- POST OPTION WRAP -->
+							<div class="post-option-wrap">
+								<!-- POST OPTION -->
+								<div class="post-option reaction-options-dropdown-trigger" th:if="${user}!=null" th:data-parameter1="${post.bno}" th:data-parameter2="${user.userId}"
+										th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
+									<!-- POST OPTION ICON -->
+									<svg class="post-option-icon icon-thumbs-up">
                   <use xlink:href="#svg-thumbs-up"></use>
                 </svg>
+									<!-- /POST OPTION ICON -->
+
+									<!-- POST OPTION TEXT -->
+									<p class="post-option-text">좋아요</p>
+									<!-- /POST OPTION TEXT -->
+								<!-- /POST OPTION -->
+								</div>
+								<div class="post-option reaction-options-dropdown-trigger" th:unless="${user}!=null" style=" cursor: pointer;" onclick="location.href='/login'">
+									<p class="post-option-text">로그인</p>
+								</div>
+								<!-- /REACTION OPTIONS -->
+							</div>
+							<!-- /POST OPTION WRAP -->
+
+							<!-- POST OPTION -->
+							<div class="post-option">
+								<!-- POST OPTION ICON -->
+								<svg class="post-option-icon icon-comment">
+                <use xlink:href="#svg-comment"></use>
+              </svg>
 								<!-- /POST OPTION ICON -->
 
 								<!-- POST OPTION TEXT -->
-								<p class="post-option-text">공감</p>
+								<p class="post-option-text">Comment</p>
 								<!-- /POST OPTION TEXT -->
 							</div>
 							<!-- /POST OPTION -->
 
-							<!-- REACTION OPTIONS -->
-							<div class="reaction-options reaction-options-dropdown" th:if="${user}!=null">
-								<!-- REACTION OPTION -->
-								<div class="reaction-option text-tooltip-tft" data-title="Like" th:data-parameter1="${post.bno}" th:data-parameter2="${user.userId}" 
-									th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
-									<!-- REACTION OPTION IMAGE -->
-									<img class="reaction-option-image" src="../../img/reaction/like.png"
-										alt="reaction-like">
-									<!-- /REACTION OPTION IMAGE -->
-								</div>
-								<!-- /REACTION OPTION -->
-								<!-- REACTION OPTION -->
-								<div class="reaction-option text-tooltip-tft"
-									data-title="Dislike">
-									<!-- REACTION OPTION IMAGE -->
-									<img class="reaction-option-image"
-										src="../../img/reaction/dislike.png" alt="reaction-dislike">
-									<!-- /REACTION OPTION IMAGE -->
-								</div>
-								<!-- /REACTION OPTION -->
-								<!-- REACTION OPTION -->
-								<div class="reaction-option text-tooltip-tft" data-title="Funny">
-									<!-- REACTION OPTION IMAGE -->
-									<img class="reaction-option-image" src="../../img/reaction/funny.png"
-										alt="reaction-funny">
-									<!-- /REACTION OPTION IMAGE -->
-								</div>
-								<!-- /REACTION OPTION -->
-								<!-- REACTION OPTION -->
-								<div class="reaction-option text-tooltip-tft" data-title="Angry">
-									<!-- REACTION OPTION IMAGE -->
-									<img class="reaction-option-image" src="../../img/reaction/angry.png"
-										alt="reaction-angry">
-									<!-- /REACTION OPTION IMAGE -->
-								</div>
-								<!-- /REACTION OPTION -->
-								<!-- REACTION OPTION -->
-								<div class="reaction-option text-tooltip-tft" data-title="Sad">
-									<!-- REACTION OPTION IMAGE -->
-									<img class="reaction-option-image" src="../../img/reaction/sad.png"
-										alt="reaction-sad">
-									<!-- /REACTION OPTION IMAGE -->
-								</div>
-								<!-- /REACTION OPTION -->
-							</div>
-							<!-- /REACTION OPTIONS -->
-						</div>
-						<!-- /POST OPTION WRAP -->
-
-						<!-- POST OPTION -->
-						<div class="post-option">
-							<!-- POST OPTION ICON -->
-							<svg class="post-option-icon icon-comment">
-                <use xlink:href="#svg-comment"></use>
-              </svg>
-							<!-- /POST OPTION ICON -->
-
-							<!-- POST OPTION TEXT -->
-							<p class="post-option-text">Comment</p>
-							<!-- /POST OPTION TEXT -->
-						</div>
-						<!-- /POST OPTION -->
-
-						<!-- POST OPTION -->
-						<div class="post-option">
-							<!-- POST OPTION ICON -->
-							<svg class="post-option-icon icon-share">
+							<!-- POST OPTION -->
+							<div class="post-option">
+								<!-- POST OPTION ICON -->
+								<svg class="post-option-icon icon-share">
                 <use xlink:href="#svg-share"></use>
               </svg>
-							<!-- /POST OPTION ICON -->
+								<!-- /POST OPTION ICON -->
 
-							<!-- POST OPTION TEXT -->
-							<p class="post-option-text">Share</p>
-							<!-- /POST OPTION TEXT -->
-						</div>
-						<!-- /POST OPTION -->
-					</div>
-					<!-- /POST OPTIONS -->
-				</div>
-				<!-- /WIDGET BOX -->
+								<!-- POST OPTION TEXT -->
+								<p class="post-option-text">Share</p>
+								<!-- /POST OPTION TEXT -->
 							</div>
+							<!-- /POST OPTION -->
+						</div>
+						<!-- /POST OPTIONS -->
+					</div>
+					<!-- /WIDGET BOX -->
+				</div>
 				<!-- LOADER BARS -->
 				<div class="loader-bars">
 					<div class="loader-bar"></div>
@@ -1045,7 +933,7 @@
 				</div>
 				<!-- /LOADER BARS -->
 
-			<!-- /GRID COLUMN -->
+				<!-- /GRID COLUMN -->
 			</div>
 
 			<!-- GRID COLUMN -->
@@ -1090,7 +978,8 @@
 						<!-- PICTURE ITEM LIST -->
 						<div class="picture-item-list small">
 							<!-- PICTURE ITEM -->
-							<div class="picture-item popup-picture-trigger" th:each="file:${fileList}">
+							<div class="picture-item popup-picture-trigger"
+								th:each="file:${fileList}">
 								<!-- PICTURE -->
 								<figure class="picture round liquid">
 									<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="avatar-24">
@@ -1547,6 +1436,6 @@
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
 	<script src="../../js/group_menu.js"></script>
-<script src="../../js/group_timeline.js"></script>
+	<script src="../../js/group_timeline.js"></script>
 </body>
 </html>

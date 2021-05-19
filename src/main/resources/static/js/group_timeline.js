@@ -100,7 +100,6 @@ window.onload = function() {
 					}
 				});//arr.forEach
 	}
-
 }
 function fnEdit(bno){	
 		$('#'+bno).hide();
@@ -116,18 +115,28 @@ function fnEdit(bno){
 		});		
 	}
 function react(no, id){
-	var param = {"bno" : no, "userId":id};
-	var reactCount = $('#react'+no);
+	var param = {"bno" : no, "userId" : id};
+	var reactDiv = $('#react'+no);
 	$.ajax({
 	    url: "/group_react",
 	    type: "POST",
 	    cache: false,
 	    data: JSON.stringify(param),
-	    dataType:'json',
 		contentType:'application/json; charset=utf-8',
 	    success: function(data) {
-	   		reactCount.attr("text", data.reactCount);
-	    	alert(reactCount.val());
+	    	reactDiv.find('p').remove();
+	    	if(data.reactCount == 0){
+	    		reactDiv.append('<p class="meta-line-text"></p>');
+	    		$('#reactStartDiv').attr('style', 'display:none');
+	    		$('#userDiv'+no).find('p').remove();
+	    	} else{
+	    		reactDiv.append('<p class="meta-line-text">'+data.reactCount+'</p>');
+	    		if(data.reactType==1){
+	    			$('#userDiv'+no).append('<p class="simple-dropdown-text" id="user' + id + '">' + id + '</p>');
+	    		} else if(data.reactType==-1){
+	    			$('#user'+id).remove();
+	    		}
+	    	}
 		},
 		error: function(request, status, error){
    			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
