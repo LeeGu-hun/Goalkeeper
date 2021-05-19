@@ -36,7 +36,7 @@
 			console.log("connect try success");
 			let userName = document.getElementById("chatUserId").value;
 			$.get(url + "/registration/" + userName, function(response) {
-				alert("등록성공");
+				
 				connectToChat(userName);
 			}).fail(function(error) {
 				connectToChat(userName);
