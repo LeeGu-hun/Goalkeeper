@@ -178,10 +178,10 @@ public class MyPageController {
 		friend.setFriendNo(friendNo);
 		friend.setFriendId(friendId);
 		friend.setFriendNumber(friendNumber);
-		friend.setFriendBirthdate(friendBirthdate);
-		if(userFileCheck == "Y") friend.setUserFileCheck(userFileCheck);
+		friend.setFriendBirthdate(friendBirthdate);		
+		if(userFileCheck.equals("Y")) friend.setUserFileCheck(userFileCheck);
 		else friend.setUserFileCheck("N");
-		if(userBackCheck == "Y") friend.setUserBackCheck(userBackCheck);
+		if(userBackCheck.equals("Y")) friend.setUserBackCheck(userBackCheck);
 		else friend.setUserBackCheck("N");
 		
 		friendService.addFriend(friend);

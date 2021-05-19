@@ -59,17 +59,18 @@ public class DropBoxController {
     ResponseEntity<byte[]> entity = null;
 	
 	@GetMapping("/profileInfo")
-	public ModelAndView openProfileInfo(HttpServletRequest request, UserVO vo) {
-		vo = getLoginUser(request);
+	public ModelAndView openProfileInfo(HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
 		UserFileVO file = new UserFileVO();
 		UserBackVO back = new UserBackVO();
-		file.setUno(vo.getUno());
-		back.setUno(vo.getUno());
+		file.setUno(user.getUno());
+		back.setUno(user.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
 		mv = commonService.checkLoginUser(request, mv);
 		mv.addObject("uno", back.getUno());
-		mv.addObject("fileCheck", vo.getUserFileCheck());
+		mv.addObject("fileCheck", user.getUserFileCheck());
+		mv.addObject("backCheck", user.getUserBackCheck());
 		return mv;
 	}
 	

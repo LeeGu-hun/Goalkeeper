@@ -71,8 +71,11 @@
 						<!-- USER PREVIEW -->
 						<div class="user-preview small fixed-height">
 							<!-- USER PREVIEW COVER -->
-							<figure class="user-preview-cover liquid">
+							<figure class="user-preview-cover liquid" th:if="${backCheck}=='Y'">
 								<img th:src="@{/backgroundProfile/}+${uno}" alt="cover-01">
+							</figure>
+							<figure class="user-preview-cover liquid" th:unless="${backCheck}=='Y'">
+								<img src="../../img/user_baseBack.png" alt="cover-01">
 							</figure>
 							<!-- /USER PREVIEW COVER -->
 
