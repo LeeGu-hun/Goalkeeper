@@ -794,8 +794,7 @@
 										<!-- META LINE -->
 										<div class="meta-line">
 											<!-- META LINE LIST -->
-											<div class="meta-line-list reaction-item-list"
-												th:if="${post.reactCount}!=0">
+											<div class="meta-line-list reaction-item-list">
 												<!-- REACTION ITEM -->
 												<div id="reactStartDiv" class="reaction-item">
 													<!-- REACTION IMAGE -->
@@ -829,7 +828,7 @@
 
 											<!-- META LINE TEXT -->
 											<div th:attr="id='react'+${post.bno}">
-												<p class="meta-line-text" th:text="${post.reactCount}"></p>
+												<p class="meta-line-text" th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
 											</div>
 											<!-- /META LINE TEXT -->
 										</div>
@@ -917,6 +916,15 @@
 							<!-- /POST OPTION -->
 						</div>
 						<!-- /POST OPTIONS -->
+					</div>
+					<div class="post-options">
+						<div class="user-status">
+							<a class="user-status-avatar"></a>
+							<p class="user-status-title">gg</p>
+						</div>
+						<div class="post-options">
+						
+						</div>
 					</div>
 					<!-- /WIDGET BOX -->
 				</div>

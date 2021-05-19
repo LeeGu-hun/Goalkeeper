@@ -291,25 +291,10 @@ public class GroupController {
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
 	}
-	@RequestMapping(value="/group_react", method=RequestMethod.POST)
+	@RequestMapping(value="/react", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react, HttpServletRequest requst) throws JSONException {
-		ReactVO reactCheck = reactService.findReactbyUser(react);
-		BoardVO preBoardList = boardService.findBoardbyBno(react.getBno());
-		if(reactCheck == null) {
-			reactService.insertReact(react);
-		} else {
-			reactService.deleteReact(react);
-		} 
-		BoardVO boardList = boardService.findBoardbyBno(react.getBno());
-		if(boardList.getReactList() == null) {
-			boardList = new BoardVO();
-			boardList.setReactCount(0);
-		} 
-		if(reactCheck!=null) {
-			boardList.setReactType(boardList.getReactCount()-preBoardList.getReactCount());
-		}
-		return new ResponseEntity<BoardVO>(boardList,HttpStatus.OK);
+	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react) throws JSONException {
+		return commonService.react(react);
 	}
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{

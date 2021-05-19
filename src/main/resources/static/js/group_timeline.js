@@ -118,7 +118,7 @@ function react(no, id){
 	var param = {"bno" : no, "userId" : id};
 	var reactDiv = $('#react'+no);
 	$.ajax({
-	    url: "/group_react",
+	    url: "/react",
 	    type: "POST",
 	    cache: false,
 	    data: JSON.stringify(param),
@@ -130,6 +130,7 @@ function react(no, id){
 	    		$('#reactStartDiv').attr('style', 'display:none');
 	    		$('#userDiv'+no).find('p').remove();
 	    	} else{
+	    		$('#reactStartDiv').attr('style', 'display:block');
 	    		reactDiv.append('<p class="meta-line-text">'+data.reactCount+'</p>');
 	    		if(data.reactType==1){
 	    			$('#userDiv'+no).append('<p class="simple-dropdown-text" id="user' + id + '">' + id + '</p>');
