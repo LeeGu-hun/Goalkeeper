@@ -112,7 +112,7 @@ public class DropBoxController {
 	public String insertProfile(UserVO user, HttpServletRequest request, @RequestPart("files") MultipartFile files)
 			throws Exception {
 		UserFileVO vo = new UserFileVO();
-		user = getLoginUser(request);
+		user = commonService.getLoginUser(request);
 		vo.setUno(user.getUno());
 		int check = userFileService.checkProfile(vo.getUno());
 		
@@ -150,7 +150,7 @@ public class DropBoxController {
 	public String insertBackground(UserVO user, HttpServletRequest request, @RequestPart("backFiles") MultipartFile backFiles)
 			throws Exception {
 		UserBackVO vo = new UserBackVO();
-		user = getLoginUser(request);
+		user = commonService.getLoginUser(request);
 		vo.setUno(user.getUno());
 		int check = userBackFileService.checkUserBack(vo.getUno());
 		
@@ -196,12 +196,6 @@ public class DropBoxController {
 	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
-	}
-	
-	public UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-	    UserVO user = (UserVO) session.getAttribute("user");
-	    return user;
 	}
 	
 }
