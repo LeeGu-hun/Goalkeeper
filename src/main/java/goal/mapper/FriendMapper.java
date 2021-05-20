@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.FriendVO;
+import goal.vo.UserFileVO;
 
 @Mapper
 public interface FriendMapper {
@@ -22,4 +23,5 @@ public interface FriendMapper {
 	void profileCheck(int uno);
 	
 	void profileBackCheck(int uno);
+	
 }
