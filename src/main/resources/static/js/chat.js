@@ -46,19 +46,16 @@
 			})
 		}
 		
-		
-	
-		
 		function selectUser(userName) {
 			console.log("selecting users: " + userName);
-			selectedUser = userName;
-			console.log("selectedUser users: " + selectedUser);
+			var selectedUser = userName;
+			console.log("selectedUser users2: " + selectedUser);
+			$('#chatOtherId').val(selectedUser);
 			let isNew = document.getElementById("newMessage_" + userName) !== null;
 			if (isNew) {
 				render(newMessages.get(userName), userName);
 			}
-			$('#selectedUserId').html('');
-			$('#selectedUserId').append('Chat with ' + userName);
+			
 		}
 		
 		connect();

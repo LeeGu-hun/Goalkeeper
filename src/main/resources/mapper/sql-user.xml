@@ -16,11 +16,17 @@
 	</resultMap>
 	
 	<update id="modifyUserInfo" parameterType="goal.vo.UserVO">
-	<![CDATA[
-		UPDATE GK_USER SET userMail = #{userMail}, userPhone = #{userPhone}, 
-		userGender = #{userGender}, userBirthdate= #{userBirthdate}, userPw=#{userPw} 
+	
+		UPDATE GK_USER
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="userMail != null and userMail != ''">userMail = #{userMail},</if>
+				<if test="userPhone != null and userPhone != ''">userPhone = #{userPhone},</if>
+				<if test="userGender != null and userGender != ''">userGender = #{userGender},</if>
+				<if test="userBirthdate != null and !userBirthdate.equals('')">userBirthdate= #{userBirthdate},</if>
+				<if test="userPw != null and userPw != ''">userPw=#{userPw},</if>
+			</trim>	
 		WHERE uno = #{uno}
-	]]>
+	
 	</update>
 	
 	<select id="read" parameterType="goal.vo.UserVO" resultType="String">
