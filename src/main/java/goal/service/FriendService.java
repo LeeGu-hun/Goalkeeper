@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import goal.vo.FriendVO;
+import goal.vo.UserFileVO;
 
 public interface FriendService {
 	List<FriendVO> getFriendsList(FriendVO vo);
@@ -19,4 +20,5 @@ public interface FriendService {
 	void profileCheck(int uno);
 	
 	void profileBackCheck(int uno);
+	
 }

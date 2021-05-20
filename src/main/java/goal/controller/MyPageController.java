@@ -228,14 +228,21 @@ public class MyPageController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/profile/{replyWriter}", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayImage(@PathVariable String replyWriter) throws IOException{
+		UserFileVO userFile = userFileService.selectFilebyId(replyWriter);
+		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+		return entity;
+	}
+	
+	@RequestMapping(value={"/user/profile/{uno}", "/user/profile/{userId}"}, method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 	    return entity;
 	}
 	
-	@RequestMapping(value="/user/background/{uno}", method=RequestMethod.GET)
+	@RequestMapping(value={"/user/background/{uno}", "/user/profile/{userId}"}, method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
 	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());

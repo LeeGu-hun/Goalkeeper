@@ -36,5 +36,9 @@ public class UserFileServiceImpl implements UserFileService{
 	public int checkProfile(int uno) {
 		return mapper.checkProfile(uno);
 	}
+	
+	public UserFileVO selectFilebyId(String userId){
+		return mapper.selectFilebyId(userId);
+	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.FriendMapper;
 import goal.vo.FriendVO;
+import goal.vo.UserFileVO;
 
 @Service
 @Component

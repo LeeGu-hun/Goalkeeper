@@ -10,4 +10,5 @@ public interface UserFileService {
 	int removeUserFile(int uno);
 	UserFileVO selectFile(int uno);
 	int checkProfile(int uno);
+	UserFileVO selectFilebyId(String userId);
 }
