@@ -74,15 +74,24 @@ $('#userId').on("propertychange change keyup paste input", function(){
 
 });
 $('#userPhone').on("propertychange change keyup paste input", function(){
-		let phoneNumber = $('#userPhone').val;
-		console.log("keyup 테스트: " + phoneNumber);	
-		let checkNum = /[0-9]/;
 		
-		if(phoneNumber !== checkNum){
+		$.ajax({
+				url : "/phoneChk",
+				type : "post",
+				dataType : "json",
+				data : {"userId" : $("#userId").val()},
+				success : function(){
+				
+				let phoneNumber = $('#userPhone').val;
+				let checkNum = /[0-9]/;
+				
+				if(phoneNumber !== checkNum){
 							$('.phone_alert_re_1').css("display","inline-block");
 						}else if(phoneNumber !== checkNum){
 							$('.phone_alert_re_1').css("display", "none");	
 						}
+					}
+			})
 
 });
 }
