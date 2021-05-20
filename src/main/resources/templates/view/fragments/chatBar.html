@@ -11,10 +11,9 @@
 <body> 
 <div th:fragment="chatBar">
 <input type="hidden" th:value="${user.userId}" id="chatUserId" class="chatUserId"/>
- <aside id="chat-widget-messages" class="chat-widget sidebar right closed">
+ <aside id="chat-widget-messages" class="chat-widget sidebar right">
     <!-- CHAT WIDGET MESSAGES -->
-    <div class="chat-widget-messages" data-simplebar="init" style="height: 809px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
-		
+    <div class="chat-widget-messages" data-simplebar="init" style="height: 717px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
       <!-- CHAT WIDGET MESSAGE -->
       <div class="chat-widget-message" th:each="fl:${friendlist}" >
         <!-- USER STATUS -->
@@ -58,22 +57,21 @@
           <!-- /USER STATUS TITLE -->
       
           <!-- USER STATUS TEXT -->
-          <p class="user-status-text small" >Can you stream the new game?</p>
+          <p class="user-status-text small">Can you stream the new game?</p>
           <!-- /USER STATUS TEXT -->
       
           <!-- USER STATUS TIMESTAMP -->
           <p class="user-status-timestamp floaty">2hrs</p>
           <!-- /USER STATUS TIMESTAMP -->
-       
+        </div>
         <!-- /USER STATUS -->
       </div>
-  
       <!-- /CHAT WIDGET MESSAGE -->
 
+      
 
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->   
-
-    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 735px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div></div></div>
+      
+    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 792px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 649px; display: block; transform: translate3d(0px, 0px, 0px);"></div></div></div>
     <!-- /CHAT WIDGET MESSAGES -->
 
     <!-- CHAT WIDGET FORM -->
@@ -134,6 +132,7 @@
     <!-- /CHAT WIDGET BUTTON -->
   </aside>
   
+  
   <aside id="chat-widget-message" class="chat-widget chat-widget-overlay hidden sidebar right">
     <!-- CHAT WIDGET HEADER -->
     <div class="chat-widget-header" >
@@ -177,29 +176,7 @@
             </div>
             <!-- /USER AVATAR PROGRESS BORDER -->
         
-            <!-- USER AVATAR BADGE -->
-            <div class="user-avatar-badge">
-              <!-- USER AVATAR BADGE BORDER -->
-              <div class="user-avatar-badge-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"><canvas width="22" height="24" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR BADGE BORDER -->
-        
-              <!-- USER AVATAR BADGE CONTENT -->
-              <div class="user-avatar-badge-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"><canvas width="16" height="18" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR BADGE CONTENT -->
-        
-              <!-- USER AVATAR BADGE TEXT -->
-              <p class="user-avatar-badge-text" >16</p>
-              <!-- /USER AVATAR BADGE TEXT -->
-            </div>
-            <!-- /USER AVATAR BADGE -->
+            
           </div>
           <!-- /USER AVATAR -->
         </div>
@@ -282,7 +259,7 @@
     <!-- /CHAT WIDGET CONVERSATION -->
 
     <!-- CHAT WIDGET FORM -->
-    
+    <div class="chat-widget-form">
       <!-- INTERACTIVE INPUT -->
       <div class="interactive-input small">
         <input type="text" id="chatSendTextBox" class="chatSendTextBox"  placeholder="Write a message...">
@@ -307,7 +284,7 @@
         <!-- /INTERACTIVE INPUT ACTION -->
       </div>
       <!-- /INTERACTIVE INPUT -->
-   
+   	</div>
     <!-- /CHAT WIDGET FORM -->
   </aside>
 

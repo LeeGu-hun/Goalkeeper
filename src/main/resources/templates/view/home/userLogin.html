@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="css/styles.min.css">
 <!-- favicon -->
 <link rel="icon" href="img/favicon.ico">
-<title>Vikinger | Home</title>
+<title>Trend Setter Login</title>
 </head>
 <body>
 
@@ -29,11 +29,11 @@
 		<div class="landing-info">
 			<!-- LOGO -->
 			<div class="logo">
-				<!-- ICON LOGO VIKINGER -->
-				<svg class="icon-logo-vikinger">
-          <use xlink:href="#svg-logo-vikinger"></use>
+				<!-- ICON LOGO Trend Setter -->
+				<svg class="icon-logo-Trend Setter">
+          <use xlink:href="#svg-logo-Trend Setter"></use>
         </svg>
-				<!-- /ICON LOGO VIKINGER -->
+				<!-- /ICON LOGO Trend Setter -->
 			</div>
 			<!-- /LOGO -->
 
@@ -42,7 +42,7 @@
 			<!-- /LANDING INFO PRETITLE -->
 
 			<!-- LANDING INFO TITLE -->
-			<h1 class="landing-info-title">GoalKeeper</h1>
+			<h1 class="landing-info-title">Trend Setter</h1>
 			<!-- /LANDING INFO TITLE -->
 
 			<!-- LANDING INFO TEXT -->
@@ -205,7 +205,7 @@
 
 
 
-			<div class="form-box login-register-form-element" style="position:relative; top:400px;">
+			<div class="form-box login-register-form-element" style="position:relative;">
 				<!-- FORM BOX DECORATION -->
 				<img class="form-box-decoration" src="img/landing/rocket.png"
 					alt="rocket">
@@ -300,8 +300,7 @@
 						<!-- FORM ITEM -->
 						<div class="form-item">
 							<!-- FORM INPUT -->
-							<div
-								style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
+							<div style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
 								<input type="date" id="userBirthdate" name="userBirthdate">
 							</div>
 							<!-- /FORM INPUT -->
@@ -316,8 +315,8 @@
 						<div class="form-item">
 							<!-- FORM INPUT -->
 							<div class="form-input">
-								<label for="register-username">전화번호</label> <input type="text"
-									id="userPhone" name="userPhone">
+								<label for="register-username">전화번호</label>
+								<input type="text" id="userPhone" name="userPhone" maxlength='11' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 							</div>
 							<!-- /FORM INPUT -->
 						</div>
@@ -339,13 +338,7 @@
 				</form>
 				<!-- /FORM -->
 
-				<!-- FORM TEXT -->
-				<p class="form-text">
-					You'll receive a confirmation email in your inbox with a link to
-					activate your account. If you have any problems, <a href="#">contact
-						us</a>!
-				</p>
-				<!-- /FORM TEXT -->
+				
 			</div>
 			<!-- /FORM BOX -->
 		</div>
