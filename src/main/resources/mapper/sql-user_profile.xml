@@ -26,4 +26,7 @@
 		]]>
 	</select>
 
+	<select id="selectFilebyId" parameterType="String" resultMap="userFileVO">
+    	select * from gk_user_file f, gk_comment c, gk_user u where f.uno=u.uno and '#{userId}=u.userId;
+	</select>
 </mapper>
