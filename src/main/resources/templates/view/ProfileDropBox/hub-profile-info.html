@@ -97,10 +97,10 @@
 										<div class="user-avatar-content">
 											<!-- HEXAGON -->
 											<figure th:if="${fileCheck}=='Y'">
-												<div class="hexagon-image-68-74" th:attr="data-src=@{/user/profile/}+${uno}" id="profile"></div>
+												<div class="hexagon-image-68-74" th:attr="data-src=@{/user/profile/}+${uno}"></div>
 											</figure>
 											<figure th:unless="${fileCheck}=='Y'">
-												<div class="hexagon-image-68-74" data-src="../../img/user_baseProfile.png"></div>
+												<div class="hexagon-image-68-74" data-src="../../img/user_baseProfile.png" id="profile"></div>
 											</figure>
 											<!-- /HEXAGON -->
 										</div>
@@ -156,7 +156,7 @@
 					            </svg>
 								<!-- /UPLOAD BOX ICON -->
 								<input type="file" name="backFiles" accept=".jpg, .jpeg, .png">
-								<button>upload</button>
+								<button >upload</button>
 							</div>
 						</form>
 						<!-- /UPLOAD BOX -->
@@ -240,13 +240,13 @@
 		</div>
 	</div>
 	</div>
-	<script th:inline="javascript" type="text/javascript">
+	<!-- <script th:inline="javascript" type="text/javascript">
 	$('#profileBtn').on('click', function(event) {
 	    event.preventDefault();
 	    
 	    var form = $('#profileSub')[0];
 	    var data = new FormData(form);
-	    var img = [[${uno}]]; //에러 떠도 콘솔창에 출력되요.
+
 	    var str="<h1>테스트</h1>";
 	    console.log(img);
 	    $('#profileBtn').prop('disabled', true);
@@ -262,8 +262,11 @@
 	        timeout: 600000,
 	        success: function (data) {
 	        	$('#profileBtn').prop('disabled', false);
-	        	$("#profile").attr("th:attr", "data-src=@{/user/profile/}"+img);
-	        	$(".grid-column").append(str);
+	        	$("#profile")
+	        	.attr("data-src", "")
+	        	.attr("th:attr", "data-src=@{/user/profile/}" + img);
+	        	
+	        	$(".user-avatar-content").append(str);
 	        	alert('success');
 	        },
 	        error: function (e) {
@@ -272,7 +275,7 @@
 	        }
 	    });
 	})
-	</script>
+	</script> -->
 	<!-- app -->
 	<script src="../../js/modifyUserInfo.js" type="text/javascript"></script>
 	<script src="js/utils/app.js"></script>

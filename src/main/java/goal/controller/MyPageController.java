@@ -16,11 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,6 +64,7 @@ public class MyPageController {
 	public UserBackFileService userBackFileService;
 	
 	private CommonDownload commonDownload = new CommonDownload();
+	private UserCommonDownload userCommon = new UserCommonDownload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -234,7 +233,7 @@ public class MyPageController {
 	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImagebyUno(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+	    entity = userCommon.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 	    return entity;
 	}
 	
@@ -248,7 +247,7 @@ public class MyPageController {
 	@RequestMapping(value="/user/background/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
 	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
+	    entity = userCommon.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
 	}
 	

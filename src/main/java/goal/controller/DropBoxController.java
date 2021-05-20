@@ -29,7 +29,6 @@ import goal.service.FriendService;
 import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
-import goal.upload.UserUpload;
 import goal.util.MediaUtils;
 import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
@@ -53,10 +52,6 @@ public class DropBoxController {
 	@Autowired
 	private FriendService friendService;
 	
-	private CommonDownload commonDownload = new CommonDownload();
-	
-	private UserUpload userUpload = new UserUpload();
-	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
     ResponseEntity<byte[]> entity = null;
@@ -71,7 +66,7 @@ public class DropBoxController {
 		
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
 		mv = commonService.checkLoginUser(request, mv);
-		mv.addObject("uno", back.getUno());
+		mv.addObject("uno", user.getUno());
 		mv.addObject("fileCheck", user.getUserFileCheck());
 		mv.addObject("backCheck", user.getUserBackCheck());
 		return mv;
@@ -117,9 +112,28 @@ public class DropBoxController {
 		UserFileVO vo = new UserFileVO();
 		user = commonService.getLoginUser(request);
 		vo.setUno(user.getUno());
+		user.setUserFileCheck("Y");
 		int check = userFileService.checkProfile(vo.getUno());
 		
-		vo = userUpload.profileUpload(vo, files);
+		String fileUrl = "C:/profile";
+		File uploadPath = new File(fileUrl);
+		
+	    if (uploadPath.exists() == false) {
+        	uploadPath.mkdirs();
+        }
+		   
+    	String fileName = files.getOriginalFilename(); 
+        String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
+        String filePath = fileUrl + "/" + uuid;
+        
+        File dest = new File(filePath);
+        files.transferTo(dest);
+        
+        vo.setUserFileId(uuid);
+        vo.setUserFileName(fileName);
+        vo.setUserFilePath(filePath);
+        userService.profileCheck(user.getUno());
+        friendService.profileCheck(user.getUno());
         
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());
@@ -137,6 +151,7 @@ public class DropBoxController {
 		UserBackVO vo = new UserBackVO();
 		user = commonService.getLoginUser(request);
 		vo.setUno(user.getUno());
+		user.setUserBackCheck("Y");
 		int check = userBackFileService.checkUserBack(vo.getUno());
 		
 		String fileUrl = "C:/userbackground";
@@ -167,20 +182,6 @@ public class DropBoxController {
 		}
 		
         return "redirect:/profileInfo";
-	}
-	
-	@RequestMapping(value="/profile/{uno}", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
-	    UserFileVO userFile = userFileService.selectFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
-	    return entity;
-	}
-	
-	@RequestMapping(value="/backgroundProfile/{uno}", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{
-	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
-	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
-	    return entity;
 	}
 	
 }
