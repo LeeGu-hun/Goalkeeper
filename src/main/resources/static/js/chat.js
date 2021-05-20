@@ -4,7 +4,7 @@
 		let selectedUser;
 		let newMessages = new Map();
 
-		function connectToChat(userName) {
+		function connectToChat(userName ) {
 			console.log("connecting to chat...")
 			let socket = new SockJS(url + '/chat');
 			console.log("소켓")
