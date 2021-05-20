@@ -244,13 +244,6 @@ public class MyPageController {
 		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 		return entity;
 	}
-	@RequestMapping(value="/user/ajax/{replyWriter}", method=RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<byte[]> ajaxImagebyId(@PathVariable String replyWriter) throws IOException{
-		UserFileVO userFile = userFileService.selectFilebyId(replyWriter);
-		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
-		return entity;
-	}
 	
 	@RequestMapping(value="/user/background/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayBackground(@PathVariable int uno) throws IOException{

@@ -72,7 +72,7 @@
 						<div class="user-preview small fixed-height">
 							<!-- USER PREVIEW COVER -->
 							<figure class="user-preview-cover liquid" th:if="${backCheck}=='Y'">
-								<img th:src="@{/backgroundProfile/}+${uno}" alt="cover-01">
+								<img th:src="@{/user/background/}+${uno}" alt="cover-01">
 							</figure>
 							<figure class="user-preview-cover liquid" th:unless="${backCheck}=='Y'">
 								<img src="../../img/user_baseBack.png" alt="cover-01">
@@ -97,7 +97,7 @@
 										<div class="user-avatar-content">
 											<!-- HEXAGON -->
 											<figure th:if="${fileCheck}=='Y'">
-												<div class="hexagon-image-68-74" th:attr="data-src=@{/profile/}+${uno}"></div>
+												<div class="hexagon-image-68-74" th:attr="data-src=@{/user/profile/}+${uno}" id="profile"></div>
 											</figure>
 											<figure th:unless="${fileCheck}=='Y'">
 												<div class="hexagon-image-68-74" data-src="../../img/user_baseProfile.png"></div>
@@ -131,7 +131,7 @@
 						<!-- /USER PREVIEW -->
 
 						<!-- UPLOAD BOX -->
-						<form method="post" action="/profileInfo/profile"
+						<form id="profileSub" method="post" action="/profileInfo/profile"
 							enctype="multipart/form-data">
 							<div class="upload-box">
 								<!-- UPLOAD BOX ICON -->
@@ -140,7 +140,8 @@
 				            	</svg>
 								<!-- /UPLOAD BOX ICON -->
 								<input type="file" name="files" accept=".jpg, .jpeg, .png">
-								<button>upload</button>
+								<input type="hidden" th:value="${fileCheck}" name="profileCheck">
+								<button id="profileBtn">upload</button>
 							</div>
 						</form>
 						<!-- /UPLOAD BOX -->
@@ -177,22 +178,27 @@
 									<input type="hidden" name="uno" th:value="${user.uno}">
 									<div class="form-input small active">
 										<label for="profile-name">E-mail</label> <input type="text"
-											id="userMail" name="userMail" >
+											id="userMail" name="userMail" th:value="${user.userMail}">
 									</div>
 								</div>
 								<div class="form-item">
 									<div class="form-input small active">
 										<label for="profile-tagline">Phone Number</label> <input
 											type="text" id="userPhone" name="userPhone"
-											>
+											th:value="${user.userPhone}">
 									</div>
 								</div>
 							</div>
 							<div class="form-row split">
 								<!-- FORM ITEM -->
 								<div class="form-item">
-									<div style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
-										<input type="date" id="userBirthdate" name="userBirthdate" th:value="${#dates.format(user.userBirthdate, 'yyyy-MM-dd')}">							
+									<div class="form-item">
+										<!-- FORM INPUT -->
+										<label for="profile-name">Birthday</label>
+										<div class="form-input small active">
+											<input type="date" id="userBirthdate" name="userBirthdate"
+												th:value="${user.userBirthdate}">
+										</div>
 									</div>
 								</div>
 								<div class="form-item">
@@ -201,7 +207,7 @@
 										<label for="profile-status">Gender</label> <select
 											id="profile-status" name="userGender">
 											<option value="M">Man</option>
-											<option value="W">Women</option>
+											<option value="W" selected>Women</option>
 										</select>
 										<svg class="form-select-icon icon-small-arrow">
                        						 <use xlink:href="#svg-small-arrow"></use>
@@ -214,14 +220,14 @@
 									<div class="form-input small">
 										<label for="profile-birthplace">New PassWord</label> <input
 											type="password" id="userPw" name="userPw"
-											>
+											th:value="${user.userPw}">
 									</div>
 								</div>
 								<div class="form-item">
 									<!-- FORM INPUT -->
 									<div class="form-input small">
-										<label for="profile-birthplace">Password Check</label> 
-										<input type="password" id="re_pw" name="profile_birthplace">
+										<label for="profile-birthplace">Password Check</label> <input
+											type="password" id="re_pw" name="profile_birthplace">
 									</div>
 								</div>
 							</div>
@@ -234,7 +240,39 @@
 		</div>
 	</div>
 	</div>
-
+	<script th:inline="javascript" type="text/javascript">
+	$('#profileBtn').on('click', function(event) {
+	    event.preventDefault();
+	    
+	    var form = $('#profileSub')[0];
+	    var data = new FormData(form);
+	    var img = [[${uno}]]; //에러 떠도 콘솔창에 출력되요.
+	    var str="<h1>테스트</h1>";
+	    console.log(img);
+	    $('#profileBtn').prop('disabled', true);
+		
+	    $.ajax({
+	        type: "POST",
+	        enctype: 'multipart/form-data',
+	        url: "/profileInfo/profile",
+	        data: data,
+	        processData: false,
+	        contentType: false,
+	        cache: false,
+	        timeout: 600000,
+	        success: function (data) {
+	        	$('#profileBtn').prop('disabled', false);
+	        	$("#profile").attr("th:attr", "data-src=@{/user/profile/}"+img);
+	        	$(".grid-column").append(str);
+	        	alert('success');
+	        },
+	        error: function (e) {
+	            $('#profileBtn').prop('disabled', false);
+	            alert('fail');
+	        }
+	    });
+	})
+	</script>
 	<!-- app -->
 	<script src="../../js/modifyUserInfo.js" type="text/javascript"></script>
 	<script src="js/utils/app.js"></script>
