@@ -14,6 +14,7 @@
 <!-- favicon -->
 <link rel="icon" href="img/favicon.ico">
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
+<link rel="stylesheet" href="../../css/noticemodal.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous">
@@ -1045,10 +1046,10 @@
 
 									<!-- OPTION ITEM TITLE -->
 									<p class="option-item-title">전체 글</p>
+									
 									<!-- /OPTION ITEM TITLE -->
 								</div>
 								<!-- /OPTION ITEM -->
-
 								<!-- OPTION ITEM -->
 								<div id="secrettext" class="option-item" onclick="secrettext()"
 									value="private">
@@ -1269,7 +1270,7 @@
 								<!-- SIMPLE DROPDOWN LINK -->
 								<p class="simple-dropdown-link" th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
 								<!-- /SIMPLE DROPDOWN LINK -->
-	
+
 								<!-- SIMPLE DROPDOWN LINK -->
 								<p class="simple-dropdown-link" th:attr="id='delete'+${post.bno}" 
 										th:onclick="|javascript:fnDelete('${post.bno}')|">Delete Post</p>
@@ -1951,7 +1952,13 @@
 				<!-- STATS BOX SLIDER CONTROLS -->
 				<div class="stats-box-slider-controls">
 					<!-- STATS BOX SLIDER CONTROLS TITLE -->
-					<p class="stats-box-slider-controls-title">Stats Box</p>
+					<div  th:if="${user} == null">
+					<p class="stats-box-slider-controls-title">전체 글</p>
+					</div>
+					
+					<div th:unless="${user}==null">
+					<p class="stats-box-slider-controls-title">이번달 작성글</p>
+					</div>	
 					<!-- /STATS BOX SLIDER CONTROLS TITLE -->
 
 					<!-- SLIDER CONTROLS -->
@@ -1987,7 +1994,22 @@
 						<!-- STATS BOX VALUE WRAP -->
 						<div class="stats-box-value-wrap">
 							<!-- STATS BOX VALUE -->
-							<p class="stats-box-value">87.365</p>
+							
+							<div  th:if="${user} == null">
+							<p class="stats-box-value" th:text="${allcount}+'개의 글'" ></p>
+							</div>
+							
+							<div th:unless="${user}==null">
+							<p class="stats-box-value" th:text="${count}+'개의 글'" ></p>
+							</div>	
+							
+							
+							<!-- <div class="simple-dropdown widget-box-post-settings-dropdown" 
+									th:if="${user} == null"></div>
+						<div class="simple-dropdown widget-box-post-settings-dropdown"  
+									th:unless="${user} == null">
+							<div th:if="${post.userId} == ${user.userId}"> -->
+							
 							<!-- /STATS BOX VALUE -->
 
 							<!-- STATS BOX DIFF -->
@@ -2011,11 +2033,11 @@
 						<!-- /STATS BOX VALUE WRAP -->
 
 						<!-- STATS BOX TITLE -->
-						<p class="stats-box-title">Profile Views</p>
+						<p class="stats-box-title"></p>
 						<!-- /STATS BOX TITLE -->
 
 						<!-- STATS BOX TEXT -->
-						<p class="stats-box-text">In the last month</p>
+						<p class="stats-box-text">여러 정보를 공유하세요!</p>
 						<!-- /STATS BOX TEXT -->
 					</div>
 					<!-- /STATS BOX -->
@@ -5308,7 +5330,6 @@
 			<!-- /POST COMMENT FORM -->
 		</div>
 		<!-- /WIDGET BOX -->
-
 		<!-- POPUP PICTURE IMAGE WRAP -->
 		<div class="popup-picture-image-wrap">
 			<!-- POPUP PICTURE IMAGE -->
@@ -5324,8 +5345,9 @@
 
 	<div
 		style="width: 100%; height: 100%; background-color: rgba(21, 21, 31, 0.96); position: fixed; top: 0px; left: 0px; z-index: 100000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s;"></div>
+	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<!-- app -->
-	</script>
+	<script src="../../js/noticemodal.js"></script>
 	<script src="../../js/newsfeed.js?ver=1.2"></script>
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->

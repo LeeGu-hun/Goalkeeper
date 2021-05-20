@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">>
+<head>
+<meta charset="utf-8">
+</head>
+
+<body>
+<div th:fragment="modal">
+
+<!-- 알림모달 -->
+	<div id="noticemodal"></div>
+	  <div id="modalcontent" class="modal-con modalnotice">
+	    <a href="javascript:;" class="modalclose">
+	    <svg class="icon-cross demo-box-icon"><use xlink:href="#svg-cross"></use></svg></a>
+	    <p class="noticetitle"><svg class="icon-notification demo-box-icon">
+	    <use xlink:href="#svg-notification"></use></svg>  Notice</p>
+	    <div class="con">
+	      <h1 id="modaltext"></h1>
+	    </div>
+	    <input id="confirmbtn" type="button" value="확인" style="position:absolute; bottom:3%; right:3%; 
+      		 background:white">
+	</div>
+<!-- 경고모달 -->
+	<div id="noticemodal"></div>
+	  <div id="warningmodalcontent" class="modal-con modalnotice">
+	    <a href="javascript:;" class="modalclose">
+	    <svg class="icon-cross demo-box-icon"><use xlink:href="#svg-cross"></use></svg></a>
+	    <p style="color:#ede205" class="warntitle"><svg class="icon-notification demo-box-icon">
+	    <use xlink:href="#svg-notification"></use></svg>  Warning</p>
+	    <div class="con">
+	      <h1 id="warningmodaltext"></h1>
+	    </div>
+	    <input id="confirmbtn" type="button" value="확인" style="position:absolute; bottom:3%; right:3%; 
+      		 background:white">
+	</div>
+</div>
+</body>
+</html>

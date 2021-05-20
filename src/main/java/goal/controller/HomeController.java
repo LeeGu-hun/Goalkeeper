@@ -211,11 +211,15 @@ public class HomeController {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
-		mv.addObject("BoList", boardList);	
+		mv.addObject("BoList", boardList);
+		int allcount = boardService.boardAllCount();
+		mv.addObject("allcount", allcount);
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 //			List<ReplyVO> ReplyList = replyService.getMainReply();
+			int count = boardService.boardCount(user.getUserId());
 			
+	        mv.addObject("count", count);
 			mv.addObject("GrList", groupList);
 //			mv.addObject("reply", ReplyList);
 		}

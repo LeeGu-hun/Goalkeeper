@@ -67,5 +67,15 @@ public class BoardServiceImpl implements BoardService{
 		boardMapper.deleteBoard(board);
 		
 	}
+	@Override
+	   public int boardCount(String userId) {
+	      return boardMapper.boardCount(userId);
+	   }
+
+	@Override
+	public int boardAllCount() {
+		return boardMapper.boardAllCount();
+	}
+
 	
 }

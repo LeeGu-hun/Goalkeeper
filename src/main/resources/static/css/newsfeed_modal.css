@@ -1,5 +1,5 @@
  .backmodal{
-  position:absolute; width:2000px; height:1000px; 
+  position:absolute; width:2000px; height:100%; 
   background: rgba(50,0,0, 0.1);  
   display:none;
   top:0%; 
@@ -12,7 +12,7 @@
   .modal{ 
   position:absolute; width:1000px; height:700px; 
   background: rgba(255, 200, 250, 0.8); 
-  top:20%; 
+  top:200px; 
   left:23%; 
   display:none;
   z-index:10002;
