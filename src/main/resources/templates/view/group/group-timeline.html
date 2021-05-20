@@ -13,6 +13,7 @@
 <!-- tiny-slider styles -->
 <link rel="stylesheet" href="../../css/vendor/tiny-slider.css">
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
+<link rel="stylesheet" href="../../css/noticemodal.css">
 <!-- favicon -->
 <link rel="icon" href="../../img/favicon.ico">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -393,7 +394,7 @@
 				<form id="groupWrite" method="post" action="/group_detail"
 					enctype="multipart/form-data">
 					<!-- QUICK POST -->
-					<div class="quick-post" th:if="${result}=='WriteSuccess'">
+					<div class="quick-post" th:if="${boardResult}=='WriteSuccess'">
 						<!-- QUICK POST HEADER -->
 						<div class="quick-post-header">
 							<!-- OPTION ITEMS -->
@@ -792,11 +793,11 @@
 									<!-- CONTENT ACTION -->
 									<div class="content-action">
 										<!-- META LINE -->
-										<div class="meta-line">
+										<div class="meta-line" th:id="reactStartDiv+${post.bno}">
 											<!-- META LINE LIST -->
 											<div class="meta-line-list reaction-item-list">
 												<!-- REACTION ITEM -->
-												<div id="reactStartDiv" class="reaction-item">
+												<div class="reaction-item">
 													<!-- REACTION IMAGE -->
 													<img class="reaction-image reaction-item-dropdown-trigger"
 														th:attr="src=@{../../img/reaction/Like.png}"
@@ -827,7 +828,7 @@
 											<!-- /META LINE LIST -->
 
 											<!-- META LINE TEXT -->
-											<div th:attr="id='react'+${post.bno}">
+											<div th:id="react+${post.bno}">
 												<p class="meta-line-text"
 													th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
 											</div>
@@ -1022,7 +1023,7 @@
 								<!-- /USER STATUS TITLE -->
 							</div>
 							<div class="post-options" th:id="recmtPost+${reply.rno}"
-								style="display: none" th:if="${user}!=null">
+								style="display: none" th:if="${user}!=null and ${result}!='WriteSuccess'">
 								<form class="form" th:id="recmtFrm+${reply.rno}"
 									style="width: 75%; display: inline-block">
 									<div class="form-row">
@@ -1044,9 +1045,9 @@
 								<button class="button primary" th:onclick="|javascript:recmtBtn('${reply.rno}')|"
 									style="width: 20%; margin-top: -2px;">쓰기</button>
 							</div>
-							<div class="post-options" th:unless="${user}!=null">
+							<div class="post-options" th:unless="${user}!=null and ${result}!='WriteSuccess'">
 								<p>
-									<a href="/login">로그인</a>이 필요합니다.
+									가입되지 않았거나 로그인이 필요합니다.
 								</p>
 							</div>
 							<div class="user-status" id="ajaxAddRecmt" style="display: none;">
@@ -1163,7 +1164,6 @@
 					</div>
 				</div>
 				<!-- /WIDGET BOX -->
-			</div>
 			<!-- LOADER BARS -->
 			<div class="loader-bars">
 				<div class="loader-bar"></div>
@@ -1638,7 +1638,7 @@
 		<!-- /GRID COLUMN -->
 	</div>
 	<!-- /GRID -->
-	</div>
+	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<script>
 	function goJoin(){
 		var popupWidth = 1215;
@@ -1648,25 +1648,7 @@
 		window.open('../../group_join', '_blank', 'height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 	};
 	var toggle = true;
-	function openReply(){
-		if(toggle){
-		 	$('#replyBox').attr('style', 'display:block');
-		 	toggle = false;	
-		} else{
-			$('#replyBox').attr('style', 'display:none');
-			toggle = true;
-		}
-	}
-	var reToggle = true;
-	function openRecmt(rno){
-		if(reToggle){
-		 	$('#recmtPost'+rno).attr('style', 'display:block');
-		 	reToggle = false;	
-		} else{
-			$('#recmtPost'+rno).attr('style', 'display:none');
-			reToggle = true;
-		}
-	}
+	
 </script>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
@@ -1700,5 +1682,6 @@
 	<script src="../../js/utils/svg-loader.js"></script>
 	<script src="../../js/group_menu.js"></script>
 	<script src="../../js/group_timeline.js"></script>
+	<script src="../../js/reply.js"></script>
 </body>
 </html>

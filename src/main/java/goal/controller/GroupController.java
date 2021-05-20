@@ -80,9 +80,6 @@ public class GroupController {
 	@Autowired
 	private BoardFileService boardFileService;
 	
-	@Autowired
-	private ReplyService replyService;
-	
 	private GroupUpload groupUpload = new GroupUpload();
 	private CommonDownload commonDownload = new CommonDownload();
 	private String referer;
@@ -161,9 +158,12 @@ public class GroupController {
 			checkUser.setUno(user.getUno());
 			int count = groupService.checkUserbyGroup(checkUser);
 			if(count==1) {
-				mv.addObject("result", "WriteSuccess");
+				mv.addObject("boardResult", "WriteSuccess");
+				mv.addObject("joinResult", "joinDenied");
 			} 
-		}	
+		} else {
+			mv.addObject("joinResult", "loginRequire");
+		}
 		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
@@ -296,30 +296,6 @@ public class GroupController {
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
 	}
-	@RequestMapping(value="/react", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react) throws JSONException {
-		return commonService.react(react);
-	}
-	@RequestMapping(value="/group_reply", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<ReplyVO> reply(ReplyVO reply, HttpServletRequest request){
-		UserVO user = commonService.getLoginUser(request);
-		reply.setReplyWriter(user.getUserId());
-		replyService.insertReply(reply);
-		ReplyVO recentReply = replyService.getMainReply();
-		return new ResponseEntity<ReplyVO>(recentReply,HttpStatus.OK);
-	}
-	@RequestMapping(value="/group_recmt", method=RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<ReCommentVO> recmt(ReCommentVO recmtVO, HttpServletRequest request){
-		UserVO user = commonService.getLoginUser(request);
-		recmtVO.setRecmtWriter(user.getUserId());
-		replyService.insertRecmt(recmtVO);
-		ReCommentVO recentRecmt = replyService.getMainRecmt();
-		return new ResponseEntity<ReCommentVO>(recentRecmt,HttpStatus.OK);
-	}
-	
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 	    GroupFileVO groupFile = groupFileService.selectFile(gno);

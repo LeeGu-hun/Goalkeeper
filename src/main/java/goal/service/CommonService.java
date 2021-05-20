@@ -16,5 +16,4 @@ public interface CommonService {
 	ModelAndView checkLoginUser(HttpServletRequest request, ModelAndView mv);
 	UserVO getLoginUser(HttpServletRequest request);
 	void fileCheck(BoardVO board, String fileCheck, List<MultipartFile> files);
-	public ResponseEntity<BoardVO> react(ReactVO react);
 }

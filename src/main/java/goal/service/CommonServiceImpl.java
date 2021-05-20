@@ -63,24 +63,5 @@ public class CommonServiceImpl implements CommonService {
 			boardService.insertBoard(board);
 		}
 	}
-
-	@Override
-	public ResponseEntity<BoardVO> react(ReactVO react) {
-		ReactVO reactCheck = reactService.findReactbyUser(react);
-		BoardVO preBoardList = boardService.findBoardbyBno(react.getBno());
-		if(reactCheck == null) {
-			reactService.insertReact(react);
-		} else {
-			reactService.deleteReact(react);
-		} 
-		BoardVO boardList = boardService.findBoardbyBno(react.getBno());
-		if(boardList.getReactList() == null) {
-			boardList.setReactCount(0);
-		} 
-		if(reactCheck!=null) {
-			boardList.setReactType(boardList.getReactCount()-preBoardList.getReactCount());
-		}
-		return new ResponseEntity<BoardVO>(boardList,HttpStatus.OK);
-	}	
 	
 }

@@ -100,42 +100,7 @@ window.onload = function() {
 					}
 				});//arr.forEach
 	}
-	var count = 1;
-	$('#replyBtn').click(function(){
-		var params = $('#replyFrm').serialize();
-		$.ajax({
-			url : '/group_reply',
-			type : 'POST',
-			cache: false,
-		    data: params,
-		    datatype : 'text',
-			contentType:'application/x-www-form-urlencoded; charset=utf-8',
-		    success: function(data) {
-		    	var cloneReply = $('#ajaxAddReply').clone();
-		    	cloneReply.attr('id', 'ajaxAddReply'+count);
-		    	if(data.profileCheck==1){
-		    		cloneReply.find('#ajaxReplyProfile').replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.replyWriter+'"></figure>');
-		    	} else{
-			    	cloneReply.find('#ajaxReplyProfile').replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
-		    	}	    	
-		    	var date = new Date(data.replyDate);
-		    	var month = date.getMonth();
-		    	if(month <10){
-		    		month = '0' + month;
-		    	}
-		    	cloneReply.find('#ajaxReplyId').html(data.replyWriter);
-		    	cloneReply.find('#ajaxReplyContent').html(data.replyContent);
-		    	cloneReply.find('#ajaxReplyDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
-		    	cloneReply.attr('style', 'display:block; margin-left:40px;');
-		    	$('#ajaxAddReply').before(cloneReply);
-		    	count ++;
-		    	
-		    },
-		    error: function(request, status, error){
-	   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	});
+	
 }
 function fnEdit(bno){	
 		$('#'+bno).hide();
@@ -150,70 +115,28 @@ function fnEdit(bno){
 			$('#modify'+bno).hide();
 		});		
 	}
-function react(no, id){
-	var param = {"bno" : no, "userId" : id};
-	var reactDiv = $('#react'+no);
-	$.ajax({
-	    url: "/react",
-	    type: "POST",
-	    cache: false,
-	    data: JSON.stringify(param),
-		contentType:'application/json; charset=utf-8',
-	    success: function(data) {
-	    	reactDiv.find('p').remove();
-	    	if(data.reactCount == 0){
-	    		reactDiv.append('<p class="meta-line-text"></p>');
-	    		$('#reactStartDiv').attr('style', 'display:none');
-	    		$('#userDiv'+no).find('p').remove();
-	    	} else{
-	    		$('#reactStartDiv').attr('style', 'display:block');
-	    		reactDiv.append('<p class="meta-line-text">'+data.reactCount+'</p>');
-	    		if(data.reactType==1){
-	    			$('#userDiv'+no).append('<p class="simple-dropdown-text" id="user' + id + '">' + id + '</p>');
-	    		} else if(data.reactType==-1){
-	    			$('#user'+id).remove();
-	    		}
-	    	}
-		},
-		error: function(request, status, error){
-   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
-}
-var reCount = 1;
-function recmtBtn(rno){
-	var params = $('#recmtFrm'+rno).serialize();
-	$.ajax({
-		url : '/group_recmt',
-		type : 'POST',
-		cache: false,
-	    data: params,
-	    datatype : 'text',
-		contentType:'application/x-www-form-urlencoded; charset=utf-8',
-	    success: function(data) {
-	    	var cloneRecmt = $('#ajaxAddRecmt').clone();
-	    	cloneRecmt.attr('id', 'ajaxAddRecmt'+reCount);
-	    	if(data.profileCheck==1){
-	    		cloneRecmt.find('#ajaxRecmtProfile').replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.recmtWriter+'"></figure>');
-	    	} else{
-		    	cloneRecmt.find('#ajaxRecmtProfile').replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
-	    	}	    	
-	    	var date = new Date(data.recmtDate);
-	    	var month = date.getMonth();
-	    	if(month <10){
-	    		month = '0' + month;
-	    	}
-	    	cloneRecmt.find('#ajaxRecmtId').html(data.recmtWriter);
-	    	cloneRecmt.find('#ajaxRecmtContent').html(data.recmtContent);
-	    	cloneRecmt.find('#ajaxRecmtDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
-	    	cloneRecmt.attr('style', 'display:block;');
-	    	$('#recmtPost'+data.rno).before(cloneRecmt);
-	    	reCount ++;
-	    	
-	    },
-	    error: function(request, status, error){
-   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
-}
 
+function openJoin(result){
+	if(result == "joinDenied"){
+		$("#noticemodal").fadeIn(300);
+		$("#modalcontent").fadeIn(300);
+		$('#modaltext').text("이미 가입된 그룹입니다.");
+		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+			  $("#noticemodal").fadeOut(300);
+			  $(".modal-con").fadeOut(300);
+		});
+	} else if(result =="loginRequire"){
+		$("#noticemodal").fadeIn(300);
+		$('#modaltext').text("로그인이 필요합니다.");
+		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+			  $("#noticemodal").fadeOut(300);
+			  $(".modal-con").fadeOut(300);
+		});
+	} else{
+		var popupWidth = 1215;
+		var popupHeight = 391;
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		var popupY= (window.screen.height / 2) - (popupHeight / 2);
+		window.open('../../group_join', '_blank', 'height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+	}
+};

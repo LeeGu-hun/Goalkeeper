@@ -10,10 +10,12 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header v2">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid" th:if="${group.bgi_check}=='Y'">
+			<figure class="profile-header-cover liquid"
+				th:if="${group.bgi_check}=='Y'">
 				<img th:attr="src=@{/background/}+${group.gno}" alt="cover-29">
 			</figure>
-			<figure class="profile-header-cover liquid" th:unless="${group.bgi_check}=='Y'">
+			<figure class="profile-header-cover liquid"
+				th:unless="${group.bgi_check}=='Y'">
 				<img src="../../img/group_baseBgi.png" alt="cover-29">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
@@ -32,11 +34,14 @@
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/display/}+${group.gno}"></div>
+							<div class="hexagon-image-100-110"
+								th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
-						<div class="user-avatar-content" th:unless="${group.bgi_check}=='Y'">
-							<div class="hexagon-image-100-110" data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+						<div class="user-avatar-content"
+							th:unless="${group.bgi_check}=='Y'">
+							<div class="hexagon-image-100-110"
+								data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
 						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -52,11 +57,14 @@
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-100-110" th:attr="data-src=@{/display/}+${group.gno}"></div>
+							<div class="hexagon-image-100-110"
+								th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
-						<div class="user-avatar-content" th:unless="${group.bgi_check}=='Y'">
-							<div class="hexagon-image-100-110" data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+						<div class="user-avatar-content"
+							th:unless="${group.bgi_check}=='Y'">
+							<div class="hexagon-image-100-110"
+								data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
 						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -80,8 +88,7 @@
 						<!-- USER STAT ICON -->
 						<div class="user-stat-icon">
 							<!-- ICON PUBLIC -->
-							<svg class="icon-public"
-								th:if="${group.g_open}=='Y'">
+							<svg class="icon-public" th:if="${group.g_open}=='Y'">
               				<use xlink:href="#svg-public"></use>
            				</svg>
 							<!-- ICON PRIVATE -->
@@ -150,7 +157,9 @@
 				<!-- PROFILE HEADER INFO ACTIONS -->
 				<div class="profile-header-info-actions">
 					<!-- PROFILE HEADER INFO ACTION -->
-					<p class="profile-header-info-action button secondary" onclick="goJoin();">
+					<p class="profile-header-info-action button secondary"
+						th:data1="${joinResult}"
+						th:onclick="|javascript:openJoin(this.getAttribute('data1'))|">
 						<!-- ICON JOIN GROUP -->
 						<svg class="icon-join-group">
               <use xlink:href="#svg-join-group"></use>
@@ -161,8 +170,8 @@
 
 					<!-- PROFILE HEADER INFO ACTION -->
 					<a class="profile-header-info-action button"
-						th:href="@{/group_mgJoin/{gno}(gno=${group.gno})}"> <!-- ICON MORE DOTS --> <svg
-							class="icon-more-dots">
+						th:href="@{/group_mgJoin/{gno}(gno=${group.gno})}"> <!-- ICON MORE DOTS -->
+						<svg class="icon-more-dots">
               <use xlink:href="#svg-more-dots"></use>
             </svg> <!-- /ICON MORE DOTS -->
 					</a>
