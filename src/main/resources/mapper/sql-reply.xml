@@ -3,18 +3,38 @@
 
 <mapper namespace="goal.mapper.ReplyMapper">
 	<resultMap type="goal.vo.ReplyVO" id="replyVO">
+		<id property="rno" column="rno"/>
 		<id property="replyWriter" column="replyWriter"/>
 		<id property="replyContent" column="replyContent"/>
 		<id property="bno" column="bno"/>
 		<id property="replyDate" column="replyDate"/>
+		<collection column="replyWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReply"/>
+	</resultMap>
+	<resultMap type="goal.vo.ReCommentVO" id="reCmtVO">
+		<id property="cno" column="cno"/>
+		<id property="rno" column="rno"/>
+		<id property="recmtContent" column="recmtContent"/>
+		<id property="recmtWriter" column="recmtWriter"/>
+		<id property="recmtDate" column="recmtDate"/>
+		<collection column="recmtWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReCmt"/>
 	</resultMap>
 	
-	<select id="readMainReply" parameterType="int" resultMap="replyVO">
-		select * from GK_COMMENT order by replyDate
-		<!-- <![CDATA[
-			select * from( select rownum rn, t.* from(select bno, replyWriter ,replyContent ,replyDate from GK_COMMENT where bno = #{bno} ORDER BY replyDate DESC) t) where rn<=2
-		]]> -->
+	<select id="readMainReply" resultMap="replyVO">
+		<![CDATA[
+		select rownum, replyWriter, replyContent, bno, replyDate from (select * from GK_COMMENT order by replyDate desc) where rownum <= 1
+		]]>
 	</select>
+	<select id="readMainRecmt" resultMap="reCmtVO">
+		<![CDATA[
+		select rownum, recmtWriter, recmtContent, rno, recmtDate from (select * from GK_RECOMMENT order by recmtDate desc) where rownum <= 1
+		]]>
+	</select>
+    <select id="checkProfilebyReply" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM gk_user_file f, gk_user u where f.uno=u.uno and #{replyWriter}=u.userId
+    </select>
+    <select id="checkProfilebyReCmt" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM gk_user_file f, gk_user u where f.uno=u.uno and #{recmtWriter}=u.userId
+    </select>
 	
 	<select id="countReply" parameterType="int" resultType="int">
         SELECT COUNT(*) FROM GK_COMMENT where bno=#{bno}
@@ -24,5 +44,10 @@
 		insert into
 		GK_COMMENT(rno, bno, replyWriter ,replyContent ,replyDate) values
 		(GK_COMMENT_SEQ.nextval, #{bno}, #{replyWriter}, #{replyContent}, sysdate)
+	</insert>
+	<insert id="insertRecmt" parameterType="goal.vo.ReCommentVO">
+		insert into
+		GK_RECOMMENT(cno, rno, recmtWriter ,recmtContent ,recmtDate) values
+		(GK_recmt_SEQ.nextval, #{rno}, #{recmtWriter}, #{recmtContent}, sysdate)
 	</insert>
 </mapper>

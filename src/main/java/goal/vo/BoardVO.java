@@ -19,7 +19,8 @@ public class BoardVO {
    private String bo_cate;
    private String bo_group;
    private String search_result;
-   //private String replyList;
+   private List<ReplyVO> replyList;
+   private int replyCount;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
    private Date bo_date;
    private String bo_fileCheck;

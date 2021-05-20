@@ -29,6 +29,7 @@ import goal.service.FriendService;
 import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
+import goal.upload.UserUpload;
 import goal.util.MediaUtils;
 import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
@@ -52,7 +53,9 @@ public class DropBoxController {
 	@Autowired
 	private FriendService friendService;
 	
-	private UserCommonDownload commonDownload = new UserCommonDownload();
+	private CommonDownload commonDownload = new CommonDownload();
+	
+	private UserUpload userUpload = new UserUpload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -116,25 +119,7 @@ public class DropBoxController {
 		vo.setUno(user.getUno());
 		int check = userFileService.checkProfile(vo.getUno());
 		
-		String fileUrl = "C:/profile";
-		File uploadPath = new File(fileUrl);
-		
-	    if (uploadPath.exists() == false) {
-        	uploadPath.mkdirs();
-        }
-		   
-    	String fileName = files.getOriginalFilename(); 
-        String uuid = RandomStringUtils.randomAlphanumeric(32)+"."+"jpg";
-        String filePath = fileUrl + "/" + uuid;
-        
-        File dest = new File(filePath);
-        files.transferTo(dest);
-        
-        vo.setUserFileId(uuid);
-        vo.setUserFileName(fileName);
-        vo.setUserFilePath(filePath);
-        userService.profileCheck(user.getUno());
-        friendService.profileCheck(user.getUno());
+		vo = userUpload.profileUpload(vo, files);
         
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());

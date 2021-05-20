@@ -8,14 +8,17 @@ import goal.vo.GroupGoalVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
+import goal.vo.ReCommentVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Mapper
 public interface ReplyMapper {
 	ReplyVO readMainReply();
+	ReCommentVO readMainRecmt();
 	List<ReplyVO> readDetailMainReply(int bno);
 	int replyCount() throws Exception;
     List<ReplyVO> replyList() throws Exception;
-	int insertReply(ReplyVO replyVO);
+	void insertReply(ReplyVO replyVO);
+	void insertRecmt(ReCommentVO recmtVO);
 }

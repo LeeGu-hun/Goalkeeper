@@ -1,8 +1,9 @@
-	package goal.controller;
+package goal.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpHeaders;
@@ -53,6 +55,7 @@ import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
+import goal.vo.ReCommentVO;
 import goal.vo.ReactVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
@@ -300,11 +303,23 @@ public class GroupController {
 	}
 	@RequestMapping(value="/group_reply", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<ReplyVO> reply(@RequestBody ReplyVO reply){
+	public ResponseEntity<ReplyVO> reply(ReplyVO reply, HttpServletRequest request){
+		UserVO user = commonService.getLoginUser(request);
+		reply.setReplyWriter(user.getUserId());
 		replyService.insertReply(reply);
 		ReplyVO recentReply = replyService.getMainReply();
 		return new ResponseEntity<ReplyVO>(recentReply,HttpStatus.OK);
 	}
+	@RequestMapping(value="/group_recmt", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<ReCommentVO> recmt(ReCommentVO recmtVO, HttpServletRequest request){
+		UserVO user = commonService.getLoginUser(request);
+		recmtVO.setRecmtWriter(user.getUserId());
+		replyService.insertRecmt(recmtVO);
+		ReCommentVO recentRecmt = replyService.getMainRecmt();
+		return new ResponseEntity<ReCommentVO>(recentRecmt,HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/display/{gno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImage(@PathVariable int gno) throws IOException{
 	    GroupFileVO groupFile = groupFileService.selectFile(gno);

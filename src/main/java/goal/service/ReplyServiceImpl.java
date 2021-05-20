@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import goal.mapper.ReplyMapper;
 import goal.mapper.UserMapper;
 import goal.vo.BoardVO;
+import goal.vo.ReCommentVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
@@ -35,14 +36,26 @@ public class ReplyServiceImpl implements ReplyService{
 
 
 	@Override
+	public ReCommentVO getMainRecmt() {
+		return mapper.readMainRecmt();
+	}
+
+
+	@Override
 	public List<ReplyVO> getDetailMainReply(int bno) {
 		return mapper.readDetailMainReply(bno);
 	}
 
 
 	@Override
-	public int insertReply(ReplyVO replyVO) {
-		return mapper.insertReply(replyVO);
+	public void insertReply(ReplyVO replyVO) {
+		mapper.insertReply(replyVO);
+	}
+
+
+	@Override
+	public void insertRecmt(ReCommentVO recmtVO) {
+		mapper.insertRecmt(recmtVO);
 	}
 
 	

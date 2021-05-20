@@ -16,12 +16,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
 import goal.service.CommonService;
 import goal.service.FriendService;
@@ -62,7 +65,7 @@ public class MyPageController {
 	@Autowired
 	public UserBackFileService userBackFileService;
 	
-	private UserCommonDownload commonDownload = new UserCommonDownload();
+	private CommonDownload commonDownload = new CommonDownload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -235,8 +238,15 @@ public class MyPageController {
 	    return entity;
 	}
 	
-	@RequestMapping(value="/user/profile/{replyWriter}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/profileId/{replyWriter}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImagebyId(@PathVariable String replyWriter) throws IOException{
+		UserFileVO userFile = userFileService.selectFilebyId(replyWriter);
+		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
+		return entity;
+	}
+	@RequestMapping(value="/user/ajax/{replyWriter}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<byte[]> ajaxImagebyId(@PathVariable String replyWriter) throws IOException{
 		UserFileVO userFile = userFileService.selectFilebyId(replyWriter);
 		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
 		return entity;
