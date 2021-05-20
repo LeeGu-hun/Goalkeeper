@@ -121,7 +121,7 @@ public class HomeController {
 		 int result = userService.idCheck(vo);
 		return result;
 	}
-
+	
 
 	@PostMapping("/count_file")
 	public String getbno(@RequestParam int bno, RedirectAttributes rttr, HttpServletRequest request) {
@@ -132,25 +132,7 @@ public class HomeController {
 	
 		return "redirect:/home";
 	}
-
-
-
-	@GetMapping("/user")
-	public ModelAndView openHome(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("view/home/Old_userLogin");
-		mv = commonService.checkLoginUser(request, mv);
-		HttpSession session = request.getSession(true);
-		UserVO user = (UserVO) session.getAttribute("user");
-
-		List<BoardVO> boardList = boardService.getBoardList();
-//		List<ReplyVO> ReplyList = replyService.getMainReply();
-
-		mv.addObject("userInfo", user);
-		mv.addObject("List", boardList);
-//		mv.addObject("reply", ReplyList);
-		return mv;
-	}
-
+	
 	@PostMapping("/insertReply")
 	public String insertReply(ReplyVO vo) {
 		replyService.insertReply(vo);
@@ -166,7 +148,7 @@ public class HomeController {
 
 	@PostMapping("/login")
 	public String checkLogin(HttpServletRequest request, UserVO vo, Model model) {
-		UserVO user = userService.getUser(vo); // UserVO諛섑솚�븯�뒗 �꽌鍮꾩뒪 異붽��빐�빞�븿
+		UserVO user = userService.getUser(vo); 
 		HttpSession session = request.getSession(true);
 		session.setMaxInactiveInterval(120*60);
 		if (user != null) {
@@ -186,10 +168,10 @@ public class HomeController {
 		
 		if (idCheck == null) {
 			userService.insertUser(vo);
-			return "redirect:/login";
+			return "redirect:/home";
 		} else {
 			model.addAttribute("msg", "以묐났�맂 �븘�씠�뵒 �엯�땲�떎.");
-			return "redirect:/login";
+			return "redirect:/home";
 
 		}
 	}
