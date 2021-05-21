@@ -165,18 +165,15 @@ public class HomeController {
 	}
 
 	@PostMapping("/login")
-	public String checkLogin(HttpServletRequest request, UserVO vo, Model model) {
-		UserVO user = userService.getUser(vo); // UserVO諛섑솚�븯�뒗 �꽌鍮꾩뒪 異붽��빐�빞�븿
+	public String checkLogin(HttpServletRequest request, UserVO vo) {
+		UserVO user = userService.getUser(vo); 
 		HttpSession session = request.getSession(true);
+		session.setAttribute("user", user);
 		session.setMaxInactiveInterval(120*60);
-		if (user != null) {
-			session.setAttribute("user", user);
-			if(referer.contains("Login")) {
-				return "redirect:/home";
-			}
-			return "redirect:" + referer;
+		if(referer.contains("Login")) {
+			return "redirect:/home";
 		} else {
-			return "/view/home/userLogin";
+			return "redirect:" + referer;
 		}
 	}
 

@@ -22,7 +22,7 @@ var count = 1;
 $('#replyBtn').click(function(){
 	var params = $('#replyFrm').serialize();
 	$.ajax({
-		url : '/group_reply',
+		url : '/reply',
 		type : 'POST',
 		cache: false,
 	    data: params,
@@ -87,7 +87,7 @@ var reCount = 1;
 function recmtBtn(rno){
 	var params = $('#recmtFrm'+rno).serialize();
 	$.ajax({
-		url : '/group_recmt',
+		url : '/recmt',
 		type : 'POST',
 		cache: false,
 	    data: params,

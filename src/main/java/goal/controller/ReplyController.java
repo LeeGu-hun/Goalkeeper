@@ -34,7 +34,7 @@ public class ReplyController {
 	private ReactService reactService;
 	@RequestMapping(value="/react", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react) throws JSONException {
+	public ResponseEntity<BoardVO> react(@RequestBody ReactVO react){
 		ReactVO reactCheck = reactService.findReactbyUser(react);
 		BoardVO preBoardList = boardService.findBoardbyBno(react.getBno());
 		if(reactCheck == null) {
@@ -51,7 +51,7 @@ public class ReplyController {
 		}
 		return new ResponseEntity<BoardVO>(boardList,HttpStatus.OK);
 	}
-	@RequestMapping(value="/group_reply", method=RequestMethod.POST)
+	@RequestMapping(value="/reply", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<ReplyVO> reply(ReplyVO reply, HttpServletRequest request){
 		UserVO user = commonService.getLoginUser(request);
@@ -60,7 +60,7 @@ public class ReplyController {
 		ReplyVO recentReply = replyService.getMainReply();
 		return new ResponseEntity<ReplyVO>(recentReply,HttpStatus.OK);
 	}
-	@RequestMapping(value="/group_recmt", method=RequestMethod.POST)
+	@RequestMapping(value="/recmt", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<ReCommentVO> recmt(ReCommentVO recmtVO, HttpServletRequest request){
 		UserVO user = commonService.getLoginUser(request);
