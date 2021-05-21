@@ -3,78 +3,110 @@
 
 <mapper namespace="goal.mapper.BoardMapper">
 	<resultMap type="goal.vo.BoardVO" id="boardVO">
-		<id property="bno" column="bno"/>
-		<id property="uno" column="uno"/>
-		<id property="bo_content" column="bo_content"/>
-		<id property="bo_title" column="bo_title"/>
-		<id property="bo_cate" column="bo_cate"/>
-		<id property="bo_group" column="bo_group"/>
-		<id property="bo_date" column="bo_date"/>
-		<id property="bo_fileCheck" column="bo_fileCheck"/>
-		<id property="bo_fileCount" column="bo_fileCount"/>
-		<collection column="bno" property="fileList" javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno"/>
-		<collection column="bno" property="replyList" javaType="List" ofType="goal.vo.ReplyVO" select="getReplyByBno"/>
-		<collection column="bno" property="replyCount" javaType="int" ofType="int" select="countReply"/>
-		<collection column="bno" property="reactCount" javaType="int" ofType="int" select="countReact"/>
-		<collection column="bno" property="reactList" javaType="List" ofType="goal.vo.ReactVO" select="getReactByBno"/>
+		<id property="bno" column="bno" />
+		<id property="uno" column="uno" />
+		<id property="bo_content" column="bo_content" />
+		<id property="bo_title" column="bo_title" />
+		<id property="bo_cate" column="bo_cate" />
+		<id property="bo_group" column="bo_group" />
+		<id property="bo_date" column="bo_date" />
+		<id property="bo_fileCheck" column="bo_fileCheck" />
+		<id property="bo_fileCount" column="bo_fileCount" />
+		<collection column="bno" property="fileList"
+			javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno" />
+		<collection column="bno" property="replyList"
+			javaType="List" ofType="goal.vo.ReplyVO" select="getReplyByBno" />
+		<collection column="bno" property="replyCount"
+			javaType="int" ofType="int" select="countReply" />
+		<collection column="bno" property="reactCount"
+			javaType="int" ofType="int" select="countReact" />
+		<collection column="bno" property="reactList"
+			javaType="List" ofType="goal.vo.ReactVO" select="getReactByBno" />
+		<collection column="bno" property="bnoDay"
+			javaType="String" ofType="goal.vo.BoardVO" select="boardDay" />
+		<collection column="bno" property="bnoTime"
+			javaType="String" ofType="goal.vo.BoardVO" select="boardTime" />
+
 	</resultMap>
 	<resultMap type="goal.vo.ReplyVO" id="replyVO">
-		<id property="rno" column="rno"/>
-		<id property="replyWriter" column="replyWriter"/>
-		<id property="replyContent" column="replyContent"/>
-		<id property="bno" column="bno"/>
-		<id property="replyDate" column="replyDate"/>
-		<collection column="replyWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfile"/>
-		<collection column="rno" property="recmtList" javaType="List" ofType="goal.vo.ReCommentVO" select="getRecmtByRno"/>
+		<id property="rno" column="rno" />
+		<id property="replyWriter" column="replyWriter" />
+		<id property="replyContent" column="replyContent" />
+		<id property="bno" column="bno" />
+		<id property="replyDate" column="replyDate" />
+		<collection column="replyWriter" property="profileCheck"
+			javaType="int" ofType="int" select="checkProfile" />
+		<collection column="rno" property="recmtList"
+			javaType="List" ofType="goal.vo.ReCommentVO" select="getRecmtByRno" />
 	</resultMap>
-	 <select id="checkProfile" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM gk_user_file f, gk_user u where f.uno=u.uno and #{replyWriter}=u.userId
-    </select>
+	<select id="checkProfile" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM gk_user_file f, gk_user u where
+		f.uno=u.uno and
+		#{replyWriter}=u.userId
+	</select>
 	<resultMap type="goal.vo.ReactVO" id="reactVO">
-		<id property="react_name" column="react_name"/>
-		<id property="bno" column="bno"/>
-		<id property="userId" column="userId"/>
+		<id property="react_name" column="react_name" />
+		<id property="bno" column="bno" />
+		<id property="userId" column="userId" />
 	</resultMap>
 	<resultMap type="goal.vo.ReCommentVO" id="reCmtVO">
-		<id property="cno" column="cno"/>
-		<id property="rno" column="rno"/>
-		<id property="recmtContent" column="recmtContent"/>
-		<id property="recmtWriter" column="recmtWriter"/>
-		<id property="recmtDate" column="recmtDate"/>
-		<collection column="recmtWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReCmt"/>
+		<id property="cno" column="cno" />
+		<id property="rno" column="rno" />
+		<id property="recmtContent" column="recmtContent" />
+		<id property="recmtWriter" column="recmtWriter" />
+		<id property="recmtDate" column="recmtDate" />
+		<collection column="recmtWriter" property="profileCheck"
+			javaType="int" ofType="int" select="checkProfilebyReCmt" />
 	</resultMap>
-	<select id="checkProfilebyReCmt" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM gk_user_file f, gk_user u where f.uno=u.uno and #{recmtWriter}=u.userId
-    </select>
+	<select id="checkProfilebyReCmt" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM gk_user_file f, gk_user u where
+		f.uno=u.uno and
+		#{recmtWriter}=u.userId
+	</select>
 	<select id="countReact" resultType="int">
-		select count(*) from gk_react_list where bno=#{bno}
+		select count(*) from
+		gk_react_list where bno=#{bno}
 	</select>
 	<select id="countReply" resultType="int">
-		select count(*) from gk_comment where bno=#{bno}
+		select count(*) from
+		gk_comment where bno=#{bno}
 	</select>
 	<select id="getReplyListById" resultMap="replyVO">
 		select * from GK_COMMENT
 	</select>
 	<select id="getFileByBno" resultType="goal.vo.BoardFileVO">
-		select * from GK_FILE where bno = #{bno}
+		select * from GK_FILE where
+		bno = #{bno}
 	</select>
 	<select id="getReplyByBno" resultMap="replyVO">
-		select * from GK_Comment where bno = #{bno}
+		select * from GK_Comment
+		where bno = #{bno}
 	</select>
 	<select id="getRecmtByRno" resultMap="reCmtVO">
-		select * from GK_ReComment where rno = #{rno}
+		select * from GK_ReComment
+		where rno = #{rno}
 	</select>
 	<select id="getReactByBno" resultMap="reactVO">
-		select * from GK_react_list where bno = #{bno}
+		select * from GK_react_list
+		where bno = #{bno}
 	</select>
-	<select id="searchBoard" resultMap="boardVO" parameterType="goal.vo.BoardVO">
-		select bo_content, userid from GK_BOARD 
-		where userid like '%' || #{search_result} || '%' or bo_content like '%' || #{search_result} || '%' 
+	<select id="searchBoard" resultMap="boardVO"
+		parameterType="goal.vo.BoardVO">
+		select bo_content, userid from GK_BOARD
+		where userid like
+		'%' || #{search_result} || '%' or bo_content like '%' ||
+		#{search_result} || '%'
 	</select>
-	<insert id="insertBoard" parameterType="goal.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno"  keyColumn="BNO">
+	<insert id="insertBoard" parameterType="goal.vo.BoardVO"
+		useGeneratedKeys="true" keyProperty="bno" keyColumn="BNO">
 		insert into
-		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group, bo_filecheck, bo_fileCount) values
-		(GK_board_SEQ.nextval,#{userId}, #{bo_content}, sysdate, #{bo_cate}, #{bo_group}, #{bo_fileCheck}, #{bo_fileCount})
+		GK_BOARD(bno, userid, bo_content, bo_date, bo_cate, bo_group,
+		bo_filecheck, bo_fileCount) values
+		(GK_board_SEQ.nextval,#{userId},
+		#{bo_content}, sysdate, #{bo_cate}, #{bo_group}, #{bo_fileCheck},
+		#{bo_fileCount})
 	</insert>
 	<update id="updateBoard" parameterType="goal.vo.BoardVO">
 		<![CDATA[
@@ -87,33 +119,59 @@
 		<![CDATA[
 		SELECT ROWNUM, BNO FROM (SELECT * FROM GK_BOARD ORDER BY BNO DESC)WHERE ROWNUM <= 1
 		]]>
-		</select>
-		
-	<select id="getBoard" parameterType="goal.vo.BoardVO" resultMap="boardVO">
+	</select>
+
+	<select id="getBoard" parameterType="goal.vo.BoardVO"
+		resultMap="boardVO">
   	 <![CDATA[
    	select u_id, bo_content, bo_DATE, bno, replyWriter, replyContent, replyDate from Gk_BOARD join GK_COMMENT using(bno)
      ]]>
-   </select>
-   <select id="findBoardbyBno" parameterType="int" resultMap="boardVO">
+	</select>
+	<select id="findBoardbyBno" parameterType="int"
+		resultMap="boardVO">
 		select * from GK_BOARD where bno=#{bno}
 	</select>
 	<select id="getBoardList" resultMap="boardVO">
-		select * from GK_BOARD order by bo_date desc
+		select * from GK_BOARD order
+		by bo_date desc
 	</select>
-	
-	<select id="getGroupBoardList" resultMap="boardVO" parameterType="string">
-		select * from GK_BOARD where bo_group=#{bo_group} order by bo_date desc
+
+	<select id="getGroupBoardList" resultMap="boardVO"
+		parameterType="string">
+		select * from GK_BOARD where bo_group=#{bo_group} order
+		by bo_date desc
 	</select>
-	
-	<select id="selectBoardList" resultMap="boardVO" parameterType="goal.vo.UserVO">
-		select * from GK_BOARD where uno=#{uno} order by bno desc
+
+	<select id="selectBoardList" resultMap="boardVO"
+		parameterType="goal.vo.UserVO">
+		select * from GK_BOARD where uno=#{uno} order by bno
+		desc
 	</select>
-	
+
 	<delete id="deleteBoard" parameterType="int">
-			DELETE FROM GK_BOARD WHERE bno=${bno}
+		DELETE FROM GK_BOARD
+		WHERE bno=#{bno}
 	</delete>
+
+	<select id="boardDay" resultType="String" parameterType="int">
+		SELECT
+		case (TRUNC(SYSDATE) - TO_DATE(bo_date)) when 1 then '하루전' when 0
+		then
+		'오늘' else
+		TRUNC(SYSDATE) - TO_DATE(bo_date) || '일전' end FROM gk_board
+		where bno=#{bno}
+	</select>
+
+	<select id="boardTime" resultType="String" parameterType="int">
+		SELECT
+		TO_CHAR(bo_date, 'HH24:MI') FROM gk_board where
+		TO_CHAR(bo_date,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') and
+		bno=#{bno}
+	</select>
+
 	<select id="boardCount" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM gk_board WHERE userId=#{userId} and bo_date BETWEEN
+		SELECT
+		COUNT(*) FROM gk_board WHERE userId=#{userId} and bo_date BETWEEN
 		(TO_CHAR(TRUNC(SYSDATE,'MM'),'YYYYMMDD') ) AND (LAST_DAY(SYSDATE))
 	</select>
 
@@ -125,7 +183,18 @@
 
 	<select id="boardTodayCount" resultType="int"
 		parameterType="String">
-		SELECT COUNT(*) FROM gk_board WHERE userId=#{userId} and bo_date BETWEEN
-		(TO_CHAR(TRUNC(SYSDATE,'MM'),'YYYYMMDD') ) AND (SYSDATE);
+		SELECT COUNT(*) FROM gk_board WHERE userId=#{userId} and
+		bo_date BETWEEN
+		(TO_CHAR(TRUNC(SYSDATE,'MM'),'YYYYMMDD') ) AND
+		(SYSDATE);
 	</select>
+	
+	<select id="friendCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM gk_friend WHERE uno=#{uno}
+	</select>
+	
+	<select id="userCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM gk_user
+	</select>
+	
 </mapper>
