@@ -105,7 +105,7 @@ public class GroupController {
 	}
 	@PostMapping("/groups")
 	@ResponseBody
-	public ModelAndView openSearchGroup(@RequestParam("groups_search") String word, HttpServletRequest request) {
+	public ModelAndView openSearchGroup(@RequestParam("word") String word, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/groups");
 		List<GroupVO> searchList = groupService.getSearchList(word);
 		if(searchList == null) {
@@ -115,6 +115,17 @@ public class GroupController {
 		mv = commonService.checkLoginUser(request, mv);
 		return mv;
 	}
+	@RequestMapping(value="/group_search", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<GroupVO> groupSearch(String word){
+		GroupVO group = new GroupVO();
+		List<GroupVO> searchList = groupService.getSearchList(word);
+		if(searchList.isEmpty()) {
+			group.setG_cate("fail");
+		}
+		return new ResponseEntity<GroupVO>(group,HttpStatus.OK);
+	}
+	
 	@PostMapping("/group_create")
 	public String createGroup(@RequestParam String fileCheck, GroupVO group, GroupUserVO groups, MultipartHttpServletRequest multi, HttpServletRequest request) throws Exception {	
 		GroupFileVO groupFile = new GroupFileVO();

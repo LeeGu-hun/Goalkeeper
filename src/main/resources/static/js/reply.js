@@ -45,6 +45,7 @@ $('#replyBtn').click(function(){
 	    	cloneReply.find('#ajaxReplyContent').html(data.replyContent);
 	    	cloneReply.find('#ajaxReplyDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
 	    	cloneReply.attr('style', 'display:block; margin-left:40px;');
+	    	$('#replyContent').val("");
 	    	$('#ajaxAddReply').before(cloneReply);
 	    	count ++;
 	    	
@@ -110,6 +111,7 @@ function recmtBtn(rno){
 	    	cloneRecmt.find('#ajaxRecmtContent').html(data.recmtContent);
 	    	cloneRecmt.find('#ajaxRecmtDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
 	    	cloneRecmt.attr('style', 'display:block;');
+	    	$('#recmtContent').val("");
 	    	$('#recmtPost'+data.rno).before(cloneRecmt);
 	    	reCount ++;
 	    	

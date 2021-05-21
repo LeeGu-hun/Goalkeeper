@@ -72,67 +72,61 @@ public class HomeController {
 	@Autowired
 	private UserFileService userFileService;
 
-	
 	private int bno = 0;
 	private int count = 0;
-	
-	private UserCommonDownload commonDownload = new UserCommonDownload();
-	
-	MediaUtils mediaUtils = new MediaUtils();
-    InputStream in = null;
-    ResponseEntity<byte[]> entity = null;
 
-    @RequestMapping(value={"/home", "/"})
-    public ModelAndView openNewsFeed(HttpServletRequest request) {
-       ModelAndView mv = new ModelAndView("view/home/newsFeed");      
-       mv = getHome(mv, request);
-       HttpSession session = request.getSession(true);
-       
-       
-        UserVO user = commonService.getLoginUser(request);
-        if(user!=null) {
-           List<ChatVO> friendlist = chatService.findFriendList(user);
-          
-           mv.addObject("user", user);
-           mv.addObject("friendlist", friendlist);          
-        }
-        
-       return mv;
-    }
-	
-	
- 
-	@RequestMapping("/Search")
-	   public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
-	      ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
-	      mv = getHome(mv, request);
-	      UserVO user = commonService.getLoginUser(request);
-	      if (user != null) {
-	         List<BoardVO> searchlist = boardService.searchBoard(vo);
-	         mv.addObject("searchlist", searchlist);
-	         mv.addObject("user", user);
-	      }
-	      return mv;
-	   }
-	@ResponseBody
-	@RequestMapping(value="/memberIdChk", method = RequestMethod.POST)
-	public int idChk(UserVO vo) throws Exception {
-		 int result = userService.idCheck(vo);
-		return result;
+	private UserCommonDownload commonDownload = new UserCommonDownload();
+
+	MediaUtils mediaUtils = new MediaUtils();
+	InputStream in = null;
+	ResponseEntity<byte[]> entity = null;
+
+	@RequestMapping(value = { "/home", "/" })
+	public ModelAndView openNewsFeed(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("view/home/newsFeed");
+		mv = getHome(mv, request);
+		HttpSession session = request.getSession(true);
+
+		UserVO user = commonService.getLoginUser(request);
+		if (user != null) {
+			List<ChatVO> friendlist = chatService.findFriendList(user);
+			mv.addObject("boardResult", "WriteSuccess");
+			mv.addObject("user", user);
+			mv.addObject("friendlist", friendlist);
+		}
+
+		return mv;
 	}
 
+	@RequestMapping("/Search")
+	public ModelAndView searchBoard(BoardVO vo, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
+		mv = getHome(mv, request);
+		UserVO user = commonService.getLoginUser(request);
+		if (user != null) {
+			List<BoardVO> searchlist = boardService.searchBoard(vo);
+			mv.addObject("searchlist", searchlist);
+			mv.addObject("user", user);
+		}
+		return mv;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
+	public int idChk(UserVO vo) throws Exception {
+		int result = userService.idCheck(vo);
+		return result;
+	}
 
 	@PostMapping("/count_file")
 	public String getbno(@RequestParam int bno, RedirectAttributes rttr, HttpServletRequest request) {
 		int filecnt = boardFileService.countFile(bno);
-		rttr.addFlashAttribute("filecnt",filecnt);
+		rttr.addFlashAttribute("filecnt", filecnt);
 		rttr.addFlashAttribute("count", count);
 		count++;
-	
+
 		return "redirect:/home";
 	}
-
-
 
 	@GetMapping("/user")
 	public ModelAndView openHome(HttpServletRequest request) {
@@ -160,7 +154,7 @@ public class HomeController {
 	public String deniedView() {
 		return "view/error/denied";
 	}
-	
+
 	private ModelAndView getHome(ModelAndView mv, HttpServletRequest request) {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
@@ -172,17 +166,19 @@ public class HomeController {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 //			List<ReplyVO> ReplyList = replyService.getMainReply();
 			int count = boardService.boardCount(user.getUserId());
-			
-	        mv.addObject("count", count);
+
+			mv.addObject("count", count);
 			mv.addObject("GrList", groupList);
 //			mv.addObject("reply", ReplyList);
 		}
 		return mv;
 	}
-	@RequestMapping(value="/home/{uno}", method=RequestMethod.GET)
-	   public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException{
-	       UserFileVO userFile = userFileService.selectFile(uno);
-	       entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(), userFile.getUserFileId(), userFile.getUserFilePath());
-	       return entity;
-	   }
+
+	@RequestMapping(value = "/home/{uno}", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> displayImage(@PathVariable int uno) throws IOException {
+		UserFileVO userFile = userFileService.selectFile(uno);
+		entity = commonDownload.getImageEntity(entity, mediaUtils, in, userFile.getUserFileName(),
+				userFile.getUserFileId(), userFile.getUserFilePath());
+		return entity;
+	}
 }

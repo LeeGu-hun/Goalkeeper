@@ -52,20 +52,19 @@
 		
 /*글업로드*/
 		$('#btnInsert').click(function(e) {
-			e.preventDefault();
+			e.preventDefault()
 			
 			if (document.getElementById("text").value == "" && 
 				document.getElementById("file").value == "") {
-				document.get
-					$("#noticemodal").fadeIn(300);
-					$("#warningmodalcontent").fadeIn(300);
-					$("#warningmodaltext").text("파일이나 글을 작성해주세요");
-					
-					$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-		 			$("#noticemodal").fadeOut(300);
-		  			$(".modal-con").fadeOut(300);
-				}); 
-				return false;
+				$("#noticemodal").fadeIn(300);
+				$("#warningmodalcontent").fadeIn(300);
+				$("#warningmodaltext").text("파일이나 글을 작성해주세요");
+				
+				$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+	 			$("#noticemodal").fadeOut(300);
+	  			$(".modal-con").fadeOut(300);
+			}); 
+			return false;
 			} 
 			
 			
@@ -75,7 +74,6 @@
 				$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 			}
 			
-		document.get
 			$("#noticemodal").fadeIn(300);
 			$("#modalcontent").fadeIn(300);
 			$("#modaltext").text("Save completed");
@@ -87,7 +85,6 @@
 			}); 
 		});
 	
-		document.getElementById("bo_group").value;
 /*사진업로드*/	
 		$(function() {
 			$("#photo").click(function() {
