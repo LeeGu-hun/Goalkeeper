@@ -1,6 +1,5 @@
 @charset "UTF-8";
 *{margin:0; padding:0;}
-a.button{display:inline-block; padding: 10px 20px; text-decoration:none; color:#fff; background:#000; margin:20px;}
 #noticemodal{
   display:none;
   position:fixed; 
@@ -15,7 +14,7 @@ a.button{display:inline-block; padding: 10px 20px; text-decoration:none; color:#
   top:50%; left:50%;
   transform: translate(-50%,-50%);
   max-width: 60%;
-  min-height: 30%;
+  min-height: 18%;
   background:#fff;
 }
 .modal-con .noticetitle{

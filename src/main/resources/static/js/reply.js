@@ -1,3 +1,4 @@
+var toggle = true;
 function openReply(){
 	if(toggle){
 	 	$('#replyBox').attr('style', 'display:block');

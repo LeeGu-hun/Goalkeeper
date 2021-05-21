@@ -1025,7 +1025,8 @@
 			</div>
 			<!-- /GRID COLUMN -->
 
-			<form name="form" id="boardWrite" action="/home/insert.do" method="post" enctype="multipart/form-data">
+			<form name="form" id="boardWrite" action="/home/insert.do"
+				method="post" enctype="multipart/form-data">
 				<!-- GRID COLUMN -->
 				<div class="grid-column">
 					<!-- QUICK POST -->
@@ -1046,7 +1047,7 @@
 
 									<!-- OPTION ITEM TITLE -->
 									<p class="option-item-title">전체 글</p>
-									
+
 									<!-- /OPTION ITEM TITLE -->
 								</div>
 								<!-- /OPTION ITEM -->
@@ -1241,9 +1242,9 @@
 
 			<!-- WIDGET BOX -->
 			<div th:each="post, i:${BoList}" class="widget-box no-padding">
-				<form th:attr="id='delete_form'+${post.bno}" method="post" enctype="multipart/form-data" 
-						action="/board/delete.do">
-					<input type="hidden" th:value="${post.bno}" name="bno"> 
+				<form th:attr="id='delete_form'+${post.bno}" method="post"
+					enctype="multipart/form-data" action="/board/delete.do">
+					<input type="hidden" th:value="${post.bno}" name="bno">
 				</form>
 				<!-- WIDGET BOX SETTINGS -->
 				<div class="widget-box-settings">
@@ -1261,23 +1262,26 @@
 						<!-- /POST SETTINGS -->
 
 						<!-- SIMPLE DROPDOWN -->
-					<div class="simple-dropdown widget-box-post-settings-dropdown" 
-									th:if="${user} == null"></div>
-						<div class="simple-dropdown widget-box-post-settings-dropdown"  
-									th:unless="${user} == null">
+						<div class="simple-dropdown widget-box-post-settings-dropdown"
+							th:if="${user} == null"></div>
+						<div class="simple-dropdown widget-box-post-settings-dropdown"
+							th:unless="${user} == null">
 							<div th:if="${post.userId} == ${user.userId}">
-								
+
 								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link" th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
+								<p class="simple-dropdown-link"
+									th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
 								<!-- /SIMPLE DROPDOWN LINK -->
 
 								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link" th:attr="id='delete'+${post.bno}" 
-										th:onclick="|javascript:fnDelete('${post.bno}')|">Delete Post</p>
+								<p class="simple-dropdown-link"
+									th:attr="id='delete'+${post.bno}"
+									th:onclick="|javascript:fnDelete('${post.bno}')|">Delete
+									Post</p>
 								<!-- /SIMPLE DROPDOWN LINK -->
 							</div>
 						</div>
-						
+
 						<!-- /SIMPLE DROPDOWN -->
 					</div>
 					<!-- /POST SETTINGS WRAP -->
@@ -1360,21 +1364,21 @@
 						<!-- /USER STATUS -->
 
 						<!-- WIDGET BOX STATUS TEXT -->
-						<form style="margin-top:30px" th:attr="id='modify_form'+${post.bno}" 
-						method="post" enctype="multipart/form-data"
-							action="/board/modify.do">
-				
-							<p th:attr="id=${post.bno}" class="widget-box-status-text content_board"
+						<form style="margin-top: 30px"
+							th:attr="id='modify_form'+${post.bno}" method="post"
+							enctype="multipart/form-data" action="/board/modify.do">
+
+							<p th:attr="id=${post.bno}"
+								class="widget-box-status-text content_board"
 								th:text="${post.bo_content}"></p>
-								
+
 							<input type="hidden" th:value="board" name="placeCheck">
-							<input type="hidden" th:value="${post.bno}" name="bno"> 
-							<input type="hidden" th:value="${post.bo_cate}" name="bo_cate">
+							<input type="hidden" th:value="${post.bno}" name="bno"> <input
+								type="hidden" th:value="${post.bo_cate}" name="bo_cate">
 
 							<div class="modify" th:attr="id='modify'+${post.bno}"
 								style="margin-bottom: 60px; display: none">
-								<textarea name="bo_content"
-									th:text="${post.bo_content}"></textarea>
+								<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
 								<button type=submit class="button small secondary edit_btn"
 									style="width: 80px; float: right;">수정완료</button>
 								<p class="button small edit_cancelbtn"
@@ -1382,22 +1386,24 @@
 							</div>
 						</form>
 						<!-- /WIDGET BOX STATUS TEXT -->
-					
-					<!-- /WIDGET BOX STATUS CONTENT -->
 
-					<!-- IFRAME WRAP -->
+						<!-- /WIDGET BOX STATUS CONTENT -->
+
+						<!-- IFRAME WRAP -->
 						<div>
 							<!-- PICTURE COLLAGE -->
 							<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row medium">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}<3">
+									<div class="picture-collage-item popup-picture-trigger"
+										th:each="file, i:${post.fileList}" th:if="${i.index}<3">
 										<!-- PHOTO PREVIEW -->
 										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-10">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}"
+													alt="photo-preview-10">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -1405,7 +1411,7 @@
 											<div class="photo-preview-info">
 												<!-- REACTION COUNT LIST -->
 												<div class="reaction-count-list">
-													
+
 
 													<!-- REACTION COUNT -->
 													<div class="reaction-count negative">
@@ -1434,12 +1440,14 @@
 								<!-- PICTURE COLLAGE ROW -->
 								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
 									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger" th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
+									<div class="picture-collage-item popup-picture-trigger"
+										th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
 										<!-- PHOTO PREVIEW -->
 										<div class="photo-preview">
 											<!-- PHOTO PREVIEW IMAGE -->
 											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}" alt="photo-preview-16">
+												<img th:attr="src=@{/boardImage/}+${file.uuid}"
+													alt="photo-preview-16">
 											</figure>
 											<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -1489,443 +1497,385 @@
 						</div>
 						<!-- /IFRAME WRAP -->
 
-					<!-- WIDGET BOX STATUS CONTENT -->
-					<div class="widget-box-status-content">
-						<!-- TAG LIST -->
-						<div class="tag-list">
-							<!-- TAG ITEM -->
-							<a class="tag-item secondary" href="newsfeed.html">Stream</a>
-							<!-- /TAG ITEM -->
+						<!-- WIDGET BOX STATUS CONTENT -->
+						<div class="widget-box-status-content">
+							<!-- CONTENT ACTIONS -->
+							<div class="content-actions">
+								<!-- CONTENT ACTION -->
+								<div class="content-action">
+									<!-- META LINE -->
+									<div class="meta-line" th:id="reactStartDiv+${post.bno}">
+										<!-- META LINE LIST -->
+										<div class="meta-line-list reaction-item-list">
+											<!-- REACTION ITEM -->
+											<div class="reaction-item">
+												<!-- REACTION IMAGE -->
+												<img class="reaction-image reaction-item-dropdown-trigger"
+													th:attr="src=@{../../img/reaction/Like.png}"
+													alt="reaction-sad">
+												<!-- /REACTION IMAGE -->
 
-							<!-- TAG ITEM -->
-							<a class="tag-item secondary" href="newsfeed.html">StrikerGO</a>
-							<!-- /TAG ITEM -->
+												<!-- SIMPLE DROPDOWN -->
+												<div class="simple-dropdown padded reaction-item-dropdown">
+													<!-- SIMPLE DROPDOWN TEXT -->
+													<p class="simple-dropdown-text">
+														<img class="reaction"
+															th:attr="src=@{../../img/reaction/Like.png}"
+															alt="reaction-sad"> <span class="bold">Like</span>
+													</p>
+													<!-- /SIMPLE DROPDOWN TEXT -->
 
-							<!-- TAG ITEM -->
-							<a class="tag-item secondary" href="newsfeed.html">Outlaws</a>
-							<!-- /TAG ITEM -->
-
-							<!-- TAG ITEM -->
-							<a class="tag-item secondary" href="newsfeed.html">Gaming</a>
-							<!-- /TAG ITEM -->
-						</div>
-						<!-- /TAG LIST -->
-
-						<!-- CONTENT ACTIONS -->
-						<div class="content-actions">
-							<!-- CONTENT ACTION -->
-							<div class="content-action">
-								<!-- META LINE -->
-								<div class="meta-line">
-									<!-- META LINE LIST -->
-									<div class="meta-line-list reaction-item-list">
-										<!-- REACTION ITEM -->
-										<div class="reaction-item">
-											<!-- REACTION IMAGE -->
-											<img class="reaction-image reaction-item-dropdown-trigger"
-												src="img/reaction/love.png" alt="reaction-love">
-											<!-- /REACTION IMAGE -->
-
-											<!-- SIMPLE DROPDOWN -->
-											<div class="simple-dropdown padded reaction-item-dropdown">
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">
-													<img class="reaction" src="img/reaction/love.png"
-														alt="reaction-love"> <span class="bold">Love</span>
-												</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Matt Parker</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Destroy Dex</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">The Green Goo</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
+													<!-- SIMPLE DROPDOWN TEXT -->
+													<div th:each="list:${post.reactList}"
+														th:id="userDiv+${list.bno}">
+														<p class="simple-dropdown-text"
+															th:id="user+${list.userId}" th:text="${list.userId}"></p>
+													</div>
+													<!-- /SIMPLE DROPDOWN TEXT -->
+												</div>
 											</div>
-											<!-- /SIMPLE DROPDOWN -->
+											<!-- /REACTION ITEM -->
 										</div>
-										<!-- /REACTION ITEM -->
+										<!-- /META LINE LIST -->
 
-										<!-- REACTION ITEM -->
-										<div class="reaction-item">
-											<!-- REACTION IMAGE -->
-											<img class="reaction-image reaction-item-dropdown-trigger"
-												src="img/reaction/happy.png" alt="reaction-happy">
-											<!-- /REACTION IMAGE -->
-
-											<!-- SIMPLE DROPDOWN -->
-											<div class="simple-dropdown padded reaction-item-dropdown">
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">
-													<img class="reaction" src="img/reaction/happy.png"
-														alt="reaction-happy"> <span class="bold">Happy</span>
-												</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Sandra Strange</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Jane Rodgers</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-											</div>
-											<!-- /SIMPLE DROPDOWN -->
+										<!-- META LINE TEXT -->
+										<div th:id="react+${post.bno}">
+											<p class="meta-line-text"
+												th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
 										</div>
-										<!-- /REACTION ITEM -->
-
-										<!-- REACTION ITEM -->
-										<div class="reaction-item">
-											<!-- REACTION IMAGE -->
-											<img class="reaction-image reaction-item-dropdown-trigger"
-												src="img/reaction/like.png" alt="reaction-like">
-											<!-- /REACTION IMAGE -->
-
-											<!-- SIMPLE DROPDOWN -->
-											<div class="simple-dropdown padded reaction-item-dropdown">
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">
-													<img class="reaction" src="img/reaction/like.png"
-														alt="reaction-like"> <span class="bold">Like</span>
-												</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Neko Bebop</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Nick Grissom</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Sarah Diamond</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Jett Spiegel</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">Marcus Jhonson</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-
-												<!-- SIMPLE DROPDOWN TEXT -->
-												<p class="simple-dropdown-text">
-													<span class="bold">and 6 more...</span>
-												</p>
-												<!-- /SIMPLE DROPDOWN TEXT -->
-											</div>
-											<!-- /SIMPLE DROPDOWN -->
-										</div>
-										<!-- /REACTION ITEM -->
+										<!-- /META LINE TEXT -->
 									</div>
-									<!-- /META LINE LIST -->
-
-									<!-- META LINE TEXT -->
-									<p class="meta-line-text">16</p>
-									<!-- /META LINE TEXT -->
+									<!-- /META LINE -->
 								</div>
-								<!-- /META LINE -->
+								<!-- /CONTENT ACTION -->
 
-								<!-- META LINE -->
-								<div class="meta-line">
-									<!-- META LINE LIST -->
-									<div class="meta-line-list user-avatar-list">
-										<!-- USER AVATAR -->
-										<div class="user-avatar micro no-stats">
-											<!-- USER AVATAR BORDER -->
-											<div class="user-avatar-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BORDER -->
-
-											<!-- USER AVATAR CONTENT -->
-											<div class="user-avatar-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-image-18-20"
-													data-src="img/avatar/07.jpg"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR CONTENT -->
-										</div>
-										<!-- /USER AVATAR -->
-
-										<!-- USER AVATAR -->
-										<div class="user-avatar micro no-stats">
-											<!-- USER AVATAR BORDER -->
-											<div class="user-avatar-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BORDER -->
-
-											<!-- USER AVATAR CONTENT -->
-											<div class="user-avatar-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-image-18-20"
-													data-src="img/avatar/13.jpg"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR CONTENT -->
-										</div>
-										<!-- /USER AVATAR -->
-
-										<!-- USER AVATAR -->
-										<div class="user-avatar micro no-stats">
-											<!-- USER AVATAR BORDER -->
-											<div class="user-avatar-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BORDER -->
-
-											<!-- USER AVATAR CONTENT -->
-											<div class="user-avatar-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-image-18-20"
-													data-src="img/avatar/22.jpg"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR CONTENT -->
-										</div>
-										<!-- /USER AVATAR -->
-
-										<!-- USER AVATAR -->
-										<div class="user-avatar micro no-stats">
-											<!-- USER AVATAR BORDER -->
-											<div class="user-avatar-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BORDER -->
-
-											<!-- USER AVATAR CONTENT -->
-											<div class="user-avatar-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-image-18-20"
-													data-src="img/avatar/10.jpg"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR CONTENT -->
-										</div>
-										<!-- /USER AVATAR -->
-
-										<!-- USER AVATAR -->
-										<div class="user-avatar micro no-stats">
-											<!-- USER AVATAR BORDER -->
-											<div class="user-avatar-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BORDER -->
-
-											<!-- USER AVATAR CONTENT -->
-											<div class="user-avatar-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-image-18-20"
-													data-src="img/avatar/08.jpg"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR CONTENT -->
-										</div>
-										<!-- /USER AVATAR -->
+								<!-- CONTENT ACTION -->
+								<div class="content-action">
+									<!-- META LINE -->
+									<div class="meta-line">
+										<!-- META LINE LINK -->
+										<p class="meta-line-link" onclick="openReply()"
+											th:text="${post.replyCount}+' 댓글'"></p>
+										<!-- /META LINE LINK -->
 									</div>
-									<!-- /META LINE LIST -->
+									<!-- /META LINE -->
 
-									<!-- META LINE TEXT -->
-									<p class="meta-line-text">19 Participants</p>
-									<!-- /META LINE TEXT -->
+									<!-- META LINE -->
+									<div class="meta-line">
+										<!-- META LINE TEXT -->
+										<p class="meta-line-text">0 공유</p>
+										<!-- /META LINE TEXT -->
+									</div>
+									<!-- /META LINE -->
 								</div>
-								<!-- /META LINE -->
+								<!-- /CONTENT ACTION -->
 							</div>
-							<!-- /CONTENT ACTION -->
-
-							<!-- CONTENT ACTION -->
-							<div class="content-action">
-								<!-- META LINE -->
-								<div class="meta-line">
-									<!-- META LINE LINK -->
-									<p class="meta-line-link">2 Comments</p>
-									<!-- /META LINE LINK -->
-								</div>
-								<!-- /META LINE -->
-
-								<!-- META LINE -->
-								<div class="meta-line">
-									<!-- META LINE TEXT -->
-									<p class="meta-line-text">0 Shares</p>
-									<!-- /META LINE TEXT -->
-								</div>
-								<!-- /META LINE -->
-							</div>
-							<!-- /CONTENT ACTION -->
+							<!-- /CONTENT ACTIONS -->
 						</div>
-						<!-- /CONTENT ACTIONS -->
+						<!-- /WIDGET BOX STATUS CONTENT -->
 					</div>
-					<!-- /WIDGET BOX STATUS CONTENT -->
-				</div>
-				<!-- /WIDGET BOX STATUS -->
-			
-				<!-- POST OPTIONS -->
-				<div class="post-options">
-					<!-- POST OPTION WRAP -->
-					<div class="post-option-wrap">
-						<!-- POST OPTION -->
-						<div class="post-option reaction-options-dropdown-trigger">
-							<!-- POST OPTION ICON -->
-							<svg class="post-option-icon icon-thumbs-up">
+					<!-- /WIDGET BOX STATUS -->
+
+					<!-- POST OPTIONS -->
+					<div class="post-options">
+						<!-- POST OPTION WRAP -->
+						<div class="post-option-wrap">
+							<!-- POST OPTION -->
+							<div class="post-option reaction-options-dropdown-trigger"
+								th:if="${user}!=null" th:data-parameter1="${post.bno}"
+								th:data-parameter2="${user.userId}"
+								th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
+								<!-- POST OPTION ICON -->
+								<svg class="post-option-icon icon-thumbs-up">
                   <use xlink:href="#svg-thumbs-up"></use>
                 </svg>
+								<!-- /POST OPTION ICON -->
+
+								<!-- POST OPTION TEXT -->
+								<p class="post-option-text">좋아요</p>
+								<!-- /POST OPTION TEXT -->
+								<!-- /POST OPTION -->
+							</div>
+							<div class="post-option reaction-options-dropdown-trigger"
+								th:unless="${user}!=null" style="cursor: pointer;"
+								onclick="location.href='/login'">
+								<p class="post-option-text">로그인</p>
+							</div>
+							<!-- /REACTION OPTIONS -->
+						</div>
+						<!-- /POST OPTION WRAP -->
+
+						<!-- POST OPTION -->
+						<div class="post-option" onclick="javascript:openReply()">
+							<!-- POST OPTION ICON -->
+							<svg class="post-option-icon icon-comment">
+                <use xlink:href="#svg-comment"></use>
+              </svg>
 							<!-- /POST OPTION ICON -->
 
 							<!-- POST OPTION TEXT -->
-							<p class="post-option-text">React!</p>
+							<p class="post-option-text">댓글</p>
 							<!-- /POST OPTION TEXT -->
 						</div>
 						<!-- /POST OPTION -->
 
-						<!-- REACTION OPTIONS -->
-						<div class="reaction-options reaction-options-dropdown">
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Like">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/like.png"
-									alt="reaction-like">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Love">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/love.png"
-									alt="reaction-love">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft"
-								data-title="Dislike">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image"
-									src="img/reaction/dislike.png" alt="reaction-dislike">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Happy">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/happy.png"
-									alt="reaction-happy">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Funny">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/funny.png"
-									alt="reaction-funny">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Wow">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/wow.png"
-									alt="reaction-wow">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Angry">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/angry.png"
-									alt="reaction-angry">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-
-							<!-- REACTION OPTION -->
-							<div class="reaction-option text-tooltip-tft" data-title="Sad">
-								<!-- REACTION OPTION IMAGE -->
-								<img class="reaction-option-image" src="img/reaction/sad.png"
-									alt="reaction-sad">
-								<!-- /REACTION OPTION IMAGE -->
-							</div>
-							<!-- /REACTION OPTION -->
-						</div>
-						<!-- /REACTION OPTIONS -->
-					</div>
-					<!-- /POST OPTION WRAP -->
-
-					<!-- POST OPTION -->
-					<div class="post-option">
-						<!-- POST OPTION ICON -->
-						<svg class="post-option-icon icon-comment">
-                <use xlink:href="#svg-comment"></use>
-              </svg>
-						<!-- /POST OPTION ICON -->
-
-						<!-- POST OPTION TEXT -->
-						<p class="post-option-text">Comment</p>
-						<!-- /POST OPTION TEXT -->
-					</div>
-					<!-- /POST OPTION -->
-
-					<!-- POST OPTION -->
-					<div class="post-option">
-						<!-- POST OPTION ICON -->
-						<svg class="post-option-icon icon-share">
+						<!-- POST OPTION -->
+						<div class="post-option">
+							<!-- POST OPTION ICON -->
+							<svg class="post-option-icon icon-share">
                 <use xlink:href="#svg-share"></use>
               </svg>
-						<!-- /POST OPTION ICON -->
+							<!-- /POST OPTION ICON -->
 
-						<!-- POST OPTION TEXT -->
-						<p class="post-option-text">Share</p>
-						<!-- /POST OPTION TEXT -->
+							<!-- POST OPTION TEXT -->
+							<p class="post-option-text">공유</p>
+							<!-- /POST OPTION TEXT -->
+						</div>
+						<!-- /POST OPTION -->
 					</div>
-					<!-- /POST OPTION -->
+					<!-- /POST OPTIONS -->
 				</div>
-				<!-- /POST OPTIONS -->
-				<!-- reply -->
-					<div style="height:150px" th:each="reply:${reply}" >
-					<form id="commentInsertForm" name="commentInsertForm">
-					  <div class="container">
-        				<div class="commentList"></div>
-    				  </div>
+				<div id="replyBox" style="display: none">
+					<div class="user-status" id="refreshReply"
+						style="margin-left: 40px;" th:each="reply:${post.replyList}">
+						<!-- USER STATUS AVATAR -->
+						<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+							<div class="user-avatar small no-outline">
+								<!-- USER AVATAR CONTENT -->
+								<div class="user-avatar-content">
+									<!-- HEXAGON -->
+									<div class="hexagon-image-30-32"
+										th:if="${reply.profileCheck}==1"
+										th:attr="data-src=@{/user/profileId/}+${reply.replyWriter}"></div>
+									<div class="hexagon-image-30-32"
+										th:unless="${reply.profileCheck}==1"
+										th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR CONTENT -->
 
-					
-			            <div class="input-group">
-			               <input type="hidden" name="bno" value="${post.bno}"/>
-			               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-			               <span class="input-group-btn">
-			               		<button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
-			               </span>
-			              </div>
-	       			 </form>
+								<!-- USER AVATAR PROGRESS -->
+								<div class="user-avatar-progress">
+									<!-- HEXAGON -->
+									<div class="hexagon-progress-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS -->
 
-        		</div>
-        		</div>
-        		<!-- /reply -->
+								<!-- USER AVATAR PROGRESS BORDER -->
+								<div class="user-avatar-progress-border">
+									<!-- HEXAGON -->
+									<div class="hexagon-border-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS BORDER -->
+							</div> <!-- /USER AVATAR -->
+						</a>
+						<!-- /USER STATUS AVATAR -->
+						<!-- USER STATUS TEXT -->
+						<p class="user-status-text small" th:text="${reply.replyWriter}"></p>
+						<!-- /USER STATUS TEXT -->
+						<!-- USER STATUS TITLE -->
+						<p class="user-status-title medium">
+							<span class="bold" th:text="${reply.replyContent}"></span>
+						</p>
+						<p class="user-status-text small" style="display: inline"
+							th:text="${#dates.format(reply.replyDate, 'yyyy-MM-dd HH:mm')}">
+						</p>
+						<a class="user-status-text small" th:id="reComment+${reply.rno}"
+							th:onclick="|javascript:openRecmt('${reply.rno}')|">&nbsp;&nbsp;답글쓰기</a>
+						<!-- /USER STATUS TITLE -->
+						<div class="user-status" id="refreshRecmt"
+							th:each="recmt:${reply.recmtList}">
+							<!-- USER STATUS AVATAR -->
+							<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+								<div class="user-avatar small no-outline">
+									<!-- USER AVATAR CONTENT -->
+									<div class="user-avatar-content">
+										<!-- HEXAGON -->
+										<div class="hexagon-image-30-32"
+											th:if="${reply.profileCheck}==1"
+											th:attr="data-src=@{/user/profileId/}+${recmt.recmtWriter}"></div>
+										<div class="hexagon-image-30-32"
+											th:unless="${reply.profileCheck}==1"
+											th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR CONTENT -->
+
+									<!-- USER AVATAR PROGRESS -->
+									<div class="user-avatar-progress">
+										<!-- HEXAGON -->
+										<div class="hexagon-progress-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS -->
+
+									<!-- USER AVATAR PROGRESS BORDER -->
+									<div class="user-avatar-progress-border">
+										<!-- HEXAGON -->
+										<div class="hexagon-border-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS BORDER -->
+								</div> <!-- /USER AVATAR -->
+							</a>
+							<!-- /USER STATUS AVATAR -->
+							<!-- USER STATUS TEXT -->
+							<p class="user-status-text small" th:text="${recmt.recmtWriter}"></p>
+							<!-- /USER STATUS TEXT -->
+							<!-- USER STATUS TITLE -->
+							<p class="user-status-title medium">
+								<span class="bold" th:text="${recmt.recmtContent}"></span>
+							</p>
+							<p class="user-status-text small" style="display: inline"
+								th:text="${#dates.format(recmt.recmtDate, 'yyyy-MM-dd HH:mm')}">
+							</p>
+							<!-- /USER STATUS TITLE -->
+						</div>
+						<div class="post-options" th:id="recmtPost+${reply.rno}"
+							style="display: none"
+							th:if="${user}!=null and ${result}!='WriteSuccess'">
+							<form class="form" th:id="recmtFrm+${reply.rno}"
+								style="width: 75%; display: inline-block">
+								<div class="form-row">
+									<!-- FORM ITEM -->
+									<div class="form-item">
+										<!-- FORM INPUT -->
+										<div class="form-input">
+											<label>내용</label> <input type="text"
+												class="form-control form-control-lg input-lg"
+												th:id="replyContent+${reply.rno}" name="recmtContent">
+										</div>
+										<input type="hidden" th:id="recmtRno+${reply.rno}" name="rno"
+											th:value="${reply.rno}">
+										<!-- /FORM INPUT -->
+									</div>
+									<!-- /FORM ITEM -->
+								</div>
+							</form>
+							<button class="button primary"
+								th:onclick="|javascript:recmtBtn('${reply.rno}')|"
+								style="width: 20%; margin-top: -2px;">쓰기</button>
+						</div>
+						<div class="post-options"
+							th:unless="${user}!=null and ${result}!='WriteSuccess'">
+							<p>가입되지 않았거나 로그인이 필요합니다.</p>
+						</div>
+						<div class="user-status" id="ajaxAddRecmt" style="display: none;">
+							<!-- USER STATUS AVATAR -->
+							<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+								<div class="user-avatar small no-outline" id="addAvatar">
+									<!-- USER AVATAR CONTENT -->
+									<div class="user-avatar-content">
+										<!-- HEXAGON -->
+										<img class="hexagon-image-30-32" id="ajaxRecmtProfile"
+											th:attr="data-src=@{../../user_baseProfile.png}">
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR CONTENT -->
+
+									<!-- USER AVATAR PROGRESS -->
+									<div class="user-avatar-progress">
+										<!-- HEXAGON -->
+										<div class="hexagon-progress-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS -->
+									<!-- USER AVATAR PROGRESS BORDER -->
+									<div class="user-avatar-progress-border">
+										<!-- HEXAGON -->
+										<div class="hexagon-border-40-44"></div>
+										<!-- /HEXAGON -->
+									</div>
+									<!-- /USER AVATAR PROGRESS BORDER -->
+								</div> <!-- /USER AVATAR -->
+							</a>
+							<!-- /USER STATUS AVATAR -->
+							<!-- USER STATUS TEXT -->
+							<p class="user-status-text small" id="ajaxRecmtId"></p>
+							<!-- /USER STATUS TEXT -->
+							<!-- USER STATUS TITLE -->
+							<p class="user-status-title medium">
+								<span class="bold" id="ajaxRecmtContent"></span>
+							</p>
+							<p class="user-status-text small" id="ajaxRecmtDate"
+								style="display: inline"></p>
+							<!-- /USER STATUS TITLE -->
+						</div>
+					</div>
+					<div class="user-status" id="ajaxAddReply" style="display: none;">
+						<!-- USER STATUS AVATAR -->
+						<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+							<div class="user-avatar small no-outline" id="addAvatar">
+								<!-- USER AVATAR CONTENT -->
+								<div class="user-avatar-content">
+									<!-- HEXAGON -->
+									<img class="hexagon-image-30-32" id="ajaxReplyProfile"
+										th:attr="data-src=@{../../user_baseProfile.png}">
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR CONTENT -->
+
+								<!-- USER AVATAR PROGRESS -->
+								<div class="user-avatar-progress">
+									<!-- HEXAGON -->
+									<div class="hexagon-progress-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS -->
+								<!-- USER AVATAR PROGRESS BORDER -->
+								<div class="user-avatar-progress-border">
+									<!-- HEXAGON -->
+									<div class="hexagon-border-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS BORDER -->
+							</div> <!-- /USER AVATAR -->
+						</a>
+						<!-- /USER STATUS AVATAR -->
+						<!-- USER STATUS TEXT -->
+						<p class="user-status-text small" id="ajaxReplyId"></p>
+						<!-- /USER STATUS TEXT -->
+						<!-- USER STATUS TITLE -->
+						<p class="user-status-title medium">
+							<span class="bold" id="ajaxReplyContent"></span>
+						</p>
+						<p class="user-status-text small" id="ajaxReplyDate"
+							style="display: inline"></p>
+						<a class="user-status-text small">&nbsp;&nbsp;답글쓰기</a>
+						<!-- /USER STATUS TITLE -->
+					</div>
+					<div class="post-options" id="commentPost" th:if="${user}!=null">
+						<form class="form" id="replyFrm"
+							style="width: 75%; display: inline-block">
+							<div class="form-row">
+								<!-- FORM ITEM -->
+								<div class="form-item">
+									<!-- FORM INPUT -->
+									<div class="form-input">
+										<label>내용</label> <input type="text"
+											class="form-control form-control-lg input-lg"
+											id="replyContent" name="replyContent">
+									</div>
+									<input type="hidden" id="replyBno" name="bno"
+										th:value="${post.bno}">
+									<!-- /FORM INPUT -->
+								</div>
+								<!-- /FORM ITEM -->
+							</div>
+						</form>
+						<button class="button primary" id="replyBtn"
+							style="width: 20%; margin-top: -2px;">쓰기</button>
+					</div>
+					<div class="post-options" th:unless="${user}!=null">
+						<p>
+							<a href="/login">로그인</a>이 필요합니다.
+						</p>
+					</div>
+				</div>
 			</div>
-			
+			<!-- /WIDGET BOX -->
 			<!-- /WIDGET BOX -->
 
 
@@ -1952,13 +1902,13 @@
 				<!-- STATS BOX SLIDER CONTROLS -->
 				<div class="stats-box-slider-controls">
 					<!-- STATS BOX SLIDER CONTROLS TITLE -->
-					<div  th:if="${user} == null">
-					<p class="stats-box-slider-controls-title">전체 글</p>
+					<div th:if="${user} == null">
+						<p class="stats-box-slider-controls-title">전체 글</p>
 					</div>
-					
+
 					<div th:unless="${user}==null">
-					<p class="stats-box-slider-controls-title">이번달 작성글</p>
-					</div>	
+						<p class="stats-box-slider-controls-title">이번달 작성글</p>
+					</div>
 					<!-- /STATS BOX SLIDER CONTROLS TITLE -->
 
 					<!-- SLIDER CONTROLS -->
@@ -1994,22 +1944,22 @@
 						<!-- STATS BOX VALUE WRAP -->
 						<div class="stats-box-value-wrap">
 							<!-- STATS BOX VALUE -->
-							
-							<div  th:if="${user} == null">
-							<p class="stats-box-value" th:text="${allcount}+'개의 글'" ></p>
+
+							<div th:if="${user} == null">
+								<p class="stats-box-value" th:text="${allcount}+'개의 글'"></p>
 							</div>
-							
+
 							<div th:unless="${user}==null">
-							<p class="stats-box-value" th:text="${count}+'개의 글'" ></p>
-							</div>	
-							
-							
+								<p class="stats-box-value" th:text="${count}+'개의 글'"></p>
+							</div>
+
+
 							<!-- <div class="simple-dropdown widget-box-post-settings-dropdown" 
 									th:if="${user} == null"></div>
 						<div class="simple-dropdown widget-box-post-settings-dropdown"  
 									th:unless="${user} == null">
 							<div th:if="${post.userId} == ${user.userId}"> -->
-							
+
 							<!-- /STATS BOX VALUE -->
 
 							<!-- STATS BOX DIFF -->
@@ -5373,6 +5323,7 @@
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
 	<script src="../../js/global/global.popups.js"></script>
+	<script src="../../js/reply.js"></script>
 
 </body>
 </html>

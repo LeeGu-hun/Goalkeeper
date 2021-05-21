@@ -6,9 +6,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-	<div th:fragment="group_header">
+	<div >
 		<!-- PROFILE HEADER -->
-		<div class="profile-header v2">
+		<div th:fragment="group_header" class="profile-header v2">
 			<!-- PROFILE HEADER COVER -->
 			<figure class="profile-header-cover liquid"
 				th:if="${group.bgi_check}=='Y'">
@@ -25,23 +25,25 @@
 				<!-- USER SHORT DESCRIPTION -->
 				<div class="user-short-description big">
 					<!-- USER SHORT DESCRIPTION AVATAR -->
-					<a class="user-short-description-avatar user-avatar big no-stats"
-						href="group-timeline.html"> <!-- USER AVATAR BORDER -->
+					<a class="user-short-description-avatar user-avatar big"> <!-- USER AVATAR BORDER -->
 						<div class="user-avatar-border">
 							<!-- HEXAGON -->
 							<div class="hexagon-148-164"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
-						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
+						<div class="user-avatar-content" th:if="${group.file_check}=='Y'">
 							<!-- HEXAGON -->
 							<div class="hexagon-image-100-110"
 								th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
 						<div class="user-avatar-content"
-							th:unless="${group.bgi_check}=='Y'">
+							th:unless="${group.file_check}=='Y'">
 							<div class="hexagon-image-100-110"
-								data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+								data-src="../../img/group_baseProfile.png" alt="cover-29"></div>
+						</div>
+						<div class="user-avatar-progress">
+							<div class="hexagon-progress-124-136"></div>
 						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -55,16 +57,16 @@
 							<div class="hexagon-120-130"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
-						<div class="user-avatar-content" th:if="${group.bgi_check}=='Y'">
+						<div class="user-avatar-content" th:if="${group.file_check}=='Y'">
 							<!-- HEXAGON -->
 							<div class="hexagon-image-100-110"
 								th:attr="data-src=@{/display/}+${group.gno}"></div>
 							<!-- /HEXAGON -->
 						</div> <!-- /USER AVATAR CONTENT -->
 						<div class="user-avatar-content"
-							th:unless="${group.bgi_check}=='Y'">
+							th:unless="${group.file_check}=='Y'">
 							<div class="hexagon-image-100-110"
-								data-src="../../img/group_baseBgi.png" alt="cover-29"></div>
+								data-src="../../img/group_baseProfile.png" alt="cover-29"></div>
 						</div>
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -143,37 +145,25 @@
 					<!-- /USER STAT -->
 				</div>
 				<!-- /USER STATS -->
-
-				<!-- TAG STICKER -->
-				<div class="tag-sticker">
-					<!-- TAG STICKER ICON -->
-					<svg class="tag-sticker-icon icon-public">
-            <use xlink:href="#svg-public"></use>
-          </svg>
-					<!-- /TAG STICKER ICON -->
-				</div>
-				<!-- /TAG STICKER -->
-
 				<!-- PROFILE HEADER INFO ACTIONS -->
 				<div class="profile-header-info-actions">
 					<!-- PROFILE HEADER INFO ACTION -->
 					<p class="profile-header-info-action button secondary"
-						th:data1="${joinResult}"
-						th:onclick="|javascript:openJoin(this.getAttribute('data1'))|">
+						th:attr="onclick=|javascript:openJoin('${joinResult}')|">
 						<!-- ICON JOIN GROUP -->
 						<svg class="icon-join-group">
-              <use xlink:href="#svg-join-group"></use>
-            </svg>
+			              <use xlink:href="#svg-join-group"></use>
+			            </svg>
 						<!-- /ICON JOIN GROUP -->
 					</p>
 					<!-- /PROFILE HEADER INFO ACTION -->
 
 					<!-- PROFILE HEADER INFO ACTION -->
 					<a class="profile-header-info-action button"
-						th:href="@{/group_mgJoin/{gno}(gno=${group.gno})}"> <!-- ICON MORE DOTS -->
+						th:href="@{/group_mgJoin/{gno}(gno=${group.gno})}">
 						<svg class="icon-more-dots">
-              <use xlink:href="#svg-more-dots"></use>
-            </svg> <!-- /ICON MORE DOTS -->
+			              <use xlink:href="#svg-more-dots"></use>
+			            </svg>
 					</a>
 					<!-- /PROFILE HEADER INFO ACTION -->
 				</div>

@@ -103,35 +103,24 @@ window.onload = function() {
 	
 }
 function fnEdit(bno){	
-		$('#'+bno).hide();
-		$('#modify'+bno).show();	
-		$('.edit_btn').click(function(e){
-			e.preventDefault();
-			$('#modify_form').submit();
-			alert("수정완료");
-		});	
-		$(".edit_cancelbtn").click(function() {
-			$('#'+bno).show();
-			$('#modify'+bno).hide();
-		});		
-	}
-
+	$('#'+bno).hide();
+	$('#modify'+bno).show();	
+	$('.edit_btn').click(function(e){
+		e.preventDefault();
+		$('#modify_form').submit();
+		alert("수정완료");
+	});	
+	$(".edit_cancelbtn").click(function() {
+		$('#'+bno).show();
+		$('#modify'+bno).hide();
+	});		
+}
 function openJoin(result){
+	$('.modal-con').attr('style','min-height:24%');
 	if(result == "joinDenied"){
-		$("#noticemodal").fadeIn(300);
-		$("#modalcontent").fadeIn(300);
-		$('#modaltext').text("이미 가입된 그룹입니다.");
-		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-			  $("#noticemodal").fadeOut(300);
-			  $(".modal-con").fadeOut(300);
-		});
+		openModal("이미 가입된 그룹입니다.");
 	} else if(result =="loginRequire"){
-		$("#noticemodal").fadeIn(300);
-		$('#modaltext').text("로그인이 필요합니다.");
-		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-			  $("#noticemodal").fadeOut(300);
-			  $(".modal-con").fadeOut(300);
-		});
+		openModal("로그인이 필요합니다");
 	} else{
 		var popupWidth = 1215;
 		var popupHeight = 391;
