@@ -25,4 +25,6 @@ public interface BoardMapper {
 	void deleteBoard(BoardVO board);
 	int boardCount(String userId);
 	int boardAllCount();
+	int friendCount(int uno);
+	int userCount();
 }

@@ -29,4 +29,7 @@ public class BoardVO {
    private int reactCount;
    private List<ReactVO> reactList;
    private int reactType;
+   private String bnoDay;
+   private String bnoTime;
+  
 }

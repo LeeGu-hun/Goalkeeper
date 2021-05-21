@@ -19,8 +19,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public void insertBoard(BoardVO vo) {
-		boardMapper.insertBoard(vo);
-		
+		boardMapper.insertBoard(vo);	
 	}
 
 	@Override
@@ -76,6 +75,18 @@ public class BoardServiceImpl implements BoardService{
 	public int boardAllCount() {
 		return boardMapper.boardAllCount();
 	}
+
+	@Override
+	public int friendCount(int uno) {
+		return boardMapper.friendCount(uno);
+	}
+
+	@Override
+	public int userCount() {
+		return boardMapper.userCount();
+	}
+
+
 
 	
 }
