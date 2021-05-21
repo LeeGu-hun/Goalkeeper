@@ -156,7 +156,7 @@
 					            </svg>
 								<!-- /UPLOAD BOX ICON -->
 								<input type="file" name="backFiles" accept=".jpg, .jpeg, .png">
-								<button >upload</button>
+								<button>upload</button>
 							</div>
 						</form>
 						<!-- /UPLOAD BOX -->
@@ -178,27 +178,21 @@
 									<input type="hidden" name="uno" th:value="${user.uno}">
 									<div class="form-input small active">
 										<label for="profile-name">E-mail</label> <input type="text"
-											id="userMail" name="userMail" th:value="${user.userMail}">
+											id="userMail" name="userMail">
 									</div>
 								</div>
 								<div class="form-item">
 									<div class="form-input small active">
 										<label for="profile-tagline">Phone Number</label> <input
-											type="text" id="userPhone" name="userPhone"
-											th:value="${user.userPhone}">
+											type="text" id="userPhone" name="userPhone">
 									</div>
 								</div>
 							</div>
 							<div class="form-row split">
 								<!-- FORM ITEM -->
 								<div class="form-item">
-									<div class="form-item">
-										<!-- FORM INPUT -->
-										<label for="profile-name">Birthday</label>
-										<div class="form-input small active">
-											<input type="date" id="userBirthdate" name="userBirthdate"
-												th:value="${user.userBirthdate}">
-										</div>
+									<div style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
+										<input type="date" id="userBirthdate" name="userBirthdate" th:value="${#dates.format(user.userBirthdate, 'yyyy-MM-dd')}">							
 									</div>
 								</div>
 								<div class="form-item">
@@ -206,12 +200,12 @@
 									<div class="form-select">
 										<label for="profile-status">Gender</label> <select
 											id="profile-status" name="userGender">
-											<option value="M">Man</option>
-											<option value="W" selected>Women</option>
+											<option value="M" selected>Man</option>
+											<option value="W">Women</option>
 										</select>
 										<svg class="form-select-icon icon-small-arrow">
-                       						 <use xlink:href="#svg-small-arrow"></use>
-                     						 </svg>
+                       						<use xlink:href="#svg-small-arrow"></use>
+                     					</svg>
 									</div>
 								</div>
 							</div>
@@ -219,8 +213,7 @@
 								<div class="form-item">
 									<div class="form-input small">
 										<label for="profile-birthplace">New PassWord</label> <input
-											type="password" id="userPw" name="userPw"
-											th:value="${user.userPw}">
+											type="password" id="userPw" name="userPw">
 									</div>
 								</div>
 								<div class="form-item">
