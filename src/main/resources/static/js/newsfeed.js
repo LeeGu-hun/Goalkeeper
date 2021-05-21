@@ -56,14 +56,7 @@
 			
 			if (document.getElementById("text").value == "" && 
 				document.getElementById("file").value == "") {
-				$("#noticemodal").fadeIn(300);
-				$("#warningmodalcontent").fadeIn(300);
-				$("#warningmodaltext").text("파일이나 글을 작성해주세요");
-				
-				$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-	 			$("#noticemodal").fadeOut(300);
-	  			$(".modal-con").fadeOut(300);
-			}); 
+				openModal("아무것도 입력되지 않았습니다.");
 			return false;
 			} 
 			
