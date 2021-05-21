@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goal.mapper.FriendApplyMapper">
+	<resultMap type="goal.vo.FriendApplyVO" id="friendApplyVO">
+		<id property="applyUno" column="applyUno"></id>
+		<id property="receiveUno" column="receiveUno"></id>
+		<id property="applyId" column="applyId"></id>
+		<id property="receiveId" column="receiveId"></id>
+		<id property="applyBirthdate" column="applyBirthdate"></id>
+		<id property="receiveBirthdate" column="receiveBirthdate"></id>
+		<id property="applyFileCheck" column="applyFileCheck"></id>
+		<id property="applyBackCheck" column="applyBackCheck"></id>
+		<id property="receiveFileCheck" column="receiveFileCheck"></id>
+		<id property="receiveBackCheck" column="receiveBackCheck"></id>
+		<id property="applyDate" column="applyDate"></id>
+	</resultMap>
+	
+	<insert id="apply" parameterType="goal.vo.FriendApplyVO">
+		insert into GK_FRIEND_APPLY values
+		(#{applyUno}, #{receiveUno}, #{applyId}, #{receiveId}, #{applyBirthdate}, #{receiveBirthdate}, #{applyFileCheck},
+		#{receiveFileCheck}, #{applyBackCheck}, #{receiveBackCheck}, sysdate)
+	</insert>
+	
+	<select id="receiveList" resultMap="friendApplyVO">
+		select * from GK_FRIEND_APPLY where receiveUno = #{receiveUno}
+	</select>
+	
+	<select id="applyList" parameterType="int" resultMap="friendApplyVO">
+		select * from GK_FRIEND_APPLY where applyUno = #{applyUno}
+	</select>
+
+	<insert id="acceptFriend" parameterType="goal.vo.FriendVO">
+		insert into GK_FRIEND values 
+		(GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate}, #{userFileCheck}, #{userBackCheck})
+	</insert>
+	
+	<delete id="rejectFriend" parameterType="java.util.Map">
+		delete GK_FRIEND_APPLY where applyUno = #{friendNo} and receiveUno = #{uno}
+	</delete>
+	
+	<delete id="applyCancel" parameterType="java.util.Map">
+		delete GK_FRIEND_APPLY where applyUno = #{applyUno} and receiveUno = #{receiveUno}
+	</delete>
+	
+	<update id="applyFileCheck" parameterType="int">
+		update GK_FRIEND_APPLY set applyFileCheck = 'Y' where applyUno = #{uno}
+	</update>
+	
+	<update id="applyBackCheck" parameterType="int">
+		update GK_FRIEND_APPLY set applyBackCheck = 'Y' where applyUno = #{uno}
+	</update>
+	
+	<update id="receiveFileCheck" parameterType="int">
+		update GK_FRIEND_APPLY set receiveFileCheck = 'Y' where receiveUno = #{uno}
+	</update>
+	
+	<update id="receiveBackCheck" parameterType="int">
+		update GK_FRIEND_APPLY set receiveFileCheck = 'Y' where receiveUno = #{uno}
+	</update>
+	
+</mapper>

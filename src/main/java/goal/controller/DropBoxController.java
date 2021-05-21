@@ -27,6 +27,7 @@ import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
 import goal.service.ChatService;
 import goal.service.CommonService;
+import goal.service.FriendApplyService;
 import goal.service.FriendService;
 import goal.service.UserBackFileService;
 import goal.service.UserFileService;
@@ -54,8 +55,12 @@ public class DropBoxController {
 	
 	@Autowired
 	private FriendService friendService;
+	
 	@Autowired
 	private ChatService chatService;
+	
+	@Autowired
+	private FriendApplyService friendApplyService;
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -141,6 +146,8 @@ public class DropBoxController {
         vo.setUserFilePath(filePath);
         userService.profileCheck(user.getUno());
         friendService.profileCheck(user.getUno());
+        friendApplyService.applyFileCheck(user.getUno());
+        friendApplyService.receiveFileCheck(user.getUno());
         
 		if(check != 0) {
 			userFileService.removeUserFile(vo.getUno());
@@ -180,6 +187,8 @@ public class DropBoxController {
         vo.setBackPath(filePath);
         userService.backgroundCheck(user.getUno());
         friendService.profileBackCheck(user.getUno());
+        friendApplyService.applyBackCheck(user.getUno());
+        friendApplyService.receiveBackCheck(user.getUno());
         
 		if(check != 0) {
 			userBackFileService.removeBackFile(vo.getUno());

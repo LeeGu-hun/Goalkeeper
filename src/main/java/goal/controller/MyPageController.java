@@ -24,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
+import goal.service.ChatService;
 import goal.service.CommonService;
+import goal.service.FriendApplyService;
 import goal.service.FriendService;
 import goal.service.MyGoalService;
 import goal.service.SearchFriendService;
@@ -33,6 +35,8 @@ import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
+import goal.vo.FriendApplyVO;
 import goal.vo.FriendVO;
 import goal.vo.MyGoalVO;
 import goal.vo.UserBackVO;
@@ -63,6 +67,12 @@ public class MyPageController {
 	@Autowired
 	public UserBackFileService userBackFileService;
 	
+	@Autowired
+	public FriendApplyService friendApplyService;
+	
+	@Autowired
+	private ChatService chatService;
+	
 	private CommonDownload commonDownload = new CommonDownload();
 	private UserCommonDownload userCommon = new UserCommonDownload();
 	
@@ -82,13 +92,16 @@ public class MyPageController {
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		userFileService.selectFile(user.getUno());
 		
+		List<ChatVO> friendlist = chatService.findFriendList(user);
+	      
 		if(vo != null) {
+			mv.addObject("friendlist", friendlist);
 			mv.addObject("vo", user);
 			mv.addObject("uno", user.getUno());
 			mv.addObject("profile", user.getUserFileCheck());
 			mv.addObject("background", user.getUserBackCheck());
 			mv.addObject("count", countFriend);
-			mv.addObject("friendList", list);
+			mv.addObject("list", list);
 		} else {
 			mv.setViewName("view/error/denied");
 		}
@@ -184,22 +197,30 @@ public class MyPageController {
 		return mv;
 	}
 	
-	@PostMapping("/mySearchFriends/add")
-	public ModelAndView addFriend(HttpServletRequest request, UserVO vo, int friendNo, String friendId, String friendNumber,
-			@DateTimeFormat(pattern="yyyy-MM-dd") Date friendBirthdate, String userFileCheck, String userBackCheck) {
+	@PostMapping("/mySearchFriends/apply")
+	public ModelAndView apply(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
+			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
+			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
 		vo = getLoginUser(request);
+		FriendApplyVO apply = new FriendApplyVO();
 		FriendVO friend = new FriendVO();
 		friend.setUno(vo.getUno());
-		friend.setFriendNo(friendNo);
-		friend.setFriendId(friendId);
-		friend.setFriendNumber(friendNumber);
-		friend.setFriendBirthdate(friendBirthdate);		
-		if(userFileCheck.equals("Y")) friend.setUserFileCheck(userFileCheck);
-		else friend.setUserFileCheck("N");
-		if(userBackCheck.equals("Y")) friend.setUserBackCheck(userBackCheck);
-		else friend.setUserBackCheck("N");
+		apply.setApplyUno(vo.getUno());
+		apply.setReceiveUno(receiveUno);
+		apply.setApplyId(applyId);
+		apply.setReceiveId(receiveId);
+		apply.setApplyBirthdate(applyBirthdate);
+		apply.setReceiveBirthdate(receiveBirthdate);
+		if(applyFileCheck.equals("Y")) apply.setApplyFileCheck(applyFileCheck);
+		else apply.setApplyFileCheck("N");
+		if(receiveFileCheck.equals("Y")) apply.setReceiveFileCheck(receiveFileCheck);
+		else apply.setReceiveFileCheck("N");
+		if(applyBackCheck.equals("Y")) apply.setApplyBackCheck(applyBackCheck);
+		else apply.setApplyFileCheck("N");
+		if(receiveBackCheck.equals("Y")) apply.setReceiveBackCheck(receiveBackCheck);
+		else apply.setReceiveBackCheck("N");
 		
-		friendService.addFriend(friend);
+		friendApplyService.apply(apply);
 		
 		ModelAndView mv = new ModelAndView("redirect:/mySearchFriends");
 		List<FriendVO> list = friendService.getFriendsList(friend);
@@ -239,6 +260,62 @@ public class MyPageController {
 		goal.setUno(vo.getUno());
 		myGoalService.createGoal(goal);
 		ModelAndView mv = new ModelAndView("redirect:/myGoal");
+		
+		return mv;
+	}
+	
+	@GetMapping("/applyList")
+	public ModelAndView applyList(HttpServletRequest request, UserVO user) {
+		user = commonService.getLoginUser(request);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_applyList");
+		mv = commonService.checkLoginUser(request, mv);
+		
+		List<FriendApplyVO> applyList = friendApplyService.applyList(user.getUno()); 
+		int countFriend = friendService.countFriends(user.getUno());
+		
+		mv.addObject("list", applyList);
+		mv.addObject("uno", user.getUno());
+		mv.addObject("userId", user.getUserId());
+		mv.addObject("userBirthdate", user.getUserBirthdate());
+		mv.addObject("userFileCheck", user.getUserFileCheck());
+		mv.addObject("userBackCheck", user.getUserBackCheck());
+		mv.addObject("count", countFriend);
+		
+		return mv;
+	}
+	
+	@PostMapping("/applyList/cancel")
+	public ModelAndView applyCancel(HttpServletRequest request, UserVO vo, int receiveUno) {
+		vo = commonService.getLoginUser(request);
+		ModelAndView mv = new ModelAndView("redirect:/applyList");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("applyUno", vo.getUno());
+		map.put("receiveUno", receiveUno);
+		
+		friendApplyService.applyCancel(map);
+		List<FriendApplyVO> applyList = friendApplyService.applyList(vo.getUno());
+		
+		mv.addObject("list", applyList);
+		return mv;
+	}
+	
+	@GetMapping("/receiveList")
+	public ModelAndView ReceiveList(HttpServletRequest request, UserVO vo) {
+		vo = commonService.getLoginUser(request);
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_receiveList");
+		mv = commonService.checkLoginUser(request, mv);
+		
+		List<FriendApplyVO> receiveList = friendApplyService.receiveList(vo.getUno());
+		int countFriend = friendService.countFriends(vo.getUno());
+		
+		mv.addObject("list", receiveList);
+		mv.addObject("uno", vo.getUno());
+		mv.addObject("userId", vo.getUserId());
+		mv.addObject("userBirthdate", vo.getUserBirthdate());
+		mv.addObject("userFileCheck", vo.getUserFileCheck());
+		mv.addObject("userBackCheck", vo.getUserBackCheck());
+		mv.addObject("count", countFriend);
 		
 		return mv;
 	}

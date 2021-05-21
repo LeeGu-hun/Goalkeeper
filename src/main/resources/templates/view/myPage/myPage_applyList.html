@@ -17,8 +17,12 @@
 <title>Vikinger | Profile</title>
 </head>
 <style>
-.addBtn {
-	background-color: #14e36e;
+.accept {
+	background-color: #5cbbf2;
+	color: white;
+}
+.reject{
+	background-color: #fa3250;
 	color: white;
 }
 </style>
@@ -30,10 +34,10 @@
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
 			<figure class="profile-header-cover liquid" th:if="${userBackCheck}=='Y'">
-				<img th:src="@{/user/background/}+${uno}" alt="cover-01">
+				<img th:src="@{/user/background/}+${uno}">
 			</figure>
 			<figure class="profile-header-cover liquid" th:unless="${userBackCheck}=='Y'">
-				<img src="../../img/user_baseBack.png" alt="cover-01">
+				<img src="../../img/user_baseBack.png">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
 
@@ -48,10 +52,7 @@
 							<!-- HEXAGON -->
 							<div class="hexagon-148-164"></div>
 							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR BORDER -->
-						
-						<!-- USER AVATAR CONTENT -->
+						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
 							<figure th:if="${userFileCheck}=='Y'">
@@ -61,24 +62,17 @@
 								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
 							</figure>
 							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR CONTENT -->
-						
-						<!-- USER AVATAR PROGRESS -->
+						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
 						<div class="user-avatar-progress">
 							<!-- HEXAGON -->
 							<div class="hexagon-progress-124-136"></div>
 							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR PROGRESS -->
-						
-						<!-- USER AVATAR PROGRESS BORDER -->
+						</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
 						<div class="user-avatar-progress-border">
 							<!-- HEXAGON -->
 							<div class="hexagon-border-124-136"></div>
 							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR PROGRESS BORDER -->	
+						</div> <!-- /USER AVATAR PROGRESS BORDER -->
 					</a>
 					<!-- /USER SHORT DESCRIPTION AVATAR -->
 
@@ -90,17 +84,25 @@
 							<!-- HEXAGON -->
 							<div class="hexagon-120-132"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+						</div>
+						<!-- /USER AVATAR BORDER -->
+						
+						<!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<div class="hexagon-image-82-90" data-src="img/avatar/01.jpg"></div>
+							<div class="hexagon-image-100-110"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+						</div>
+						<!-- /USER AVATAR CONTENT -->
+						
+						<!-- USER AVATAR PROGRESS -->
 						<div class="user-avatar-progress">
 							<!-- HEXAGON -->
 							<div class="hexagon-progress-100-110"></div>
 							<!-- /HEXAGON -->
-						</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+						</div> <!-- /USER AVATAR PROGRESS -->
+						
+						<!-- USER AVATAR PROGRESS BORDER -->
 						<div class="user-avatar-progress-border">
 							<!-- HEXAGON -->
 							<div class="hexagon-border-100-110"></div>
@@ -162,7 +164,7 @@
 							<!-- SOCIAL LINK -->
 							<a class="social-link twitch" href="#"> <!-- ICON TWITCH -->
 								<svg class="icon-twitch">
-				                	<use xlink:href="#svg-twitch"></use>
+			                		<use xlink:href="#svg-twitch"></use>
 				                </svg> <!-- /ICON TWITCH -->
 							</a>
 							<!-- /SOCIAL LINK -->
@@ -252,6 +254,7 @@
 						<!-- /USER STAT TEXT -->
 					</div>
 					<!-- /USER STAT -->
+
 				</div>
 				<!-- /USER STATS -->
 			</div>
@@ -264,7 +267,7 @@
 			<!-- SECTION MENU -->
 			<div id="section-navigation-slider" class="section-menu">
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="myPage"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item" th:href="myPage"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-profile">
 			            <use xlink:href="#svg-profile"></use>
 			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -274,7 +277,7 @@
 
 				<!-- SECTION MENU ITEM -->
 				<a class="section-menu-item active" href="profile-friends.html">
-					<!-- SECTION MENU ITEM ICON -->
+					<!-- SECTION MENU ITEM ICON --> 
 					<svg class="section-menu-item-icon icon-friend">
 			            <use xlink:href="#svg-friend"></use>
 			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -285,8 +288,8 @@
 				<!-- SECTION MENU ITEM -->
 				<a class="section-menu-item" href="profile-groups.html"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-group">
-			            <use xlink:href="#svg-group"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+		            	<use xlink:href="#svg-group"></use>
+		          	</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
 					<p class="section-menu-item-text">Groups</p> <!-- /SECTION MENU ITEM TEXT -->
 				</a>
 				<!-- /SECTION MENU ITEM -->
@@ -359,14 +362,13 @@
 				<!-- SECTION FILTERS BAR ACTIONS -->
 				<div class="section-filters-bar-actions">
 					<!-- FORM -->
-					<form class="form" action="/mySearchFriends" method="post">
+					<form action="/myFriends" class="form" method="post">
 						<!-- FORM INPUT -->
 						<div class="form-input small with-button">
-							<input type="hidden" th:value="${uno}" name="uno">
-							<label for="friends-search"></label> <input
+							<label for="friends-search">Search Friends</label> <input
 								type="text" id="friends-search" name="friends_search">
 							<!-- BUTTON -->
-							<button class="button primary">
+							<button class="button primary" type="submit" id="searchBtn">
 								<!-- ICON MAGNIFYING GLASS -->
 								<svg class="icon-magnifying-glass">
 				                	<use xlink:href="#svg-magnifying-glass"></use>
@@ -389,7 +391,7 @@
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab active"
+						<div id="newFriendList" class="filter-tab"
 							onclick="location.href='mySearchFriends'">
 							<!-- FILTER TAB TEXT -->
 							<p class="filter-tab-text">새 친구 찾기</p>
@@ -397,7 +399,7 @@
 						</div>
 						<!-- /FILTER TAB -->
 						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab"
+						<div id="newFriendList" class="filter-tab active"
 							onclick="location.href='applyList'">
 							<!-- FILTER TAB TEXT -->
 							<p class="filter-tab-text">신청 목록</p>
@@ -423,13 +425,13 @@
 			<!-- GRID -->
 			<div class="grid grid-4-4-4 centered">
 				<!-- USER PREVIEW -->
-				<div class="user-preview" th:each="u:${list}">
+				<div class="user-preview" th:each="apply:${list}">
 					<!-- USER PREVIEW COVER -->
-					<figure class="user-preview-cover liquid" th:if="${u.userBackCheck}=='Y'">
-						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
+					<figure class="user-preview-cover liquid" th:if="${apply.receiveBackCheck}=='Y'">
+						<img th:src="@{/user/background/}+${apply.receiveUno}" alt="사진 필요!!">
 					</figure>
-					<figure class="user-preview-cover liquid" th:unless="${u.userBackCheck}=='Y'">
-						<img src="../../img/user_baseBack.png" alt="cover-04">
+					<figure class="user-preview-cover liquid" th:unless="${apply.receiveBackCheck}=='Y'">
+						<img src="../../img/user_baseBack.png" alt="사진 필요!!">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 
@@ -444,40 +446,51 @@
 									<!-- HEXAGON -->
 									<div class="hexagon-120-132"></div>
 									<!-- /HEXAGON -->
-								</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+								</div>
+								<!-- /USER AVATAR BORDER -->
+								
+								<!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<figure th:if="${u.userFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${u.uno}"></div>
+									<figure th:if="${apply.receiveFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${apply.ReceiveUno}"></div>
 									</figure>
-									<figure th:unless="${u.userFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" data-src="@{../../img/user_baseProfile.png"></div>
+									<figure th:unless="${apply.receiveFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
 									</figure>
 									<!-- /HEXAGON -->
-								</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+								</div>
+								<!-- /USER AVATAR CONTENT -->
+								
+								<!-- USER AVATAR PROGRESS -->
 								<div class="user-avatar-progress">
 									<!-- HEXAGON -->
 									<div class="hexagon-progress-100-110"></div>
 									<!-- /HEXAGON -->
-								</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
-								<div class="user-avatar-progress-border">
+								</div>
+								<!-- /USER AVATAR PROGRESS -->
+								
+								<!-- USER AVATAR PROGRESS BORDER -->
+								<div class="user-avatar-progress-border" >
 									<!-- HEXAGON -->
 									<div class="hexagon-border-100-110"></div>
 									<!-- /HEXAGON -->
-								</div> <!-- /USER AVATAR PROGRESS BORDER -->
+								</div>
+								<!-- /USER AVATAR PROGRESS BORDER -->
 							</a>
 							<!-- /USER SHORT DESCRIPTION AVATAR -->
-							
+
 							<!-- USER SHORT DESCRIPTION TITLE -->
 							<p class="user-short-description-title">
-								<a th:href="@{myPage(uno=${u.uno})}" th:text="${u.userId}"></a>
+								<a th:href="@{myPage(uno=${apply.receiveUno})}"
+									th:text="${apply.receiveId}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TITLE -->
-
+							
 							<!-- USER SHORT DESCRIPTION TEXT -->
 							<p class="user-short-description-text">
-								<a th:href="@{myPage(uno=${u.uno})}"
-									th:text="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}"></a>
+								<a th:href="@{myPage(uno=${apply.receiveUno})}"
+									th:text="${#dates.format(apply.receiveBirthdate, 'yyyy-MM-dd')}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TEXT -->
 						</div>
@@ -505,7 +518,7 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">60</p>
+										<p class="user-stat-title">3</p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
@@ -523,22 +536,10 @@
 						<!-- USER PREVIEW ACTIONS -->
 						<div class="user-preview-actions">
 							<!-- BUTTON -->
-							<form action="mySearchFriends/apply" method="post" class="button primary">
-								<input type="hidden" th:value="${u.uno}" name="receiveUno">
-								<input type="hidden" th:value="${userId}" name="applyId">
-								<input type="hidden" th:value="${u.userId}" name="receiveId">
-								<input type="hidden" th:value="${#dates.format(userBirthdate, 'yyyy-MM-dd')}" name="applyBirthdate">
-								<input type="hidden" th:value="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}" name="receiveBirthdate">								
-								<input type="hidden" th:value="${userFileCheck}" name="applyFileCheck">
-								<input type="hidden" th:value="${u.userFileCheck}" name="receiveFileCheck">
-								<input type="hidden" th:value="${userBackCheck}" name="applyBackCheck">
-								<input type="hidden" th:value="${u.userBackCheck}" name="receiveBackCheck">
-								<button type="submit" class="addBtn" onclick="href='apply'">친구 신청</button>
+							<form action="/applyList/cancel" method="post" class="button secondary">
+								<input type="hidden" th:value="${apply.receiveUno}" name="receiveUno">
+								<button type="submit" class="reject">취소</button>
 							</form>
-							<!-- /BUTTON -->
-
-							<!-- BUTTON -->
-							<p class="button primary">Send Message</p>
 							<!-- /BUTTON -->
 						</div>
 						<!-- /USER PREVIEW ACTIONS -->
@@ -616,16 +617,7 @@
 		<!-- /SECTION -->
 	</div>
 	<!-- /CONTENT GRID -->
-	<script>
-		$('#myFriendList').on('click', function(){
-			$.ajax({
-				type:"post",
-				data:{
-					
-				}
-			});
-		});
-	</script>
+
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->
