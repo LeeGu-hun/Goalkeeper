@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- bootstrap 4.3.1 -->
-<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/vendor/bootstrap.min.css">
 <!-- styles -->
-<link rel="stylesheet" href="css/styles.min.css">
+<link rel="stylesheet" href="../../css/styles.min.css">
 <!-- favicon -->
 <link rel="icon" href="img/favicon.ico">
 <link rel="stylesheet" href="../../css/noticemodal.css">
@@ -116,7 +115,7 @@
 						<div class="form-item">
 							<!-- CHECKBOX WRAP -->
 							<div class="checkbox-wrap">
-								<input type="checkbox" id="login-remember" name="login_remember"
+								<input type="checkbox" id="login-remember"
 									checked>
 								<!-- CHECKBOX BOX -->
 								<div class="checkbox-box">
@@ -148,7 +147,7 @@
 						<!-- FORM ITEM -->
 						<div class="form-item">
 							<!-- BUTTON -->
-							<button type="submit" class="button medium secondary" id="doLogin">로그인</button>
+							<input type="button" class="button medium secondary" style="width:356px;"id="doLogin" value="로그인">
 							<!-- /BUTTON -->
 						</div>
 						<!-- /FORM ITEM -->
@@ -159,13 +158,8 @@
 			</div>
 			<!-- /FORM BOX -->
 
-
-
-			<!-- @@@@@@@@@@@@@@@@@@@@@@@@@회원 가입@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-
-
-			<div class="form-box login-register-form-element" style="position:relative;">
+			<div class="form-box login-register-form-element"
+				style="position: relative;">
 				<!-- FORM BOX DECORATION -->
 				<img class="form-box-decoration" src="img/landing/rocket.png"
 					alt="rocket">
@@ -193,8 +187,9 @@
 					</div>
 					<!-- /FORM ROW -->
 					<div style="padding: 10px;">
-						<span class="id_input_re_1" style="color : green; display : none;">사용 가능한 아이디 입니다.</span>
-						<span class="id_input_re_2" style="color : red; display : none;">아이디가 이미 존재합니다.</span>
+						<span class="id_input_re_1" style="color: green; display: none;">사용
+							가능한 아이디 입니다.</span> <span class="id_input_re_2"
+							style="color: red; display: none;">아이디가 이미 존재합니다.</span>
 					</div>
 					<!-- FORM ROW -->
 					<div class="form-row">
@@ -260,8 +255,10 @@
 						<!-- FORM ITEM -->
 						<div class="form-item">
 							<!-- FORM INPUT -->
-							<div style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
-								<input type="date" id="userBirthdate" name="userBirthdate" value="2000-01-01">
+							<div
+								style="border: 1.7px solid; border-radius: 11px; padding: 12px; color: #DEDEEA;">
+								<input type="date" id="userBirthdate" name="userBirthdate"
+									value="2000-01-01">
 							</div>
 							<!-- /FORM INPUT -->
 						</div>
@@ -275,8 +272,9 @@
 						<div class="form-item">
 							<!-- FORM INPUT -->
 							<div class="form-input">
-								<label for="register-username">전화번호</label>
-								<input type="text" id="userPhone" name="userPhone" maxlength='11' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+								<label for="register-username">전화번호</label> <input type="text"
+									id="userPhone" name="userPhone" maxlength='11'
+									onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 							</div>
 							<!-- /FORM INPUT -->
 						</div>
@@ -297,27 +295,26 @@
 					<!-- /FORM ROW -->
 				</form>
 				<!-- /FORM -->
-
-				
 			</div>
 			<!-- /FORM BOX -->
 		</div>
 		<!-- /LANDING FORM -->
 	</div>
 	<!-- /LANDING -->
-	<div th:insert="/view/fragments/modal.html :: modal"></div>
-	<!-- app -->
-	<script src="js/utils/app.js"></script>
-	<!-- XM_Plugins -->
-	<script src="js/vendor/xm_plugins.min.js"></script>
-	<!-- form.utils -->
-	<script src="js/form/form.utils.js"></script>
-	<!-- landing.tabs -->
-	<script src="js/landing/landing.tabs.js"></script>
-	<!-- SVG icons -->
-	<script src="js/utils/svg-loader.js"></script>
+	<script src="../../js/noticemodal.js"></script>
 	<script src="../../js/login.js"></script>
 	<script src="../../js/register.js"></script>
-	<script src="../../js/noticemodal.js"></script>
+	<div th:insert="/view/fragments/modal.html :: modal"></div>
+	<!-- app -->
+	<script src="../../js/utils/app.js"></script>
+	<!-- XM_Plugins -->
+	<script src="../../js/vendor/xm_plugins.min.js"></script>
+	<!-- form.utils -->
+	<script src="../../js/form/form.utils.js"></script>
+	<!-- landing.tabs -->
+	<script src="../../js/landing/landing.tabs.js"></script>
+	<!-- SVG icons -->
+	<script src="../../js/utils/svg-loader.js"></script>
+	
 </body>
 </html>

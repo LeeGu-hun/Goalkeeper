@@ -72,7 +72,6 @@ public class HomeController {
 	@Autowired
 	private UserFileService userFileService;
 
-	private String referer = null;
 	
 	private int bno = 0;
 	private int count = 0;
@@ -155,48 +154,6 @@ public class HomeController {
 	public String insertReply(ReplyVO vo) {
 		replyService.insertReply(vo);
 		return "redirect:/home";
-	}
-
-	@GetMapping("/login")
-	public ModelAndView openLogin(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/home/userLogin");
-		referer = request.getHeader("REFERER");
-		return mv;
-	}
-
-	@PostMapping("/login")
-	public String checkLogin(HttpServletRequest request, UserVO vo) {
-		UserVO user = userService.getUser(vo); 
-		HttpSession session = request.getSession(true);
-		session.setAttribute("user", user);
-		session.setMaxInactiveInterval(120*60);
-		if(referer.contains("Login")) {
-			return "redirect:/home";
-		} else {
-			return "redirect:" + referer;
-		}
-	}
-
-	@PostMapping("/register")
-	public String insertUser(UserVO vo, Model model) {
-		String idCheck = userService.checkId(vo.getUserId());
-		
-		if (idCheck == null) {
-			userService.insertUser(vo);
-			return "redirect:/home";
-		} else {
-			model.addAttribute("msg", "以묐났�맂 �븘�씠�뵒 �엯�땲�떎.");
-			return "redirect:/login";
-
-		}
-	}
-
-	@GetMapping("/logout")
-	public String logoutUser(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		referer = request.getHeader("REFERER");
-		return "redirect:" + referer;
 	}
 
 	@GetMapping("/denied")

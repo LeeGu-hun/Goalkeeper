@@ -37,7 +37,7 @@ window.onload = function() {
 			$('#self_button').click(function(){				
 				var input_value = $('#input_self').val();
 				if(input_value==""){
-						alert("아무것도 입력되지 않았습니다.");
+						openModal("아무것도 입력되지 않았습니다.");
 					} else{
 						var date = getDate(0, 0, parseInt(input_value));
 						$('#g_goaldate').val(date);
@@ -56,45 +56,17 @@ window.onload = function() {
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 	    var maxSize = 20971520;  //20MB
 	    if(fileSize >= maxSize){
-	    	alert('파일 사이즈 초과');
+	    	openModal('파일 사이즈 초과');
 	        $("input[type='file']").val("");  //파일 초기화
 	        return false;
 	   	}
 	    if(regex.test(fileName)){
-	        alert('업로드 불가능한 파일이 있습니다.');
+	        openModal('업로드 불가능한 파일이 있습니다.');
 	        $("input[type='file']").val("");  //파일 초기화
 	        return false;
 	    }
 	    return true;
 	}
-	
-	$('#goal_submit').click(function(e){
-		if($('#g_name').val() == ""){
-			alert("그룹명을 입력해주세요.");
-			return false;
-		} else if($('#g_intro').val() == ""){
-			alert("그룹 소개글을 입력해주세요.");
-			return false;
-		} else if($('input[name="g_open"]:checked').length < 1){
-			alert("그룹 공개여부를 설정해주세요.");
-			return false;
-		} else if($('#g_cate').val() == ""){
-			alert("그룹 카테고리를 정해주세요.");
-			return false;
-		} else if($('#g_goaldate').val() == ""){
-			alert("목표 달성일을 설정해주세요.");
-			return false;
-		} 
-		if(!$('#g_profile').val()){
-			$('#g_profile').append("<input type='hidden' name='fileCheck' value='true'>");
-		} else {
-			$('#g_profile').append("<input type='hidden' name='fileCheck' value='false'>");
-		}
-		if(!checkExtension(file.name, file.size)) return false;
-		alert("그룹을 정상적으로 만들었습니다.");
-		this.submit();
-	});
-	
 	function getDate(addYear, addMonth, addDay, token){		//받은 매개변수로 날짜를 추가하는 함수
 		token = token == undefined || token == null ? "-" : token;
 		addYear = addYear == null ? 0 : addYear;
@@ -169,6 +141,85 @@ window.onload = function() {
 	function goDetail(){
 		$('#goDetail').submit();
 	};
-	var profile = document.getElementById("profile");
-	profile.src = profile.dataset.src; 
+	$('#groupSearchBtn').click(function(){
+		var searchInput = $('#groups-search').val();
+		if(searchInput == ''){
+			openModal("검색 내용을 입력하세요.");
+			return false;
+		}
+		var param = $('#searchFrm').serialize();
+		$.ajax({
+			url : '/group_search',
+			type : 'POST',
+			data: param,
+	   		datatype : 'text', 
+	   		success: function(data) {
+	   			if(data.g_cate=='fail'){
+	   				openModal("검색 결과가 없습니다.");
+	   			} else{
+	   				$('#searchFrm').submit();
+	   			}
+	   		},
+	   		error: function(request, status, error){
+   				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	});
 }
+function openModal(content){
+	$('#modalcontent').attr('style','min-height:24%');
+	$("#noticemodal").fadeIn(300);
+	$("#modalcontent").fadeIn(300);
+	$('#modaltext').text(content);
+	$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+		  $("#noticemodal").fadeOut(300);
+		  $("#modalcontent").fadeOut(300);
+	});
+}
+function goCreateGroup(user){
+	if(user=='fail'){
+		openModal("로그인이 필요합니다.");
+		return false;
+	} else{
+		$('#createcontent').attr('style','top:64%; position:absolute');
+		$("#createmodal").fadeIn(300);
+		$("#createcontent").fadeIn(300);
+	}
+}
+$("#createmodal, .modalclose").on('click',function(){
+	$("#createcontent").fadeOut(300);
+	$("#createmodal").fadeOut(300);
+});
+function getSubmit(){
+	if($('#g_name').val() == ""){
+		openModal("그룹명을 입력해주세요.");
+		return false;
+	} else if($('#g_intro').val() == ""){
+		openModal("그룹 소개글을 입력해주세요.");
+		return false;
+	} else if($('input[name="g_open"]:checked').length < 1){
+		openModal("그룹 공개여부를 설정해주세요.");
+		return false;
+	} else if($('#g_cate').val() == ""){
+		openModal("그룹 카테고리를 정해주세요.");
+		return false;
+	} else if($('#g_goaldate').val() == ""){
+		openModal("목표 달성일을 설정해주세요.");
+		return false;
+	} 
+	if(!$('#g_profile').val()){
+		$('#g_profile').append("<input type='hidden' name='fileCheck' value='true'>");
+	} else {
+		$('#g_profile').append("<input type='hidden' name='fileCheck' value='false'>");
+	}
+	openModal("그룹을 정상적으로 만들었습니다.");
+	$('#confirmbtn').click(function(){
+		$('#goal_submit').submit();
+		$("#createcontent").fadeOut(300);
+  		$("#createmodal").fadeOut(300);
+	});
+	
+}
+$('#groupCreateBtn').on('click', function(){
+	getSubmit();
+});

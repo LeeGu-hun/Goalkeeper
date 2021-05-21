@@ -1,10 +1,10 @@
 var toggle = true;
-function openReply(){
+function openReply(bno){
 	if(toggle){
-	 	$('#replyBox').attr('style', 'display:block');
+	 	$('#replyBox'+bno).attr('style', 'display:block');
 	 	toggle = false;	
 	} else{
-		$('#replyBox').attr('style', 'display:none');
+		$('#replyBox'+bno).attr('style', 'display:none');
 		toggle = true;
 	}
 }

@@ -7,7 +7,7 @@ window.onload = function() {
 		} else {
 			$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 		}
-		alert("등록되었습니다.");
+		openModal("등록되었습니다.");
 		$('#groupWrite').submit();
 	})
 	
@@ -42,7 +42,7 @@ window.onload = function() {
 
 	$("input[type='file']").change(function(e) {
 			if($('#file')[0].files.length > 5) {
-				alert("5장 이하의 사진을 올려주세요");
+				openModal("5장 이하의 사진을 올려주세요");
 				return false;
 			}
 		//div 내용 비워주기
@@ -64,12 +64,12 @@ window.onload = function() {
 		var maxSize = 20971520; //20MB
 
 		if (fileSize >= maxSize) {
-			alert('파일 사이즈 초과');
+			openModal('파일 사이즈 초과');
 			$("input[type='file']").val(""); //파일 초기화
 			return false;
 		}
 		if (regex.test(fileName)) {
-			alert('업로드 불가능한 파일이 있습니다.');
+			openModal('업로드 불가능한 파일이 있습니다.');
 			$("input[type='file']").val(""); //파일 초기화
 			return false;
 		}
@@ -108,7 +108,7 @@ function fnEdit(bno){
 	$('.edit_btn').click(function(e){
 		e.preventDefault();
 		$('#modify_form').submit();
-		alert("수정완료");
+		openModal("수정완료");
 	});	
 	$(".edit_cancelbtn").click(function() {
 		$('#'+bno).show();

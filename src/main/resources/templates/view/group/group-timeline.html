@@ -835,7 +835,7 @@
 										<!-- META LINE -->
 										<div class="meta-line">
 											<!-- META LINE LINK -->
-											<p class="meta-line-link" onclick="openReply()"
+											<p class="meta-line-link" th:onclick="|javascript:openReply('${post.bno}')|"
 												th:text="${post.replyCount}+' 댓글'"></p>
 											<!-- /META LINE LINK -->
 										</div>
@@ -887,7 +887,7 @@
 							<!-- /POST OPTION WRAP -->
 
 							<!-- POST OPTION -->
-							<div class="post-option" onclick="javascript:openReply()">
+							<div class="post-option" th:onclick="|javascript:openReply('${post.bno}')|">
 								<!-- POST OPTION ICON -->
 								<svg class="post-option-icon icon-comment">
                 <use xlink:href="#svg-comment"></use>
@@ -916,7 +916,7 @@
 						</div>
 						<!-- /POST OPTIONS -->
 					</div>
-					<div id="replyBox" style="display: none">
+					<div th:id="replyBox+${post.bno}" style="display: none">
 						<div class="user-status" id="refreshReply"
 							style="margin-left: 40px;" th:each="reply:${post.replyList}">
 							<!-- USER STATUS AVATAR -->
