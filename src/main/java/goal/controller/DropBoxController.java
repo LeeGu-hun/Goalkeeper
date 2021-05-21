@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,12 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import goal.common.CommonDownload;
 import goal.common.UserCommonDownload;
+import goal.service.ChatService;
 import goal.service.CommonService;
 import goal.service.FriendService;
 import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
+import goal.vo.ChatVO;
 import goal.vo.UserBackVO;
 import goal.vo.UserFileVO;
 import goal.vo.UserVO;
@@ -51,6 +54,8 @@ public class DropBoxController {
 	
 	@Autowired
 	private FriendService friendService;
+	@Autowired
+	private ChatService chatService;
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -63,8 +68,10 @@ public class DropBoxController {
 		UserBackVO back = new UserBackVO();
 		file.setUno(user.getUno());
 		back.setUno(user.getUno());
-		
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
+		
+		List<ChatVO> friendlist = chatService.findFriendList(user);
+		mv.addObject("friendlist", friendlist);  
 		mv = commonService.checkLoginUser(request, mv);
 		mv.addObject("uno", user.getUno());
 		mv.addObject("fileCheck", user.getUserFileCheck());

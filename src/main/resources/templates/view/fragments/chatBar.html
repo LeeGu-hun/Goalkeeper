@@ -11,13 +11,13 @@
 <body> 
 <div th:fragment="chatBar">
 <input type="hidden" th:value="${user.userId}" id="chatUserId" class="chatUserId"/>
- <aside id="chat-widget-messages" class="chat-widget sidebar right">
+ <aside id="chat-widget-messages" class="chat-widget sidebar right closed">
     <!-- CHAT WIDGET MESSAGES -->
     <div class="chat-widget-messages" data-simplebar="init" style="height: 717px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
       <!-- CHAT WIDGET MESSAGE -->
-      <div class="chat-widget-message" th:each="fl:${friendlist}" >
+      <div class="chat-widget-message" th:each="fl:${friendlist}">
         <!-- USER STATUS -->
-        <div class="user-status"  th:attr="onclick=|selectUser('${fl.userId}')|">
+        <div class="user-status"  th:attr="onclick=|selectUser('${fl.userId}');selectFriendNo('${fl.friendNo}');|">
           <!-- USER STATUS AVATAR -->
           <div class="user-status-avatar">
             <!-- USER AVATAR -->
@@ -25,7 +25,7 @@
               <!-- USER AVATAR CONTENT -->
               <div class="user-avatar-content">
                 <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" th:attr="data-src=@{/profile/}+${fl.friendNo}" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
+                <div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${fl.friendNo}" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
                 <!-- /HEXAGON -->
               </div>
               <!-- /USER AVATAR CONTENT -->
@@ -53,7 +53,9 @@
           <!-- /USER STATUS AVATAR -->
       
           <!-- USER STATUS TITLE -->
-          <p class="user-status-title" th:text="${fl.userId}"></p>
+          <p class="user-status-title" >
+          	<span class="bold" th:text="${fl.userId}"></span>
+          </p>
           <!-- /USER STATUS TITLE -->
       
           <!-- USER STATUS TEXT -->
@@ -63,8 +65,9 @@
           <!-- USER STATUS TIMESTAMP -->
           <p class="user-status-timestamp floaty">2hrs</p>
           <!-- /USER STATUS TIMESTAMP -->
-        </div>
+      
         <!-- /USER STATUS -->
+        </div>
       </div>
       <!-- /CHAT WIDGET MESSAGE -->
 
@@ -155,7 +158,9 @@
             <!-- USER AVATAR CONTENT -->
             <div class="user-avatar-content">
               <!-- HEXAGON -->
-              <div class="hexagon-image-30-32" data-src="img/avatar/03.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
+              <div id="secondPageProfilePic" class="hexagon-image-30-32" data-src ="#" style="width: 30px; height: 32px; position: relative;">
+             	 <canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas>
+              </div>
               <!-- /HEXAGON -->
             </div>
             <!-- /USER AVATAR CONTENT -->
@@ -183,9 +188,11 @@
         <!-- /USER STATUS AVATAR -->
 
         <!-- USER STATUS TITLE -->
-        <p  id="chatOtherId" value="">dfaf</p>
+        <p class="user-status-title"  >
+        	<span class="bold" id="chatOtherId" ></span>
+        </p>
         <!-- /USER STATUS TITLE -->
-
+		<p class="user-status-tag online">Online</p>
        
       </div>
       <!-- /USER STATUS -->

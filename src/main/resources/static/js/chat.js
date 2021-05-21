@@ -26,6 +26,9 @@
 		}
 
 		function sendMsg(from, text) {
+			console.log("sendMsg selecteduser: " + selectedUser);
+			console.log("sendMsg from: " + from);
+			console.log("sendMsg text: " + text);
 			stompClient.send("/app/chat/" + selectedUser, {}, JSON.stringify({
 				fromLogin : from,
 				message : text
@@ -48,13 +51,21 @@
 		
 		function selectUser(userName) {
 			console.log("selecting users: " + userName);
-			var selectedUser = userName;
+			selectedUser = userName;
 			console.log("selectedUser users2: " + selectedUser);
-			$('#chatOtherId').val(selectedUser);
+			document.getElementById('chatOtherId').innerHTML = selectedUser;
 			let isNew = document.getElementById("newMessage_" + userName) !== null;
 			if (isNew) {
 				render(newMessages.get(userName), userName);
 			}
+			
+		}
+		function selectFriendNo(selectFriendNo){
+			console.log("selectFriendNo: " + selectFriendNo);
+			
+			var Fn = selectFriendNo;
+			
+			
 			
 		}
 		

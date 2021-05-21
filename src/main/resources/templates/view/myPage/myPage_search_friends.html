@@ -362,7 +362,8 @@
 					<form class="form" action="/mySearchFriends" method="post">
 						<!-- FORM INPUT -->
 						<div class="form-input small with-button">
-							<label for="friends-search">Search Friends</label> <input
+							<input type="hidden" th:value="${uno}" name="uno">
+							<label for="friends-search"></label> <input
 								type="text" id="friends-search" name="friends_search">
 							<!-- BUTTON -->
 							<button class="button primary">
@@ -388,7 +389,8 @@
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab active">
+						<div id="newFriendList" class="filter-tab active"
+							onclick="location.href='mySearchFriends'">
 							<!-- FILTER TAB TEXT -->
 							<p class="filter-tab-text">새 친구 찾기</p>
 							<!-- /FILTER TAB TEXT -->
@@ -594,6 +596,16 @@
 		<!-- /SECTION -->
 	</div>
 	<!-- /CONTENT GRID -->
+	<script>
+		$('#myFriendList').on('click', function(){
+			$.ajax({
+				type:"post",
+				data:{
+					
+				}
+			});
+		});
+	</script>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->
