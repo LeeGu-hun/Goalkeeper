@@ -1,7 +1,7 @@
 var toggle = true;
 function openReply(bno){
 	if(toggle){
-	 	$('#replyBox'+bno).attr('style', 'display:block');
+	 	$('#replyBox'+bno).attr('style', 'display:flex; flex-direction:column');
 	 	toggle = false;	
 	} else{
 		$('#replyBox'+bno).attr('style', 'display:none');
@@ -11,7 +11,7 @@ function openReply(bno){
 var reToggle = true;
 function openRecmt(rno){
 	if(reToggle){
-	 	$('#recmtPost'+rno).attr('style', 'display:block');
+	 	$('#recmtPost'+rno).attr('style', 'display:flex; flex-direction:column');
 	 	reToggle = false;	
 	} else{
 		$('#recmtPost'+rno).attr('style', 'display:none');
@@ -20,6 +20,10 @@ function openRecmt(rno){
 }
 var count = 1;
 $('#replyBtn').click(function(){
+	if($('#replyContent').val()==''){
+		openModal("내용을 입력해주세요.");
+		return false;
+	}
 	var params = $('#replyFrm').serialize();
 	$.ajax({
 		url : '/reply',
@@ -44,7 +48,7 @@ $('#replyBtn').click(function(){
 	    	cloneReply.find('#ajaxReplyId').html(data.replyWriter);
 	    	cloneReply.find('#ajaxReplyContent').html(data.replyContent);
 	    	cloneReply.find('#ajaxReplyDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
-	    	cloneReply.attr('style', 'display:block; margin-left:40px;');
+	    	cloneReply.attr('style', 'display:flex; flex-direction:column; margin-left:40px;');
 	    	$('#replyContent').val("");
 	    	$('#ajaxAddReply').before(cloneReply);
 	    	count ++;

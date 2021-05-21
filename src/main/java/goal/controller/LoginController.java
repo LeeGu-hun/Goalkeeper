@@ -51,7 +51,7 @@ public class LoginController {
 		session.setAttribute("user", loginUser);
 		if(referer==null) {
 			return "redirect:/home";
-		} else if (referer.contains("Login")) {
+		} else if (referer.contains("login")) {
 			return "redirect:/home";
 		} else {
 			return "redirect:" + referer;
@@ -60,16 +60,8 @@ public class LoginController {
 
 	@PostMapping("/register")
 	public String insertUser(UserVO vo, Model model) {
-		String idCheck = userService.checkId(vo.getUserId());
-		
-		if (idCheck == null) {
-			userService.insertUser(vo);
-			return "redirect:/home";
-		} else {
-			model.addAttribute("msg", "以묐났�맂 �븘�씠�뵒 �엯�땲�떎.");
-			return "redirect:/login";
-
-		}
+		userService.insertUser(vo);
+		return "redirect:/login";
 	}
 
 	@GetMapping("/logout")

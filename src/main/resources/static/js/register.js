@@ -1,5 +1,6 @@
 window.onload = function() {
-	$('#doSignUp').click(function(e){	 
+	$('#doSignUp').click(function(e){	
+		e.preventDefault();
 	    var userid = $("#userId").val();
 	    var userpwd = $("#userPw").val();
 	    var inputPwdCfm = $("#re_password").val();
@@ -35,9 +36,14 @@ window.onload = function() {
 	        openModal("전화번호를 입력해주세요");
 	        $("#userPhone").focus();
 	        return false;
-	    }	   
+	    }
 	    openModal($('#userId').val() + "님 환영합니다!");
-	    $(this).submit(); 
+  		$('#confirmbtn').click(function(){
+  			$("#noticemodal").fadeOut(300);
+			$("#modalcontent").fadeOut(300);
+			$('#registerFrm').submit();
+  		});
+  		
 	});
 	$('#birth_check').click(function(){
 		var birthDate = $('#type_birth').val();
@@ -48,8 +54,7 @@ window.onload = function() {
 		}
 		$("#userBirthdate").attr('value', birthDate);
 	});
-	
-$('#userId').on("propertychange change keyup paste input", function(){
+	$('#userId').on("propertychange change keyup paste input", function(){
 	console.log("keyup 테스트");	
 		$.ajax({
 			url : "/memberIdChk",
@@ -69,26 +74,6 @@ $('#userId').on("propertychange change keyup paste input", function(){
 			}
 		})
 	});
-	function openModal(content){
-		$('.modal-con').attr('style','min-height:24%');
-		$("#noticemodal").fadeIn(300);
-		$("#modalcontent").fadeIn(300);
-		$('#modaltext').text(content);
-		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-			  $("#noticemodal").fadeOut(300);
-			  $(".modal-con").fadeOut(300);
-		});
-	}
-	function openWarningModal(content){
-		$('.modal-con').attr('style','min-height:24%');
-		$("#noticemodal").fadeIn(300);
-		$("#warningmodalcontent").fadeIn(300);
-		$('#warningmodaltext').text(content);
-		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-			  $("#noticemodal").fadeOut(300);
-			  $(".modal-con").fadeOut(300);
-		});
-	}
 	$('#doLogin').click(function(e){
 	    if($('#userId1').val() == ""){
 	        openModal("아이디를 입력해주세요")
@@ -119,5 +104,25 @@ $('#userId').on("propertychange change keyup paste input", function(){
 	   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
+	});
+}
+function openModal(content){
+	$('.modal-con').attr('style','min-height:24%');
+	$("#noticemodal").fadeIn(300);
+	$("#modalcontent").fadeIn(300);
+	$('#modaltext').text(content);
+	$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+		  $("#noticemodal").fadeOut(300);
+		  $(".modal-con").fadeOut(300);
+	});
+}
+function openWarningModal(content){
+	$('.modal-con').attr('style','min-height:24%');
+	$("#noticemodal").fadeIn(300);
+	$("#warningmodalcontent").fadeIn(300);
+	$('#warningmodaltext').text(content);
+	$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+		  $("#noticemodal").fadeOut(300);
+		  $(".modal-con").fadeOut(300);
 	});
 }

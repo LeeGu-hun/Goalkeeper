@@ -170,7 +170,7 @@
 				<!-- /FORM BOX TITLE -->
 
 				<!-- FORM -->
-				<form class="form" action="/register" name="register-page"
+				<form class="form" id="registerFrm" action="/register" name="register-page"
 					method="post">
 					<!-- FORM ROW -->
 					<div class="form-row">
@@ -286,8 +286,7 @@
 						<!-- FORM ITEM -->
 						<div class="form-item">
 							<!-- BUTTON -->
-							<button class="button medium primary" id="doSignUp">
-								가입하기</button>
+							<input type="submit" class="button medium primary" id="doSignUp" style="width:356px; height:54px;" value="가입하기">
 							<!-- /BUTTON -->
 						</div>
 						<!-- /FORM ITEM -->
@@ -301,10 +300,9 @@
 		<!-- /LANDING FORM -->
 	</div>
 	<!-- /LANDING -->
-	<script src="../../js/noticemodal.js"></script>
+	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<script src="../../js/login.js"></script>
 	<script src="../../js/register.js"></script>
-	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
 	<!-- XM_Plugins -->
