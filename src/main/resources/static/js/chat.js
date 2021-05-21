@@ -61,7 +61,6 @@
 			
 		}
 		function selectFriendNo(selectFriendNo){
-			alert("selectFriendNo 클릭 완료");
 			console.log("selectFriendNo: " + selectFriendNo);
 			
 			var Fn = selectFriendNo;
