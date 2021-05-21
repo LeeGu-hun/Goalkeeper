@@ -461,6 +461,9 @@ ul {
 		}
 
 		function sendMsg(from, text) {
+			console.log("sendMsg: " + selectedUser);
+			console.log("sendMsg: " + from);
+			console.log("sendMsg: " + text);
 			stompClient.send("/app/chat/" + selectedUser, {}, JSON.stringify({
 				fromLogin : from,
 				message : text

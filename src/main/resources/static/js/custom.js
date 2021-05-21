@@ -75,9 +75,4 @@
 			}
 		}
 		
-		$(function () {
-			$( ".chat-widget-close-button" ).click(function() { disconnect(); });
-			
-	     	
-     	 });
 	init();
