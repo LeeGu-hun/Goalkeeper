@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <body> 
 <div th:fragment="header">
   <!-- PAGE LOADER -->
@@ -221,7 +222,7 @@
         <!-- /USER AVATAR PROGRESS BORDER -->
       </a>
       <!-- 로그인 후 왼쪽 상세보기 프로필 사진 -->
-      <a th:if="${user!=null}"class="user-short-description-avatar user-avatar medium" href="/myPage">
+      <a th:if="${user!=null}"class="user-short-description-avatar user-avatar medium" onclick="openDetailModal();">
         <!-- USER AVATAR BORDER -->
         <div class="user-avatar-border">
           <!-- HEXAGON -->
@@ -254,26 +255,7 @@
         </div>
         <!-- /USER AVATAR PROGRESS BORDER -->
     
-        <!-- USER AVATAR BADGE -->
-        <div class="user-avatar-badge">
-          <!-- USER AVATAR BADGE BORDER -->
-          <div class="user-avatar-badge-border">
-            <!-- HEXAGON -->
-            <div class="hexagon-32-36"></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR BADGE BORDER -->
-    
-          <!-- USER AVATAR BADGE CONTENT -->
-          <div class="user-avatar-badge-content">
-            <!-- HEXAGON -->
-            <div class="hexagon-dark-26-28"></div>
-            <!-- /HEXAGON -->
-          </div>
-          <!-- /USER AVATAR BADGE CONTENT -->
-      
-        </div>
-        <!-- /USER AVATAR BADGE -->
+        
       </a>
       <!-- /USER SHORT DESCRIPTION AVATAR -->
 
@@ -2398,6 +2380,7 @@
   <!-- /FLOATY BAR -->
 <div th:if="${user}!=null">
 	 <div th:insert="/view/fragments/chatBar.html :: chatBar"></div>
+	<div th:insert="/view/fragments/profile_detail_modal.html :: profile_detail_modal"></div>
 </div>
   </div>
 <script src="../../js/header.js" type="text/javascript"></script>
