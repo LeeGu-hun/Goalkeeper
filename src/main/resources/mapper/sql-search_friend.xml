@@ -12,9 +12,12 @@
 		<id property="userFileCheck" column="userFileCheck"/>
 		<id property="userBackFile" column="userBackFile"/>
 	</resultMap>
+	
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
 		SELECT * FROM GK_USER 
-		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno}
+		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno} 
+		AND UNO NOT IN(SELECT RECEIVEUNO FROM GK_FRIEND_APPLY WHERE APPLYUNO = #{uno})
+		AND UNO NOT IN(SELECT APPLYUNO FROM GK_FRIEND_APPLY WHERE RECEIVEUNO = #{uno}) 
 	</select>
 	
 	<select id="searchUser" parameterType="java.util.Map" resultMap="userVO">

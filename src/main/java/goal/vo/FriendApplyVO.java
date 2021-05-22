@@ -18,5 +18,8 @@ public class FriendApplyVO {
 	private String receiveBackCheck;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date applyBirthdate, receiveBirthdate, applyDate;
+	private Date applyBirthdate, receiveBirthdate;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+	private Date applyDate;
 }

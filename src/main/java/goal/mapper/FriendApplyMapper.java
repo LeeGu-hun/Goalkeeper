@@ -13,11 +13,13 @@ public interface FriendApplyMapper {
 	int apply(FriendApplyVO apply);
 	List<FriendApplyVO> receiveList(int uno);
 	List<FriendApplyVO> applyList(int uno);
-	void acceptFriend(FriendVO friend);
+	void acceptFriend(FriendApplyVO apply);
 	void rejectFriend(Map<String, Object> map);
 	void applyCancel(Map<String, Object> map);
 	void applyFileCheck(int receiveUno);
 	void applyBackCheck(int receiveUno);
 	void receiveFileCheck(int applyUno);
 	void receiveBackCheck(int applyUno);
+	int applyCount(int applyUno);
+	int receiveCount(int receiveCount);
 }

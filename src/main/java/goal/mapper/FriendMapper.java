@@ -12,9 +12,7 @@ import goal.vo.UserFileVO;
 public interface FriendMapper {
 	List<FriendVO> getlistFriend(FriendVO vo);
 	
-	int addFriend(FriendVO vo);
-	
-	int deleteFriend(int fno);
+	int deleteFriend(Map<String, Object> map);
 	
 	int countFriend(int uno);
 	
