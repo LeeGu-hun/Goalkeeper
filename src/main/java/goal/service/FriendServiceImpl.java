@@ -24,13 +24,8 @@ public class FriendServiceImpl implements FriendService{
 	}
 
 	@Override
-	public boolean addFriend(FriendVO vo) {
-		return mapper.addFriend(vo) > 0 ? true : false;
-	}
-
-	@Override
-	public boolean remove(int fno) {
-		return mapper.deleteFriend(fno) > 0 ? true : false;
+	public boolean remove(Map<String, Object> map) {
+		return mapper.deleteFriend(map) > 0 ? true : false;
 	}
 
 	@Override
