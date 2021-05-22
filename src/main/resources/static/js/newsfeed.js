@@ -56,7 +56,7 @@
 			
 			if (document.getElementById("text").value == "" && 
 				document.getElementById("file").value == "") {
-				openModal("아무것도 입력되지 않았습니다.");
+				openCautionModal("아무것도 입력되지 않았습니다.");
 			return false;
 			} 
 			
