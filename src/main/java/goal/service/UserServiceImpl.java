@@ -69,5 +69,10 @@ public class UserServiceImpl implements UserService{
 		mapper.backgroundCheck(uno);
 	}
 
+	@Override
+	public UserVO myPageUserInfo(String userId) {
+		return mapper.myPageUserInfo(userId);
+	}
+
 }
 

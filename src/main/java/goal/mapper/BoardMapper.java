@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 import goal.vo.GroupVO;
@@ -21,6 +22,7 @@ public interface BoardMapper {
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getBoardList();
 	List<BoardVO> getGroupBoardList(String bo_group);
+	List<BoardVO> getMyPageBoardList(String userId);
 	void updateBoard(BoardVO board);
 	void deleteBoard(BoardVO board);
 	int boardCount(String userId);

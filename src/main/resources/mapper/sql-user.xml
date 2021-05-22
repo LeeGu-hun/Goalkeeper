@@ -35,9 +35,11 @@
 		where userId = #{userId} and userPw= #{userPw}
 	]]>
 	</select>
+	
 	<select id="readUser" parameterType="goal.vo.UserVO" resultMap="userVO">
 		select * from GK_USER where userId= #{userId} and userPw= #{userPw}
 	</select>
+	
 	<select id="readId" parameterType="String" resultType="String">
 	<![CDATA[
 		select userId from GK_USER
@@ -53,6 +55,12 @@
       <![CDATA[
          select * from GK_FRIEND where uno=#{uno}
       ]]>
+   </select>
+  
+   <select id="myPageUserInfo" parameterType="String" resultType="goal.vo.UserVO">
+      <![CDATA[
+        select * from GK_USER where userId=#{userId}
+     	 ]]>
    </select>
    
    <!-- 아이디 중복검사 -->

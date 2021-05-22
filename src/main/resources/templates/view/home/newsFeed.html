@@ -1215,14 +1215,14 @@
 						<!-- USER STATUS -->
 						<div class="user-status">
 							<!-- USER STATUS AVATAR -->
-							<a class="user-status-avatar" href="profile-timeline.html"> <!-- USER AVATAR -->
+							<a class="user-status-avatar" th:href="@{/myPage/}+${post.userId}"> <!-- USER AVATAR -->
 								<div class="user-avatar small no-outline">
 									<!-- USER AVATAR CONTENT -->
 									<div class="user-avatar-content">
 										<!-- HEXAGON -->
-										<div class="hexagon-image-30-32" data-src="img/avatar/05.jpg"></div>
+										<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
 										<!-- /HEXAGON -->
-									</div>
+									</div >
 									<!-- /USER AVATAR CONTENT -->
 
 									<!-- USER AVATAR PROGRESS -->
@@ -1241,29 +1241,7 @@
 									</div>
 									<!-- /USER AVATAR PROGRESS BORDER -->
 
-									<!-- USER AVATAR BADGE -->
-									<div class="user-avatar-badge">
-										<!-- USER AVATAR BADGE BORDER -->
-										<div class="user-avatar-badge-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-22-24"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR BADGE BORDER -->
-
-										<!-- USER AVATAR BADGE CONTENT -->
-										<div class="user-avatar-badge-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-dark-16-18"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR BADGE CONTENT -->
-
-										<!-- USER AVATAR BADGE TEXT -->
-										<p class="user-avatar-badge-text">12</p>
-										<!-- /USER AVATAR BADGE TEXT -->
-									</div>
-									<!-- /USER AVATAR BADGE -->
+									
 								</div> <!-- /USER AVATAR -->
 							</a>
 							<!-- /USER STATUS AVATAR -->

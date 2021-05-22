@@ -10,9 +10,8 @@ import lombok.Data;
 @Data
 @Alias("friendVO")
 public class FriendVO {
-	private int fno, uno, friendNo;
+	private int uno, friendNo;
 	private String friendId;
-	private String friendNumber;
 	private String userFileCheck;
 	private String userBackCheck;
 	

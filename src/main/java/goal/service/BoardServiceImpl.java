@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.BoardMapper;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.UserVO;
 
 @Service
@@ -49,6 +50,10 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> getGroupBoardList(String bo_group) {
 		return boardMapper.getGroupBoardList(bo_group);
 	}
+	@Override
+	public List<BoardVO> getMyPageBoardList(String userId) {
+		return boardMapper.getMyPageBoardList(userId);
+	}
 
 	@Override
 	public void updateBoard(BoardVO board) {
@@ -85,8 +90,5 @@ public class BoardServiceImpl implements BoardService{
 	public int userCount() {
 		return boardMapper.userCount();
 	}
-
-
-
 	
 }
