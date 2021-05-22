@@ -59,6 +59,12 @@
 		<collection column="recmtWriter" property="profileCheck"
 			javaType="int" ofType="int" select="checkProfilebyReCmt" />
 	</resultMap>
+	
+	<resultMap type="goal.vo.ChatVO" id="chatVO">
+		<id property="userId" column="userId"></id>
+		<id property="uno" column="uno"></id>
+	</resultMap>
+	
 	<select id="checkProfilebyReCmt" parameterType="String"
 		resultType="int">
 		SELECT COUNT(*) FROM gk_user_file f, gk_user u where
@@ -138,10 +144,13 @@
 
 	<select id="getGroupBoardList" resultMap="boardVO"
 		parameterType="string">
-		select * from GK_BOARD where bo_group=#{bo_group} order
-		by bo_date desc
+		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where bo_group=#{bo_group} order by bo_date desc
 	</select>
-
+	
+	<select id="getMyPageBoardList" resultMap="boardVO" parameterType="String">
+		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where U.userId = 'a' order by bo_date desc
+	</select>
+		
 	<select id="selectBoardList" resultMap="boardVO"
 		parameterType="goal.vo.UserVO">
 		select * from GK_BOARD where uno=#{uno} order by bno

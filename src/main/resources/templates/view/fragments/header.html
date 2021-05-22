@@ -72,7 +72,7 @@
 
     </a>
     <!-- 로그인 후, 왼쪽 프로필 사진 -->
-    <a th:if="${user!=null}" class="user-avatar small no-outline online" href="/myPage">
+    <a th:if="${user!=null}" class="user-avatar small no-outline online" th:href="@{/myPage/}+${user.userId}">
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
@@ -264,13 +264,13 @@
       	<a  href="/login">로그인 하기</a>
       </p>
       <p th:if="${user!=null}" class="user-short-description-title">
-      	<a th:text="${user.userId}" href="/myPage"></a>
+      	<a th:text="${user.userId}" th:href="@{/myPage/}+${user.userId}"></a>
       </p>
       <!-- /USER SHORT DESCRIPTION TITLE -->
 
       <!-- USER SHORT DESCRIPTION TEXT -->
       <p th:if="${user!=null}" class="user-short-description-text">
-     	 <a th:text="${user.userMail}" href="/myPage"></a>
+     	 <a th:text="${user.userMail}" th:href="@{/myPage/}+${user.userId}"></a>
       </p>
       <p th:unless="${user!=null}" class="user-short-description-text">
      	 <a></a>
@@ -2215,7 +2215,7 @@
             <!-- USER STATUS -->
             <div class="user-status">
               <!-- USER STATUS AVATAR -->
-              <a class="user-status-avatar" href="/myPage">
+              <a class="user-status-avatar" th:href="@{/myPage/}+${user.userId}">
                 <!-- USER AVATAR -->
                 <div class="user-avatar small no-outline">
                   <!-- USER AVATAR CONTENT -->
