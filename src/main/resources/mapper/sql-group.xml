@@ -84,6 +84,9 @@
 	<select id="selectGroupJoin" parameterType="int" resultMap="groupJoinVO">
 		select GNO, JOIN_MSG, JOIN_DATE, userName, j.uno from gk_group_join j, gk_user u where j.uno=u.uno and gno=#{gno}
 	</select>
+	<select id="selectGroupJoinUno" parameterType="int" resultMap="groupJoinVO">
+		select * from gk_group_join where uno=#{uno}
+	</select>
 	<delete id="removeGroupJoin" parameterType="goal.vo.GroupJoinVO">
 		<![CDATA[
 			delete gk_group_join WHERE GNO=#{gno} and uno=#{uno}
