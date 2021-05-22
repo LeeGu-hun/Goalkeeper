@@ -117,6 +117,13 @@ public class GroupServiceImpl implements GroupService{
 	public List<GroupJoinVO> getGroupJoin(int gno) {
 		return groupMapper.selectGroupJoin(gno);
 	}
+	
+	
+
+	@Override
+	public GroupJoinVO selectGroupJoinUno(int uno) {
+		return groupMapper.selectGroupJoinUno(uno);
+	}
 
 	@Override
 	public int checkUserbyGroup(GroupUserVO groupUser) {

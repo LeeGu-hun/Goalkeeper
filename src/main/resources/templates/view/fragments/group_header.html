@@ -159,12 +159,14 @@
 					<!-- /PROFILE HEADER INFO ACTION -->
 
 					<!-- PROFILE HEADER INFO ACTION -->
-					<a class="profile-header-info-action button"
-						th:href="@{/group_mgJoin/{gno}(gno=${group.gno})}">
+					<a class="profile-header-info-action button" th:attr="onclick=|javascript:openMgJoin('${result}')|">
 						<svg class="icon-more-dots">
 			              <use xlink:href="#svg-more-dots"></use>
 			            </svg>
 					</a>
+					<form id="goManage" action="/group_mgJoin">
+						<input type="hidden" name="gno" th:value="${gno}">
+					</form>
 					<!-- /PROFILE HEADER INFO ACTION -->
 				</div>
 				<!-- /PROFILE HEADER INFO ACTIONS -->
