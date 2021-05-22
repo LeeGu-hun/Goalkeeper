@@ -89,8 +89,7 @@ public class MyPageController {
     
 	@GetMapping("/myPage/{userId}")
 	public ModelAndView openHome(HttpServletRequest request, BoardVO vo, FriendVO friend, @PathVariable String userId) {
-		UserVO user = new UserVO();
-		user = commonService.getLoginUser(request);
+		UserVO user = userService.myPageUserInfo(userId);
 		friend.setUno(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
 		mv = commonService.checkLoginUser(request, mv);

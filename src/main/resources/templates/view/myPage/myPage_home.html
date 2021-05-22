@@ -54,7 +54,7 @@
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
 							<figure th:if="${profile}=='Y'">
-								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${vo.uno}"></div>
 							</figure>
 							<figure th:unless="${profile}=='Y'">
 								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
@@ -660,8 +660,7 @@
 					<!-- /MODAL -->
 			</form>
 				
-				<!-- WIDGET BOX -->
-			<!-- <div th:each="pp:${profilePic}"> -->
+			<!-- WIDGET BOX -->
 			<div th:each="post, i:${BoList}" class="widget-box no-padding">
 				<form th:attr="id='delete_form'+${post.bno}" method="post"
 					enctype="multipart/form-data" action="/board/delete.do">
