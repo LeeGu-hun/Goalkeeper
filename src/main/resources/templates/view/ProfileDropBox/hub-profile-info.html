@@ -131,32 +131,36 @@
 						<!-- /USER PREVIEW -->
 
 						<!-- UPLOAD BOX -->
-						<form id="profileSub" method="post" action="/profileInfo/profile"
-							enctype="multipart/form-data">
+						<form id="profileSub" method="post" action="/profileInfo/profile" onclick="onclick=document.all.files.click();showUploadBtn()"
+							accept=".jpg, .jpeg, .png" enctype="multipart/form-data">
 							<div class="upload-box">
 								<!-- UPLOAD BOX ICON -->
 								<svg class="upload-box-icon icon-members">
 				                	<use xlink:href="#svg-members"></use>
 				            	</svg>
 								<!-- /UPLOAD BOX ICON -->
-								<input type="file" name="files" accept=".jpg, .jpeg, .png">
+								<p id="filesP1" class="upload-box-title" style="">Change Avatar</p>
+ 								<p id="filesP2" class="upload-box-text" style="">110x110px size minimum</p>
+								<input type="file" id="files" name="files" accept=".jpg, .jpeg, .png" style="display:none"> 
 								<input type="hidden" th:value="${fileCheck}" name="profileCheck">
-								<button id="profileBtn">upload</button>
+								<button id="profileBtn" style="display:none;" >upload</button>
 							</div>
 						</form>
 						<!-- /UPLOAD BOX -->
 
 						<!-- UPLOAD BOX -->
-						<form method="post" action="/profileInfo/background"
-							enctype="multipart/form-data">
+						<form method="post" action="/profileInfo/background" onclick="onclick=document.all.file.click();showBackUploadBtn()"
+							accept=".jpg, .jpeg, .png" enctype="multipart/form-data">
 							<div class="upload-box">
 								<!-- UPLOAD BOX ICON -->
 								<svg class="upload-box-icon icon-photos">
 					                <use xlink:href="#svg-photos"></use>
 					            </svg>
 								<!-- /UPLOAD BOX ICON -->
-								<input type="file" name="backFiles" accept=".jpg, .jpeg, .png">
-								<button>upload</button>
+								<p id="fileP1"class="upload-box-title" style="">Change Cover</p>
+								<p id="fileP2" class="upload-box-text" style="">1184x300px size minimum</p>
+								<input  type="file" name="backFiles" accept=".jpg, .jpeg, .png" style="display:none">
+								<button id="profileBtn" style="display:none;" >upload</button>
 							</div>
 						</form>
 						<!-- /UPLOAD BOX -->
@@ -225,7 +229,7 @@
 								</div>
 							</div>
 						</div>
-						<button type="submit" id="doModify"
+						<button type="submit" id="doModify" style="margin:25px 0px;"
 							class="dropdown-navigation-button button small secondary">Modify</button>
 					</div>
 				</form>
@@ -233,42 +237,18 @@
 		</div>
 	</div>
 	</div>
-	<!-- <script th:inline="javascript" type="text/javascript">
-	$('#profileBtn').on('click', function(event) {
-	    event.preventDefault();
-	    
-	    var form = $('#profileSub')[0];
-	    var data = new FormData(form);
-
-	    var str="<h1>테스트</h1>";
-	    console.log(img);
-	    $('#profileBtn').prop('disabled', true);
-		
-	    $.ajax({
-	        type: "POST",
-	        enctype: 'multipart/form-data',
-	        url: "/profileInfo/profile",
-	        data: data,
-	        processData: false,
-	        contentType: false,
-	        cache: false,
-	        timeout: 600000,
-	        success: function (data) {
-	        	$('#profileBtn').prop('disabled', false);
-	        	$("#profile")
-	        	.attr("data-src", "")
-	        	.attr("th:attr", "data-src=@{/user/profile/}" + img);
-	        	
-	        	$(".user-avatar-content").append(str);
-	        	alert('success');
-	        },
-	        error: function (e) {
-	            $('#profileBtn').prop('disabled', false);
-	            alert('fail');
-	        }
-	    });
-	})
-	</script> -->
+	<script>
+		function showUploadBtn(){
+			document.getElementById("filesP1").style='display:none;';
+			document.getElementById("filesP2").style='display:none;';
+			document.getElementById("profileBtn").style='block;position: relative; top:26px;';
+		}
+		function showBackUploadBtn(){
+			document.getElementById("fileP1").style='display:none;';
+			document.getElementById("fileP2").style='display:none;';
+			document.getElementById("profileBackBtn").style='block;position: relative; top:26px;';
+		}
+	</script> 
 	<!-- app -->
 	<script src="../../js/modifyUserInfo.js" type="text/javascript"></script>
 	<script src="js/utils/app.js"></script>
