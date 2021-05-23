@@ -164,12 +164,16 @@ public class HomeController {
 		mv.addObject("allcount", allcount);
 		int userCount = boardService.userCount();
 		mv.addObject("userCount", userCount);
+		int mainGroupCount = boardService.mainGroupCount();
+		mv.addObject("mainGroupCount", mainGroupCount);
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 //			List<ReplyVO> ReplyList = replyService.getMainReply();
 			int count = boardService.boardCount(user.getUserId());
 			int friendCount = boardService.friendCount(user.getUno());
-			
+			int myGroupCount = boardService.myGroupCount(user.getUno());
+
+			mv.addObject("myGroupCount", myGroupCount);
 			mv.addObject("friendCount", friendCount);
 			mv.addObject("count", count);
 			mv.addObject("GrList", groupList);

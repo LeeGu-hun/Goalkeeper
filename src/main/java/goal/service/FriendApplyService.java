@@ -11,7 +11,7 @@ public interface FriendApplyService {
 	List<FriendApplyVO> receiveList(int uno);
 	List<FriendApplyVO> applyList(int uno);
 	void acceptFriend(FriendApplyVO apply);
-	void rejectFriend(Map<String, Object> map);
+	void deleteFriend(Map<String, Object> map);
 	void applyCancel(Map<String, Object> map);
 	void applyFileCheck(int receiveUno);
 	void applyBackCheck(int receiveUno);

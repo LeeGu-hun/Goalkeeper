@@ -41,7 +41,7 @@
 	}
 	</insert>
 	
-	<delete id="rejectFriend" parameterType="java.util.Map">
+	<delete id="deleteFriend" parameterType="java.util.Map">
 		delete GK_FRIEND_APPLY where applyUno = #{applyUno} and receiveUno = #{uno}
 	</delete>
 	
@@ -70,6 +70,6 @@
 	</select>
 	
 	<select id="receiveCount" parameterType="int" resultType="int">
-		select count(*) from GK_FRIEND_APLLY where receiveUno = #{receiveUno}
+		select count(*) from GK_FRIEND_APPLY where receiveUno = #{receiveUno}
 	</select>
 </mapper>

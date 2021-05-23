@@ -402,7 +402,7 @@
 						<div id="newFriendList" class="filter-tab"
 							onclick="location.href='applyList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 목록</p>
+							<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -411,7 +411,7 @@
 						<div id="newFriendList" class="filter-tab active"
 							onclick="location.href='receiveList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 받은 목록</p>
+							<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -431,7 +431,7 @@
 						<img th:src="@{/user/background/}+${apply.applyUno}" alt="사진 필요!!">
 					</figure>
 					<figure class="user-preview-cover liquid" th:unless="${apply.applyBackCheck}=='Y'">
-						<img src="../../img/user_baseBack.png" alt="사진 필요!!">
+						<img src="../../img/user_baseBack.png">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 
