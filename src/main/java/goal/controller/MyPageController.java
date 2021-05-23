@@ -153,7 +153,7 @@ public class MyPageController {
 		boardService.updateBoard(board);
 		if(placeCheck.equals("board")) {
 		return "redirect:/myPage/" + userId;
-		} else { 
+		} else {  
 			int gno = groupService.findGnobyName(board.getBo_group());
 			return "redirect:/group_detail/" + gno;
 		}
