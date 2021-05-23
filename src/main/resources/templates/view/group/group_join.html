@@ -13,6 +13,7 @@
 <!-- tiny-slider styles -->
 <link rel="stylesheet" href="../../css/vendor/tiny-slider.css">
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
+<link rel="stylesheet" href="../../css/noticemodal.css">
 <!-- favicon -->
 <link rel="icon" href="../../img/favicon.ico">
 <script src="../../js/noticemodal.js"></script>
@@ -21,11 +22,14 @@
 <script>
 	function joinSubmit() {
 		if ($('#join_msg').val() == "" || $('#join_msg').val == null) {
-			$('#join_msg').attr('placeholder', '입력되지 않았습니다.');
+			openModal('아무것도 입력하지 않았습니다.');
 			return false;
 		}
 		openModal('가입 신청이 완료되었습니다.');
-		$('form').submit();
+		$("#confirmbtn").on('click',function(){
+			$('form').submit();
+		});
+		
 	}
 </script>
 </head>

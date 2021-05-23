@@ -1,11 +1,6 @@
 package goal.service;
 
-import java.util.List;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
-
-import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 public interface UserService {
@@ -18,4 +13,5 @@ public interface UserService {
 	public int idCheck(UserVO vo) throws Exception;
 	public void profileCheck(int uno);
 	public void backgroundCheck(int uno);
+	UserVO myPageUserInfo(String userId);
 }

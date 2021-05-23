@@ -29,13 +29,20 @@
 		select * from GK_FRIEND_APPLY where applyUno = #{applyUno}
 	</select>
 
-	<insert id="acceptFriend" parameterType="goal.vo.FriendVO">
-		insert into GK_FRIEND values 
-		(GK_FRIEND_SEQ.NEXTVAL, #{uno}, #{friendNo}, #{friendId}, #{friendNumber}, #{friendBirthdate}, #{userFileCheck}, #{userBackCheck})
+	<insert id="acceptFriend" parameterType="goal.vo.FriendApplyVO">
+	{call
+		declare
+			begin
+				insert into GK_FRIEND values 
+				(#{applyUno}, #{receiveUno}, #{receiveId}, #{receiveBirthdate}, #{receiveFileCheck}, #{receiveBackCheck});
+				insert into GK_FRIEND values 
+				(#{receiveUno}, #{applyUno}, #{applyId}, #{applyBirthdate}, #{applyFileCheck}, #{applyBackCheck});
+			end
+	}
 	</insert>
 	
-	<delete id="rejectFriend" parameterType="java.util.Map">
-		delete GK_FRIEND_APPLY where applyUno = #{friendNo} and receiveUno = #{uno}
+	<delete id="deleteFriend" parameterType="java.util.Map">
+		delete GK_FRIEND_APPLY where applyUno = #{applyUno} and receiveUno = #{uno}
 	</delete>
 	
 	<delete id="applyCancel" parameterType="java.util.Map">
@@ -58,4 +65,11 @@
 		update GK_FRIEND_APPLY set receiveFileCheck = 'Y' where receiveUno = #{uno}
 	</update>
 	
+	<select id="applyCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND_APPLY where applyUno = #{applyUno}
+	</select>
+	
+	<select id="receiveCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND_APPLY where receiveUno = #{receiveUno}
+	</select>
 </mapper>

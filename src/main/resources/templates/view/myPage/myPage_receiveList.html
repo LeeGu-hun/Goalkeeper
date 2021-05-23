@@ -17,7 +17,11 @@
 <title>Vikinger | Profile</title>
 </head>
 <style>
-.remove {
+.accept{
+	background-color: #14e36e;
+	color: white;
+}
+.rejection {
 	background-color: #fa3250;
 	color: white;
 }
@@ -398,7 +402,7 @@
 						<div id="newFriendList" class="filter-tab"
 							onclick="location.href='applyList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 목록</p>
+							<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -407,7 +411,7 @@
 						<div id="newFriendList" class="filter-tab active"
 							onclick="location.href='receiveList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 받은 목록</p>
+							<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -423,11 +427,11 @@
 				<!-- USER PREVIEW -->
 				<div class="user-preview" th:each="apply:${list}">
 					<!-- USER PREVIEW COVER -->
-					<figure class="user-preview-cover liquid" th:if="${apply.receiveBackCheck}=='Y'">
-						<img th:src="@{/user/background/}+${f.friendNo}" alt="사진 필요!!">
+					<figure class="user-preview-cover liquid" th:if="${apply.applyBackCheck}=='Y'">
+						<img th:src="@{/user/background/}+${apply.applyUno}" alt="사진 필요!!">
 					</figure>
-					<figure class="user-preview-cover liquid" th:unless="${apply.receiveBackCheck}=='Y'">
-						<img src="../../img/user_baseBack.png" alt="사진 필요!!">
+					<figure class="user-preview-cover liquid" th:unless="${apply.applyBackCheck}=='Y'">
+						<img src="../../img/user_baseBack.png">
 					</figure>
 					<!-- /USER PREVIEW COVER -->
 
@@ -448,10 +452,10 @@
 								<!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<figure th:if="${apply.receiveFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
+									<figure th:if="${apply.applyFileCheck}=='Y'">
+										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${apply.applyUno}"></div>
 									</figure>
-									<figure th:unless="${apply.receiveFileCheck}=='Y'">
+									<figure th:unless="${apply.applyFileCheck}=='Y'">
 										<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
 									</figure>
 									<!-- /HEXAGON -->
@@ -478,10 +482,17 @@
 
 							<!-- USER SHORT DESCRIPTION TITLE -->
 							<p class="user-short-description-title">
-								<a th:href="@{myPage(uno=${apply.receiveUno})}"
-									th:text="${apply.receiveUno}"></a>
+								<a th:href="@{myPage(uno=${apply.applyUno})}"
+									th:text="${apply.applyId}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TITLE -->
+							
+							<!-- USER SHORT DESCRIPTION TEXT -->
+							<p class="user-short-description-text">
+								<a th:href="@{myPage(uno=${apply.receiveUno})}"
+									th:text="${#dates.format(apply.applyBirthdate, 'yyyy-MM-dd')}"></a>
+							</p>
+							<!-- /USER SHORT DESCRIPTION TEXT -->
 						</div>
 						<!-- /USER SHORT DESCRIPTION -->
 
@@ -495,11 +506,11 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">874</p>
+										<p class="user-stat-title" th:text="${#dates.format(apply.applyDate, 'yyyy-MM-dd HH:mm')}"></p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
-										<p class="user-stat-text">게시글</p>
+										<p class="user-stat-text">신청일</p>
 										<!-- /USER STAT TEXT -->
 									</div>
 									<!-- /USER STAT -->
@@ -525,15 +536,25 @@
 						<!-- USER PREVIEW ACTIONS -->
 						<div class="user-preview-actions">
 							<!-- BUTTON -->
-							<form action="myFriends/delete" method="post" class="button secondary">
-								<input type="hidden" th:value="${apply.receiveUno}" name="receiveUno">
-								<button type="submit" class="remove">Remove
-									Friend</button>
+							<form action="receiveList/accept" method="post" class="button primary">
+								<input type="hidden" th:value="${apply.applyUno}" name="applyUno">
+								<input type="hidden" th:value="${userId}" name="receiveId">
+								<input type="hidden" th:value="${apply.applyId}" name="applyId">
+								<input type="hidden" th:value="${#dates.format(userBirthdate, 'yyyy-MM-dd')}" name="receiveBirthdate">
+								<input type="hidden" th:value="${#dates.format(apply.applyBirthdate, 'yyyy-MM-dd')}" name="applyBirthdate">								
+								<input type="hidden" th:value="${userFileCheck}" name="receiveFileCheck">
+								<input type="hidden" th:value="${apply.applyFileCheck}" name="applyFileCheck">
+								<input type="hidden" th:value="${userBackCheck}" name="receiveBackCheck">
+								<input type="hidden" th:value="${apply.applyBackCheck}" name="applyBackCheck">
+								<button type="submit" class="accept">수락</button>
 							</form>
 							<!-- /BUTTON -->
 
 							<!-- BUTTON -->
-							<p class="button primary">Send Message</p>
+							<form action="receiveList/reject" method="post" class="button secondary">
+								<input type="hidden" th:value="${apply.applyUno}" name="applyUno">
+								<button type="submit" class="rejection">거절</button>
+							</form>
 							<!-- /BUTTON -->
 						</div>
 						<!-- /USER PREVIEW ACTIONS -->

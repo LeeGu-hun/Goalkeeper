@@ -96,6 +96,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.myGroupCount(uno);
 	}
 
+	@Override
+	public List<BoardVO> getMyPageBoardList(String userId) {
+		return boardMapper.getMyPageBoardList(userId);
+	}
+
 
 
 	

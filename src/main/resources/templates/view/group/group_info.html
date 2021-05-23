@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="../../css/vendor/simplebar.css">
 <!-- tiny-slider styles -->
 <link rel="stylesheet" href="../../css/vendor/tiny-slider.css">
+<link rel="stylesheet" href="../../css/noticemodal.css">
 <!-- favicon -->
 <link rel="icon" href="../../img/favicon.ico">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -546,7 +547,7 @@
 		<!-- /GRID -->
 	</div>
 	<!-- /CONTENT GRID -->
-
+	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
 	<!-- page loader -->
@@ -578,6 +579,7 @@
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
 	<script src="../../js/group_menu.js"></script>
-
+	<script src="../../js/group_header.js"></script>
+	<script src="../../js/noticemodal.js"></script>
 </body>
 </html>

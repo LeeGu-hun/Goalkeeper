@@ -32,13 +32,13 @@ public class FriendApplyServiceImpl implements FriendApplyService{
 	}
 
 	@Override
-	public void acceptFriend(FriendVO friend) {
-		mapper.acceptFriend(friend);
+	public void acceptFriend(FriendApplyVO apply) {
+		mapper.acceptFriend(apply);
 	}
 
 	@Override
-	public void rejectFriend(Map<String, Object> map) {
-		mapper.rejectFriend(map);
+	public void deleteFriend(Map<String, Object> map) {
+		mapper.deleteFriend(map);
 	}
 
 	@Override
@@ -64,6 +64,16 @@ public class FriendApplyServiceImpl implements FriendApplyService{
 	@Override
 	public void receiveBackCheck(int applyUno) {
 		mapper.receiveBackCheck(applyUno);
+	}
+
+	@Override
+	public int applyCount(int applyUno) {
+		return mapper.applyCount(applyUno);
+	}
+
+	@Override
+	public int receiveCount(int receiveCount) {
+		return mapper.receiveCount(receiveCount);
 	}
 
 }

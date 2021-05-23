@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goal.mapper.FriendMapper">
 	<resultMap type="goal.vo.FriendVO" id="friendVO">
-		<id property="fno" column="fno"></id>
 		<id property="uno" column="uno"></id>
 		<id property="friendNo" column="friendNo"></id>
 		<id property="friendId" column="friendId"></id>
-		<id property="friendNumber" column="friendNumber"></id>
 		<id property="friendBirthdate" column="friendBirthdate"></id>
 		<id property="userFileCheck" column="userFileCheck"></id>
 		<id property="userBackCheck" column="userBackCheck"></id>
@@ -16,12 +14,14 @@
 		select * from GK_FRIEND where uno = #{uno}
 	</select>
 	
-	<insert id="addFriend" parameterType="goal.vo.FriendVO">
-		insert into GK_FRIEND_APPLY values (#{uno}, #{friendNo}, sysdate)
-	</insert>
-	
-	<delete id="deleteFriend" parameterType="int">
-		delete GK_FRIEND where fno = #{fno}
+	<delete id="deleteFriend" parameterType="java.util.Map">
+		{call
+			declare
+				begin
+					delete GK_FRIEND where uno = #{uno} and friendNo = #{friendNo};
+					delete GK_FRIEND where uno = #{friendNo} and friendNo = #{uno};
+				end
+		}
 	</delete>
 	
 	<select id="findMyFriend" parameterType="java.util.Map" resultMap="friendVO">

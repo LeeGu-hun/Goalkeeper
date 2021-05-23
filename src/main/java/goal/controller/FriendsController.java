@@ -79,9 +79,12 @@ public class FriendsController {
     
 	@GetMapping("/myFriends")
 	public ModelAndView getFriendsList(HttpServletRequest request, UserVO vo, FriendVO friend) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		friend.setUno(vo.getUno());
 		int countFriend = friendService.countFriends(vo.getUno());
+		int applyCount = friendApplyService.applyCount(vo.getUno());
+		int receiveCount = friendApplyService.receiveCount(vo.getUno());
+		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		mv = commonService.checkLoginUser(request, mv);
 		
@@ -94,13 +97,15 @@ public class FriendsController {
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
 		mv.addObject("count", countFriend);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
 	
 	@PostMapping("/myFriends")
 	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
@@ -123,8 +128,10 @@ public class FriendsController {
 	
 	@GetMapping("/mySearchFriends")
 	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		int countFriend = friendService.countFriends(vo.getUno());
+		int applyCount = friendApplyService.applyCount(vo.getUno());
+		int receiveCount = friendApplyService.receiveCount(vo.getUno());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
@@ -137,13 +144,15 @@ public class FriendsController {
 		mv.addObject("userBackCheck", vo.getUserBackCheck());
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
 
 	@PostMapping("/mySearchFriends")
 	public ModelAndView searchUser(@RequestParam(value="friends_search") String word, HttpServletRequest request, UserVO vo) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
 		
@@ -169,7 +178,7 @@ public class FriendsController {
 	public ModelAndView apply(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
 			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
 			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		FriendApplyVO apply = new FriendApplyVO();
 		FriendVO friend = new FriendVO();
 		friend.setUno(vo.getUno());
@@ -184,7 +193,7 @@ public class FriendsController {
 		if(receiveFileCheck.equals("Y")) apply.setReceiveFileCheck(receiveFileCheck);
 		else apply.setReceiveFileCheck("N");
 		if(applyBackCheck.equals("Y")) apply.setApplyBackCheck(applyBackCheck);
-		else apply.setApplyFileCheck("N");
+		else apply.setApplyBackCheck("N");
 		if(receiveBackCheck.equals("Y")) apply.setReceiveBackCheck(receiveBackCheck);
 		else apply.setReceiveBackCheck("N");
 		
@@ -197,9 +206,14 @@ public class FriendsController {
 	}
 	
 	@PostMapping("/myFriends/delete")
-	public ModelAndView deleteFriend(@RequestParam(value="fno") int fno) {
+	public ModelAndView deleteFriend(@RequestParam int friendNo, HttpServletRequest request, UserVO vo) {
+		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
-		friendService.remove(fno);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uno", vo.getUno());
+		map.put("friendNo", friendNo);
+		
+		friendService.remove(map);
 		
 		FriendVO friend = new FriendVO();
 		List<FriendVO> friendList = friendService.getFriendsList(friend);
@@ -210,7 +224,7 @@ public class FriendsController {
 	@GetMapping("/myGoal")
 	public ModelAndView goalList(HttpServletRequest request, UserVO vo) {
 		UserVO user = new UserVO();
-		user = getLoginUser(request);
+		user = commonService.getLoginUser(request);
 		int countFriend = friendService.countFriends(user.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_data");
 		mv = commonService.checkLoginUser(request, mv);
@@ -224,7 +238,7 @@ public class FriendsController {
 	
 	@PostMapping("/makeGoal")
 	public ModelAndView makePrivatGoal(HttpServletRequest request, UserVO vo, MyGoalVO goal) {
-		vo = getLoginUser(request);
+		vo = commonService.getLoginUser(request);
 		goal.setUno(vo.getUno());
 		myGoalService.createGoal(goal);
 		ModelAndView mv = new ModelAndView("redirect:/myGoal");
@@ -240,6 +254,8 @@ public class FriendsController {
 		
 		List<FriendApplyVO> applyList = friendApplyService.applyList(user.getUno()); 
 		int countFriend = friendService.countFriends(user.getUno());
+		int applyCount = friendApplyService.applyCount(user.getUno());
+		int receiveCount = friendApplyService.receiveCount(user.getUno());
 		
 		mv.addObject("list", applyList);
 		mv.addObject("uno", user.getUno());
@@ -248,6 +264,8 @@ public class FriendsController {
 		mv.addObject("userFileCheck", user.getUserFileCheck());
 		mv.addObject("userBackCheck", user.getUserBackCheck());
 		mv.addObject("count", countFriend);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
@@ -269,13 +287,15 @@ public class FriendsController {
 	}
 	
 	@GetMapping("/receiveList")
-	public ModelAndView ReceiveList(HttpServletRequest request, UserVO vo) {
+	public ModelAndView receiveList(HttpServletRequest request, UserVO vo) {
 		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_receiveList");
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendApplyVO> receiveList = friendApplyService.receiveList(vo.getUno());
 		int countFriend = friendService.countFriends(vo.getUno());
+		int applyCount = friendApplyService.applyCount(vo.getUno());
+		int receiveCount = friendApplyService.receiveCount(vo.getUno());
 		
 		mv.addObject("list", receiveList);
 		mv.addObject("uno", vo.getUno());
@@ -284,10 +304,58 @@ public class FriendsController {
 		mv.addObject("userFileCheck", vo.getUserFileCheck());
 		mv.addObject("userBackCheck", vo.getUserBackCheck());
 		mv.addObject("count", countFriend);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
 	
+	@PostMapping("/receiveList/accept")
+	public ModelAndView applyAccept(HttpServletRequest request, UserVO vo, int applyUno, String receiveId, String applyId,
+			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
+			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
+		vo = commonService.getLoginUser(request);
+		ModelAndView mv = new ModelAndView("redirect:/receiveList");
+		FriendApplyVO apply = new FriendApplyVO();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("applyUno", applyUno);
+		map.put("uno", vo.getUno());
+		
+		apply.setApplyUno(applyUno);
+		apply.setReceiveUno(vo.getUno());
+		apply.setApplyId(applyId);
+		apply.setReceiveId(receiveId);
+		apply.setApplyBirthdate(applyBirthdate);
+		apply.setReceiveBirthdate(receiveBirthdate);
+		if(applyFileCheck.equals("Y")) apply.setApplyFileCheck(applyFileCheck);
+		else apply.setApplyFileCheck("N");
+		if(receiveFileCheck.equals("Y")) apply.setReceiveFileCheck(receiveFileCheck);
+		else apply.setReceiveFileCheck("N");
+		if(applyBackCheck.equals("Y")) apply.setApplyBackCheck(applyBackCheck);
+		else apply.setApplyBackCheck("N");
+		if(receiveBackCheck.equals("Y")) apply.setReceiveBackCheck(receiveBackCheck);
+		else apply.setReceiveBackCheck("N");
+		
+		friendApplyService.acceptFriend(apply);
+		friendApplyService.deleteFriend(map);
+		
+		List<FriendApplyVO> list = friendApplyService.applyList(vo.getUno());
+		mv.addObject(list);
+		return mv;
+	}
+	
+	@PostMapping("/receiveList/reject")
+	public ModelAndView rejectAccept(HttpServletRequest request, UserVO vo, int applyUno) {
+		vo = commonService.getLoginUser(request);
+		ModelAndView mv = new ModelAndView("redirect:/receiveList");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("applyUno", applyUno);
+		map.put("uno", vo.getUno());
+		
+		friendApplyService.deleteFriend(map);
+		
+		return mv;
+	}
 	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImagebyUno(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);
@@ -307,12 +375,6 @@ public class FriendsController {
 	    UserBackVO backFile = userBackFileService.selectBackFile(uno);
 	    entity = userCommon.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
-	}
-	
-	public UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-	    UserVO user = (UserVO) session.getAttribute("user");
-	    return user;
 	}
 	
 }

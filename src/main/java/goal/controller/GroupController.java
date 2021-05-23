@@ -147,11 +147,10 @@ public class GroupController {
 	}
 	@PostMapping("/group_join")
 	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
-		String referer = request.getHeader("referer");
 		UserVO user = commonService.getLoginUser(request);
 		join.setUno(user.getUno());
 		groupService.insertGroupJoin(join);
-		return "redirect:" + referer;
+		return "/group_join";
 	}
 	
 	@GetMapping("/group_detail/{gno}")
@@ -163,18 +162,8 @@ public class GroupController {
 		this.gno = gno;
 		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
 		List<BoardFileVO> groupFile = groupService.findFilebyGroup(group);
-		if(user!=null) {
-			GroupUserVO checkUser = new GroupUserVO();
-			checkUser.setGno(gno);
-			checkUser.setUno(user.getUno());
-			int count = groupService.checkUserbyGroup(checkUser);
-			if(count==1) {
-				mv.addObject("boardResult", "WriteSuccess");
-				mv.addObject("joinResult", "joinDenied");
-			} 
-		} else {
-			mv.addObject("joinResult", "loginRequire");
-		}
+		mv = getJoinResult(user, mv);
+		mv = getManageJoin(mv, user, gno);
 		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
@@ -198,17 +187,7 @@ public class GroupController {
 		ModelAndView mv = new ModelAndView("/view/group/group_join");
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
-		if(user!=null) {
-			GroupUserVO groupUser = new GroupUserVO();
-			groupUser.setGno(this.gno);
-			groupUser.setUno(user.getUno());
-			int count = groupService.checkUserbyGroup(groupUser);
-			if(count==1) {
-				mv.addObject("result", "joinDenied");
-			} else {
-				mv.addObject("result", "joinSuccess");
-			}
-		}	
+		mv = getResult(user, mv);
 		GroupVO group = groupService.getGroup(this.gno);
 		mv.addObject("group", group);
 		return mv;
@@ -227,6 +206,8 @@ public class GroupController {
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_member");
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		mv = getJoinResult(user, mv);
 		GroupVO group = groupService.getGroup(gno);
 		List<GroupUserVO> groupUser = groupService.findUserbyGroup(gno);
 		int count = groupService.countUserbyGroup(gno);
@@ -239,7 +220,8 @@ public class GroupController {
 	@GetMapping("/group_info/{gno}")
 	public ModelAndView openInfo(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_info");
-		mv = commonService.checkLoginUser(request, mv);
+		UserVO user = commonService.getLoginUser(request);
+		mv = getJoinResult(user, mv);
 		GroupVO group = groupService.getGroup(gno);
 		mv.addObject("group", group);
 		return mv;	
@@ -248,8 +230,8 @@ public class GroupController {
 	public String openHome() {
 		return "redirect:/group_detail";
 	}
-	@GetMapping("/group_mgJoin/{gno}")
-	public ModelAndView openManagementJoin(@PathVariable("gno") int gno, HttpServletRequest request) {
+	@GetMapping("/group_mgJoin")
+	public ModelAndView openManagementJoin(@RequestParam("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_mgJoin");
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
@@ -325,10 +307,6 @@ public class GroupController {
 	    entity = commonDownload.getImageEntity(entity, mediaUtils, in, boardFile.getFileName(), boardFile.getUuid(), boardFile.getFileUrl());
 	    return entity;
 	}
-	@GetMapping("/back")
-	public String backSite(HttpServletRequest request) {
-		return "redirect:/groups";
-	}
 	private ModelAndView getManageJoin(ModelAndView mv, UserVO user, int gno) {
 		if(user!=null) {
 			GroupUserVO groupUser = new GroupUserVO();
@@ -338,6 +316,8 @@ public class GroupController {
 			if(role!=null) {
 				if(role.equals("ROLE_ADMIN")) {
 					mv.addObject("result", "joinSuccess");
+				} else {
+					mv.addObject("result", "joinDinied");
 				}
 			}else {
 				mv.addObject("result", "joinDinied");
@@ -354,6 +334,39 @@ public class GroupController {
 		mv.addObject("userCount", userResult);
 		mv.addObject("groupUser", groupUser);
 		mv.addObject("gno", gno);
+		return mv;
+	}
+	private ModelAndView getResult(UserVO user, ModelAndView mv) {
+		if(user!=null) {
+			GroupUserVO groupUser = new GroupUserVO();
+			groupUser.setGno(this.gno);
+			groupUser.setUno(user.getUno());
+			int count = groupService.checkUserbyGroup(groupUser);
+			if(count==1) {
+				mv.addObject("result", "joinDenied");
+			} else {
+				mv.addObject("result", "joinSuccess");
+			}
+		}	
+		return mv;
+	}
+	private ModelAndView getJoinResult(UserVO user, ModelAndView mv) {
+		if(user!=null) {
+			GroupUserVO checkUser = new GroupUserVO();
+			checkUser.setGno(this.gno);
+			checkUser.setUno(user.getUno());
+			int userCount = groupService.checkUserbyGroup(checkUser);
+			GroupJoinVO joinUser = groupService.selectGroupJoinUno(user.getUno());
+			if(userCount==1 && joinUser==null) {
+				mv.addObject("boardResult", "WriteSuccess");
+				mv.addObject("joinResult", "joinDenied");
+			} 
+			if(userCount!=1 && joinUser!=null) {
+				mv.addObject("joinResult","alreadyApply");
+			}
+		} else {
+			mv.addObject("joinResult", "loginRequire");
+		}
 		return mv;
 	}
 }

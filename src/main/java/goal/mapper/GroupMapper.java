@@ -27,5 +27,6 @@ public interface GroupMapper {
 	void insertGroupJoin(GroupJoinVO join);
 	void updateBgiCheck(String bgi_check);
 	List<GroupJoinVO> selectGroupJoin(int gno);
+	GroupJoinVO selectGroupJoinUno(int uno);
 	void removeGroupJoin(GroupJoinVO join);
 }

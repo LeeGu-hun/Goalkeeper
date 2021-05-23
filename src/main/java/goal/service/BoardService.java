@@ -4,6 +4,7 @@ package goal.service;
 import java.util.List;
 
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.UserVO;
 
 public interface BoardService {
@@ -12,6 +13,7 @@ public interface BoardService {
 	List<BoardVO> searchBoard(BoardVO vo);
 	List<BoardVO> getBoardList();
 	List<BoardVO> selectBoardList(UserVO vo);
+	List<BoardVO> getMyPageBoardList(String userId);
 	BoardVO findBoardbyBno(int bno);
 	BoardVO recentBoard();
 	List<BoardVO> getGroupBoardList(String bo_group);

@@ -402,7 +402,7 @@
 						<div id="newFriendList" class="filter-tab active"
 							onclick="location.href='applyList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 목록</p>
+							<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -411,7 +411,7 @@
 						<div id="newFriendList" class="filter-tab"
 							onclick="location.href='receiveList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 받은 목록</p>
+							<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -506,11 +506,11 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">874</p>
+										<p class="user-stat-title" th:text="${#dates.format(apply.applyDate, 'yyyy-MM-dd HH:mm')}"></p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
-										<p class="user-stat-text">게시글</p>
+										<p class="user-stat-text">신청일</p>
 										<!-- /USER STAT TEXT -->
 									</div>
 									<!-- /USER STAT -->

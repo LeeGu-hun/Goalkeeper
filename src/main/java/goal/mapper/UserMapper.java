@@ -1,11 +1,7 @@
 package goal.mapper;
 
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
-
-import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 
 @Mapper
@@ -25,4 +21,7 @@ public interface UserMapper {
 	public void profileCheck(int uno);
 	
 	public void backgroundCheck(int uno);
+	
+	public UserVO myPageUserInfo(String userId);
+	
 }
