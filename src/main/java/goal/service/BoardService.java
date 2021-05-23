@@ -21,4 +21,7 @@ public interface BoardService {
 	int boardAllCount();
 	int friendCount(int uno);
 	int userCount();
+	int mainGroupCount();
+	int myGroupCount(int uno);
+	
 }

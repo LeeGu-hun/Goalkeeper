@@ -197,4 +197,11 @@
 		SELECT COUNT(*) FROM gk_user
 	</select>
 	
+	<select id="mainGroupCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM gk_allgroup
+	</select>
+	
+	<select id="myGroupCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM GK_group_user WHERE UNO=#{UNO}
+	</select>
 </mapper>

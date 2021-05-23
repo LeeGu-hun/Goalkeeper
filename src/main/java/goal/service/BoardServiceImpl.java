@@ -86,6 +86,16 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.userCount();
 	}
 
+	@Override
+	public int mainGroupCount() {
+		return boardMapper.mainGroupCount();
+	}
+
+	@Override
+	public int myGroupCount(int uno) {
+		return boardMapper.myGroupCount(uno);
+	}
+
 
 
 	

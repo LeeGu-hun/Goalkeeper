@@ -221,8 +221,12 @@
 				
 		}
 		
-
-
 		
+
+		function modal(uuid){
+		var detailmodal_content = $("#detailmodal_content"+uuid).val();
 		
+			$("#imgModalText").text(detailmodal_content);
+				
+		}
 		
