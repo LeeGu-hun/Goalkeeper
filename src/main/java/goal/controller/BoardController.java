@@ -76,7 +76,7 @@ public class BoardController {
 		}
 		commonService.fileCheck(board, fileCheck, files);
 	
-	return "redirect:/home";
+		return "redirect:/home";
 	}
 	
 	
