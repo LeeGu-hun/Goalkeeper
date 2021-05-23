@@ -85,6 +85,7 @@ public class GroupController {
 	private String referer;
 	
 	private int gno = 0;
+	private int mgGno = 0;
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
     ResponseEntity<byte[]> entity = null;
@@ -162,8 +163,14 @@ public class GroupController {
 		this.gno = gno;
 		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
 		List<BoardFileVO> groupFile = groupService.findFilebyGroup(group);
+		List<GroupGoalVO> groupGoal = groupService.getGoalbyId(gno);
 		mv = getJoinResult(user, mv);
 		mv = getManageJoin(mv, user, gno);
+		if(groupGoal.isEmpty()) {
+			mv.addObject("goalList", "goalEmpty");			
+		} else {
+			mv.addObject("goalList", groupGoal);			
+		}
 		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
@@ -200,7 +207,7 @@ public class GroupController {
 		groupUser.setG_role("ROLE_MEMBER");
 		groupService.insertGroupUser(groupUser);
 		groupService.removeGroupJoin(groupJoin);
-		return "redirect:/group_mgJoin/"+groupJoin.getGno();
+		return "redirect:/group_mgJoin/";
 	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
@@ -230,12 +237,22 @@ public class GroupController {
 	public String openHome() {
 		return "redirect:/group_detail";
 	}
-	@GetMapping("/group_mgJoin")
+	@RequestMapping(value={"/group_mgJoin"}, method = RequestMethod.GET)
 	public ModelAndView openManagementJoin(@RequestParam("gno") int gno, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/view/group/group_mgJoin");
+		ModelAndView mv = new ModelAndView(); 
+		mv = openJoin(mv, request, gno);
+		return mv;
+	}
+	@GetMapping("/group_mgJoin/{gno}")
+	public ModelAndView reOpenManagementJoin(@PathVariable("gno") int gno, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView(); 
+		mv = openJoin(mv, request, gno);
+		return mv;
+	}
+	private ModelAndView openJoin(ModelAndView mv, HttpServletRequest request, int gno) {
+		mv = new ModelAndView("/view/group/group_mgJoin");
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
-		referer = request.getHeader("REFERER");
 		mv = getManageJoin(mv, user, gno);
 		List<GroupJoinVO> groupJoin = groupService.getGroupJoin(gno);
 		mv.addObject("joinList", groupJoin);
@@ -262,7 +279,7 @@ public class GroupController {
 	@PostMapping("/group_addGoal")
 	public String addGoal(GroupGoalVO groupGoal) {
 		groupService.insertGoal(groupGoal);
-		return "redirect:/group_addGoal/" + groupGoal.getGno();
+		return "redirect:/group_mgGoal/" + groupGoal.getGno();
 	}
 	@PostMapping("/group_modifyProfile")
 	public String modifyProfile(GroupFileVO groupFile, MultipartHttpServletRequest multi) {
@@ -322,6 +339,8 @@ public class GroupController {
 			}else {
 				mv.addObject("result", "joinDinied");
 			}
+		} else {
+			mv.addObject("result", "joinDinied");
 		}
 		mv.addObject("gno", gno);
 		return mv;
@@ -347,7 +366,7 @@ public class GroupController {
 			} else {
 				mv.addObject("result", "joinSuccess");
 			}
-		}	
+		}
 		return mv;
 	}
 	private ModelAndView getJoinResult(UserVO user, ModelAndView mv) {
