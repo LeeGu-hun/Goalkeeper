@@ -115,3 +115,6 @@ function fnEdit(bno){
 		$('#modify'+bno).hide();
 	});		
 }
+$('#goalBtn').click(function(){
+	
+});

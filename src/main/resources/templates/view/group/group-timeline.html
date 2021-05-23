@@ -487,20 +487,31 @@
 								<!-- FORM ITEM -->
 								<div class="form-item">
 									<!-- FORM INPUT -->
-									
-									<br>
+									<p
+										style="font-size: 1.2rem; font-weight: 700; margin-top: 20px;">목표
+										입력</p>
 									<div class="form-input" th:if="${goalList}!='goalEmpty'">
-										<label for="register-password">목표 입력</label>
-										<select>
-											<option th:each="goalList:${goalList}" th:value="${goalList.goal_name}" th:text="${goalList.goal_name}"></option>
-										</select>
+										<select style="width: 40%">
+											<option>선택해주세요</option>
+											<option th:each="goalList:${goalList}"
+												th:value="${goalList.goal_name}"
+												th:text="${goalList.goal_name}"></option>
+										</select> 
+										<input type="text" style="width: 30%; height: 26px"
+											placeholder="달성 수"> 
+										<input type="button" id="goalBtn"
+											class="button small primary" style="width: 15%; height: 30px; line-height:30px"
+											value="저장하기">
 									</div>
 									<div th:unless="${goalList}!='goalEmpty'">
-											<p class="widget-box-title">목표가 없습니다.</p>
-											<a th:href="@{'/group_mgGoal/'+${gno}}" th:if="${result} != 'joinDenied'">목표만들기</a>
-										</div>
+										<p class="widget-box-title">목표가 없습니다.</p>
+										<a th:href="@{'/group_mgGoal/'+${gno}}"
+											th:if="${result} != 'joinDenied'">목표만들기</a>
+									</div>
 									<!-- /FORM INPUT -->
+									<br>
 								</div>
+
 								<!-- /FORM ITEM -->
 							</div>
 						</div>
