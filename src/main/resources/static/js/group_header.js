@@ -6,7 +6,7 @@ function openJoin(result){
 	} else if(result =="loginRequire"){
 		openModal("로그인이 필요합니다");
 		return false;
-	} else if(result == "alreadyJoin"){ 
+	} else if(result == "alreadyApply"){ 
 		openModal("이미 가입신청을 했습니다.");
 		return false;
 	} else{
