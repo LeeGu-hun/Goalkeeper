@@ -37,8 +37,8 @@ public class FriendApplyServiceImpl implements FriendApplyService{
 	}
 
 	@Override
-	public void rejectFriend(Map<String, Object> map) {
-		mapper.rejectFriend(map);
+	public void deleteFriend(Map<String, Object> map) {
+		mapper.deleteFriend(map);
 	}
 
 	@Override

@@ -15,7 +15,13 @@
 	</select>
 	
 	<delete id="deleteFriend" parameterType="java.util.Map">
-		delete GK_FRIEND where uno = #{uno} and friendNo = #{friendNo}
+		{call
+			declare
+				begin
+					delete GK_FRIEND where uno = #{uno} and friendNo = #{friendNo};
+					delete GK_FRIEND where uno = #{friendNo} and friendNo = #{uno};
+				end
+		}
 	</delete>
 	
 	<select id="findMyFriend" parameterType="java.util.Map" resultMap="friendVO">

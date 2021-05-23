@@ -402,7 +402,7 @@
 						<div id="newFriendList" class="filter-tab active"
 							onclick="location.href='applyList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 목록 [<input type="text" th:value="${applyCount}">]</p>
+							<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
@@ -411,7 +411,7 @@
 						<div id="newFriendList" class="filter-tab"
 							onclick="location.href='receiveList'">
 							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 받은 목록</p>
+							<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
 							<!-- /FILTER TAB TEXT -->
 						</div>
 						<!-- /FILTER TAB -->
