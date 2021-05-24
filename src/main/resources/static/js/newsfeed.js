@@ -67,13 +67,8 @@
 				$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
 			}
 			
-			$("#noticemodal").fadeIn(300);
-			$("#modalcontent").fadeIn(300);
-			$("#modaltext").text("Save completed");
-			
+			openModal("글을 등록하였습니다.");
 			$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
- 			$("#noticemodal").fadeOut(300);
-  			$(".modal-con").fadeOut(300);
   			$("#boardWrite").submit();
 			}); 
 		});
@@ -111,15 +106,7 @@
 
 		$("input[type='file']").change(function(e) {
 				if($('#file')[0].files.length > 5) {
-					document.get
-					$("#noticemodal").fadeIn(300);
-					$("#warningmodalcontent").fadeIn(300);
-					$("#warningmodaltext").text("5장 이하의 사진을 올려주세요");
-					
-					$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
-		 			$("#noticemodal").fadeOut(300);
-		  			$(".modal-con").fadeOut(300);
-				}); 
+					openCautionModal("5장 이하의 사진을 올려주세요."); 
 					return false;
 				}
 			//div 내용 비워주기
@@ -187,16 +174,11 @@
 			$('.edit_btn').click(function(e){
 			e.preventDefault();
 			
-			document.get
-			$("#noticemodal").fadeIn(300);
-			$("#modalcontent").fadeIn(300);
-			$("#modaltext").text("Modifications completed");
-			
+			 
+			openModal("수정이 완료되었습니다.");
 			$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
- 			$("#noticemodal").fadeOut(300);
-  			$(".modal-con").fadeOut(300);
   			$('#modify_form'+bno).submit();
-			}); 
+			});  
 		});	
 			
 			$(".edit_cancelbtn").click(function() {
@@ -208,17 +190,10 @@
 /*삭제*/
 		function fnDelete(bno){
 			
-			document.get
-			$("#noticemodal").fadeIn(300);
-			$("#modalcontent").fadeIn(300);
-			$("#modaltext").text("Delete completed");
-			
+  			openModal("삭제가 완료되었습니다.");
 			$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
- 			$("#noticemodal").fadeOut(300);
-  			$(".modal-con").fadeOut(300);
-  			$('#delete_form'+bno).submit();
-			}); 
-				
+  			$('#delete_form'+bno).submit();	
+			});  
 		}
 /*상세모달*/		
 
