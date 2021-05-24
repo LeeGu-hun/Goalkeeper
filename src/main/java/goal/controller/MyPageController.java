@@ -120,7 +120,7 @@ public class MyPageController {
     	ModelAndView mv = new ModelAndView("view/myPage/myPage_group");
     	mv = commonService.checkLoginUser(request, mv);
     	
-    	List<GroupVO> groupList = groupService.getAllList();
+    	List<GroupVO> groupList = groupService.getGroupList(myPageUser);
     	
     	mv.addObject("vo", myPageUser);
     	mv.addObject("list", groupList);
