@@ -3,6 +3,7 @@
 
 
 .modal-con{
+position: fixed;
   display:none;
   left:30%;
   background:#fff;

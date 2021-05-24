@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- bootstrap 4.3.1 -->
+<link rel="stylesheet" href="../../css/vendor/bootstrap.min.css">
+<!-- styles -->
+<link rel="stylesheet" href="../../css/styles.min.css">
+<!-- simplebar styles -->
+<link rel="stylesheet" href="../../css/vendor/simplebar.css">
+<!-- tiny-slider styles -->
+<link rel="stylesheet" href="../../css/vendor/tiny-slider.css">
+<!-- favicon -->
+<link rel="icon" href="img/favicon.ico">
+<title>Vikinger | Profile</title>
+</head>
+<style>
+.remove {
+	background-color: #fa3250;
+	color: white;
+}
+</style>
+<body>
+<div th:insert="/view/fragments/header.html :: header"></div>
+	<!-- CONTENT GRID -->
+	<div class="content-grid">
+		<!-- PROFILE HEADER -->
+		<div class="profile-header">
+			<!-- PROFILE HEADER COVER -->
+			<figure class="profile-header-cover liquid" th:if="${background}=='Y'">
+				<img th:src="@{/user/background/}+${uno}">
+			</figure>
+			<figure class="profile-header-cover liquid" th:unless="${background}=='Y'">
+				<img src="../../img/user_baseBack.png">
+			</figure>
+			<!-- /PROFILE HEADER COVER -->
+
+			<!-- PROFILE HEADER INFO -->
+			<div class="profile-header-info">
+				<!-- USER SHORT DESCRIPTION -->
+				<div class="user-short-description big">
+					<!-- USER SHORT DESCRIPTION AVATAR -->
+					<a class="user-short-description-avatar user-avatar big"
+						href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
+						<div class="user-avatar-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-148-164"></div>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+						<div class="user-avatar-content">
+							<!-- HEXAGON -->
+							<figure th:if="${profile}=='Y'">
+								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+							</figure>
+							<figure th:unless="${profile}=='Y'">
+								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
+							</figure>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR CONTENT --> <!-- USER AVATAR PROGRESS -->
+						<div class="user-avatar-progress">
+							<!-- HEXAGON -->
+							<div class="hexagon-progress-124-136"></div>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR PROGRESS --> <!-- USER AVATAR PROGRESS BORDER -->
+						<div class="user-avatar-progress-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-border-124-136"></div>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR PROGRESS BORDER -->
+					</a>
+					<!-- /USER SHORT DESCRIPTION AVATAR -->
+
+					<!-- USER SHORT DESCRIPTION AVATAR -->
+					<a
+						class="user-short-description-avatar user-short-description-avatar-mobile user-avatar medium"
+						href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
+						<div class="user-avatar-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-120-132"></div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR BORDER -->
+						
+						<!-- USER AVATAR CONTENT -->
+						<div class="user-avatar-content">
+							<!-- HEXAGON -->
+							<div class="hexagon-image-100-110"></div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR CONTENT -->
+						
+						<!-- USER AVATAR PROGRESS -->
+						<div class="user-avatar-progress">
+							<!-- HEXAGON -->
+							<div class="hexagon-progress-100-110"></div>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR PROGRESS -->
+						
+						<!-- USER AVATAR PROGRESS BORDER -->
+						<div class="user-avatar-progress-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-border-100-110"></div>
+							<!-- /HEXAGON -->
+						</div> <!-- /USER AVATAR PROGRESS BORDER -->
+					</a>
+					<!-- /USER SHORT DESCRIPTION AVATAR -->
+
+					<!-- USER SHORT DESCRIPTION TITLE -->
+					<p class="user-short-description-title">
+						<a th:text="${userId}"></a>
+					</p>
+					<!-- /USER SHORT DESCRIPTION TITLE -->
+
+					<!-- USER SHORT DESCRIPTION TEXT -->
+					<p class="user-short-description-text">
+						<a th:text="${#dates.format(userBirthdate, 'yyyy-MM-dd')}"></a>
+					</p>
+					<!-- /USER SHORT DESCRIPTION TEXT -->
+				</div>
+				<!-- /USER SHORT DESCRIPTION -->
+
+				<!-- PROFILE HEADER SOCIAL LINKS WRAP -->
+				<div class="profile-header-social-links-wrap">
+					<!-- PROFILE HEADER SOCIAL LINKS -->
+					<div id="profile-header-social-links-slider"
+						class="profile-header-social-links">
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link facebook" href="#"> <!-- ICON FACEBOOK -->
+								<svg class="icon-facebook">
+				                	<use xlink:href="#svg-facebook"></use>
+				                </svg> <!-- /ICON FACEBOOK -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link twitter" href="#"> <!-- ICON TWITTER -->
+								<svg class="icon-twitter">
+				                	<use xlink:href="#svg-twitter"></use>
+				                </svg> <!-- /ICON TWITTER -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link instagram" href="#"> <!-- ICON INSTAGRAM -->
+								<svg class="icon-instagram">
+				                	<use xlink:href="#svg-instagram"></use>
+				                </svg> <!-- /ICON INSTAGRAM -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link twitch" href="#"> <!-- ICON TWITCH -->
+								<svg class="icon-twitch">
+			                		<use xlink:href="#svg-twitch"></use>
+				                </svg> <!-- /ICON TWITCH -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link youtube" href="#"> <!-- ICON YOUTUBE -->
+								<svg class="icon-youtube">
+				                	<use xlink:href="#svg-youtube"></use>
+				                </svg> <!-- /ICON YOUTUBE -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link patreon" href="#"> <!-- ICON PATREON -->
+								<svg class="icon-patreon">
+				                	<use xlink:href="#svg-patreon"></use>
+				                </svg> <!-- /ICON PATREON -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+
+						<div class="profile-header-social-link">
+							<!-- SOCIAL LINK -->
+							<a class="social-link discord" href="#"> <!-- ICON DISCORD -->
+								<svg class="icon-discord">
+				                	<use xlink:href="#svg-discord"></use>
+				                </svg> <!-- /ICON DISCORD -->
+							</a>
+							<!-- /SOCIAL LINK -->
+						</div>
+					</div>
+					<!-- /PROFILE HEADER SOCIAL LINKS -->
+
+					<!-- SLIDER CONTROLS -->
+					<div id="profile-header-social-links-slider-controls"
+						class="slider-controls">
+						<!-- SLIDER CONTROL -->
+						<div class="slider-control left">
+							<!-- SLIDER CONTROL ICON -->
+							<svg class="slider-control-icon icon-small-arrow">
+				                <use xlink:href="#svg-small-arrow"></use>
+				            </svg>
+							<!-- /SLIDER CONTROL ICON -->
+						</div>
+						<!-- /SLIDER CONTROL -->
+
+						<!-- SLIDER CONTROL -->
+						<div class="slider-control right">
+							<!-- SLIDER CONTROL ICON -->
+							<svg class="slider-control-icon icon-small-arrow">
+				                <use xlink:href="#svg-small-arrow"></use>
+				            </svg>
+							<!-- /SLIDER CONTROL ICON -->
+						</div>
+						<!-- /SLIDER CONTROL -->
+					</div>
+					<!-- /SLIDER CONTROLS -->
+				</div>
+				<!-- /PROFILE HEADER SOCIAL LINKS WRAP -->
+
+				<!-- USER STATS -->
+				<div class="user-stats">
+					<!-- USER STAT -->
+					<div class="user-stat big">
+						<!-- USER STAT TITLE -->
+						<p class="user-stat-title">930</p>
+						<!-- /USER STAT TITLE -->
+
+						<!-- USER STAT TEXT -->
+						<p class="user-stat-text">게시글</p>
+						<!-- /USER STAT TEXT -->
+					</div>
+					<!-- /USER STAT -->
+
+					<!-- USER STAT -->
+					<div class="user-stat big">
+						<!-- USER STAT TITLE -->
+						<p class="user-stat-title" th:text="${count}"></p>
+						<!-- /USER STAT TITLE -->
+
+						<!-- USER STAT TEXT -->
+						<p class="user-stat-text">친구</p>
+						<!-- /USER STAT TEXT -->
+					</div>
+					<!-- /USER STAT -->
+
+				</div>
+				<!-- /USER STATS -->
+			</div>
+			<!-- /PROFILE HEADER INFO -->
+		</div>
+		<!-- /PROFILE HEADER -->
+
+		<!-- SECTION NAVIGATION -->
+		<nav class="section-navigation">
+			<!-- SECTION MENU -->
+			<div id="section-navigation-slider" class="section-menu">
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" th:href="myPage"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-profile">
+			            <use xlink:href="#svg-profile"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item active" href="profile-friends.html">
+					<!-- SECTION MENU ITEM ICON --> 
+					<svg class="section-menu-item-icon icon-friend">
+			            <use xlink:href="#svg-friend"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Friends</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" href="profile-groups.html"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-group">
+		            	<use xlink:href="#svg-group"></use>
+		          	</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Groups</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" href="profile-photos.html"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-photos">
+			            <use xlink:href="#svg-photos"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" href="myGoal"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-blog-posts">
+			            <use xlink:href="#svg-blog-posts"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">My Goal</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+			</div>
+			<!-- /SECTION MENU -->
+
+			<!-- SLIDER CONTROLS -->
+			<div id="section-navigation-slider-controls" class="slider-controls">
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control left">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+			            <use xlink:href="#svg-small-arrow"></use>
+			        </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control right">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+			            <use xlink:href="#svg-small-arrow"></use>
+			        </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+			</div>
+			<!-- /SLIDER CONTROLS -->
+		</nav>
+		<!-- /SECTION NAVIGATION -->
+
+		<!-- SECTION -->
+		<div class="section-filters-bar v1">
+			<!-- SECTION FILTERS BAR ACTIONS -->
+			<div class="section-filters-bar-actions">
+				<!-- FORM -->
+				<form class="form" id="searchFrm" action="/groups" method="POST">
+					<!-- FORM INPUT -->
+					<div class="form-input small with-button">
+						<label for="groups-search">그룹 검색</label> <input type="text"
+							id="groups-search" name="word">
+						<!-- BUTTON -->
+						<button type="button" id="groupSearchBtn" class="button primary">
+							<!-- ICON MAGNIFYING GLASS -->
+							<svg class="icon-magnifying-glass">
+               					<use xlink:href="#svg-magnifying-glass"></use>
+              				</svg>
+							<!-- /ICON MAGNIFYING GLASS -->
+						</button>
+						<!-- /BUTTON -->
+					</div>
+					<!-- /FORM INPUT -->
+				</form>
+				<!-- /FORM -->
+			</div>
+			<!-- /SECTION FILTERS BAR ACTIONS -->
+
+			<!-- SECTION FILTERS BAR ACTIONS -->
+			<div class="page-wrapper" th:if="${user}==null">
+				<a class="btn"
+					th:attr="onclick=|javascript:goCreateGroup('fail')|" href="#">그룹
+					만들기</a>
+			</div>
+			<div class="page-wrapper" th:unless="${user}==null">
+				<a class="btn"
+					th:attr="onclick=|javascript:goCreateGroup('success')|" href="#">그룹
+					만들기</a>
+			</div>
+			<!-- /SECTION FILTERS BAR ACTIONS -->
+		</div>
+		<!-- /SECTION FILTERS BAR -->
+		<div class="grid grid-4-4-4 centered">
+			<!-- USER PREVIEW -->
+			<div class="user-preview" th:each="groupList:${list}">
+				<!-- USER PREVIEW COVER -->
+				<figure class="user-preview-cover liquid"
+					th:if="${groupList.bgi_check}=='Y'">
+					<img th:attr="src=@{/background/}+${groupList.gno}" alt="cover-29">
+				</figure>
+				<figure class="user-preview-cover liquid"
+					th:unless="${groupList.bgi_check}=='Y'">
+					<img src="../../img/group_baseBgi.png" alt="cover-29">
+				</figure>
+				<!-- /USER PREVIEW COVER -->
+
+				<!-- USER PREVIEW INFO -->
+				<div class="user-preview-info">
+					<!-- TAG STICKER -->
+					<div class="tag-sticker">
+						<!-- TAG STICKER ICON -->
+						<svg class="tag-sticker-icon icon-public"
+							th:if="${groupList.g_open}=='Y'">
+              				<use xlink:href="#svg-public"></use>
+           				</svg>
+						<!-- ICON PRIVATE -->
+						<svg class="icon-private" th:unless="${groupList.g_open}=='Y'">
+      						<use xlink:href="#svg-private"></use>
+    					</svg>
+						<!-- /ICON PRIVATE -->
+						<!-- /TAG STICKER ICON -->
+					</div>
+					<!-- /TAG STICKER -->
+
+					<!-- USER SHORT DESCRIPTION -->
+					<div class="user-short-description">
+						<!-- USER SHORT DESCRIPTION AVATAR -->
+						<a
+							class="user-short-description-avatar user-avatar medium no-stats"
+							href="group-timeline.html"> <!-- USER AVATAR BORDER -->
+							<div class="user-avatar-border">
+								<!-- HEXAGON -->
+								<div class="hexagon-120-130"></div>
+								<!-- /HEXAGON -->
+							</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+							<div class="user-avatar-content">
+								<!-- HEXAGON -->
+								<figure class="user-preview-cover liquid"
+									th:if="${groupList.file_check}=='Y'">
+									<div id="profile" class="hexagon-image-100-110"
+										th:attr="data-src=@{/display/}+${groupList.gno}"></div>
+								</figure>
+								<figure class="user-preview-cover liquid"
+									th:unless="${groupList.file_check}=='Y'">
+									<div id="profile" class="hexagon-image-100-110"
+										data-src="../../img/group_baseProfile.png"></div>
+								</figure>
+								<!-- /HEXAGON -->
+							</div> <!-- /USER AVATAR CONTENT -->
+						</a>
+						<!-- /USER SHORT DESCRIPTION AVATAR -->
+
+						<!-- USER SHORT DESCRIPTION TITLE -->
+						<p class="user-short-description-title"
+							th:text="${groupList.g_name}">
+							<a href="group-timeline.html"></a>
+						</p>
+						<!-- /USER SHORT DESCRIPTION TITLE -->
+
+						<!-- USER SHORT DESCRIPTION TEXT -->
+						<p class="user-short-description-text"
+							th:text="${groupList.g_intro}"></p>
+						<!-- /USER SHORT DESCRIPTION TEXT -->
+					</div>
+					<!-- /USER SHORT DESCRIPTION -->
+
+					<!-- USER STATS -->
+					<div class="user-stats">
+						<!-- USER STAT -->
+						<div class="user-stat">
+							<!-- USER STAT TITLE -->
+							<p class="user-stat-title" th:text="${groupList.userCount}"></p>
+							<!-- /USER STAT TITLE -->
+
+							<!-- USER STAT TEXT -->
+							<p class="user-stat-text">멤버</p>
+							<!-- /USER STAT TEXT -->
+						</div>
+						<!-- /USER STAT -->
+
+						<!-- USER STAT -->
+						<div class="user-stat">
+							<!-- USER STAT TITLE -->
+							<p class="user-stat-title" th:text="${groupList.boardCount}"></p>
+							<!-- /USER STAT TITLE -->
+
+							<!-- USER STAT TEXT -->
+							<p class="user-stat-text">게시글</p>
+							<!-- /USER STAT TEXT -->
+						</div>
+						<!-- /USER STAT -->
+
+						<!-- USER STAT -->
+						<div class="user-stat">
+							<!-- USER STAT TITLE -->
+							<p class="user-stat-title" th:text="${groupList.g_cate}"></p>
+							<!-- /USER STAT TITLE -->
+
+							<!-- USER STAT TEXT -->
+							<p class="user-stat-text">카테고리</p>
+							<!-- /USER STAT TEXT -->
+						</div>
+						<!-- /USER STAT -->
+					</div>
+					<!-- /USER STATS -->
+
+					<!-- USER AVATAR LIST -->
+					<div class="user-avatar-list medium reverse centered">
+						<!-- USER AVATAR -->
+						<div class="user-avatar smaller no-stats"
+							th:each="groupUser:${groupList.groupUser}">
+							<!-- USER AVATAR BORDER -->
+							<div class="user-avatar-border">
+								<!-- HEXAGON -->
+								<div class="hexagon-34-36"></div>
+								<!-- /HEXAGON -->
+							</div>
+							<!-- /USER AVATAR BORDER -->
+
+							<!-- USER AVATAR CONTENT -->
+							<div class="user-avatar-content">
+								<!-- HEXAGON -->
+								<div class="hexagon-image-30-32"
+									th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
+								<!-- /HEXAGON -->
+							</div>
+							<!-- /USER AVATAR CONTENT -->
+						</div>
+						<!-- /USER AVATAR -->
+					</div>
+					<!-- /USER AVATAR LIST -->
+
+					<!-- USER PREVIEW ACTIONS -->
+					<div class="user-preview-actions">
+						<!-- BUTTON -->
+						<a class="button secondary full"
+							th:href="@{/group_detail/{gno}(gno=${groupList.gno})}">자세히 보기</a>
+						<!-- /BUTTON -->
+					</div>
+					<!-- /USER PREVIEW ACTIONS -->
+				</div>
+				<!-- /USER PREVIEW INFO -->
+			</div>
+			<!-- /USER PREVIEW -->
+		</div>
+		<!-- /GRID -->
+	</div>
+	<!-- /CONTENT GRID -->
+
+	<!-- app -->
+	<script src="../../js/utils/app.js"></script>
+	<!-- page loader -->
+	<script src="../../js/utils/page-loader.js"></script>
+	<!-- simplebar -->
+	<script src="../../js/vendor/simplebar.min.js"></script>
+	<!-- liquidify -->
+	<script src="../../js/utils/liquidify.js"></script>
+	<!-- XM_Plugins -->
+	<script src="../../js/vendor/xm_plugins.min.js"></script>
+	<!-- tiny-slider -->
+	<script src="../../js/vendor/tiny-slider.min.js"></script>
+	<!-- global.hexagons -->
+	<script src="../../js/global/global.hexagons.js"></script>
+	<!-- global.tooltips -->
+	<script src="../../js/global/global.tooltips.js"></script>
+	<!-- header -->
+	<script src="../../js/header/header.js"></script>
+	<!-- sidebar -->
+	<script src="../../js/sidebar/sidebar.js"></script>
+	<!-- content -->
+	<script src="../../js/content/content.js"></script>
+	<!-- form.utils -->
+	<script src="../../js/form/form.utils.js"></script>
+	<!-- SVG icons -->
+	<script src="../../js/utils/svg-loader.js"></script>
+</body>
+</html>

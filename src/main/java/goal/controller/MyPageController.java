@@ -1,27 +1,21 @@
 package goal.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.io.InputStream;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,15 +35,13 @@ import goal.service.UserService;
 import goal.util.MediaUtils;
 import goal.vo.BoardVO;
 import goal.vo.ChatVO;
-import goal.vo.FriendApplyVO;
 import goal.vo.FriendVO;
 import goal.vo.GroupVO;
-import goal.vo.MyGoalVO;
-import goal.vo.UserBackVO;
-import goal.vo.UserFileVO;
 import goal.vo.UserVO;
+import lombok.extern.log4j.Log4j2;
 
-@RestController
+@Log4j2
+@Controller
 public class MyPageController {
 	
 	@Autowired
@@ -84,9 +76,6 @@ public class MyPageController {
 	
 	@Autowired
 	private GroupService groupService;
-	
-	private CommonDownload commonDownload = new CommonDownload();
-	private UserCommonDownload userCommon = new UserCommonDownload();
 	
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
@@ -123,12 +112,41 @@ public class MyPageController {
 		
 		return mv;	
 	}
+    
+    @GetMapping("myPage/groups/{userId}")
+    public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request, @PathVariable String userId) {
+    	UserVO user = commonService.getLoginUser(request);
+    	UserVO myPageUser = userService.myPageUserInfo(userId);
+    	ModelAndView mv = new ModelAndView("view/myPage/myPage_group");
+    	mv = commonService.checkLoginUser(request, mv);
+    	
+    	List<GroupVO> groupList = groupService.getAllList();
+    	
+    	mv.addObject("vo", myPageUser);
+    	mv.addObject("list", groupList);
+    	
+		mv.addObject("uno", myPageUser.getUno());
+		mv.addObject("userId", myPageUser.getUserId());
+		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
+		mv.addObject("userFileCheck", myPageUser.getUserFileCheck());
+		mv.addObject("userBackCheck", myPageUser.getUserBackCheck());
+		mv.addObject("profile", myPageUser.getUserFileCheck());
+		mv.addObject("background", myPageUser.getUserBackCheck());
+		
+    	if(user != null) {		
+    		mv.addObject("user", user);
+    	} else {
+    		mv.addObject("user", null);
+    	}
+    	return mv;
+    }
 	
 	
 	@PostMapping("/myPage/insert.do")
 	public String insertBoard(@RequestParam String fileCheck,
 			BoardVO board, HttpServletRequest request, @RequestPart("files") List<MultipartFile> files)
 			throws Exception {
+		log.info("df");
 		UserVO user = new UserVO();
 		user = getLoginUser(request);
 
