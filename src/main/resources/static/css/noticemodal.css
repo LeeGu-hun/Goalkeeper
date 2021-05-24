@@ -31,7 +31,6 @@
   padding: 20px;
   font-family: emoji;
   background : url('../img/warningmodal.jpg');
-  text-align : center;
   background-size : cover;
 }
 .modal-con .con{
