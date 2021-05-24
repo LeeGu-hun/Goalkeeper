@@ -3,6 +3,7 @@ package goal.service;
 import java.util.List;
 
 import goal.vo.BoardFileVO;
+import goal.vo.GroupDataVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
 import goal.vo.GroupUserVO;
@@ -32,4 +33,7 @@ public interface GroupService {
 	void insertGroupUser(GroupUserVO groupUser);
 	void removeGroupJoin(GroupJoinVO join);
 	List<BoardFileVO> findFilebyGroup(GroupVO group);
+	void insertGroupData(GroupDataVO data);
+	GroupDataVO countDatabyUno(GroupDataVO data);
+	GroupVO findGroupbyUno(UserVO user);
 }

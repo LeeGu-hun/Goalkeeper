@@ -1,14 +1,6 @@
 window.onload = function() {
 	$('#btnInsert').click(function(e) {
-		e.preventDefault();
 		
-		if(!$('#file').val()){
-			$('#text').append("<input type='hidden' name='fileCheck' value='true'>");
-		} else {
-			$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
-		}
-		openModal("등록되었습니다.");
-		$('#groupWrite').submit();
 	})
 	
 	
@@ -100,7 +92,27 @@ window.onload = function() {
 					}
 				});//arr.forEach
 	}
-	
+}
+function goInsert(){
+	if (document.getElementById("text").value == "" && 
+		document.getElementById("file").value == "") {
+		openCautionModal("아무것도 입력되지 않았습니다.");
+	return false;
+	} 
+	if(!$('#file').val()){
+		$('#text').append("<input type='hidden' name='fileCheck' value='true'>");
+	} else {
+		$('#text').append("<input type='hidden' name='fileCheck' value='false'>");
+	}
+	$("#noticemodal").fadeIn(300);
+		$("#modalcontent").fadeIn(300);
+		$("#modaltext").text("저장되었습니다.");
+		
+		$("#noticemodal, .modalclose, #confirmbtn").on('click',function(){
+		$("#noticemodal").fadeOut(300);
+		$(".modal-con").fadeOut(300);
+		$("#groupWrite").submit();
+	}); 
 }
 function fnEdit(bno){	
 	$('#'+bno).hide();
@@ -115,6 +127,50 @@ function fnEdit(bno){
 		$('#modify'+bno).hide();
 	});		
 }
-$('#goalBtn').click(function(){
+function addData(){
+	var rtn = true;
+	if($('#selectGoalName option:selected').text()=="선택해주세요"){
+		openCautionModal("목표 이름을 선택해주세요.");
+		return false;
+	}else if($('#dataCnt').val()==""){
+		openCautionModal("달성 수치를 적어주세요.");
+		$('#dataCnt').focus();
+		return false;
+	} 
+	var selVal = $('#selectGoalName option:selected').val();
+	var param = $('#dataFrm').serialize();
+	$.ajax({
+		url : '/group_oneGoal',
+		type : 'POST',
+		cache: false,
+	    data: param,
+	    datatype : 'text',
+		contentType:'application/x-www-form-urlencoded; charset=utf-8',
+	    success: function(data) {
+	    	addResult(data, selVal,rtn);
+	    },
+	    error: function(request, status, error){
+   			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
 	
-});
+}
+
+function addResult(res, selVal, rtn) {
+	if(res.dno == selVal){
+		openCautionModal("이미 오늘 입력했습니다.");
+	} else{
+		openGoalModal("저장되었습니다.");
+		$('#submitBtn').click(function(){
+			$(".noticemodal").fadeOut(300);
+			$("#modalcontent").fadeOut(300);
+			$('#dataFrm').submit();
+		});
+	}
+}
+function openGoalModal(content){
+	$('#modalcontent').find('#confirmbtn').attr('id','submitBtn');
+	$(".noticemodal").fadeIn(300);
+	$("#modalcontent").fadeIn(300);
+	$('#modaltext').text(content);
+}

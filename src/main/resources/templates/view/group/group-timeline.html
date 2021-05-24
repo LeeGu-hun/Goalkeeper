@@ -136,80 +136,46 @@
 					<!-- /WIDGET BOX SETTINGS -->
 
 					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">Social Networks</p>
+					<p class="widget-box-title">목표 입력</p>
 					<!-- /WIDGET BOX TITLE -->
+					<br>
+					<div class="quick-post-footer"
+						th:if="${boardResult}=='WriteSuccess'">
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<div class="form-input" th:if="${goalList}!='goalEmpty'">
+									<form id="dataFrm" action="/group_addData" method="POST">
+										<select style="display:block; width: 60%" id="selectGoalName" name="dno">
+											<option selected>선택해주세요</option>
+											<option th:each="goalList:${goalList}" 
+												th:value="${goalList.dno}" th:text="${goalList.goal_name}">
+											</option>
+										</select> <input type="hidden" name="gno" th:value="${gno}"> <input
+											type="text" style="width: 50%; height: 26px" id="dataCnt"
+											name="data_cnt" placeholder="달성 수"> <input
+											type="button" onclick="addData()"
+											class="button small primary"
+											style="width: 40%; height: 30px; line-height: 30px"
+											value="저장하기">
+									</form>
+								</div>
+								<div th:unless="${goalList}!='goalEmpty'">
+									<br>
+									<p class="widget-box-title" style="display: inline">목표가
+										없습니다.</p>
+									<p
+										class="button small secondary full popup-manage-group-trigger"
+										style="width: 20%" href="#">목표 만들기</p>
+								</div>
+								<!-- /FORM INPUT -->
+								<br>
+							</div>
 
-					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
-						<!-- SOCIAL LINKS -->
-						<div class="social-links multiline align-left">
-							<!-- SOCIAL LINK -->
-							<a class="social-link small facebook" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-facebook">
-                  <use xlink:href="#svg-facebook"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small twitter" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-twitter">
-                  <use xlink:href="#svg-twitter"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small instagram" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-instagram">
-                  <use xlink:href="#svg-instagram"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small twitch" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-twitch">
-                  <use xlink:href="#svg-twitch"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small artstation" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-artstation">
-                  <use xlink:href="#svg-artstation"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small youtube" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-youtube">
-                  <use xlink:href="#svg-youtube"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small discord" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-discord">
-                  <use xlink:href="#svg-discord"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
-
-							<!-- SOCIAL LINK -->
-							<a class="social-link small patreon" href="#"> <!-- SOCIAL LINK ICON -->
-								<svg class="social-link-icon icon-patreon">
-                  <use xlink:href="#svg-patreon"></use>
-                </svg> <!-- /SOCIAL LINK ICON -->
-							</a>
-							<!-- /SOCIAL LINK -->
+							<!-- /FORM ITEM -->
 						</div>
-						<!-- /SOCIAL LINKS -->
 					</div>
-					<!-- /WIDGET BOX CONTENT -->
 				</div>
 				<!-- /WIDGET BOX -->
 
@@ -401,7 +367,7 @@
 							<!-- OPTION ITEMS -->
 							<div class="option-items">
 								<!-- OPTION ITEM -->
-								<div id="grouptext" class="option-item" onclick="grouptext()"
+								<div  class="option-item"
 									value="group">
 									<input type="hidden" th:value="${group.g_name}" name="g_name">
 									<input type="hidden" th:value="${group.gno}" name="gno">
@@ -433,7 +399,6 @@
 										<textarea id="text" name="bo_content"
 											placeholder="하고싶은 말을 쓰세요"></textarea>
 										<!-- FORM TEXTAREA LIMIT TEXT -->
-										<p class="form-textarea-limit-text">998/1000</p>
 										<!-- /FORM TEXTAREA LIMIT TEXT -->
 									</div>
 									<!-- /FORM TEXTAREA -->
@@ -472,80 +437,46 @@
 							<!-- QUICK POST FOOTER ACTIONS -->
 							<div class="quick-post-footer-actions">
 								<!-- BUTTON -->
-								<p class="button small void">Discard</p>
+								<p class="button small void">취소</p>
 								<!-- /BUTTON -->
 
-								<button type="submit" id="btnInsert"
-									class="button small secondary">Post</button>
+								<button type="button"  onclick="goInsert()"
+									class="button small secondary">글쓰기</button>
 
+							</div>
+							<div class="backmodal">
+								<div class="modal">
+									<div class="modal_content">
+										<div class="ocean">
+											<div class="wave"></div>
+											<div class="wave"></div>
+										</div>
+										<H2 style="margin-left: 330px;">
+											<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
+											<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
+										</H2>
+
+										<div style="margin: 5px" id="imgsrc" src=""></div>
+
+										<div class="filebox">
+											<label for="file">UpLoad</label> <input type="file" id="file"
+												name="files" maxlength="2" multiple
+												accept=".jpg, .jpeg, .png">
+										</div>
+										<span class="file-custom"></span>
+									</div>
+									<button type="button" id="photobtn"
+										style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
+								</div>
 							</div>
 							<!-- /QUICK POST FOOTER ACTIONS -->
 						</div>
-						<!-- /QUICK POST FOOTER -->
-						<div class="quick-post-footer">
-							<div class="form-row">
-								<!-- FORM ITEM -->
-								<div class="form-item">
-									<!-- FORM INPUT -->
-									<p
-										style="font-size: 1.2rem; font-weight: 700; margin-top: 20px;">목표
-										입력</p>
-									<div class="form-input" th:if="${goalList}!='goalEmpty'">
-										<select style="width: 40%">
-											<option>선택해주세요</option>
-											<option th:each="goalList:${goalList}"
-												th:value="${goalList.goal_name}"
-												th:text="${goalList.goal_name}"></option>
-										</select> 
-										<input type="text" style="width: 30%; height: 26px"
-											placeholder="달성 수"> 
-										<input type="button" id="goalBtn"
-											class="button small primary" style="width: 15%; height: 30px; line-height:30px"
-											value="저장하기">
-									</div>
-									<div th:unless="${goalList}!='goalEmpty'">
-										<p class="widget-box-title">목표가 없습니다.</p>
-										<a th:href="@{'/group_mgGoal/'+${gno}}"
-											th:if="${result} != 'joinDenied'">목표만들기</a>
-									</div>
-									<!-- /FORM INPUT -->
-									<br>
-								</div>
-
-								<!-- /FORM ITEM -->
-							</div>
-						</div>
 					</div>
-					<!-- /QUICK POST -->
-
-					<!-- MODAL -->
-					<!-- MODAL -->
-					<div class="backmodal">
-						<div class="modal">
-							<div class="modal_content">
-								<div class="ocean">
-									<div class="wave"></div>
-									<div class="wave"></div>
-								</div>
-								<H2 style="margin-left: 330px;">
-									<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
-									<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
-								</H2>
-
-								<div style="margin: 5px" id="imgsrc" src=""></div>
-
-								<div class="filebox">
-									<label for="file">UpLoad</label> <input type="file" id="file"
-										name="files" maxlength="2" multiple accept=".jpg, .jpeg, .png">
-								</div>
-								<span class="file-custom"></span>
-							</div>
-							<button type="button" id="photobtn"
-								style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
-						</div>
-					</div>
-					<!-- /MODAL -->
 				</form>
+				<!-- /QUICK POST FOOTER -->
+
+				<!-- /QUICK POST -->
+				<!-- /MODAL -->
 				<!-- WIDGET BOX -->
 				<div th:each="post:${BoList}" class="widget-box no-padding">
 					<!-- WIDGET BOX SETTINGS -->
@@ -966,7 +897,6 @@
 					<div class="loader-bar"></div>
 				</div>
 				<!-- /LOADER BARS -->
-
 				<!-- /GRID COLUMN -->
 			</div>
 			<!-- GRID COLUMN -->
@@ -1429,6 +1359,92 @@
 		</div>
 		<!-- /GRID -->
 	</div>
+	<!-- POPUP BOX -->
+	<div class="popup-box mid popup-manage-group">
+		<!-- POPUP CLOSE BUTTON -->
+		<div class="popup-close-button popup-manage-group-trigger">
+			<!-- POPUP CLOSE BUTTON ICON -->
+			<svg class="popup-close-button-icon icon-cross">
+        <use xlink:href="#svg-cross"></use>
+      </svg>
+			<!-- /POPUP CLOSE BUTTON ICON -->
+		</div>
+		<!-- /POPUP CLOSE BUTTON -->
+		<!-- POPUP BOX CONTENT -->
+		<div class="popup-box-content">
+			<!-- WIDGET BOX -->
+			<div class="widget-box">
+				<!-- WIDGET BOX TITLE -->
+				<p class="widget-box-title">목표 추가</p>
+				<!-- /WIDGET BOX TITLE -->
+
+				<!-- WIDGET BOX CONTENT -->
+				<div class="widget-box-content">
+					<!-- FORM -->
+					<form id="addFrm" class="form" action="/group_addGoal"
+						method="POST">
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<input type="hidden" name="gno" th:value="${gno}">
+								<div class="form-input small active">
+									<label for="group-name">목표 이름</label> <input type="text"
+										id="goal_name" name="goal_name">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<div class="form-input small active">
+									<label for="group-name">목표 횟수</label> <input type="text"
+										id="goal_allcnt" name="goal_allcnt">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+
+						<!-- FORM ROW -->
+						<div class="form-row">
+							<!-- FORM ITEM -->
+							<div class="form-item">
+								<!-- FORM INPUT -->
+								<label for="group-public-email">목표 달성일</label>
+								<div class="form-input small active">
+									<input type="date" id="goal_enddate" name="goal_enddate">
+								</div>
+								<!-- /FORM INPUT -->
+							</div>
+							<!-- /FORM ITEM -->
+						</div>
+						<!-- /FORM ROW -->
+					</form>
+					<!-- /FORM -->
+					<!-- BUTTON -->
+					<button id="addGoal" type="submit" class="button secondary full">저장하기</button>
+					<!-- /BUTTON -->
+
+					<!-- BUTTON -->
+					<p class="button white full popup-manage-group-trigger">취소</p>
+					<!-- /BUTTON -->
+				</div>
+				<!-- WIDGET BOX CONTENT -->
+			</div>
+			<!-- /WIDGET BOX -->
+		</div>
+		<!-- /POPUP BOX CONTENT -->
+	</div>
+	<!-- /POPUP BOX -->
 	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
@@ -1450,6 +1466,8 @@
 	<script src="../../js/global/global.tooltips.js"></script>
 	<!-- global.chart -->
 	<script src="../../js/global/global.charts.js"></script>
+	<script src="../../js/global/global.popups.js"></script>
+	<script src="../../js/global/global.accordions.js"></script>
 	<!-- header -->
 	<script src="../../js/header/header.js"></script>
 	<!-- sidebar -->
@@ -1465,5 +1483,6 @@
 	<script src="../../js/noticemodal.js"></script>
 	<script src="../../js/reply.js"></script>
 	<script src="../../js/group_header.js"></script>
+	<script src="../../js/group_mgGoal.js"></script>
 </body>
 </html>

@@ -97,4 +97,20 @@
 			delete GK_ALLGROUP WHERE GNO=#{gno}
 		]]> 
 	</delete>
+	<select id="findGoalbyId" parameterType="int" resultMap="groupGoal">
+		select * from GK_GOAL where gno=#{gno}
+	</select>
+	<insert id="insertGroupData" parameterType="goal.vo.GroupDataVO">
+		insert into GK_DATA(mno, dno, uno, data_cnt, data_regdate) values
+		(gk_data_seq.nextval, #{dno}, #{uno}, #{data_cnt}, sysdate)
+	</insert>
+	<select id="countDatabyUno" parameterType="goal.vo.GroupDataVO" resultType="goal.vo.GroupDataVO">
+		select * from gk_data where uno=#{uno} and dno=#{dno} and TO_CHAR(data_regdate, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+	</select>
+	<select id="findStatbyDno" parameterType="goal.vo.GroupDataVO" resultType="goal.vo.GroupDataVO">
+		
+	</select>
+	<select id="findGroupbyUno" parameterType="goal.vo.UserVO" resultMap="groupVO">
+		select * from gk_allgroup a, gk_group_user u where a.gno=u.gno and u.uno=#{uno}
+	</select>
 </mapper>

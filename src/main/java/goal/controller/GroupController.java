@@ -50,6 +50,7 @@ import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupBgiVO;
+import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
@@ -161,16 +162,12 @@ public class GroupController {
 		GroupVO group = groupService.getGroup(gno);
 		UserVO user = commonService.getLoginUser(request);
 		this.gno = gno;
+		referer = request.getRequestURI();
 		List<BoardVO> boardList = boardService.getGroupBoardList(group.getG_name());
 		List<BoardFileVO> groupFile = groupService.findFilebyGroup(group);
-		List<GroupGoalVO> groupGoal = groupService.getGoalbyId(gno);
 		mv = getJoinResult(user, mv);
 		mv = getManageJoin(mv, user, gno);
-		if(groupGoal.isEmpty()) {
-			mv.addObject("goalList", "goalEmpty");			
-		} else {
-			mv.addObject("goalList", groupGoal);			
-		}
+		getGoalList(mv, gno);
 		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
@@ -178,7 +175,7 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/group_detail")
-	public ModelAndView writeGroup(@RequestParam String fileCheck, BoardVO board, GroupVO group, @RequestPart("files") List<MultipartFile> files, HttpServletRequest request) throws IllegalStateException, IOException {
+	public ModelAndView writeGroup(@RequestParam("fileCheck") String fileCheck, BoardVO board, GroupVO group, @RequestPart("files") List<MultipartFile> files, HttpServletRequest request) throws IllegalStateException, IOException {
 		String gno = String.valueOf(group.getGno());
 		ModelAndView mv = new ModelAndView("redirect:/group_detail/" + gno);
 		mv = commonService.checkLoginUser(request, mv);
@@ -229,6 +226,7 @@ public class GroupController {
 		ModelAndView mv = new ModelAndView("/view/group/group_info");
 		UserVO user = commonService.getLoginUser(request);
 		mv = getJoinResult(user, mv);
+		mv = getGoalList(mv, gno);
 		GroupVO group = groupService.getGroup(gno);
 		mv.addObject("group", group);
 		return mv;	
@@ -262,6 +260,7 @@ public class GroupController {
 	public ModelAndView openManagementGoal(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_mgGoal");
 		mv = commonService.checkLoginUser(request, mv);
+		referer = request.getRequestURI();
 		UserVO user = commonService.getLoginUser(request);
 		List<GroupGoalVO> groupGoal = groupService.getGoalbyId(gno);
 		mv.addObject("groupGoal", groupGoal);
@@ -279,7 +278,30 @@ public class GroupController {
 	@PostMapping("/group_addGoal")
 	public String addGoal(GroupGoalVO groupGoal) {
 		groupService.insertGoal(groupGoal);
-		return "redirect:/group_mgGoal/" + groupGoal.getGno();
+		return "redirect:" + referer;
+	}
+	@PostMapping("/group_addData")
+	public String addData(@RequestParam int gno, GroupDataVO data, HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
+		data.setUno(user.getUno());
+		groupService.insertGroupData(data);
+		return "redirect:/group_detail/"+gno;
+	}
+	@RequestMapping(value="/group_oneGoal", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<GroupDataVO> getGoalList(GroupDataVO data, HttpServletRequest request){
+		UserVO user = commonService.getLoginUser(request);
+		data.setUno(user.getUno());
+		GroupDataVO resultData = groupService.countDatabyUno(data);
+		return new ResponseEntity<GroupDataVO>(resultData,HttpStatus.OK);
+	}
+	@RequestMapping(value="/group_stat", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<GroupDataVO> getStat(GroupDataVO data, HttpServletRequest request){
+		UserVO user = commonService.getLoginUser(request);
+		data.setUno(user.getUno());
+		GroupDataVO resultData = groupService.countDatabyUno(data);
+		return new ResponseEntity<GroupDataVO>(resultData,HttpStatus.OK);
 	}
 	@PostMapping("/group_modifyProfile")
 	public String modifyProfile(GroupFileVO groupFile, MultipartHttpServletRequest multi) {
@@ -385,6 +407,15 @@ public class GroupController {
 			}
 		} else {
 			mv.addObject("joinResult", "loginRequire");
+		}
+		return mv;
+	}
+	private ModelAndView getGoalList(ModelAndView mv, int gno) {
+		List<GroupGoalVO> groupGoal = groupService.getGoalbyId(gno);
+		if(groupGoal.isEmpty()) {
+			mv.addObject("goalList", "goalEmpty");			
+		} else {
+			mv.addObject("goalList", groupGoal);			
 		}
 		return mv;
 	}

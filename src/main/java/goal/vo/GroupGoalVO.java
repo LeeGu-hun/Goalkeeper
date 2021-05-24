@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 @Alias("groupGoal")
 public class GroupGoalVO {
-	int dno, gno, goal_allcnt;
-	String goal_name, goal_type;
+	private int dno, gno, goal_allcnt;
+	private String goal_name, goal_type;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date goal_enddate;
-	int groupMaxData;
+	private Date goal_enddate;
+	private int groupMaxData;
 }

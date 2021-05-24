@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -29,4 +30,7 @@ public interface GroupMapper {
 	List<GroupJoinVO> selectGroupJoin(int gno);
 	GroupJoinVO selectGroupJoinUno(int uno);
 	void removeGroupJoin(GroupJoinVO join);
+	void insertGroupData(GroupDataVO data);
+	GroupDataVO countDatabyUno(GroupDataVO data);
+	GroupVO findGroupbyUno(UserVO user);
 }
