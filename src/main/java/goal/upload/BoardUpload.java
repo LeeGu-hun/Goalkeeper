@@ -47,6 +47,7 @@ public class BoardUpload {
         if(uploadPath.exists()==false) uploadPath.mkdir();
 		
 		for(MultipartFile file : files) {
+			fileCnt++;
         	String fileName = file.getOriginalFilename(); 
         	String uuid = RandomStringUtils.randomAlphanumeric(32);
             String filesave = fileUrl + "/" + uuid + "_" + fileName;
@@ -58,9 +59,9 @@ public class BoardUpload {
             boardFileVO.setBno(board.getBno());
             boardFileVO.setFileUrl(fileUrl);
             boardFileVO.setFileName(fileName);
+            boardFileVO.setFileCnt(fileCnt);
             
             boardFileService.fileInsert(boardFileVO);
-            fileCnt++;
         }
 		return fileCnt;
     }

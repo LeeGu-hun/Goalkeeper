@@ -220,13 +220,14 @@
 			}); 
 				
 		}
-		
-		
+/*상세모달*/		
 
-		function modal(uuid){
-		var detailmodal_content = $("#detailmodal_content"+uuid).val();
+		function modal(bno, uuid){
+		var detailmodal_content = $("#detailmodal_content"+bno).val();
+		var detailmodal_userId = $("#detailmodal_userId"+bno).val();
 		
-			$("#imgModalText").text(detailmodal_content);
-				
-		}
+		$("#imgModaluserId").text(detailmodal_userId);
+		$("#imgModalContent").text(detailmodal_content);
+		$('#modalimg').attr("src","/boardImage/"+uuid);
 		
+	}
