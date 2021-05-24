@@ -71,10 +71,10 @@
 						<!-- USER PREVIEW -->
 						<div class="user-preview small fixed-height">
 							<!-- USER PREVIEW COVER -->
-							<figure class="user-preview-cover liquid" th:if="${backCheck}=='Y'">
+							<figure class="user-preview-cover liquid" th:if="${userBackCheck}=='Y'">
 								<img th:src="@{/user/background/}+${uno}" alt="cover-01">
 							</figure>
-							<figure class="user-preview-cover liquid" th:unless="${backCheck}=='Y'">
+							<figure class="user-preview-cover liquid" th:unless="${userBackCheck}=='Y'">
 								<img src="../../img/user_baseBack.png" alt="cover-01">
 							</figure>
 							<!-- /USER PREVIEW COVER -->
@@ -96,10 +96,10 @@
 										<!-- USER AVATAR CONTENT -->
 										<div class="user-avatar-content">
 											<!-- HEXAGON -->
-											<figure th:if="${fileCheck}=='Y'">
+											<figure th:if="${userFileCheck}=='Y'">
 												<div class="hexagon-image-68-74" th:attr="data-src=@{/user/profile/}+${uno}"></div>
 											</figure>
-											<figure th:unless="${fileCheck}=='Y'">
+											<figure th:unless="${userFileCheck}=='Y'">
 												<div class="hexagon-image-68-74" data-src="../../img/user_baseProfile.png" id="profile"></div>
 											</figure>
 											<!-- /HEXAGON -->

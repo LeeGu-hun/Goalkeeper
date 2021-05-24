@@ -49,7 +49,7 @@
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" data-src=""></div>
+		<div class="hexagon-image-30-32" data-src="../../img/user_baseProfile.png"></div>
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
@@ -76,7 +76,12 @@
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+        <figure class="user-preview-cover liquid" th:if="${userFileCheck}=='Y'">
+          		<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+          	</figure>
+          	<figure class="user-preview-cover liquid" th:unless="${userFileCheck}=='Y'">
+          		<div class="hexagon-image-30-32" data-src="../../img/user_baseProfile.png"></div>
+          	</figure>
         <!-- /HEXAGON -->
       </div>
       <!-- /USER AVATAR CONTENT -->
@@ -116,26 +121,6 @@
       </li>
       <!-- /MENU ITEM -->
 	
-      <!-- MENU ITEM -->
-      <li class="menu-item">
-        <!-- MENU ITEM LINK -->
-        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');"class="menu-item-link text-tooltip-tfr"  data-title="Overview">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-overview">
-            <use xlink:href="#svg-overview"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-        </a>
-        <a th:if="${user!=null}" class="menu-item-link text-tooltip-tfr" href="overview.html" data-title="Overview">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-overview">
-            <use xlink:href="#svg-overview"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-        </a>
-        <!-- /MENU ITEM LINK -->
-      </li>
-      <!-- /MENU ITEM -->
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
@@ -179,8 +164,11 @@
   <!-- NAVIGATION WIDGET -->
   <nav id="navigation-widget" class="navigation-widget navigation-widget-desktop sidebar left hidden" data-simplebar>
     <!-- NAVIGATION WIDGET COVER -->
-    <figure class="navigation-widget-cover liquid">
-      <img src="img/cover/01.jpg" alt="cover-01">
+    <figure class="navigation-widget-cover liquid" th:if="${userBackCheck} =='Y'">
+      <img th:src="@{/user/background/}+${user.uno}" alt="cover-01">
+    </figure>
+    <figure class="navigation-widget-cover liquid" th:unless="${userBackCheck} =='Y'">
+      <img src="../../img/user_baseBack.png" alt="cover-01">
     </figure>
     <!-- /NAVIGATION WIDGET COVER -->
 
@@ -200,7 +188,7 @@
         <!-- USER AVATAR CONTENT -->
         <div class="user-avatar-content">
           <!-- HEXAGON -->
-          <div class="hexagon-image-82-90" ></div>
+          <div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
@@ -234,7 +222,12 @@
         <!-- USER AVATAR CONTENT -->
         <div class="user-avatar-content">
           <!-- HEXAGON -->
-          <div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+			<figure th:if="${userFileCheck}=='Y'">
+				<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+			</figure>
+			<figure th:unless="${userFileCheck}=='Y'">
+				<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>
+			</figure>
           <!-- /HEXAGON -->
         </div>
         <!-- /USER AVATAR CONTENT -->
@@ -374,30 +367,6 @@
       <!-- /MENU ITEM -->
 
       <!-- MENU ITEM -->
-      <li class="menu-item">
-        <!-- 로그아웃 -->
-        <a th:unless="${user!=null}"class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-overview">
-            <use xlink:href="#svg-overview"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-          Overview
-        </a>
-        <!-- 로그인 후 -->
-        <a th:if="${user!=null}"class="menu-item-link" href="overview.html">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-overview">
-            <use xlink:href="#svg-overview"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-          Overview
-        </a>
-        <!-- /MENU ITEM LINK -->
-      </li>
-      <!-- /MENU ITEM -->
-
-      <!-- MENU ITEM -->
       <li class="menu-item"> 
         <!-- 로그인 -->
         <a class="menu-item-link" href="/groups">
@@ -461,7 +430,12 @@
           <!-- USER AVATAR CONTENT -->
           <div class="user-avatar-content">
             <!-- HEXAGON -->
-            <div class="hexagon-image-30-32" data-src="img/avatar/01.jpg"></div>
+            <figure class="user-preview-cover liquid" th:if="${userFileCheck}=='Y'">
+          		<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${uno}"></div>
+          	</figure>
+          	<figure class="user-preview-cover liquid" th:unless="${userFileCheck}=='Y'">
+          		<div class="hexagon-image-82-90" data-src="../../img//user_baseProfile.png"></div>
+          	</figure>
             <!-- /HEXAGON -->
           </div>
           <!-- /USER AVATAR CONTENT -->
@@ -534,21 +508,6 @@
           </svg>
           <!-- /MENU ITEM LINK ICON -->
           Newsfeed
-        </a>
-        <!-- /MENU ITEM LINK -->
-      </li>
-      <!-- /MENU ITEM -->
-
-      <!-- MENU ITEM -->
-      <li class="menu-item">
-        <!-- MENU ITEM LINK -->
-        <a class="menu-item-link" href="overview.html">
-          <!-- MENU ITEM LINK ICON -->
-          <svg class="menu-item-link-icon icon-overview">
-            <use xlink:href="#svg-overview"></use>
-          </svg>
-          <!-- /MENU ITEM LINK ICON -->
-          Overview
         </a>
         <!-- /MENU ITEM LINK -->
       </li>
@@ -2221,7 +2180,12 @@
                   <!-- USER AVATAR CONTENT -->
                   <div class="user-avatar-content">
                     <!-- HEXAGON -->
-                    <div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+                    <figure th:if="${userFileCheck}=='Y'">
+						<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
+					</figure>
+					<figure th:unless="${userFileCheck}=='Y'">
+						<div class="hexagon-image-30-32" data-src="../../img/user_baseProfile.png"></div>
+					</figure>
                     <!-- /HEXAGON -->
                   </div>
                   <!-- /USER AVATAR CONTENT -->
