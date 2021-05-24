@@ -69,21 +69,19 @@ public class DropBoxController {
 	@GetMapping("/profileInfo")
 	public ModelAndView openProfileInfo(HttpServletRequest request) {
 		UserVO user = commonService.getLoginUser(request);
-		UserFileVO file = new UserFileVO();
-		UserBackVO back = new UserBackVO();
-		file.setUno(user.getUno());
-		back.setUno(user.getUno());
+
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-profile-info");
+		mv = commonService.checkLoginUser(request, mv);
 		
 		List<ChatVO> friendlist = chatService.findFriendList(user);
-		mv.addObject("friendlist", friendlist);  
-		mv = commonService.checkLoginUser(request, mv);
+		mv.addObject("user", user);
+		mv.addObject("friendlist", friendlist);
 		mv.addObject("uno", user.getUno());
-		mv.addObject("fileCheck", user.getUserFileCheck());
-		mv.addObject("backCheck", user.getUserBackCheck());
+		mv.addObject("userFileCheck", user.getUserFileCheck());
+		mv.addObject("userBackCheck", user.getUserBackCheck());
 		return mv;
 	}
-	
+
 	@PostMapping("/modifyMyInfo")
 	public String modifyMyInfo(UserVO vo) {
 		userService.modify(vo);
@@ -91,7 +89,8 @@ public class DropBoxController {
 	}
 	
 	@GetMapping("/profileModify")
-	public ModelAndView openProfileModify(HttpServletRequest request) {
+	public ModelAndView openProfileModify(HttpServletRequest request, UserVO vo) {
+		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/ProfileDropBox/hub-account-password");
 		mv = commonService.checkLoginUser(request, mv);
 		return mv;

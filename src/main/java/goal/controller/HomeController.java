@@ -93,6 +93,8 @@ public class HomeController {
 			mv.addObject("boardResult", "WriteSuccess");
 			mv.addObject("user", user);
 			mv.addObject("friendlist", friendlist);
+			mv.addObject("userFileCheck", user.getUserFileCheck());
+			mv.addObject("userBackCheck", user.getUserBackCheck());
 		}
 
 		return mv;

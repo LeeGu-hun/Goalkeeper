@@ -16,9 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -84,6 +86,7 @@ public class FriendsController {
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
+		int countPost = friendService.countPost(vo.getUserId());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		mv = commonService.checkLoginUser(request, mv);
@@ -91,14 +94,15 @@ public class FriendsController {
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
 		mv.addObject("uno", vo.getUno());
-		mv.addObject("background", vo.getUserBackCheck());
-		mv.addObject("profile", vo.getUserFileCheck());
+		mv.addObject("userBackCheck", vo.getUserBackCheck());
+		mv.addObject("userFileCheck", vo.getUserFileCheck());
 		mv.addObject("list", list);
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
 		mv.addObject("count", countFriend);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
+		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -108,6 +112,7 @@ public class FriendsController {
 		vo = commonService.getLoginUser(request);
 		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
+		int countPost = friendService.countPost(vo.getUserId());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -120,9 +125,11 @@ public class FriendsController {
 		mv.addObject("uno", vo.getUno());
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
-		mv.addObject("profile", vo.getUserFileCheck());
-		mv.addObject("background", vo.getUserBackCheck());
+		mv.addObject("userFileCheck", vo.getUserFileCheck());
+		mv.addObject("userBackCheck", vo.getUserBackCheck());
 		mv.addObject("count", countFriend);
+		mv.addObject("countPost",countPost);
+		
 		return mv;
 	}
 	
@@ -132,6 +139,7 @@ public class FriendsController {
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
+		int countPost = friendService.countPost(vo.getUserId());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
@@ -146,6 +154,7 @@ public class FriendsController {
 		mv.addObject("count", countFriend);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
+		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -157,6 +166,7 @@ public class FriendsController {
 		mv = commonService.checkLoginUser(request, mv);
 		
 		int countFriend = friendService.countFriends(vo.getUno());
+		int countPost = friendService.countPost(vo.getUserId());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
 		map.put("word", word);
@@ -170,6 +180,7 @@ public class FriendsController {
 		mv.addObject("userBackCheck", vo.getUserBackCheck());
 		mv.addObject("list", searchResult);
 		mv.addObject("count", countFriend);
+		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -256,6 +267,7 @@ public class FriendsController {
 		int countFriend = friendService.countFriends(user.getUno());
 		int applyCount = friendApplyService.applyCount(user.getUno());
 		int receiveCount = friendApplyService.receiveCount(user.getUno());
+		int countPost = friendService.countPost(user.getUserId());
 		
 		mv.addObject("list", applyList);
 		mv.addObject("uno", user.getUno());
@@ -266,6 +278,7 @@ public class FriendsController {
 		mv.addObject("count", countFriend);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
+		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -296,6 +309,7 @@ public class FriendsController {
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
+		int countPost = friendService.countPost(vo.getUserId());
 		
 		mv.addObject("list", receiveList);
 		mv.addObject("uno", vo.getUno());
@@ -306,6 +320,7 @@ public class FriendsController {
 		mv.addObject("count", countFriend);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
+		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -356,6 +371,7 @@ public class FriendsController {
 		
 		return mv;
 	}
+	
 	@RequestMapping(value="/user/profile/{uno}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayImagebyUno(@PathVariable int uno) throws IOException{
 	    UserFileVO userFile = userFileService.selectFile(uno);

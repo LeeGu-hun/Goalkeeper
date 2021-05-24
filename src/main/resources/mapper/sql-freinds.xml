@@ -40,4 +40,7 @@
 		update GK_FRIEND set userBackCheck = 'Y' where friendNo = #{uno}
 	</update>
 	
+	<select id="countPost" parameterType="String" resultType="int">
+		select count(*) from GK_BOARD where userId = #{userId}
+	</select>
 </mapper>

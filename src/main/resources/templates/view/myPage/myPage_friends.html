@@ -29,10 +29,10 @@
 		<!-- PROFILE HEADER -->
 		<div class="profile-header">
 			<!-- PROFILE HEADER COVER -->
-			<figure class="profile-header-cover liquid" th:if="${background}=='Y'">
+			<figure class="profile-header-cover liquid" th:if="${userBackCheck}=='Y'">
 				<img th:src="@{/user/background/}+${uno}">
 			</figure>
-			<figure class="profile-header-cover liquid" th:unless="${background}=='Y'">
+			<figure class="profile-header-cover liquid" th:unless="${userBackCheck}=='Y'">
 				<img src="../../img/user_baseBack.png">
 			</figure>
 			<!-- /PROFILE HEADER COVER -->
@@ -51,10 +51,10 @@
 						</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
-							<figure th:if="${profile}=='Y'">
+							<figure th:if="${userFileCheck}=='Y'">
 								<div class="hexagon-image-100-110" th:attr="data-src=@{/user/profile/}+${uno}"></div>
 							</figure>
-							<figure th:unless="${profile}=='Y'">
+							<figure th:unless="${userFileCheck}=='Y'">
 								<div class="hexagon-image-100-110" data-src="../../img/user_baseProfile.png"></div>
 							</figure>
 							<!-- /HEXAGON -->
@@ -230,7 +230,7 @@
 					<!-- USER STAT -->
 					<div class="user-stat big">
 						<!-- USER STAT TITLE -->
-						<p class="user-stat-title">930</p>
+						<p class="user-stat-title" th:text="${countPost}"></p>
 						<!-- /USER STAT TITLE -->
 
 						<!-- USER STAT TEXT -->
@@ -263,7 +263,7 @@
 			<!-- SECTION MENU -->
 			<div id="section-navigation-slider" class="section-menu">
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" th:href="myPage"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item" th:href="@{myPage/}+${userId}" > <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-profile">
 			            <use xlink:href="#svg-profile"></use>
 			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -390,7 +390,7 @@
 						
 						<!-- FILTER TAB -->
 						<div id="newFriendList" class="filter-tab"
-							onclick="location.href='mySearchFriends'">
+							onclick="location.href='mySearchFriends'" th:unless="${userId} != ${user.userId}">
 							<!-- FILTER TAB TEXT -->
 							<p class="filter-tab-text">새 친구 찾기</p>
 							<!-- /FILTER TAB TEXT -->
@@ -517,7 +517,7 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">ss</p>
+										<p class="user-stat-title">15</p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->

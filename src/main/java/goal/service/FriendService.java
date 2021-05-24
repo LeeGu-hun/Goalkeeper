@@ -19,4 +19,6 @@ public interface FriendService {
 	
 	void profileBackCheck(int uno);
 	
+	int countPost(String userId);
+	
 }
