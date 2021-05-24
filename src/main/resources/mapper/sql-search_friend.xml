@@ -14,10 +14,21 @@
 	</resultMap>
 	
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
-		SELECT * FROM GK_USER 
+		SELECT * FROM GK_USER
 		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno} 
 		AND UNO NOT IN(SELECT RECEIVEUNO FROM GK_FRIEND_APPLY WHERE APPLYUNO = #{uno})
-		AND UNO NOT IN(SELECT APPLYUNO FROM GK_FRIEND_APPLY WHERE RECEIVEUNO = #{uno}) OFFSET 3 ROWS FETCH NEXT 3 ROWS ONLY
+		AND UNO NOT IN(SELECT APPLYUNO FROM GK_FRIEND_APPLY WHERE RECEIVEUNO = #{uno})
+	</select>
+	
+	<select id="listPagingUser" resultMap="userVO">
+		<![CDATA[
+			SELECT * FROM
+			( SELECT /*+INDEX_DESC(GK_USER PK_USER) */ ROWNUM RN, U.* FROM GK_USER U 
+			WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) AND NOT UNO = #{uno} 
+			AND UNO NOT IN(SELECT RECEIVEUNO FROM GK_FRIEND_APPLY WHERE APPLYUNO = #{uno})
+			AND UNO NOT IN(SELECT APPLYUNO FROM GK_FRIEND_APPLY WHERE RECEIVEUNO = #{uno}) ROWNUM <= #{pageNum}*#{amount} )
+			WHERE RN > (#{pageNum} - 1 * #{amount})
+		]]>
 	</select>
 	
 	<select id="searchUser" parameterType="java.util.Map" resultMap="userVO">

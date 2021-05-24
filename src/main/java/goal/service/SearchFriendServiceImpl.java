@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import goal.domain.Criteria;
 import goal.mapper.SearchFriendMapper;
 import goal.vo.UserVO;
 
@@ -23,6 +24,11 @@ public class SearchFriendServiceImpl implements SearchFriendService{
 	@Override
 	public List<UserVO> searchUser(Map<String, Object> map) {
 		return searchFriendMapper.searchUser(map);
+	}
+
+	@Override
+	public List<UserVO> listPagingUser(Criteria cri) {
+		return searchFriendMapper.listPagingUser(cri);
 	}
 
 }
