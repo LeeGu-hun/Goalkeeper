@@ -110,4 +110,7 @@
 	<select id="findStatbyDno" parameterType="goal.vo.GroupDataVO" resultType="goal.vo.GroupDataVO">
 		
 	</select>
+	<select id="findGroupbyUno" parameterType="int" resultMap="groupVO">
+		select a.GNO, a.UNO, a.G_NAME, a.G_DATE, a.G_INTRO, a.G_CATE, a.G_OPEN, a.FILE_CHECK, a.BGI_CHECK from gk_allgroup a, gk_group_user u where a.gno=u.gno and u.uno=#{uno}
+	</select>
 </mapper>
