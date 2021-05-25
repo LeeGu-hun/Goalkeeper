@@ -35,6 +35,7 @@ import goal.service.BoardFileService;
 import goal.service.BoardService;
 import goal.service.ChatService;
 import goal.service.CommonService;
+import goal.service.FriendService;
 import goal.service.GroupService;
 import goal.service.ReplyService;
 import goal.service.UserFileService;
@@ -71,6 +72,8 @@ public class HomeController {
 	private ChatService chatService;
 	@Autowired
 	private UserFileService userFileService;
+	@Autowired
+	private FriendService friendService;
 
 	private int bno = 0;
 	private int count = 0;
@@ -160,6 +163,7 @@ public class HomeController {
 	private ModelAndView getHome(ModelAndView mv, HttpServletRequest request) {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
+		FriendVO friendVO = new FriendVO();
 		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
 		mv.addObject("BoList", boardList);
 		int allcount = boardService.boardAllCount();
@@ -174,7 +178,10 @@ public class HomeController {
 			int count = boardService.boardCount(user.getUserId());
 			int friendCount = boardService.friendCount(user.getUno());
 			int myGroupCount = boardService.myGroupCount(user.getUno());
-
+			friendVO.setUno(user.getUno());
+			List<FriendVO> getlistFriend = friendService.getFriendsList(friendVO);
+			
+			mv.addObject("getlistFriend", getlistFriend);
 			mv.addObject("myGroupCount", myGroupCount);
 			mv.addObject("friendCount", friendCount);
 			mv.addObject("count", count);

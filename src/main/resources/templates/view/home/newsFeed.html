@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../../css/newsfeed_modal.css">
 <link rel="stylesheet" href="../../css/noticemodal.css">
 <link rel="stylesheet" href="../../css/show_widget_font.css">
+<link rel="stylesheet" href="../../css/show_usernull_side.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous">
@@ -67,200 +68,97 @@
 				<!-- /WIDGET BOX -->
 
 				<!-- WIDGET BOX -->
-				<div class="widget-box">
-					<!-- WIDGET BOX CONTROLS -->
-					<div class="widget-box-controls">
-						<!-- SLIDER CONTROLS -->
-						<div id="badge-stat-slider-controls" class="slider-controls">
-							<!-- SLIDER CONTROL -->
-							<div class="slider-control left">
-								<!-- SLIDER CONTROL ICON -->
-								<svg class="slider-control-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-								<!-- /SLIDER CONTROL ICON -->
-							</div>
-							<!-- /SLIDER CONTROL -->
-
-							<!-- SLIDER CONTROL -->
-							<div class="slider-control right">
-								<!-- SLIDER CONTROL ICON -->
-								<svg class="slider-control-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-								<!-- /SLIDER CONTROL ICON -->
-							</div>
-							<!-- /SLIDER CONTROL -->
+				<div class="widget-box" style="padding:10px 10px" th:if="${user}==null">
+					<div style="height:500px; border-radius:12px" id="nouserside">
+						<div class="blob">
+							<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+								<path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+							</svg>
 						</div>
-						<!-- /SLIDER CONTROLS -->
+					<h1 class="nousersidetext">지금<br>가입하고<br>포스팅하세요!</h1>
 					</div>
-					<!-- /WIDGET BOX CONTROLS -->
+				</div>
+				<div class="widget-box" th:unless="${user}==null">
+					<!-- WIDGET BOX SETTINGS -->
+					<div class="widget-box-settings">
+						<!-- POST SETTINGS WRAP -->
+						<div class="post-settings-wrap">
+				
+						</div>
+						<!-- /POST SETTINGS WRAP -->
+					</div>
+					<!-- /WIDGET BOX SETTINGS -->
 
 					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">Featured Badges</p>
+					<p class="widget-box-title">내 친구</p>
 					<!-- /WIDGET BOX TITLE -->
 
 					<!-- WIDGET BOX CONTENT -->
 					<div class="widget-box-content">
-						<!-- WIDGET BOX CONTENT SLIDER -->
-						<div id="badge-stat-slider-items"
-							class="widget-box-content-slider">
-							<!-- WIDGET BOX CONTENT SLIDER ITEM -->
-							<div class="widget-box-content-slider-item">
-								<!-- BADGE ITEM STAT -->
-								<div class="badge-item-stat void">
-									<!-- TEXT STICKER -->
-									<p class="text-sticker">
-										<!-- TEXT STICKER ICON -->
-										<svg class="text-sticker-icon icon-plus-small">
-                      <use xlink:href="#svg-plus-small"></use>
-                    </svg>
-										<!-- TEXT STICKER ICON -->
-										20 Exp
-									</p>
-									<!-- /TEXT STICKER -->
 
-									<!-- BADGE ITEM STAT IMAGE -->
-									<img class="badge-item-stat-image" src="img/badge/uexp-b.png"
-										alt="badge-uexp-b">
-									<!-- /BADGE ITEM STAT IMAGE -->
-
-									<!-- BADGE ITEM STAT TITLE -->
-									<p class="badge-item-stat-title">Universe Explorer</p>
-									<!-- /BADGE ITEM STAT TITLE -->
-
-									<!-- BADGE ITEM STAT TEXT -->
-									<p class="badge-item-stat-text">Joined and posted on 20
-										different groups</p>
-									<!-- /BADGE ITEM STAT TEXT -->
-
-									<!-- PROGRESS STAT -->
-									<div class="progress-stat medium">
-										<!-- PROGRESS STAT BAR -->
-										<div id="badge-uexp" class="progress-stat-bar"></div>
-										<!-- /PROGRESS STAT BAR -->
-
-										<!-- BAR PROGRESS WRAP -->
-										<div class="bar-progress-wrap">
-											<!-- BAR PROGRESS INFO -->
-											<p class="bar-progress-info negative center">
-												<span class="bar-progress-text no-space"></span>
-											</p>
-											<!-- /BAR PROGRESS INFO -->
+						<!-- USER STATUS LIST -->
+						<div class="user-status-list">
+							<!-- USER STATUS -->
+							<div th:each="friend:${getlistFriend}">
+							<div class="user-status request-small">
+								<!-- USER STATUS AVATAR -->
+								<a class="user-status-avatar" href="profile-timeline.html">
+									<!-- USER AVATAR -->
+									<div class="user-avatar small no-outline">
+										<!-- USER AVATAR CONTENT -->
+										<div class="user-avatar-content">
+											<!-- HEXAGON -->
+											<div class="hexagon-image-30-32" data-src="img/avatar/07.jpg"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<!-- /BAR PROGRESS WRAP -->
-									</div>
-									<!-- /PROGRESS STAT -->
-								</div>
-								<!-- /BADGE ITEM STAT -->
-							</div>
-							<!-- /WIDGET BOX CONTENT SLIDER ITEM -->
+										<!-- /USER AVATAR CONTENT -->
 
-							<!-- WIDGET BOX CONTENT SLIDER ITEM -->
-							<div class="widget-box-content-slider-item">
-								<!-- BADGE ITEM STAT -->
-								<div class="badge-item-stat void">
-									<!-- TEXT STICKER -->
-									<p class="text-sticker">
-										<!-- TEXT STICKER ICON -->
-										<svg class="text-sticker-icon icon-plus-small">
-                      <use xlink:href="#svg-plus-small"></use>
-                    </svg>
-										<!-- TEXT STICKER ICON -->
-										40 Exp
-									</p>
-									<!-- /TEXT STICKER -->
-
-									<!-- BADGE ITEM STAT IMAGE -->
-									<img class="badge-item-stat-image"
-										src="img/badge/verifieds-b.png" alt="badge-verifieds-b">
-									<!-- /BADGE ITEM STAT IMAGE -->
-
-									<!-- BADGE ITEM STAT TITLE -->
-									<p class="badge-item-stat-title">Verified Streamer</p>
-									<!-- /BADGE ITEM STAT TITLE -->
-
-									<!-- BADGE ITEM STAT TEXT -->
-									<p class="badge-item-stat-text">Has linked a stream that
-										was verified by the staff</p>
-									<!-- /BADGE ITEM STAT TEXT -->
-
-									<!-- PROGRESS STAT -->
-									<div class="progress-stat medium">
-										<!-- PROGRESS STAT BAR -->
-										<div id="badge-verifieds" class="progress-stat-bar"></div>
-										<!-- /PROGRESS STAT BAR -->
-
-										<!-- BAR PROGRESS WRAP -->
-										<div class="bar-progress-wrap">
-											<!-- BAR PROGRESS INFO -->
-											<p class="bar-progress-info negative center">
-												<span class="bar-progress-text no-space"></span>
-											</p>
-											<!-- /BAR PROGRESS INFO -->
+										<!-- USER AVATAR PROGRESS -->
+										<div class="user-avatar-progress">
+											<!-- HEXAGON -->
+											<div class="hexagon-progress-40-44"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<!-- /BAR PROGRESS WRAP -->
-									</div>
-									<!-- /PROGRESS STAT -->
-								</div>
-								<!-- /BADGE ITEM STAT -->
-							</div>
-							<!-- /WIDGET BOX CONTENT SLIDER ITEM -->
+										<!-- /USER AVATAR PROGRESS -->
 
-							<!-- WIDGET BOX CONTENT SLIDER ITEM -->
-							<div class="widget-box-content-slider-item">
-								<!-- BADGE ITEM STAT -->
-								<div class="badge-item-stat void">
-									<!-- TEXT STICKER -->
-									<p class="text-sticker">
-										<!-- TEXT STICKER ICON -->
-										<svg class="text-sticker-icon icon-plus-small">
-                      <use xlink:href="#svg-plus-small"></use>
-                    </svg>
-										<!-- TEXT STICKER ICON -->
-										40 Exp
-									</p>
-									<!-- /TEXT STICKER -->
-
-									<!-- BADGE ITEM STAT IMAGE -->
-									<img class="badge-item-stat-image" src="img/badge/qconq-b.png"
-										alt="badge-qconq-b">
-									<!-- /BADGE ITEM STAT IMAGE -->
-
-									<!-- BADGE ITEM STAT TITLE -->
-									<p class="badge-item-stat-title">Quest Conqueror</p>
-									<!-- /BADGE ITEM STAT TITLE -->
-
-									<!-- BADGE ITEM STAT TEXT -->
-									<p class="badge-item-stat-text">Succesfully completed at
-										least 10 quests at 100%</p>
-									<!-- /BADGE ITEM STAT TEXT -->
-
-									<!-- PROGRESS STAT -->
-									<div class="progress-stat medium">
-										<!-- PROGRESS STAT BAR -->
-										<div id="badge-qconq" class="progress-stat-bar"></div>
-										<!-- /PROGRESS STAT BAR -->
-
-										<!-- BAR PROGRESS WRAP -->
-										<div class="bar-progress-wrap">
-											<!-- BAR PROGRESS INFO -->
-											<p class="bar-progress-info negative center">
-												<span class="bar-progress-text no-space"></span>
-											</p>
-											<!-- /BAR PROGRESS INFO -->
+										<!-- USER AVATAR PROGRESS BORDER -->
+										<div class="user-avatar-progress-border">
+											<!-- HEXAGON -->
+											<div class="hexagon-border-40-44"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<!-- /BAR PROGRESS WRAP -->
-									</div>
-									<!-- /PROGRESS STAT -->
-								</div>
-								<!-- /BADGE ITEM STAT -->
+										<!-- /USER AVATAR PROGRESS BORDER -->
+
+									
+									</div> <!-- /USER AVATAR -->
+								</a>
+								<!-- /USER STATUS AVATAR -->
+
+								<!-- USER STATUS TITLE -->
+								<p class="user-status-title" th:text="${friend.friendId}">
+									<!-- <a class="bold" href="profile-timeline.html" ></a> -->
+								</p>
+								<!-- /USER STATUS TITLE -->
+
+								<!-- USER STATUS TEXT -->
+								<p class="user-status-text small">24.5K profile views</p>
+								<!-- /USER STATUS TEXT -->
+
+								<!-- ACTION REQUEST LIST -->
+								
+								<!-- ACTION REQUEST LIST -->
 							</div>
-							<!-- /WIDGET BOX CONTENT SLIDER ITEM -->
+							</div>
+							<!-- /USER STATUS -->
 						</div>
-						<!-- /WIDGET BOX CONTENT SLIDER -->
+						<!-- /USER STATUS LIST -->
 					</div>
-					<!-- /WIDGET BOX CONTENT -->
+					<div style="margin-top:40px;" class="filters">
+							<!-- FILTER -->
+							<p class="filter active">새로운 친구 만나기 <svg class="icon-plus-small demo-box-icon"><use xlink:href="#svg-plus-small"></use></svg></p>
+							<!-- /FILTER -->
+						</div>
+					<!-- WIDGET BOX CONTENT -->
 				</div>
 				<!-- /WIDGET BOX -->
 
@@ -1622,7 +1520,8 @@
 								</div>
 
 								<div th:unless="${user}==null">
-									<a href="/myFriends" class="stats-box-value" th:text="${friendCount}+'명'"></a>
+									<a href="/myFriends" class="stats-box-value"
+									  th:text="${friendCount}+'명'"></a>
 								</div>
 
 								<!-- /STATS BOX VALUE -->
