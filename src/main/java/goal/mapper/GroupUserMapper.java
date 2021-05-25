@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import goal.vo.GroupUserVO;
+import goal.vo.GroupVO;
 
 @Mapper
 public interface GroupUserMapper {

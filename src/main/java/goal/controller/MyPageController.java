@@ -119,8 +119,9 @@ public class MyPageController {
     	UserVO myPageUser = userService.myPageUserInfo(userId);
     	ModelAndView mv = new ModelAndView("view/myPage/myPage_group");
     	mv = commonService.checkLoginUser(request, mv);
+    	int myPageUserUno = myPageUser.getUno();
     	
-    	List<GroupVO> groupList = groupService.getGroupList(myPageUser);
+    	List<GroupVO> groupList = groupService.findGroupbyUno(myPageUserUno);
     	
     	mv.addObject("vo", myPageUser);
     	mv.addObject("list", groupList);

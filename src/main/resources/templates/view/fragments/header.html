@@ -76,10 +76,10 @@
       <!-- USER AVATAR CONTENT -->
       <div class="user-avatar-content">
         <!-- HEXAGON -->
-        <figure class="user-preview-cover liquid" th:if="${userFileCheck}=='Y'">
+        <figure class="user-preview-cover liquid" th:if="${user.userFileCheck}=='Y'">
           		<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${user.uno}"></div>
           	</figure>
-          	<figure class="user-preview-cover liquid" th:unless="${userFileCheck}=='Y'">
+          	<figure class="user-preview-cover liquid" th:unless="${user.userFileCheck}=='Y'">
           		<div class="hexagon-image-30-32" data-src="../../img/user_baseProfile.png"></div>
           	</figure>
         <!-- /HEXAGON -->

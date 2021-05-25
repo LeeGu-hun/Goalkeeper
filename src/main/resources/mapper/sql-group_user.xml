@@ -32,4 +32,5 @@
 	<select id="findRolebyUser" parameterType="goal.vo.GroupUserVO" resultType="String">
 		select g_role from gk_group_user where uno=#{uno} and gno=#{gno}
 	</select>
+	
 </mapper>

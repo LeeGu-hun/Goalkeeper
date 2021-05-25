@@ -414,7 +414,7 @@
 						<div class="user-short-description">
 							<!-- USER SHORT DESCRIPTION AVATAR -->
 							<a class="user-short-description-avatar user-avatar medium"
-								href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
+								th:href="@{/myPage/}+${f.friendId}"> <!-- USER AVATAR BORDER -->
 								<div class="user-avatar-border">
 									<!-- HEXAGON -->
 									<div class="hexagon-120-132"></div>
@@ -455,14 +455,14 @@
 
 							<!-- USER SHORT DESCRIPTION TITLE -->
 							<p class="user-short-description-title">
-								<a th:href="@{myPage(uno=${f.friendNo})}"
+								<a th:href="@{/th:href="@{/myPage/}+${f.friendId}myPage/}+${f.friendId}"
 									th:text="${f.friendId}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TITLE -->
 
 							<!-- USER SHORT DESCRIPTION TEXT -->
 							<p class="user-short-description-text">
-								<a th:href="@{myPage(uno=${f.friendNo})}"
+								<a th:href="@{/myPage/}+${f.friendId}"
 									th:text="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TEXT -->

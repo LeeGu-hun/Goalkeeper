@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <!-- bootstrap 4.3.1 -->
 <link rel="stylesheet" href="../../css/vendor/bootstrap.min.css">
 <!-- styles -->
@@ -423,7 +426,7 @@
 			<!-- GRID -->
 			<div class="grid grid-4-4-4 centered">
 				<!-- USER PREVIEW -->
-				<div class="user-preview" th:each="u,index :${list}">
+				<div class="user-preview" th:each="u:${list}">
 					<!-- USER PREVIEW COVER -->
 					<figure class="user-preview-cover liquid" th:if="${u.userBackCheck}=='Y'">
 						<img th:src="@{/user/background/}+${u.uno}" alt="cover-04">
@@ -439,7 +442,7 @@
 						<div class="user-short-description">
 							<!-- USER SHORT DESCRIPTION AVATAR -->
 							<a class="user-short-description-avatar user-avatar medium"
-								href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
+								th:href="@{/myPage/}+${u.userId}"> <!-- USER AVATAR BORDER -->
 								<div class="user-avatar-border">
 									<!-- HEXAGON -->
 									<div class="hexagon-120-132"></div>
@@ -470,13 +473,13 @@
 							
 							<!-- USER SHORT DESCRIPTION TITLE -->
 							<p class="user-short-description-title">
-								<a th:href="@{myPage(uno=${u.uno})}" th:text="${u.userId}"></a>
+								<a th:href="@{/myPage/}+${u.userId}" th:text="${u.userId}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TITLE -->
 
 							<!-- USER SHORT DESCRIPTION TEXT -->
 							<p class="user-short-description-text">
-								<a th:href="@{myPage(uno=${u.uno})}"
+								<a th:href="@{/myPage/}+${u.userId}"
 									th:text="${#dates.format(u.userBirthdate, 'yyyy-MM-dd')}"></a>
 							</p>
 							<!-- /USER SHORT DESCRIPTION TEXT -->
@@ -612,14 +615,29 @@
 		<!-- /SECTION -->
 	</div>
 	<!-- /CONTENT GRID -->
-	<script th:inline="javascript">
+	<script th:inline="javascript" src="jquery-ui.min.js">
+	$(document).ready(function(){
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			if(scrollHeight == documentHeight){
+				$.ajax({
+					type:"GET",
+					url:""
+				})
+			}
+		});
+	});
 	/*var result = '${msg}';
 	
 	 if(result="success"){
 		alert(result);
 		console.log(result);
 	} */
-
+	
+	
+	
 	var lastScrollTop = 0;
 	var easeEffect = 'easeInQuint';
 	
@@ -631,18 +649,16 @@
 		/*  
 			=================	다운 스크롤인 상태	================
 		*/
-		if( currentScrollTop - lastScrollTop > 0 ){
-			// 2. 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
-			if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){ //② 현재스크롤의 위치가 화면의 보이는 위치보다 크다면
-	            
+		if( currentScrollTop - lastScrollTop > 0 ){			
+			if ($(window).scrollTop() >= ($(document).height() - $(window).height()) ){				
 				// 3. class가 scrolling인 것의 요소 중 마지막인 요소를 선택한 다음 그것의 data-bno속성 값을 받아온다.
-				// 즉, 현재 뿌려진 게시글의 마지막 bno값을 읽어오는 것이다.( 이 다음의 게시글들을 가져오기 위해 필요한 데이터이다.)
-				var lastbno = $(".scrolling:last").attr("index.uno");
+				//		즉, 현재 뿌려진 게시글의 마지막 bno값을 읽어오는 것이다.( 이 다음의 게시글들을 가져오기 위해 필요한 데이터이다.)
+				var lastbno = $(".scrolling:last").attr("data-bno");
 				
 				// 4. ajax를 이용하여 현재 뿌려진 게시글의 마지막 bno를 서버로 보내어 그 다음 20개의 게시물 데이터를 받아온다. 
 				$.ajax({
 					type : 'post',	// 요청 method 방식 
-					url : '',// 요청할 서버의 url
+					url : 'infiniteScrollDown',// 요청할 서버의 url
 					headers : { 
 						"Content-Type" : "application/json",
 						"X-HTTP-Method-Override" : "POST"
@@ -662,12 +678,21 @@
 								// 7. 새로운 데이터를 갖고 html코드형태의 문자열을 만들어준다.
 								function(){
 									console.log(this);		
-									
-								});// each
-							// 8. 이전까지 뿌려졌던 데이터를 비워주고, &lt;th&gt;헤더 바로 밑에 위에서 만든 str을  뿌려준다.
+									str +=	"<tr class=" + "'listToChange'" + ">" 
+										+	 	"<td class=" +  "'scrolling'" + " data-bno='" + this.bno +"'>"
+										+			this.bno
+										+		"</td>"
+										+		"<td>" + this.title + "</td>"		
+										+		"<td>" + this.writer + "</td>"
+										+		"<td>" + this.regdate + "</td>"
+										+		"<td>" + this.viewcnt + "</td>"
+										+ 	"</tr>";
+										
+							});// each
+							// 8. 이전까지 뿌려졌던 데이터를 비워주고, <th>헤더 바로 밑에 위에서 만든 str을  뿌려준다.
 							$(".listToChange").empty();// 셀렉터 태그 안의 모든 텍스트를 지운다.						
 							$(".scrollLocation").after(str);
-						 		
+								
 						}// if : data!=null
 						else{ // 9. 만약 서버로 부터 받아온 데이터가 없으면 그냥 아무것도 하지말까..
 							alert("더 불러올 데이터가 없습니다.");
@@ -682,7 +707,7 @@
 				// 이동  위로 부터 position.top px 위치로 스크롤 하는 것이다. 그걸 500ms 동안 애니메이션이 이루어짐.
 				$('html,body').stop().animate({scrollTop : position.top }, 600, easeEffect);
 	
-	        }//if : 현재 스크롤의 top 좌표가  &gt; (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+			}//if : 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
 			
 			// lastScrollTop을 현재 currentScrollTop으로 갱신해준다.
 			lastScrollTop = currentScrollTop;
@@ -695,9 +720,9 @@
 			// up- scroll : 현재 게시글 이전의 글을 불러온다.
 			console.log("up-scroll");			
 
-			// 2. 현재 스크롤의 top 좌표가  &lt;= 0 되는 순간
-			if ($(window).scrollTop() >= 0 ){ // 
-	            
+			// 2. 현재 스크롤의 top 좌표가  <= 0 되는 순간
+			if ($(window).scrollTop() <= 0 ){ // 
+				
 				// 3. class가 scrolling인 것의 요소 중 첫 번째 요소를 선택한 다음 그것의 data-bno속성 값을 받아온다.
 				//		즉, 현재 뿌려진 게시글의 첫 번째 bno값을 읽어오는 것이다.( 이 전의 게시글들을 가져오기 위해 필요한 데이터이다.)
 				var firstbno = $(".scrolling:first").attr("data-bno");
@@ -728,22 +753,27 @@
 								// 7. 새로운 데이터를 갖고 html코드형태의 문자열을 만들어준다.
 								function(){
 									console.log(this);		
-								/* 	str +=	"&lt;tr class=" + "'listToChange'" + "&gt;" 
-										+	 	"&lt;td class=" +  "'scrolling'" + " data-bno='" + this.bno +"'&gt;"
+									str +=	"<tr class=" + "'listToChange'" + ">" 
+										+	 	"<td class=" +  "'scrolling'" + " data-bno='" + this.bno +"'>"
 										+			this.bno
-										+		"&lt;/td&gt;"
-										+		"&lt;td&gt;" + this.title + "&lt;/td&gt;"		
-										+		"&lt;td&gt;" + this.writer + "&lt;/td&gt;"
-										+		"&lt;td&gt;" + this.regdate + "&lt;/td&gt;"
-										+		"&lt;td&gt;" + this.viewcnt + "&lt;/td&gt;"
-								 		+ 	"&lt;/tr&gt;"; */
-								 		
+										+		"</td>"
+										+		"<td>" + this.title + "</td>"		
+										+		"<td>" + this.writer + "</td>"
+										+		"<td>" + this.regdate + "</td>"
+										+		"<td>" + this.viewcnt + "</td>"
+										+ 	"</tr>";
+										
 							});// each
-							// 8. 이전까지 뿌려졌던 데이터를 비워주고, &lt;th&gt;헤더 바로 밑에 위에서 만든 str을  뿌려준다.
+							// 8. 이전까지 뿌려졌던 데이터를 비워주고, <th>헤더 바로 밑에 위에서 만든 str을  뿌려준다.
 							$(".listToChange").empty();// 셀렉터 태그 안의 모든 텍스트를 지운다.						
 							$(".scrollLocation").after(str);
-						 		
+								
 						}//if : data != ""
+						else{ // 9. 만약 서버로 부터 받아온 데이터가 없으면 그냥 아무것도 하지말까..??
+							
+							alert("더 불러올 데이터가 없습니다.");
+						}// else
+	
 					}// success
 				});// ajax
 				
@@ -753,12 +783,13 @@
 				// 이동  위로 부터 position.top px 위치로 스크롤 하는 것이다. 그걸 500ms 동안 애니메이션이 이루어짐.
 				$('html,body').stop().animate({scrollTop : position}, 600, easeEffect);
 				
-	        }//if : 현재 스크롤의 top 좌표가  &lt;= 0 되는 순간
+			}//if : 현재 스크롤의 top 좌표가  <= 0 되는 순간
 		
 			// lastScrollTop을 현재 currentScrollTop으로 갱신해준다.
 			lastScrollTop = currentScrollTop;
 		}// else : 업 스크롤인 상태
-	});// scroll event
+		
+});// scroll event
 
 	</script>
 	<!-- app -->

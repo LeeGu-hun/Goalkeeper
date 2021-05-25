@@ -167,7 +167,7 @@ public class GroupController {
 		List<BoardFileVO> groupFile = groupService.findFilebyGroup(group);
 		mv = getJoinResult(user, mv);
 		mv = getManageJoin(mv, user, gno);
-		getGoalList(mv, gno);
+		mv = getGoalList(mv, gno);
 		mv.addObject("fileList", groupFile);
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
