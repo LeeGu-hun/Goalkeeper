@@ -95,7 +95,6 @@ public class OhterFriendsController {
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
-		mv.addObject("user", user);
 		mv.addObject("vo", myPageUser);
 		mv.addObject("uno", myPageUser.getUno());
 		mv.addObject("userId", myPageUser.getUserId());
@@ -106,6 +105,7 @@ public class OhterFriendsController {
 		mv.addObject("background", myPageUser.getUserBackCheck());
 		
 		if(user != null) {
+			mv.addObject("user", user);
 			mv.addObject("loginUserId", user.getUserId());
 			mv.addObject("loginUserBirthdate", user.getUserBirthdate());
 			mv.addObject("loginUserProfile", user.getUserFileCheck());
