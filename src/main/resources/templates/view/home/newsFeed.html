@@ -51,7 +51,12 @@
 		<div class="grid grid-3-6-3 mobile-prefer-content">
 			<!-- GRID COLUMN -->
 			<div id="left_widget" class="grid-column" style="position: absolute;width: 280px; left:0; 
-				height: 200px;top: 305px;">
+				height: 200px;top: 295px;">
+				<!-- WIDGET BOX -->
+				<div id="kjm" style="height: 190px; display: none;" class="widget-box">
+				dsafsdf
+				</div>
+				
 				<!-- WIDGET BOX -->
 				<div style="height: 190px" class="widget-box">
 					<div id="textwidget_box">
@@ -71,7 +76,7 @@
 				<!-- WIDGET BOX -->
 				<div class="widget-box" style="padding: 10px 10px"
 					th:if="${user}==null">
-					<div style="height: 500px; border-radius: 12px" id="nouserside">
+					<div style="height: 450px; border-radius: 12px" id="nouserside">
 						<div class="blob">
 							<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
 								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
@@ -85,7 +90,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="widget-box" th:unless="${user}==null">
+				<div class="widget-box" style="height:450px" th:unless="${user}==null">
 					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
 						<!-- POST SETTINGS WRAP -->
@@ -105,7 +110,7 @@
 						<div class="user-status-list">
 							<!-- USER STATUS -->
 							<div th:each="friend:${getlistFriend}">
-								<div class="user-status request-small">
+								<div class="user-status request-small" style="margin-bottom:10px">
 									<!-- USER STATUS AVATAR -->
 									<a class="user-status-avatar" href="profile-timeline.html">
 										<!-- USER AVATAR -->

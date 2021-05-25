@@ -8,10 +8,14 @@
 	    var currentTop = $(window).scrollTop();
 	    var RbannerTop = currentTop + RfloatPosition + "px";
 	    var LbannerTop = currentTop + LfloatPosition + "px";
+	    var kjm = currentTop + 390 + "px";
 	    //이동 애니메이션
 	    $("#right_widget").stop().animate({
 	      "top" : RbannerTop
 	    }, 300);
+	    if(kjm){
+	    	$("#kjm").fadeIn();
+	    }
 	    $("#left_widget").stop().animate({
 		  "top" : LbannerTop
 		}, 300);
