@@ -35,5 +35,5 @@ public interface GroupService {
 	List<BoardFileVO> findFilebyGroup(GroupVO group);
 	void insertGroupData(GroupDataVO data);
 	GroupDataVO countDatabyUno(GroupDataVO data);
-	GroupVO findGroupbyUno(UserVO user);
+	GroupVO findGroupbyUno(int uno);
 }

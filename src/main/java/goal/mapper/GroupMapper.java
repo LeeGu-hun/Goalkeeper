@@ -32,5 +32,4 @@ public interface GroupMapper {
 	void removeGroupJoin(GroupJoinVO join);
 	void insertGroupData(GroupDataVO data);
 	GroupDataVO countDatabyUno(GroupDataVO data);
-	GroupVO findGroupbyUno(UserVO user);
 }

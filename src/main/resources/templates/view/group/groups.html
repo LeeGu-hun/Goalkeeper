@@ -23,52 +23,30 @@
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
-	<!-- CONTENT GRID -->
 	<div class="content-grid">
-		<!-- SECTION BANNER -->
 		<div class="section-banner">
-			<!-- SECTION BANNER ICON -->
 			<img class="section-banner-icon" src="img/banner/groups-icon.png"
 				alt="groups-icon">
-			<!-- /SECTION BANNER ICON -->
-
-			<!-- SECTION BANNER TITLE -->
 			<p class="section-banner-title">모든 그룹</p>
-			<!-- /SECTION BANNER TITLE -->
 
-			<!-- SECTION BANNER TEXT -->
 			<p class="section-banner-text">커뮤니티의 모든 그룹을 찾아보세요</p>
-			<!-- /SECTION BANNER TEXT -->
 		</div>
-		<!-- /SECTION BANNER -->
 
-		<!-- SECTION FILTERS BAR -->
 		<div class="section-filters-bar v1">
-			<!-- SECTION FILTERS BAR ACTIONS -->
 			<div class="section-filters-bar-actions">
-				<!-- FORM -->
 				<form class="form" id="searchFrm" action="/groups" method="POST">
-					<!-- FORM INPUT -->
 					<div class="form-input small with-button">
 						<label for="groups-search">그룹 검색</label> <input type="text"
 							id="groups-search" name="word">
-						<!-- BUTTON -->
 						<button type="button" id="groupSearchBtn" class="button primary">
-							<!-- ICON MAGNIFYING GLASS -->
 							<svg class="icon-magnifying-glass">
                					<use xlink:href="#svg-magnifying-glass"></use>
               				</svg>
-							<!-- /ICON MAGNIFYING GLASS -->
 						</button>
-						<!-- /BUTTON -->
 					</div>
-					<!-- /FORM INPUT -->
 				</form>
-				<!-- /FORM -->
 			</div>
-			<!-- /SECTION FILTERS BAR ACTIONS -->
 
-			<!-- SECTION FILTERS BAR ACTIONS -->
 			<div class="page-wrapper" th:if="${user}==null">
 				<a class="btn"
 					th:attr="onclick=|javascript:goCreateGroup('fail')|" href="#">그룹
@@ -79,15 +57,11 @@
 					th:attr="onclick=|javascript:goCreateGroup('success')|" href="#">그룹
 					만들기</a>
 			</div>
-			<!-- /SECTION FILTERS BAR ACTIONS -->
 		</div>
-		<!-- /SECTION FILTERS BAR -->
 
 		<!-- GRID -->
 		<div class="grid grid-4-4-4 centered">
-			<!-- USER PREVIEW -->
 			<div class="user-preview" th:each="groupList:${list}">
-				<!-- USER PREVIEW COVER -->
 				<figure class="user-preview-cover liquid"
 					th:if="${groupList.bgi_check}=='Y'">
 					<img th:attr="src=@{/background/}+${groupList.gno}" alt="cover-29">
@@ -96,39 +70,26 @@
 					th:unless="${groupList.bgi_check}=='Y'">
 					<img src="../../img/group_baseBgi.png" alt="cover-29">
 				</figure>
-				<!-- /USER PREVIEW COVER -->
 
-				<!-- USER PREVIEW INFO -->
 				<div class="user-preview-info">
-					<!-- TAG STICKER -->
 					<div class="tag-sticker">
-						<!-- TAG STICKER ICON -->
 						<svg class="tag-sticker-icon icon-public"
 							th:if="${groupList.g_open}=='Y'">
               				<use xlink:href="#svg-public"></use>
            				</svg>
-						<!-- ICON PRIVATE -->
 						<svg class="icon-private" th:unless="${groupList.g_open}=='Y'">
       						<use xlink:href="#svg-private"></use>
     					</svg>
-						<!-- /ICON PRIVATE -->
-						<!-- /TAG STICKER ICON -->
 					</div>
-					<!-- /TAG STICKER -->
 
-					<!-- USER SHORT DESCRIPTION -->
 					<div class="user-short-description">
-						<!-- USER SHORT DESCRIPTION AVATAR -->
 						<a
 							class="user-short-description-avatar user-avatar medium no-stats"
 							href="group-timeline.html"> <!-- USER AVATAR BORDER -->
 							<div class="user-avatar-border">
-								<!-- HEXAGON -->
 								<div class="hexagon-120-130"></div>
-								<!-- /HEXAGON -->
 							</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 							<div class="user-avatar-content">
-								<!-- HEXAGON -->
 								<figure class="user-preview-cover liquid"
 									th:if="${groupList.file_check}=='Y'">
 									<div id="profile" class="hexagon-image-100-110"
@@ -139,107 +100,58 @@
 									<div id="profile" class="hexagon-image-100-110"
 										data-src="../../img/group_baseProfile.png"></div>
 								</figure>
-								<!-- /HEXAGON -->
-							</div> <!-- /USER AVATAR CONTENT -->
+							</div>
 						</a>
-						<!-- /USER SHORT DESCRIPTION AVATAR -->
 
-						<!-- USER SHORT DESCRIPTION TITLE -->
 						<p class="user-short-description-title"
 							th:text="${groupList.g_name}">
 							<a href="group-timeline.html"></a>
 						</p>
-						<!-- /USER SHORT DESCRIPTION TITLE -->
 
-						<!-- USER SHORT DESCRIPTION TEXT -->
 						<p class="user-short-description-text"
 							th:text="${groupList.g_intro}"></p>
-						<!-- /USER SHORT DESCRIPTION TEXT -->
 					</div>
-					<!-- /USER SHORT DESCRIPTION -->
 
-					<!-- USER STATS -->
 					<div class="user-stats">
-						<!-- USER STAT -->
 						<div class="user-stat">
-							<!-- USER STAT TITLE -->
 							<p class="user-stat-title" th:text="${groupList.userCount}"></p>
-							<!-- /USER STAT TITLE -->
-
-							<!-- USER STAT TEXT -->
 							<p class="user-stat-text">멤버</p>
-							<!-- /USER STAT TEXT -->
 						</div>
-						<!-- /USER STAT -->
-
-						<!-- USER STAT -->
 						<div class="user-stat">
-							<!-- USER STAT TITLE -->
 							<p class="user-stat-title" th:text="${groupList.boardCount}"></p>
-							<!-- /USER STAT TITLE -->
 
-							<!-- USER STAT TEXT -->
 							<p class="user-stat-text">게시글</p>
-							<!-- /USER STAT TEXT -->
 						</div>
-						<!-- /USER STAT -->
 
-						<!-- USER STAT -->
 						<div class="user-stat">
-							<!-- USER STAT TITLE -->
 							<p class="user-stat-title" th:text="${groupList.g_cate}"></p>
-							<!-- /USER STAT TITLE -->
 
-							<!-- USER STAT TEXT -->
 							<p class="user-stat-text">카테고리</p>
-							<!-- /USER STAT TEXT -->
 						</div>
-						<!-- /USER STAT -->
 					</div>
-					<!-- /USER STATS -->
 
-					<!-- USER AVATAR LIST -->
 					<div class="user-avatar-list medium reverse centered">
-						<!-- USER AVATAR -->
 						<div class="user-avatar smaller no-stats"
 							th:each="groupUser:${groupList.groupUser}">
-							<!-- USER AVATAR BORDER -->
 							<div class="user-avatar-border">
-								<!-- HEXAGON -->
 								<div class="hexagon-34-36"></div>
-								<!-- /HEXAGON -->
 							</div>
-							<!-- /USER AVATAR BORDER -->
 
-							<!-- USER AVATAR CONTENT -->
 							<div class="user-avatar-content">
-								<!-- HEXAGON -->
 								<div class="hexagon-image-30-32"
 									th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
-								<!-- /HEXAGON -->
 							</div>
-							<!-- /USER AVATAR CONTENT -->
 						</div>
-						<!-- /USER AVATAR -->
 					</div>
-					<!-- /USER AVATAR LIST -->
 
-					<!-- USER PREVIEW ACTIONS -->
 					<div class="user-preview-actions">
-						<!-- BUTTON -->
 						<a class="button secondary full"
 							th:href="@{/group_detail/{gno}(gno=${groupList.gno})}">자세히 보기</a>
-						<!-- /BUTTON -->
 					</div>
-					<!-- /USER PREVIEW ACTIONS -->
 				</div>
-				<!-- /USER PREVIEW INFO -->
 			</div>
-			<!-- /USER PREVIEW -->
 		</div>
-		<!-- /GRID -->
 	</div>
-	<!-- /CONTENT GRID -->
 	<div class="noticemodal" id="createmodal"></div>
 	<div id="createcontent" class="modal-con modalnotice">
 		<a href="javascript:;" class="modalclose"> <svg
@@ -252,36 +164,23 @@
 		</p>
 		<div class="con">
 			<div class="form-box login-register-form-element">
-				<!-- FORM BOX DECORATION -->
 				<img class="form-box-decoration" src="img/landing/rocket.png"
 					alt="rocket">
-				<!-- /FORM BOX DECORATION -->
-				<!-- FORM BOX TITLE -->
 				<h2 class="form-box-title">그룹 생성</h2>
-				<!-- /FORM BOX TITLE -->
 
-				<!-- FORM -->
 				<form class="form" method="post" id="goal_submit" action="/group_create"
 					enctype="multipart/form-data">
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<div class="form-input">
 								<label for="register-email">그룹명</label> <input type="text"
 									class="form-control form-control-lg input-lg" id="g_name"
 									name="g_name">
 							</div>
-							<!-- /FORM INPUT -->
 						</div>
-						<!-- /FORM ITEM -->
 					</div>
-					<!-- /FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<label for="register-email">그룹 프로필</label>
 							<div class="form-input">
 
@@ -294,26 +193,17 @@
 							</div>
 						</div>
 					</div>
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<div class="form-input">
 								<label for="register-username">그룹 소개</label>
 								<textarea row="3" class="form-control" id="g_intro"
 									name="g_intro"></textarea>
 							</div>
-							<!-- /FORM INPUT -->
 						</div>
-						<!-- /FORM ITEM -->
 					</div>
-					<!-- /FORM ROW -->
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<label>공개 여부</label>
 							<div class="form-input">
 								<input type="radio" id="g_open" name="g_open" value="Y">
@@ -321,16 +211,10 @@
 									name="g_open" value="N"> <span for="g_close">비공개</span>
 								</label>
 							</div>
-							<!-- /FORM INPUT -->
 						</div>
-						<!-- /FORM ITEM -->
 					</div>
-					<!-- /FORM ROW -->
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<label for="register-password">카테고리</label>
 							<div class="form-input">
 								<select id="g_cate" name="g_cate">
@@ -341,16 +225,10 @@
 									<option value="기타">기타</option>
 								</select>
 							</div>
-							<!-- /FORM INPUT -->
 						</div>
-						<!-- /FORM ITEM -->
 					</div>
-					<!-- /FORM ROW -->
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- FORM INPUT -->
 							<label for="projectinput5">목표 달성 일자</label>
 							<fieldset id="goal_input" class="f">
 								<select id="goal_down" class="form-control">
@@ -368,48 +246,28 @@
 								name="goal_enddate">
 						</div>
 					</div>
-					<!-- FORM ROW -->
 					<div class="form-row">
-						<!-- FORM ITEM -->
 						<div class="form-item">
-							<!-- BUTTON -->
 							<input type="button" id="groupCreateBtn"
 								class="button medium primary" style="width:356px; height:54px" value="그룹 가입하기">
-							<!-- /BUTTON -->
 						</div>
-						<!-- /FORM ITEM -->
 					</div>
-					<!-- /FORM ROW -->
 				</form>
-				<!-- /FORM -->
 			</div>
-			<!-- /FORM BOX -->
 		</div>
 	</div>
 	<div th:insert="/view/fragments/modal.html :: modal"></div>
-	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
-	<!-- page loader -->
 	<script src="../../js/utils/page-loader.js"></script>
-	<!-- simplebar -->
 	<script src="../../js/vendor/simplebar.min.js"></script>
-	<!-- liquidify -->
 	<script src="../../js/utils/liquidify.js"></script>
-	<!-- XM_Plugins -->
 	<script src="../../js/vendor/xm_plugins.min.js"></script>
-	<!-- global.hexagons -->
 	<script src="../../js/global/global.hexagons.js"></script>
-	<!-- global.tooltips -->
 	<script src="../../js/global/global.tooltips.js"></script>
-	<!-- header -->
 	<script src="../../js/header/header.js"></script>
-	<!-- sidebar -->
 	<script src="../../js/sidebar/sidebar.js"></script>
-	<!-- content -->
 	<script src="../../js/content/content.js"></script>
-	<!-- form.utils -->
 	<script src="../../js/form/form.utils.js"></script>
-	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
 	<script src="../../js/modal/modal.js"></script>
 	<script src="../../js/group_create.js" type="text/javascript"></script>

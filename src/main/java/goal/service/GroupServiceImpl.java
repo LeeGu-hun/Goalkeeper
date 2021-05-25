@@ -162,8 +162,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public GroupVO findGroupbyUno(UserVO user) {
-		return groupMapper.findGroupbyUno(user);
+	public GroupVO findGroupbyUno(int uno) {
+		return groupUserMapper.findGroupbyUno(uno);
 	}
 	
 }

@@ -32,4 +32,7 @@
 	<select id="findRolebyUser" parameterType="goal.vo.GroupUserVO" resultType="String">
 		select g_role from gk_group_user where uno=#{uno} and gno=#{gno}
 	</select>
+	<select id="findGroupbyUno" parameterType="int" resultMap="goal.vo.groupVO">
+		select GNO, UNO, G_NAME, G_DATE, G_INTRO, G_CATE, G_OPEN, FILE_CHECK, BGI_CHECK from gk_allgroup a, gk_group_user u where a.gno=u.gno and u.uno=#{uno]
+	</select>
 </mapper>

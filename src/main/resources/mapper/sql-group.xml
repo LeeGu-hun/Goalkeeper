@@ -110,7 +110,4 @@
 	<select id="findStatbyDno" parameterType="goal.vo.GroupDataVO" resultType="goal.vo.GroupDataVO">
 		
 	</select>
-	<select id="findGroupbyUno" parameterType="goal.vo.UserVO" resultMap="groupVO">
-		select * from gk_allgroup a, gk_group_user u where a.gno=u.gno and u.uno=#{uno}
-	</select>
 </mapper>
