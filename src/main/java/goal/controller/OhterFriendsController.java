@@ -82,7 +82,8 @@ public class OhterFriendsController {
 	@GetMapping("/myFriends/{userId}")
 	public ModelAndView getMyPageFriendsList(HttpServletRequest request,@PathVariable String userId, UserVO vo, FriendVO friend) {
 		this.userId = userId;
-		vo = commonService.getLoginUser(request);
+		
+		UserVO user = commonService.getLoginUser(request);
 		UserVO myPageUser = userService.myPageUserInfo(userId);
 		friend.setUno(myPageUser.getUno());
 		int countFriend = friendService.countFriends(myPageUser.getUno());
@@ -94,7 +95,8 @@ public class OhterFriendsController {
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
-		
+		mv.addObject("user", user);
+		mv.addObject("vo", myPageUser);
 		mv.addObject("uno", myPageUser.getUno());
 		mv.addObject("userId", myPageUser.getUserId());
 		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
@@ -103,11 +105,11 @@ public class OhterFriendsController {
 		mv.addObject("profile", myPageUser.getUserFileCheck());
 		mv.addObject("background", myPageUser.getUserBackCheck());
 		
-		if(vo != null) {
-			mv.addObject("loginUserId", vo.getUserId());
-			mv.addObject("loginUserBirthdate", vo.getUserBirthdate());
-			mv.addObject("loginUserProfile", vo.getUserFileCheck());
-			mv.addObject("loginUserBackground", vo.getUserBackCheck());
+		if(user != null) {
+			mv.addObject("loginUserId", user.getUserId());
+			mv.addObject("loginUserBirthdate", user.getUserBirthdate());
+			mv.addObject("loginUserProfile", user.getUserFileCheck());
+			mv.addObject("loginUserBackground", user.getUserBackCheck());
 		}
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
