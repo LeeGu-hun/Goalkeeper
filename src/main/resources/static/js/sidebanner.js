@@ -8,14 +8,21 @@
 	    var currentTop = $(window).scrollTop();
 	    var RbannerTop = currentTop + RfloatPosition + "px";
 	    var LbannerTop = currentTop + LfloatPosition + "px";
-	    var kjm = currentTop + 390 + "px";
 	    //이동 애니메이션
+	     if($(window).scrollTop()>390){
+	    	document.getElementById("lefthidden").style.visibility = "visible";
+	    } else if($(window).scrollTop()<390){
+	    	document.getElementById("lefthidden").style.visibility = "hidden";
+	    }
+	    	
+	     if($(window).scrollTop()>390){
+	    	document.getElementById("righthidden").style.visibility = "visible";
+	    } else if($(window).scrollTop()<390){
+	    	document.getElementById("righthidden").style.visibility = "hidden";
+	    }	
 	    $("#right_widget").stop().animate({
 	      "top" : RbannerTop
 	    }, 300);
-	    if(kjm){
-	    	$("#kjm").fadeIn();
-	    }
 	    $("#left_widget").stop().animate({
 		  "top" : LbannerTop
 		}, 300);

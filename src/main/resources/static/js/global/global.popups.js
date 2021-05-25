@@ -1,20 +1,8 @@
 /*----------------
     POPUPS 
 ----------------*/
-app.plugins.createPopup({
-  container: '.popup-video',
-  trigger: '.popup-video-trigger',
-  sticky: true,
-  overlay: {
-    color: '21, 21, 31',
-    opacity: .96
-  },
-  animation: {
-    type: 'translate-in-fade',
-    speed: .3,
-    translateOffset: 40
-  }
-});
+var popupbno = "${post.bno}"
+
 
 app.plugins.createPopup({
   container: '.popup-picture',

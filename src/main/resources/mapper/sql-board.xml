@@ -213,4 +213,8 @@
 	<select id="myGroupCount" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM GK_group_user WHERE UNO=#{UNO}
 	</select>
+	
+	<select id="recGroup" resultType="string" parameterType="goal.vo.GroupVO">
+		select * from (select * from gk_allgroup order by dbms_random.value) where rownum = 1
+	</select>
 </mapper>
