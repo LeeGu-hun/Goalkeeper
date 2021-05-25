@@ -107,7 +107,7 @@ public class FriendsController {
 		return mv;
 	}
 	
-	@PostMapping("/myFriends")
+	@PostMapping("/myFriends/{userId}")
 	public ModelAndView searchFriend(@RequestParam(value="friends_search") String word, UserVO vo, HttpServletRequest request) {
 		vo = commonService.getLoginUser(request);
 		UserVO user = new UserVO();

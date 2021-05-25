@@ -100,7 +100,7 @@ public class OhterFriendsController {
 		mv.addObject("userId", myPageUser.getUserId());
 		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
 		mv.addObject("userFileCheck", myPageUser.getUserFileCheck());
-		mv.addObject("userBackCheck", myPageUser.getUserBackCheck());
+		
 		mv.addObject("profile", myPageUser.getUserFileCheck());
 		mv.addObject("background", myPageUser.getUserBackCheck());
 		

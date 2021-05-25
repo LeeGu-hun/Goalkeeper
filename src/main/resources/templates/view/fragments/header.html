@@ -393,7 +393,7 @@
           Members
         </a>
         <!-- 로그인 후 -->
-        <a th:if="${user!=null}"class="menu-item-link" href="/members">
+        <a th:if="${user!=null}"class="menu-item-link" th:href="@{/myFriends/}+${user.userId}">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-members">
             <use xlink:href="#svg-members"></use>

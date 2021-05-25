@@ -270,14 +270,9 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<div th:if="${user!= null}">
-					<div th:if="${user.userId} == ${vo.userId}">
-						<a class="section-menu-item" href="/myFriends"> <!-- SECTION MENU ITEM ICON -->
-					</div>
-					<div th:unless="${user.userId} == ${vo.userId}">
-						<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
-					</div>
-				</div>
+				
+				<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
+
 				<div th:unless="${user!= null}">
 					<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
 				</div>
