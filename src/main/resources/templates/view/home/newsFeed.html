@@ -75,7 +75,7 @@
 								<path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
 							</svg>
 						</div>
-					<h1 class="nousersidetext">지금<br>가입하고<br>포스팅하세요!</h1>
+					<a href="/login" class="nousersidetext">지금<br><br>가입하고<br><br>포스팅하세요!</a>
 					</div>
 				</div>
 				<div class="widget-box" th:unless="${user}==null">
@@ -155,7 +155,7 @@
 					</div>
 					<div style="margin-top:40px;" class="filters">
 							<!-- FILTER -->
-							<p class="filter active">새로운 친구 만나기 <svg class="icon-plus-small demo-box-icon"><use xlink:href="#svg-plus-small"></use></svg></p>
+							<a href="/mySearchFriends" class="filter active">새로운 친구 만나기 <svg class="icon-plus-small demo-box-icon"><use xlink:href="#svg-plus-small"></use></svg></a>
 							<!-- /FILTER -->
 						</div>
 					<!-- WIDGET BOX CONTENT -->
@@ -842,7 +842,6 @@
 				<!-- /WIDGET BOX -->
 			</div>
 			<!-- /GRID COLUMN -->
-
 			<form name="form" id="boardWrite" action="/home/insert.do"
 				method="post" enctype="multipart/form-data">
 				<!-- GRID COLUMN -->
@@ -1428,7 +1427,8 @@
 		<!-- /GRID COLUMN -->
 
 		<!-- GRID COLUMN -->
-		<div id="right_widget" style="" class="grid-column">
+		<div id="right_widget" style="position: absolute;width: 280px; right:0; 
+				height: 200px;top: 305px;"class="grid-column">
 			<!-- STATS BOX SLIDER -->
 			<div class="stats-box-slider">
 				<!-- STATS BOX SLIDER CONTROLS -->
@@ -1680,6 +1680,24 @@
 
 
 	<!-- app -->
+	<script>
+	// 기본 위치(top)값
+	var floatPosition = parseInt($("#right_widget").css('top'))
+
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop();
+	    var bannerTop = currentTop + floatPosition + "px";
+
+	    //이동 애니메이션
+	    $("#right_widget").stop().animate({
+	      "top" : bannerTop
+	    }, 300);
+
+	}).scroll();
+	</script>
 	<script src="../../js/noticemodal.js"></script>
 	<script src="../../js/newsfeed.js"></script>
 	<script src="../../js/utils/app.js"></script>
