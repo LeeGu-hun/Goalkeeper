@@ -50,7 +50,8 @@
 		<!-- GRID -->
 		<div class="grid grid-3-6-3 mobile-prefer-content">
 			<!-- GRID COLUMN -->
-			<div class="grid-column">
+			<div id="left_widget" class="grid-column" style="position: absolute;width: 280px; left:0; 
+				height: 200px;top: 305px;">
 				<!-- WIDGET BOX -->
 				<div style="height: 190px" class="widget-box">
 					<div id="textwidget_box">
@@ -68,23 +69,27 @@
 				<!-- /WIDGET BOX -->
 
 				<!-- WIDGET BOX -->
-				<div class="widget-box" style="padding:10px 10px" th:if="${user}==null">
-					<div style="height:500px; border-radius:12px" id="nouserside">
+				<div class="widget-box" style="padding: 10px 10px"
+					th:if="${user}==null">
+					<div style="height: 500px; border-radius: 12px" id="nouserside">
 						<div class="blob">
-							<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
-								<path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+							<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+								<path
+									d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z" />
 							</svg>
 						</div>
-					<a href="/login" class="nousersidetext">지금<br><br>가입하고<br><br>포스팅하세요!</a>
+						<a href="/login" class="nousersidetext">지금<br>
+						<br>가입하고<br>
+						<br>포스팅하세요!
+						</a>
 					</div>
 				</div>
 				<div class="widget-box" th:unless="${user}==null">
 					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
 						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-				
-						</div>
+						<div class="post-settings-wrap"></div>
 						<!-- /POST SETTINGS WRAP -->
 					</div>
 					<!-- /WIDGET BOX SETTINGS -->
@@ -100,752 +105,78 @@
 						<div class="user-status-list">
 							<!-- USER STATUS -->
 							<div th:each="friend:${getlistFriend}">
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/07.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
+								<div class="user-status request-small">
+									<!-- USER STATUS AVATAR -->
+									<a class="user-status-avatar" href="profile-timeline.html">
+										<!-- USER AVATAR -->
+										<div class="user-avatar small no-outline">
+											<!-- USER AVATAR CONTENT -->
+											<div class="user-avatar-content">
+												<!-- HEXAGON -->
+												<div class="hexagon-image-30-32"
+													data-src="img/avatar/07.jpg"></div>
+												<!-- /HEXAGON -->
+											</div>
+											<!-- /USER AVATAR CONTENT -->
 
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
+											<!-- USER AVATAR PROGRESS -->
+											<div class="user-avatar-progress">
+												<!-- HEXAGON -->
+												<div class="hexagon-progress-40-44"></div>
+												<!-- /HEXAGON -->
+											</div>
+											<!-- /USER AVATAR PROGRESS -->
 
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
+											<!-- USER AVATAR PROGRESS BORDER -->
+											<div class="user-avatar-progress-border">
+												<!-- HEXAGON -->
+												<div class="hexagon-border-40-44"></div>
+												<!-- /HEXAGON -->
+											</div>
+											<!-- /USER AVATAR PROGRESS BORDER -->
 
-									
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
 
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title" th:text="${friend.friendId}">
-									<!-- <a class="bold" href="profile-timeline.html" ></a> -->
-								</p>
-								<!-- /USER STATUS TITLE -->
+										</div> <!-- /USER AVATAR -->
+									</a>
+									<!-- /USER STATUS AVATAR -->
 
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">24.5K profile views</p>
-								<!-- /USER STATUS TEXT -->
+									<!-- USER STATUS TITLE -->
+									<p class="user-status-title" th:text="${friend.friendId}">
+										<!-- <a class="bold" href="profile-timeline.html" ></a> -->
+									</p>
+									<!-- /USER STATUS TITLE -->
 
-								<!-- ACTION REQUEST LIST -->
-								
-								<!-- ACTION REQUEST LIST -->
-							</div>
+									<!-- USER STATUS TEXT -->
+									<p class="user-status-text small">24.5K profile views</p>
+									<!-- /USER STATUS TEXT -->
+
+									<!-- ACTION REQUEST LIST -->
+
+									<!-- ACTION REQUEST LIST -->
+								</div>
 							</div>
 							<!-- /USER STATUS -->
 						</div>
 						<!-- /USER STATUS LIST -->
 					</div>
-					<div style="margin-top:40px;" class="filters">
-							<!-- FILTER -->
-							<a href="/mySearchFriends" class="filter active">새로운 친구 만나기 <svg class="icon-plus-small demo-box-icon"><use xlink:href="#svg-plus-small"></use></svg></a>
-							<!-- /FILTER -->
-						</div>
-					<!-- WIDGET BOX CONTENT -->
-				</div>
-				<!-- /WIDGET BOX -->
-
-				<!-- WIDGET BOX -->
-				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
-					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
-								<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
-								<!-- /POST SETTINGS ICON -->
-							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-							</div>
-							<!-- /SIMPLE DROPDOWN -->
-						</div>
-						<!-- /POST SETTINGS WRAP -->
-					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">Members</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
-						<!-- FILTERS -->
-						<div class="filters">
-							<!-- FILTER -->
-							<p class="filter">Newest</p>
-							<!-- /FILTER -->
-
-							<!-- FILTER -->
-							<p class="filter active">Popular</p>
-							<!-- /FILTER -->
-
-							<!-- FILTER -->
-							<p class="filter">Active</p>
-							<!-- /FILTER -->
-						</div>
-						<!-- /FILTERS -->
-
-						<!-- USER STATUS LIST -->
-						<div class="user-status-list">
-							<!-- USER STATUS -->
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/07.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">26</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html">Sarah Diamond</a>
-								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">24.5K profile views</p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
-								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
-									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
-										<svg class="action-request-icon icon-add-friend">
-                      <use xlink:href="#svg-add-friend"></use>
-                    </svg>
-										<!-- /ACTION REQUEST ICON -->
-									</div>
-									<!-- /ACTION REQUEST -->
-								</div>
-								<!-- ACTION REQUEST LIST -->
-							</div>
-							<!-- /USER STATUS -->
-
-							<!-- USER STATUS -->
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/03.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">16</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html">Nick Grissom</a>
-								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">20.1K profile views</p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
-								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
-									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
-										<svg class="action-request-icon icon-add-friend">
-                      <use xlink:href="#svg-add-friend"></use>
-                    </svg>
-										<!-- /ACTION REQUEST ICON -->
-									</div>
-									<!-- /ACTION REQUEST -->
-								</div>
-								<!-- ACTION REQUEST LIST -->
-							</div>
-							<!-- /USER STATUS -->
-
-							<!-- USER STATUS -->
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/23.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">19</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html">Rosie Sakura</a>
-								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">19.7K profile views</p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
-								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
-									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
-										<svg class="action-request-icon icon-add-friend">
-                      <use xlink:href="#svg-add-friend"></use>
-                    </svg>
-										<!-- /ACTION REQUEST ICON -->
-									</div>
-									<!-- /ACTION REQUEST -->
-								</div>
-								<!-- ACTION REQUEST LIST -->
-							</div>
-							<!-- /USER STATUS -->
-
-							<!-- USER STATUS -->
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/15.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">22</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html">Peter Stark</a>
-								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">16.5K profile views</p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
-								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
-									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
-										<svg class="action-request-icon icon-add-friend">
-                      <use xlink:href="#svg-add-friend"></use>
-                    </svg>
-										<!-- /ACTION REQUEST ICON -->
-									</div>
-									<!-- /ACTION REQUEST -->
-								</div>
-								<!-- ACTION REQUEST LIST -->
-							</div>
-							<!-- /USER STATUS -->
-
-							<!-- USER STATUS -->
-							<div class="user-status request-small">
-								<!-- USER STATUS AVATAR -->
-								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32" data-src="img/avatar/04.jpg"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
-										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
-											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
-										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
-											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
-										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
-										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
-											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
-												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
-											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
-												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
-											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
-											<p class="user-avatar-badge-text">6</p>
-											<!-- /USER AVATAR BADGE TEXT -->
-										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
-								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-								<p class="user-status-title">
-									<a class="bold" href="profile-timeline.html">Bearded Wonder</a>
-								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
-								<p class="user-status-text small">9.8K profile views</p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
-								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
-									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
-										<svg class="action-request-icon icon-add-friend">
-                      <use xlink:href="#svg-add-friend"></use>
-                    </svg>
-										<!-- /ACTION REQUEST ICON -->
-									</div>
-									<!-- /ACTION REQUEST -->
-								</div>
-								<!-- ACTION REQUEST LIST -->
-							</div>
-							<!-- /USER STATUS -->
-						</div>
-						<!-- /USER STATUS LIST -->
+					<div style="margin-top: 40px;" class="filters">
+						<!-- FILTER -->
+						<a href="/mySearchFriends" class="filter active">새로운 친구 만나기 <svg
+								class="icon-plus-small demo-box-icon">
+								<use xlink:href="#svg-plus-small"></use></svg></a>
+						<!-- /FILTER -->
 					</div>
 					<!-- WIDGET BOX CONTENT -->
 				</div>
 				<!-- /WIDGET BOX -->
 
-				<!-- BANNER PROMO -->
-				<a class="banner-promo"
-					href="https://themeforest.net/user/odin_design" target="_blank">
-					<img src="img/banner/banner-promo.jpg" alt="banner-promo">
-				</a>
-				<!-- /BANNER PROMO -->
-
-				<!-- WIDGET BOX -->
-				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
-					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
-								<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
-								<!-- /POST SETTINGS ICON -->
-							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-							</div>
-							<!-- /SIMPLE DROPDOWN -->
-						</div>
-						<!-- /POST SETTINGS WRAP -->
-					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">Open Quests</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
-						<!-- QUEST PREVIEW LIST -->
-						<div class="quest-preview-list">
-							<!-- QUEST PREVIEW -->
-							<div class="quest-preview">
-								<!-- QUEST PREVIEW INFO -->
-								<div class="quest-preview-info">
-									<!-- QUEST PREVIEW IMAGE -->
-									<img class="quest-preview-image" src="img/quest/openq-s.png"
-										alt="openq-s">
-									<!-- /QUEST PREVIEW IMAGE -->
-
-									<!-- QUEST PREVIEW TITLE -->
-									<p class="quest-preview-title">Nothing to hide</p>
-									<!-- /QUEST PREVIEW TITLE -->
-
-									<!-- QUEST PREVIEW TEXT -->
-									<p class="quest-preview-text">You have completed all your
-										profile information fields</p>
-									<!-- /QUEST PREVIEW TEXT -->
-								</div>
-								<!-- /QUEST PREVIEW INFO -->
-
-								<!-- PROGRESS STAT -->
-								<div class="progress-stat">
-									<!-- PROGRESS STAT BAR -->
-									<div id="quest-preview-nth" class="progress-stat-bar"></div>
-									<!-- /PROGRESS STAT BAR -->
-								</div>
-								<!-- /PROGRESS STAT -->
-							</div>
-							<!-- /QUEST PREVIEW -->
-
-							<!-- QUEST PREVIEW -->
-							<div class="quest-preview">
-								<!-- QUEST PREVIEW INFO -->
-								<div class="quest-preview-info">
-									<!-- QUEST PREVIEW IMAGE -->
-									<img class="quest-preview-image" src="img/quest/openq-s.png"
-										alt="openq-s">
-									<!-- /QUEST PREVIEW IMAGE -->
-
-									<!-- QUEST PREVIEW TITLE -->
-									<p class="quest-preview-title">Social King</p>
-									<!-- /QUEST PREVIEW TITLE -->
-
-									<!-- QUEST PREVIEW TEXT -->
-									<p class="quest-preview-text">You have linked at least 8
-										social networks to your profile</p>
-									<!-- /QUEST PREVIEW TEXT -->
-								</div>
-								<!-- /QUEST PREVIEW INFO -->
-
-								<!-- PROGRESS STAT -->
-								<div class="progress-stat">
-									<!-- PROGRESS STAT BAR -->
-									<div id="quest-preview-sk" class="progress-stat-bar"></div>
-									<!-- /PROGRESS STAT BAR -->
-								</div>
-								<!-- /PROGRESS STAT -->
-							</div>
-							<!-- /QUEST PREVIEW -->
-
-							<!-- QUEST PREVIEW -->
-							<div class="quest-preview">
-								<!-- QUEST PREVIEW INFO -->
-								<div class="quest-preview-info">
-									<!-- QUEST PREVIEW IMAGE -->
-									<img class="quest-preview-image" src="img/quest/openq-s.png"
-										alt="openq-s">
-									<!-- /QUEST PREVIEW IMAGE -->
-
-									<!-- QUEST PREVIEW TITLE -->
-									<p class="quest-preview-title">Buffed Profile</p>
-									<!-- /QUEST PREVIEW TITLE -->
-
-									<!-- QUEST PREVIEW TEXT -->
-									<p class="quest-preview-text">You have posted every day for
-										at least 30 days in a row</p>
-									<!-- /QUEST PREVIEW TEXT -->
-								</div>
-								<!-- /QUEST PREVIEW INFO -->
-
-								<!-- PROGRESS STAT -->
-								<div class="progress-stat">
-									<!-- PROGRESS STAT BAR -->
-									<div id="quest-preview-bp" class="progress-stat-bar"></div>
-									<!-- /PROGRESS STAT BAR -->
-								</div>
-								<!-- /PROGRESS STAT -->
-							</div>
-							<!-- /QUEST PREVIEW -->
-
-							<!-- QUEST PREVIEW -->
-							<div class="quest-preview">
-								<!-- QUEST PREVIEW INFO -->
-								<div class="quest-preview-info">
-									<!-- QUEST PREVIEW IMAGE -->
-									<img class="quest-preview-image" src="img/quest/openq-s.png"
-										alt="openq-s">
-									<!-- /QUEST PREVIEW IMAGE -->
-
-									<!-- QUEST PREVIEW TITLE -->
-									<p class="quest-preview-title">Hear the People</p>
-									<!-- /QUEST PREVIEW TITLE -->
-
-									<!-- QUEST PREVIEW TEXT -->
-									<p class="quest-preview-text">You have created and posted
-										your first poll</p>
-									<!-- /QUEST PREVIEW TEXT -->
-								</div>
-								<!-- /QUEST PREVIEW INFO -->
-
-								<!-- PROGRESS STAT -->
-								<div class="progress-stat">
-									<!-- PROGRESS STAT BAR -->
-									<div id="quest-preview-htp" class="progress-stat-bar"></div>
-									<!-- /PROGRESS STAT BAR -->
-								</div>
-								<!-- /PROGRESS STAT -->
-							</div>
-							<!-- /QUEST PREVIEW -->
-
-							<!-- QUEST PREVIEW -->
-							<div class="quest-preview">
-								<!-- QUEST PREVIEW INFO -->
-								<div class="quest-preview-info">
-									<!-- QUEST PREVIEW IMAGE -->
-									<img class="quest-preview-image" src="img/quest/openq-s.png"
-										alt="openq-s">
-									<!-- /QUEST PREVIEW IMAGE -->
-
-									<!-- QUEST PREVIEW TITLE -->
-									<p class="quest-preview-title">Store Manager</p>
-									<!-- /QUEST PREVIEW TITLE -->
-
-									<!-- QUEST PREVIEW TEXT -->
-									<p class="quest-preview-text">You have uploaded at least 10
-										items in your shop</p>
-									<!-- /QUEST PREVIEW TEXT -->
-								</div>
-								<!-- /QUEST PREVIEW INFO -->
-
-								<!-- PROGRESS STAT -->
-								<div class="progress-stat">
-									<!-- PROGRESS STAT BAR -->
-									<div id="quest-preview-sm" class="progress-stat-bar"></div>
-									<!-- /PROGRESS STAT BAR -->
-								</div>
-								<!-- /PROGRESS STAT -->
-							</div>
-							<!-- /QUEST PREVIEW -->
-						</div>
-						<!-- /QUEST PREVIEW LIST -->
-					</div>
-					<!-- WIDGET BOX CONTENT -->
-
-					<!-- WIDGET BOX BUTTON -->
-					<a class="widget-box-button button small white" href="quests.html">See
-						all Quests!</a>
-					<!-- /WIDGET BOX BUTTON -->
-				</div>
-				<!-- /WIDGET BOX -->
 			</div>
 			<!-- /GRID COLUMN -->
-			<form name="form" id="boardWrite" action="/home/insert.do"
-				method="post" enctype="multipart/form-data">
-				<!-- GRID COLUMN -->
-				<div class="grid-column">
+			<div class="grid-column">
+				<form name="form" id="boardWrite" action="/home/insert.do"
+					method="post" enctype="multipart/form-data">
+					<!-- GRID COLUMN -->
+
 					<!-- QUICK POST -->
 					<div class="quick-post" th:if="${user}!=null">
 						<!-- QUICK POST HEADER -->
@@ -861,7 +192,7 @@
                   <use xlink:href="#svg-status"></use>
                 </svg>
 									<!-- /OPTION ITEM ICON -->
-								
+
 									<!-- OPTION ITEM TITLE -->
 									<p class="option-item-title">전체 글</p>
 
@@ -1008,427 +339,434 @@
 								style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
 						</div>
 					</div>
-					<!-- /MODAL -->
-			</form>
 
-		
-
-			<!-- WIDGET BOX -->
-			<div class="simple-dropdown widget-box-post-settings-dropdown"
-							th:if="${BoList} == null">
-							
-							<h1>글이없어</h1>
-							
-							</div>
-			
-			
-			<div th:each="post, i:${BoList}" th:unless="${BoList} == null"
-				class="widget-box no-padding">
-				<form th:attr="id='delete_form'+${post.bno}" method="post"
-					enctype="multipart/form-data" action="/board/delete.do">
-					<input type="hidden" th:value="${post.bno}" name="bno">
 				</form>
-				<!-- WIDGET BOX SETTINGS -->
-				<div class="widget-box-settings">
-					<!-- POST SETTINGS WRAP -->
-					<div class="post-settings-wrap">
-						<!-- POST SETTINGS -->
-						<div
-							class="post-settings widget-box-post-settings-dropdown-trigger">
-							<!-- POST SETTINGS ICON -->
-							<svg class="post-settings-icon icon-more-dots">
+				<!-- WIDGET BOX -->
+				<div class="simple-dropdown widget-box-post-settings-dropdown"
+					th:if="${BoList} == null">
+
+					<h1>글이없어</h1>
+
+				</div>
+
+
+				<div th:each="post, i:${BoList}" th:unless="${BoList} == null"
+					class="widget-box no-padding">
+					<form th:attr="id='delete_form'+${post.bno}" method="post"
+						enctype="multipart/form-data" action="/board/delete.do">
+						<input type="hidden" th:value="${post.bno}" name="bno">
+					</form>
+					<!-- WIDGET BOX SETTINGS -->
+					<div class="widget-box-settings">
+						<!-- POST SETTINGS WRAP -->
+						<div class="post-settings-wrap">
+							<!-- POST SETTINGS -->
+							<div
+								class="post-settings widget-box-post-settings-dropdown-trigger">
+								<!-- POST SETTINGS ICON -->
+								<svg class="post-settings-icon icon-more-dots">
            				       <use xlink:href="#svg-more-dots"></use>
               			  </svg>
-							<!-- /POST SETTINGS ICON -->
-						</div>
-						<!-- /POST SETTINGS -->
-
-						<!-- SIMPLE DROPDOWN -->
-						<div class="simple-dropdown widget-box-post-settings-dropdown"
-							th:if="${user} == null"></div>
-						<div class="simple-dropdown widget-box-post-settings-dropdown"
-							th:unless="${user} == null">
-							<div th:if="${post.userId} == ${user.userId}">
-
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link"
-									th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link"
-									th:attr="id='delete'+${post.bno}"
-									th:onclick="|javascript:fnDelete('${post.bno}')|">Delete
-									Post</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
+								<!-- /POST SETTINGS ICON -->
 							</div>
-						</div>
+							<!-- /POST SETTINGS -->
 
-						<!-- /SIMPLE DROPDOWN -->
+							<!-- SIMPLE DROPDOWN -->
+							<div class="simple-dropdown widget-box-post-settings-dropdown"
+								th:if="${user} == null"></div>
+							<div class="simple-dropdown widget-box-post-settings-dropdown"
+								th:unless="${user} == null">
+								<div th:if="${post.userId} == ${user.userId}">
+
+									<!-- SIMPLE DROPDOWN LINK -->
+									<p class="simple-dropdown-link"
+										th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
+									<!-- /SIMPLE DROPDOWN LINK -->
+
+									<!-- SIMPLE DROPDOWN LINK -->
+									<p class="simple-dropdown-link"
+										th:attr="id='delete'+${post.bno}"
+										th:onclick="|javascript:fnDelete('${post.bno}')|">Delete
+										Post</p>
+									<!-- /SIMPLE DROPDOWN LINK -->
+								</div>
+							</div>
+
+							<!-- /SIMPLE DROPDOWN -->
+						</div>
+						<!-- /POST SETTINGS WRAP -->
 					</div>
-					<!-- /POST SETTINGS WRAP -->
-				</div>
-				<!-- /WIDGET BOX SETTINGS -->
+					<!-- /WIDGET BOX SETTINGS -->
 
-				<!-- WIDGET BOX STATUS -->
-				<div class="widget-box-status">
-					<!-- WIDGET BOX STATUS CONTENT -->
-					<div class="widget-box-status-content">
-						<!-- USER STATUS -->
-						<div class="user-status">
-							<!-- USER STATUS AVATAR -->
-							<a class="user-status-avatar" th:href="@{/myPage/}+${post.userId}"> <!-- USER AVATAR -->
-								<div class="user-avatar small no-outline">
-									<!-- USER AVATAR CONTENT -->
-									<div class="user-avatar-content">
-										<!-- HEXAGON -->
-										<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
-										<!-- /HEXAGON -->
-									</div >
-									<!-- /USER AVATAR CONTENT -->
-
-									<!-- USER AVATAR PROGRESS -->
-									<div class="user-avatar-progress">
-										<!-- HEXAGON -->
-										<div class="hexagon-progress-40-44"></div>
-										<!-- /HEXAGON -->
-									</div>
-									<!-- /USER AVATAR PROGRESS -->
-
-									<!-- USER AVATAR PROGRESS BORDER -->
-									<div class="user-avatar-progress-border">
-										<!-- HEXAGON -->
-										<div class="hexagon-border-40-44"></div>
-										<!-- /HEXAGON -->
-									</div>
-									<!-- /USER AVATAR PROGRESS BORDER -->
-
-									
-								</div> <!-- /USER AVATAR -->
-							</a>
-							<!-- /USER STATUS AVATAR -->
-
-							<!-- USER STATUS TITLE -->
-
-							<p class="user-status-title medium">
-								<a class="bold" href="profile-timeline.html"
-									th:text="${post.userId}"></a> uploaded a <span class="bold">post</span>
-							</p>
-
-							<!-- /USER STATUS TITLE -->
-
-							<!-- USER STATUS TEXT -->
-							<p class="user-status-text small" style="display: inline-block"
-								th:text="${post.bnoDay}"></p>
-							<p class="user-status-text small" style="display: inline-block"
-								th:text="${post.bnoTime}+' 작성'" th:if="${post.bnoTime}!=null"></p>
-							<!-- /USER STATUS TEXT -->
-						</div>
-						<!-- /USER STATUS -->
-
-						<!-- WIDGET BOX STATUS TEXT -->
-						<form style="margin-top: 30px"
-							th:attr="id='modify_form'+${post.bno}" method="post"
-							enctype="multipart/form-data" action="/board/modify.do">
-
-							<p th:attr="id=${post.bno}"
-								class="widget-box-status-text content_board"
-								th:text="${post.bo_content}"></p>
-								
-							<input type="hidden" th:value="${post.bo_content}" th:attr="id='detailmodal_content'+${post.bno}">
-							<input type="hidden" th:value="${post.userId}" th:attr="id='detailmodal_userId'+${post.bno}">
-							<input type="hidden" th:value="board" name="placeCheck">
-							<input type="hidden" th:value="${post.bno}" name="bno"> 
-							<input type="hidden" th:value="${post.bo_cate}" name="bo_cate">
-
-							<div class="modify" th:attr="id='modify'+${post.bno}"
-								style="margin-bottom: 60px; display: none">
-								<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
-								<button type=submit class="button small secondary edit_btn"
-									style="width: 80px; float: right;">수정완료</button>
-								<p class="button small edit_cancelbtn"
-									style="width: 80px; float: right;">취소</p>
-							</div>
-						</form>
-						<!-- /WIDGET BOX STATUS TEXT -->
-
-						<!-- /WIDGET BOX STATUS CONTENT -->
-
-						<!-- IFRAME WRAP -->
-						<div>
-							<!-- PICTURE COLLAGE -->
-							<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
-								<!-- PICTURE COLLAGE ROW -->
-								<div class="picture-collage-row medium">
-									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger" 
-										th:data-parameter1="${post.bno}"
-										th:data-parameter2="${file.uuid}"
-										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
-										this.getAttribute('data-parameter2'))|" 
-										th:attr="id='popup'+${post.bno}"
-										th:each="file, i:${post.fileList}" th:if="${i.index}<3">
-										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview">
-											<!-- PHOTO PREVIEW IMAGE -->
-											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}, id='modal'+${file.uuid}"
-													alt="photo-preview-10">
-												<input type="hidden" th:value="${file.uuid}" 
-												th:id="|img${file.fileCnt}of${file.bno}|"> 
-											</figure>
-											<!-- /PHOTO PREVIEW IMAGE -->
-
-											<!-- PHOTO PREVIEW INFO -->
-											<div class="photo-preview-info">
-												<!-- REACTION COUNT LIST -->
-												<div class="reaction-count-list">
-
-
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-magnifying-glass">
-                              <use xlink:href="#svg-magnifying-glass"></use>
-                            </svg>
-														<!-- /REACTION COUNT ICON -->
-
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">detail</p>
-														<!-- /REACTION COUNT TEXT -->
-													</div>
-													<!-- /REACTION COUNT -->
-												</div>
-												<!-- /REACTION COUNT LIST -->
-											</div>
-											<!-- /PHOTO PREVIEW INFO -->
-										</div>
-										<!-- /PHOTO PREVIEW -->
-									</div>
-									<!-- /PICTURE COLLAGE ITEM -->
-								</div>
-								<!-- /PICTURE COLLAGE ROW -->
-
-								<!-- PICTURE COLLAGE ROW -->
-								<div class="picture-collage-row" th:if="${post.bo_fileCount}>=3">
-									<!-- PICTURE COLLAGE ITEM -->
-									<div class="picture-collage-item popup-picture-trigger"
-										th:data-parameter1="${post.bno}"
-										th:data-parameter2="${file.uuid}"
-										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
-										this.getAttribute('data-parameter2'))|" 
-										th:attr="id='popup'+${post.bno}"
-										th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
-										
-										<!-- PHOTO PREVIEW -->
-										<div class="photo-preview">
-											<!-- PHOTO PREVIEW IMAGE -->
-											<figure class="photo-preview-image liquid">
-												<img th:attr="src=@{/boardImage/}+${file.uuid}, id='modal'+${file.uuid}"
-													alt="photo-preview-16">
-												<input type="hidden" th:value="${file.uuid}" 
-												th:id="|img${file.fileCnt}of${file.bno}|"> 
-											</figure>
-											<!-- /PHOTO PREVIEW IMAGE -->
-
-											<!-- PHOTO PREVIEW INFO -->
-											<div class="photo-preview-info">
-												<!-- REACTION COUNT LIST -->
-												<div class="reaction-count-list">
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-thumbs-up">
-                              <use xlink:href="#svg-thumbs-up"></use>
-                            </svg>
-														<!-- /REACTION COUNT ICON -->
-
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">2</p>
-														<!-- /REACTION COUNT TEXT -->
-													</div>
-													<!-- /REACTION COUNT -->
-
-													<!-- REACTION COUNT -->
-													<div class="reaction-count negative">
-														<!-- REACTION COUNT ICON -->
-														<svg class="reaction-count-icon icon-comment">
-                              <use xlink:href="#svg-comment"></use>
-                            </svg>
-														<!-- /REACTION COUNT ICON -->
-
-														<!-- REACTION COUNT TEXT -->
-														<p class="reaction-count-text">5</p>
-														<!-- /REACTION COUNT TEXT -->
-													</div>
-													<!-- /REACTION COUNT -->
-												</div>
-												<!-- /REACTION COUNT LIST -->
-											</div>
-											<!-- /PHOTO PREVIEW INFO -->
-										</div>
-										<!-- /PHOTO PREVIEW -->
-									</div>
-									<!-- /PICTURE COLLAGE ITEM -->
-								</div>
-								<!-- /PICTURE COLLAGE ROW -->
-							</div>
-							<!-- /PICTURE COLLAGE -->
-						</div>
-						<!-- /IFRAME WRAP -->
-
+					<!-- WIDGET BOX STATUS -->
+					<div class="widget-box-status">
 						<!-- WIDGET BOX STATUS CONTENT -->
 						<div class="widget-box-status-content">
-							<!-- CONTENT ACTIONS -->
-							<div class="content-actions">
-								<!-- CONTENT ACTION -->
-								<div class="content-action">
-									<!-- META LINE -->
-									<div class="meta-line" th:id="reactStartDiv+${post.bno}">
-										<!-- META LINE LIST -->
-										<div class="meta-line-list reaction-item-list">
-											<!-- REACTION ITEM -->
-											<div class="reaction-item">
-												<!-- REACTION IMAGE -->
-												<img class="reaction-image reaction-item-dropdown-trigger"
-													th:attr="src=@{../../img/reaction/Like.png}"
-													alt="reaction-sad">
-												<!-- /REACTION IMAGE -->
-
-												<!-- SIMPLE DROPDOWN -->
-												<div class="simple-dropdown padded reaction-item-dropdown">
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<p class="simple-dropdown-text">
-														<img class="reaction"
-															th:attr="src=@{../../img/reaction/Like.png}"
-															alt="reaction-sad"> <span class="bold">Like</span>
-													</p>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-
-													<!-- SIMPLE DROPDOWN TEXT -->
-													<div th:each="list:${post.reactList}"
-														th:id="userDiv+${list.bno}">
-														<p class="simple-dropdown-text"
-															th:id="user+${list.userId}" th:text="${list.userId}"></p>
-													</div>
-													<!-- /SIMPLE DROPDOWN TEXT -->
-												</div>
-											</div>
-											<!-- /REACTION ITEM -->
+							<!-- USER STATUS -->
+							<div class="user-status">
+								<!-- USER STATUS AVATAR -->
+								<a class="user-status-avatar"
+									th:href="@{/myPage/}+${post.userId}"> <!-- USER AVATAR -->
+									<div class="user-avatar small no-outline">
+										<!-- USER AVATAR CONTENT -->
+										<div class="user-avatar-content">
+											<!-- HEXAGON -->
+											<div class="hexagon-image-30-32"
+												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<!-- /META LINE LIST -->
+										<!-- /USER AVATAR CONTENT -->
 
-										<!-- META LINE TEXT -->
-										<div th:id="react+${post.bno}">
-											<p class="meta-line-text"
-												th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
+										<!-- USER AVATAR PROGRESS -->
+										<div class="user-avatar-progress">
+											<!-- HEXAGON -->
+											<div class="hexagon-progress-40-44"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<!-- /META LINE TEXT -->
-									</div>
-									<!-- /META LINE -->
-								</div>
-								<!-- /CONTENT ACTION -->
+										<!-- /USER AVATAR PROGRESS -->
 
-								<!-- CONTENT ACTION -->
-								<div class="content-action">
-									<!-- META LINE -->
-									<div class="meta-line">
-										<!-- META LINE LINK -->
-										<p class="meta-line-link"
-											th:onclick="|javascript:openReply('${post.bno}')|"
-											th:text="${post.replyCount}+' 댓글'"></p>
-										<!-- /META LINE LINK -->
-									</div>
-									<!-- /META LINE -->
+										<!-- USER AVATAR PROGRESS BORDER -->
+										<div class="user-avatar-progress-border">
+											<!-- HEXAGON -->
+											<div class="hexagon-border-40-44"></div>
+											<!-- /HEXAGON -->
+										</div>
+										<!-- /USER AVATAR PROGRESS BORDER -->
 
-									<!-- META LINE -->
-									<div class="meta-line">
-										<!-- META LINE TEXT -->
-										<p class="meta-line-text">0 공유</p>
-										<!-- /META LINE TEXT -->
-									</div>
-									<!-- /META LINE -->
-								</div>
-								<!-- /CONTENT ACTION -->
+
+									</div> <!-- /USER AVATAR -->
+								</a>
+								<!-- /USER STATUS AVATAR -->
+
+								<!-- USER STATUS TITLE -->
+
+								<p class="user-status-title medium">
+									<a class="bold" href="profile-timeline.html"
+										th:text="${post.userId}"></a> uploaded a <span class="bold">post</span>
+								</p>
+
+								<!-- /USER STATUS TITLE -->
+
+								<!-- USER STATUS TEXT -->
+								<p class="user-status-text small" style="display: inline-block"
+									th:text="${post.bnoDay}"></p>
+								<p class="user-status-text small" style="display: inline-block"
+									th:text="${post.bnoTime}+' 작성'" th:if="${post.bnoTime}!=null"></p>
+								<!-- /USER STATUS TEXT -->
 							</div>
-							<!-- /CONTENT ACTIONS -->
-						</div>
-						<!-- /WIDGET BOX STATUS CONTENT -->
-					</div>
-					<!-- /WIDGET BOX STATUS -->
+							<!-- /USER STATUS -->
 
-					<!-- POST OPTIONS -->
-					<div class="post-options">
-						<!-- POST OPTION WRAP -->
-						<div class="post-option-wrap">
-							<!-- POST OPTION -->
-							<div class="post-option reaction-options-dropdown-trigger"
-								th:if="${user}!=null" th:data-parameter1="${post.bno}"
-								th:data-parameter2="${user.userId}"
-								th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
-								<!-- POST OPTION ICON -->
-								<svg class="post-option-icon icon-thumbs-up">
+							<!-- WIDGET BOX STATUS TEXT -->
+							<form style="margin-top: 30px"
+								th:attr="id='modify_form'+${post.bno}" method="post"
+								enctype="multipart/form-data" action="/board/modify.do">
+
+								<p th:attr="id=${post.bno}"
+									class="widget-box-status-text content_board"
+									th:text="${post.bo_content}"></p>
+
+								<input type="hidden" th:value="${post.bo_content}"
+									th:attr="id='detailmodal_content'+${post.bno}"> <input
+									type="hidden" th:value="${post.userId}"
+									th:attr="id='detailmodal_userId'+${post.bno}"> <input
+									type="hidden" th:value="board" name="placeCheck"> <input
+									type="hidden" th:value="${post.bno}" name="bno"> <input
+									type="hidden" th:value="${post.bo_cate}" name="bo_cate">
+
+								<div class="modify" th:attr="id='modify'+${post.bno}"
+									style="margin-bottom: 60px; display: none">
+									<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
+									<button type=submit class="button small secondary edit_btn"
+										style="width: 80px; float: right;">수정완료</button>
+									<p class="button small edit_cancelbtn"
+										style="width: 80px; float: right;">취소</p>
+								</div>
+							</form>
+							<!-- /WIDGET BOX STATUS TEXT -->
+
+							<!-- /WIDGET BOX STATUS CONTENT -->
+
+							<!-- IFRAME WRAP -->
+							<div>
+								<!-- PICTURE COLLAGE -->
+								<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
+									<!-- PICTURE COLLAGE ROW -->
+									<div class="picture-collage-row medium">
+										<!-- PICTURE COLLAGE ITEM -->
+										<div class="picture-collage-item popup-picture-trigger"
+											th:data-parameter1="${post.bno}"
+											th:data-parameter2="${file.uuid}"
+											th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|"
+											th:attr="id='popup'+${post.bno}"
+											th:each="file, i:${post.fileList}" th:if="${i.index}<3">
+											<!-- PHOTO PREVIEW -->
+											<div class="photo-preview">
+												<!-- PHOTO PREVIEW IMAGE -->
+												<figure class="photo-preview-image liquid">
+													<img
+														th:attr="src=@{/boardImage/}+${file.uuid}, id='modal'+${file.uuid}"
+														alt="photo-preview-10">
+													<input type="hidden" th:value="${file.uuid}"
+														th:id="|img${file.fileCnt}of${file.bno}|">
+												</figure>
+												<!-- /PHOTO PREVIEW IMAGE -->
+
+												<!-- PHOTO PREVIEW INFO -->
+												<div class="photo-preview-info">
+													<!-- REACTION COUNT LIST -->
+													<div class="reaction-count-list">
+
+
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-magnifying-glass">
+                              <use xlink:href="#svg-magnifying-glass"></use>
+                            </svg>
+															<!-- /REACTION COUNT ICON -->
+
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">detail</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
+													</div>
+													<!-- /REACTION COUNT LIST -->
+												</div>
+												<!-- /PHOTO PREVIEW INFO -->
+											</div>
+											<!-- /PHOTO PREVIEW -->
+										</div>
+										<!-- /PICTURE COLLAGE ITEM -->
+									</div>
+									<!-- /PICTURE COLLAGE ROW -->
+
+									<!-- PICTURE COLLAGE ROW -->
+									<div class="picture-collage-row"
+										th:if="${post.bo_fileCount}>=3">
+										<!-- PICTURE COLLAGE ITEM -->
+										<div class="picture-collage-item popup-picture-trigger"
+											th:data-parameter1="${post.bno}"
+											th:data-parameter2="${file.uuid}"
+											th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|"
+											th:attr="id='popup'+${post.bno}"
+											th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
+
+											<!-- PHOTO PREVIEW -->
+											<div class="photo-preview">
+												<!-- PHOTO PREVIEW IMAGE -->
+												<figure class="photo-preview-image liquid">
+													<img
+														th:attr="src=@{/boardImage/}+${file.uuid}, id='modal'+${file.uuid}"
+														alt="photo-preview-16">
+													<input type="hidden" th:value="${file.uuid}"
+														th:id="|img${file.fileCnt}of${file.bno}|">
+												</figure>
+												<!-- /PHOTO PREVIEW IMAGE -->
+
+												<!-- PHOTO PREVIEW INFO -->
+												<div class="photo-preview-info">
+													<!-- REACTION COUNT LIST -->
+													<div class="reaction-count-list">
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-thumbs-up">
+                              <use xlink:href="#svg-thumbs-up"></use>
+                            </svg>
+															<!-- /REACTION COUNT ICON -->
+
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">2</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
+
+														<!-- REACTION COUNT -->
+														<div class="reaction-count negative">
+															<!-- REACTION COUNT ICON -->
+															<svg class="reaction-count-icon icon-comment">
+                              <use xlink:href="#svg-comment"></use>
+                            </svg>
+															<!-- /REACTION COUNT ICON -->
+
+															<!-- REACTION COUNT TEXT -->
+															<p class="reaction-count-text">5</p>
+															<!-- /REACTION COUNT TEXT -->
+														</div>
+														<!-- /REACTION COUNT -->
+													</div>
+													<!-- /REACTION COUNT LIST -->
+												</div>
+												<!-- /PHOTO PREVIEW INFO -->
+											</div>
+											<!-- /PHOTO PREVIEW -->
+										</div>
+										<!-- /PICTURE COLLAGE ITEM -->
+									</div>
+									<!-- /PICTURE COLLAGE ROW -->
+								</div>
+								<!-- /PICTURE COLLAGE -->
+							</div>
+							<!-- /IFRAME WRAP -->
+
+							<!-- WIDGET BOX STATUS CONTENT -->
+							<div class="widget-box-status-content">
+								<!-- CONTENT ACTIONS -->
+								<div class="content-actions">
+									<!-- CONTENT ACTION -->
+									<div class="content-action">
+										<!-- META LINE -->
+										<div class="meta-line" th:id="reactStartDiv+${post.bno}">
+											<!-- META LINE LIST -->
+											<div class="meta-line-list reaction-item-list">
+												<!-- REACTION ITEM -->
+												<div class="reaction-item">
+													<!-- REACTION IMAGE -->
+													<img class="reaction-image reaction-item-dropdown-trigger"
+														th:attr="src=@{../../img/reaction/Like.png}"
+														alt="reaction-sad">
+													<!-- /REACTION IMAGE -->
+
+													<!-- SIMPLE DROPDOWN -->
+													<div class="simple-dropdown padded reaction-item-dropdown">
+														<!-- SIMPLE DROPDOWN TEXT -->
+														<p class="simple-dropdown-text">
+															<img class="reaction"
+																th:attr="src=@{../../img/reaction/Like.png}"
+																alt="reaction-sad"> <span class="bold">Like</span>
+														</p>
+														<!-- /SIMPLE DROPDOWN TEXT -->
+
+														<!-- SIMPLE DROPDOWN TEXT -->
+														<div th:each="list:${post.reactList}"
+															th:id="userDiv+${list.bno}">
+															<p class="simple-dropdown-text"
+																th:id="user+${list.userId}" th:text="${list.userId}"></p>
+														</div>
+														<!-- /SIMPLE DROPDOWN TEXT -->
+													</div>
+												</div>
+												<!-- /REACTION ITEM -->
+											</div>
+											<!-- /META LINE LIST -->
+
+											<!-- META LINE TEXT -->
+											<div th:id="react+${post.bno}">
+												<p class="meta-line-text"
+													th:text="${post.reactCount}==0?'':${post.reactCount}"></p>
+											</div>
+											<!-- /META LINE TEXT -->
+										</div>
+										<!-- /META LINE -->
+									</div>
+									<!-- /CONTENT ACTION -->
+
+									<!-- CONTENT ACTION -->
+									<div class="content-action">
+										<!-- META LINE -->
+										<div class="meta-line">
+											<!-- META LINE LINK -->
+											<p class="meta-line-link"
+												th:onclick="|javascript:openReply('${post.bno}')|"
+												th:text="${post.replyCount}+' 댓글'"></p>
+											<!-- /META LINE LINK -->
+										</div>
+										<!-- /META LINE -->
+
+										<!-- META LINE -->
+										<div class="meta-line">
+											<!-- META LINE TEXT -->
+											<p class="meta-line-text">0 공유</p>
+											<!-- /META LINE TEXT -->
+										</div>
+										<!-- /META LINE -->
+									</div>
+									<!-- /CONTENT ACTION -->
+								</div>
+								<!-- /CONTENT ACTIONS -->
+							</div>
+							<!-- /WIDGET BOX STATUS CONTENT -->
+						</div>
+						<!-- /WIDGET BOX STATUS -->
+
+						<!-- POST OPTIONS -->
+						<div class="post-options">
+							<!-- POST OPTION WRAP -->
+							<div class="post-option-wrap">
+								<!-- POST OPTION -->
+								<div class="post-option reaction-options-dropdown-trigger"
+									th:if="${user}!=null" th:data-parameter1="${post.bno}"
+									th:data-parameter2="${user.userId}"
+									th:onclick="|javascript:react(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))|">
+									<!-- POST OPTION ICON -->
+									<svg class="post-option-icon icon-thumbs-up">
                   <use xlink:href="#svg-thumbs-up"></use>
                 </svg>
+									<!-- /POST OPTION ICON -->
+
+									<!-- POST OPTION TEXT -->
+									<p class="post-option-text">좋아요</p>
+									<!-- /POST OPTION TEXT -->
+									<!-- /POST OPTION -->
+								</div>
+								<div class="post-option reaction-options-dropdown-trigger"
+									th:unless="${user}!=null" style="cursor: pointer;"
+									onclick="location.href='/login'">
+									<p class="post-option-text">로그인</p>
+								</div>
+								<!-- /REACTION OPTIONS -->
+							</div>
+							<!-- /POST OPTION WRAP -->
+
+							<!-- POST OPTION -->
+							<div class="post-option"
+								th:onclick="|javascript:openReply('${post.bno}')|">
+								<!-- POST OPTION ICON -->
+								<svg class="post-option-icon icon-comment">
+                <use xlink:href="#svg-comment"></use>
+              </svg>
 								<!-- /POST OPTION ICON -->
 
 								<!-- POST OPTION TEXT -->
-								<p class="post-option-text">좋아요</p>
+								<p class="post-option-text">댓글</p>
 								<!-- /POST OPTION TEXT -->
-								<!-- /POST OPTION -->
 							</div>
-							<div class="post-option reaction-options-dropdown-trigger"
-								th:unless="${user}!=null" style="cursor: pointer;"
-								onclick="location.href='/login'">
-								<p class="post-option-text">로그인</p>
-							</div>
-							<!-- /REACTION OPTIONS -->
-						</div>
-						<!-- /POST OPTION WRAP -->
+							<!-- /POST OPTION -->
 
-						<!-- POST OPTION -->
-						<div class="post-option"
-							th:onclick="|javascript:openReply('${post.bno}')|">
-							<!-- POST OPTION ICON -->
-							<svg class="post-option-icon icon-comment">
-                <use xlink:href="#svg-comment"></use>
-              </svg>
-							<!-- /POST OPTION ICON -->
-
-							<!-- POST OPTION TEXT -->
-							<p class="post-option-text">댓글</p>
-							<!-- /POST OPTION TEXT -->
-						</div>
-						<!-- /POST OPTION -->
-
-						<!-- POST OPTION -->
-						<div class="post-option">
-							<!-- POST OPTION ICON -->
-							<svg class="post-option-icon icon-share">
+							<!-- POST OPTION -->
+							<div class="post-option">
+								<!-- POST OPTION ICON -->
+								<svg class="post-option-icon icon-share">
                 <use xlink:href="#svg-share"></use>
               </svg>
-							<!-- /POST OPTION ICON -->
+								<!-- /POST OPTION ICON -->
 
-							<!-- POST OPTION TEXT -->
-							<p class="post-option-text">공유</p>
-							<!-- /POST OPTION TEXT -->
+								<!-- POST OPTION TEXT -->
+								<p class="post-option-text">공유</p>
+								<!-- /POST OPTION TEXT -->
+							</div>
+							<!-- /POST OPTION -->
 						</div>
-						<!-- /POST OPTION -->
+						<!-- /POST OPTIONS -->
 					</div>
-					<!-- /POST OPTIONS -->
+					<div th:insert="/view/fragments/reply.html :: reply"></div>
 				</div>
-				<div th:insert="/view/fragments/reply.html :: reply"></div>
+				<!-- /WIDGET BOX -->
 			</div>
-			<!-- /WIDGET BOX -->
-			<!-- LOADER BARS -->
-			
-			<!-- /LOADER BARS -->
+			<!-- /GRID COLUMN -->
 		</div>
-		<!-- /GRID COLUMN -->
+
+
+
+
 
 		<!-- GRID COLUMN -->
-		<div id="right_widget" style="position: absolute;width: 280px; right:0; 
-				height: 200px;top: 305px;"class="grid-column">
+		<div id="right_widget"
+			style="position: absolute; width: 280px; right: 0; height: 200px; top: 305px;"
+			class="grid-column">
 			<!-- STATS BOX SLIDER -->
 			<div class="stats-box-slider">
 				<!-- STATS BOX SLIDER CONTROLS -->
@@ -1521,7 +859,7 @@
 
 								<div th:unless="${user}==null">
 									<a href="/myFriends" class="stats-box-value"
-									  th:text="${friendCount}+'명'"></a>
+										th:text="${friendCount}+'명'"></a>
 								</div>
 
 								<!-- /STATS BOX VALUE -->
@@ -1580,7 +918,8 @@
 								</div>
 
 								<div th:unless="${user}==null">
-									<a href="/groups" class="stats-box-value" th:text="${myGroupCount}+'개'"></a>
+									<a href="/groups" class="stats-box-value"
+										th:text="${myGroupCount}+'개'"></a>
 								</div>
 
 								<!-- /STATS BOX VALUE -->
@@ -1627,9 +966,9 @@
 	<!-- /GRID -->
 	</div>
 	<!-- /CONTENT GRID -->
-	
+
 	<!-- 팝업시작 -->
-<div class="popup-picture"
+	<div class="popup-picture"
 		style="position: fixed; left: 50%; z-index: 100001; opacity: 1; visibility: visible; transform: translate(0px, 0px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s; top: 98px; margin-left: -547px;">
 		<!-- POPUP CLOSE BUTTON -->
 		<div class="popup-close-button popup-picture-trigger">
@@ -1642,18 +981,20 @@
 		<!-- /POPUP CLOSE BUTTON -->
 
 		<!-- POPUP PICTURE IMAGE WRAP -->
-		<div class="popup-picture-image-wrap" style="padding-left: 30px;padding-right: 30px;">
-		
-		<p id="imgModaluserId" style="position:absolute;top: 20px;left: 30px;
-			color:white; font-size: 30px;font-family: 'Open Sans';"></p>
+		<div class="popup-picture-image-wrap"
+			style="padding-left: 30px; padding-right: 30px;">
+
+			<p id="imgModaluserId"
+				style="position: absolute; top: 20px; left: 30px; color: white; font-size: 30px; font-family: 'Open Sans';"></p>
 			<hr>
 			<!-- POPUP PICTURE IMAGE -->
- 				<img id="modalimg" width="800" height="500" alt="cover-04" style="margin-bottom: 100px;">
+			<img id="modalimg" width="800" height="500" alt="cover-04"
+				style="margin-bottom: 100px;">
 			<!-- /POPUP PICTURE IMAGE -->
-			
-		<p id="imgModalContent" style="position:absolute;bottom: 130px;left: 30px;
-			color:white; font-size: 20px;font-family: 'Open Sans';"></p>	
-			
+
+			<p id="imgModalContent"
+				style="position: absolute; bottom: 130px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
+
 		</div>
 		<!-- /POPUP PICTURE IMAGE WRAP -->
 	</div>
@@ -1681,21 +1022,23 @@
 
 	<!-- app -->
 	<script>
-	// 기본 위치(top)값
-	var floatPosition = parseInt($("#right_widget").css('top'))
-
-	// scroll 인식
-	$(window).scroll(function() {
+		// 기본 위치(top)값
+		var RfloatPosition = parseInt($("#right_widget").css('top'))
+		var LfloatPosition = parseInt($("#left_widget").css('top'))
+		// scroll 인식
+		$(window).scroll(function() {
 	  
 	    // 현재 스크롤 위치
 	    var currentTop = $(window).scrollTop();
-	    var bannerTop = currentTop + floatPosition + "px";
-
+	    var RbannerTop = currentTop + RfloatPosition + "px";
+	    var LbannerTop = currentTop + LfloatPosition + "px";
 	    //이동 애니메이션
 	    $("#right_widget").stop().animate({
-	      "top" : bannerTop
+	      "top" : RbannerTop
 	    }, 300);
-
+	    $("#left_widget").stop().animate({
+		  "top" : LbannerTop
+		}, 300);
 	}).scroll();
 	</script>
 	<script src="../../js/noticemodal.js"></script>
