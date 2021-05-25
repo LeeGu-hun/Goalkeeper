@@ -259,82 +259,7 @@
 		<!-- /PROFILE HEADER -->
 
 		<!-- SECTION NAVIGATION -->
-		<nav class="section-navigation">
-			<!-- SECTION MENU -->
-			<div id="section-navigation-slider" class="section-menu">
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" th:href="@{/myPage/}+${userId}"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-profile">
-			            <use xlink:href="#svg-profile"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item active" href="profile-friends.html">
-					<!-- SECTION MENU ITEM ICON --> 
-					<svg class="section-menu-item-icon icon-friend">
-			            <use xlink:href="#svg-friend"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Friends</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-groups.html"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-group">
-		            	<use xlink:href="#svg-group"></use>
-		          	</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Groups</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-photos.html"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-photos">
-			            <use xlink:href="#svg-photos"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="myGoal"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-blog-posts">
-			            <use xlink:href="#svg-blog-posts"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">My Goal</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-			</div>
-			<!-- /SECTION MENU -->
-
-			<!-- SLIDER CONTROLS -->
-			<div id="section-navigation-slider-controls" class="slider-controls">
-				<!-- SLIDER CONTROL -->
-				<div class="slider-control left">
-					<!-- SLIDER CONTROL ICON -->
-					<svg class="slider-control-icon icon-small-arrow">
-			            <use xlink:href="#svg-small-arrow"></use>
-			        </svg>
-					<!-- /SLIDER CONTROL ICON -->
-				</div>
-				<!-- /SLIDER CONTROL -->
-
-				<!-- SLIDER CONTROL -->
-				<div class="slider-control right">
-					<!-- SLIDER CONTROL ICON -->
-					<svg class="slider-control-icon icon-small-arrow">
-			            <use xlink:href="#svg-small-arrow"></use>
-			        </svg>
-					<!-- /SLIDER CONTROL ICON -->
-				</div>
-				<!-- /SLIDER CONTROL -->
-			</div>
-			<!-- /SLIDER CONTROLS -->
-		</nav>
+		<div th:insert="/view/myPage/section_navigation.html :: section-navi"></div>
 		<!-- /SECTION NAVIGATION -->
 
 		<!-- SECTION -->
@@ -762,7 +687,7 @@
 								
 								<!-- FILTER TAB -->
 								<div id="newFriendList" class="filter-tab"
-									onclick="location.href='mySearchFriends'" th:unless="${userId} != ${user.userId}">
+									onclick="location.href='../mySearchFriends'" th:unless="${userId} != ${user.userId}">
 									<!-- FILTER TAB TEXT -->
 									<p class="filter-tab-text">새 친구 찾기</p>
 									<!-- /FILTER TAB TEXT -->
@@ -771,7 +696,7 @@
 								
 								<!-- FILTER TAB -->
 								<div id="newFriendList" class="filter-tab"
-									onclick="location.href='applyList'">
+									onclick="location.href='../applyList'">
 									<!-- FILTER TAB TEXT -->
 									<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
 									<!-- /FILTER TAB TEXT -->
@@ -780,7 +705,7 @@
 								
 								<!-- FILTER TAB -->
 								<div id="newFriendList" class="filter-tab"
-									onclick="location.href='receiveList'">
+									onclick="location.href='../receiveList'">
 									<!-- FILTER TAB TEXT -->
 									<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
 									<!-- /FILTER TAB TEXT -->

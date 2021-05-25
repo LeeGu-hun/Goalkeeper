@@ -120,35 +120,6 @@ public class OhterFriendsController {
 	}
 	
 		
-	@PostMapping({"/*/mySearchFriends/apply"})
-	public ModelAndView apply(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
-			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
-			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
-		vo = commonService.getLoginUser(request);
-		FriendApplyVO apply = new FriendApplyVO();
-		FriendVO friend = new FriendVO();
-		friend.setUno(vo.getUno());
-		apply.setApplyUno(vo.getUno());
-		apply.setReceiveUno(receiveUno);
-		apply.setApplyId(applyId);
-		apply.setReceiveId(receiveId);
-		apply.setApplyBirthdate(applyBirthdate);
-		apply.setReceiveBirthdate(receiveBirthdate);
-		if(applyFileCheck.equals("Y")) apply.setApplyFileCheck(applyFileCheck);
-		else apply.setApplyFileCheck("N");
-		if(receiveFileCheck.equals("Y")) apply.setReceiveFileCheck(receiveFileCheck);
-		else apply.setReceiveFileCheck("N");
-		if(applyBackCheck.equals("Y")) apply.setApplyBackCheck(applyBackCheck);
-		else apply.setApplyBackCheck("N");
-		if(receiveBackCheck.equals("Y")) apply.setReceiveBackCheck(receiveBackCheck);
-		else apply.setReceiveBackCheck("N");
-		
-		friendApplyService.apply(apply);
-		
-		ModelAndView mv = new ModelAndView("redirect:/myFriends/" + userId);
-		List<FriendVO> list = friendService.getFriendsList(friend);
-		mv.addObject(list);
-		return mv;
-	}
+	
 	
 }

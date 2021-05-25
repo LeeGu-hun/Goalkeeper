@@ -134,8 +134,8 @@ public class FriendsController {
 	}
 	
 	@GetMapping("/mySearchFriends")
-	public ModelAndView userList(HttpServletRequest request, UserVO vo) {
-		vo = commonService.getLoginUser(request);
+	public ModelAndView userList(HttpServletRequest request) {
+		UserVO vo = commonService.getLoginUser(request);
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
