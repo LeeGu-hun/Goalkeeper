@@ -13,7 +13,7 @@ import lombok.Data;
 public class ReplyVO {
 	private int rno;
 	private String replyWriter, replyContent;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date replyDate;
 	private int bno;
 	private int profileCheck;

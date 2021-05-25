@@ -399,43 +399,6 @@
 							<!-- /WIDGET BOX TITLE -->
 						</div>
 						<!-- /WIDGET BOX ACTION -->
-
-						<!-- WIDGET BOX ACTION -->
-						<div class="widget-box-action">
-							<form id="statFrm" action="/group_stat" method="POST">
-								<!-- FORM SELECT -->
-								<div class="form-select v2">
-									<select id="goal_name" name="dno">
-										<option selected>선택해주세요</option>
-										<option th:each="goalList:${goalList}"
-											th:text="${goalList.goal_name}" th:value="${goalList.dno}"></option>
-									</select>
-									<!-- FORM SELECT ICON -->
-									<svg class="form-select-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-									<!-- /FORM SELECT ICON -->
-								</div>
-								<input type="hidden" name="gno" th:value="${group.gno}">
-								<!-- /FORM SELECT -->
-								<div class="form-select v2">
-									<select id="week_count" name="week_count" onchange="getChart()">
-										<option selected>선택해주세요</option>
-										<option value="1">1주차</option>
-										<option value="2">2주차</option>
-										<option value="3">3주차</option>
-										<option value="4">4주차</option>
-									</select>
-									<!-- FORM SELECT ICON -->
-									<svg class="form-select-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-									<!-- /FORM SELECT ICON -->
-								</div>
-								<!-- /FORM SELECT -->
-							</form>
-						</div>
-						<!-- /WIDGET BOX ACTION -->
 					</div>
 					<!-- /WIDGET BOX ACTIONS -->
 

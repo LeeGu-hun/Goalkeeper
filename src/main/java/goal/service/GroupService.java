@@ -25,7 +25,7 @@ public interface GroupService {
 	int countUserbyGroup(int gno);
 	int countGoalbyGroup(int gno);
 	void insertGroupJoin(GroupJoinVO join);
-	void updateBgiCheck(String bgi_check);
+	void updateBgiCheck(int gno);
 	List<GroupJoinVO> getGroupJoin(int gno);
 	GroupJoinVO selectGroupJoinUno(int uno);
 	int checkUserbyGroup(GroupUserVO groupUser);
@@ -35,5 +35,6 @@ public interface GroupService {
 	List<BoardFileVO> findFilebyGroup(GroupVO group);
 	void insertGroupData(GroupDataVO data);
 	GroupDataVO countDatabyUno(GroupDataVO data);
+	int countDatabyGno(int gno);
 	List<GroupVO> findGroupbyUno(int uno);
 }

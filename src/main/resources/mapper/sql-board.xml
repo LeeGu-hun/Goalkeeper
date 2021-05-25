@@ -88,7 +88,7 @@
 	</select>
 	<select id="getReplyByBno" resultMap="replyVO">
 		select * from GK_Comment
-		where bno = #{bno}
+		where bno = #{bno} order by replydate
 	</select>
 	<select id="getRecmtByRno" resultMap="reCmtVO">
 		select * from GK_ReComment

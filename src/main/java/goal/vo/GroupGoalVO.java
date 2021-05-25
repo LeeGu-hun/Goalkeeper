@@ -16,4 +16,5 @@ public class GroupGoalVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date goal_enddate;
 	private int groupMaxData;
+	private List<GroupUserGoalVO> userGoal;
 }

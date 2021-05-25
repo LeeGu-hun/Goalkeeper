@@ -18,6 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous">
+	
 </script>
 <title>Vikinger | Group</title>
 </head>
@@ -33,16 +34,19 @@
 			<div id="section-navigation-medium-slider"
 				class="section-menu secondary">
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" id="section-navigation-medium-slider-item0" th:href="@{/group_detail/{gno}(gno=${group.gno})}">
-				<!-- SECTION MENU ITEM ICON --> 
-				<svg class="section-menu-item-icon icon-timeline">
+				<a class="section-menu-item"
+					id="section-navigation-medium-slider-item0"
+					th:href="@{/group_detail/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-timeline">
             		<use xlink:href="#svg-timeline"></use>
           		</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-				<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
 				</a>
 				<!-- /SECTION MENU ITEM -->
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" id="section-navigation-medium-slider-item1" th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item"
+					id="section-navigation-medium-slider-item1"
+					th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-info">
             <use xlink:href="#svg-info"></use>
           </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -51,7 +55,9 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item active" id="section-navigation-medium-slider-item2" th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item active"
+					id="section-navigation-medium-slider-item2"
+					th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-members">
             <use xlink:href="#svg-members"></use>
           </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -121,8 +127,8 @@
 					<form class="form">
 						<!-- FORM INPUT -->
 						<div class="form-input small with-button">
-							<label for="members-search">멤버 검색</label> <input
-								type="text" id="members-search" name="members_search">
+							<label for="members-search">멤버 검색</label> <input type="text"
+								id="members-search" name="members_search">
 							<!-- BUTTON -->
 							<button class="button secondary">
 								<!-- ICON MAGNIFYING GLASS -->
@@ -139,197 +145,118 @@
 				</div>
 				<!-- /SECTION FILTERS BAR ACTIONS -->
 			</div>
-				<!-- GRID -->
-				<div class="grid grid-4-4-4 centered">
-					<!-- USER PREVIEW -->
-					<div class="user-preview" th:each="groupUser:${groupUser}">
-						<!-- USER PREVIEW COVER -->
-						<figure class="user-preview-cover liquid">
-							<img src="../../img/cover/04.jpg" alt="cover-04">
-						</figure>
-						<!-- /USER PREVIEW COVER -->
+			<!-- GRID -->
+			<div class="grid grid-4-4-4 centered">
+				<!-- USER PREVIEW -->
+				<div class="user-preview" th:each="groupUser:${groupUser}">
+					<!-- USER PREVIEW COVER -->
+					<figure class="user-preview-cover liquid">
+						<img src="../../img/cover/04.jpg" alt="cover-04">
+					</figure>
+					<!-- /USER PREVIEW COVER -->
 
-						<!-- USER PREVIEW INFO -->
-						<div class="user-preview-info">
-							<!-- USER SHORT DESCRIPTION -->
-							<div class="user-short-description">
-								<!-- USER SHORT DESCRIPTION AVATAR -->
-								<a class="user-short-description-avatar user-avatar medium"
-									href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
-									<div class="user-avatar-border">
-										<!-- HEXAGON -->
-										<div class="hexagon-120-132"></div>
-										<!-- /HEXAGON -->
-									</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
-									<div class="user-avatar-content">
-										<!-- HEXAGON -->
-										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
-										<!-- /HEXAGON -->
-									</div> 
-								</a>
-								<!-- /USER SHORT DESCRIPTION AVATAR -->
-
-								<!-- USER SHORT DESCRIPTION TITLE -->
-								<p class="user-short-description-title">
-									<a href="profile-timeline.html" th:text="${groupUser.userId}"></a>
-								</p>
-								<!-- /USER SHORT DESCRIPTION TITLE -->
-							</div>
-							<!-- /USER SHORT DESCRIPTION -->
-							<!-- USER PREVIEW STATS SLIDES -->
-							<div id="user-preview-stats-slides-01"
-								class="user-preview-stats-slides">
-								<!-- USER PREVIEW STATS SLIDE -->
-								<div class="user-preview-stats-slide">
-									<!-- USER STATS -->
-									<div class="user-stats">
-										<!-- USER STAT -->
-										<div class="user-stat">
-											<!-- USER STAT TITLE -->
-											<p class="user-stat-title">874</p>
-											<!-- /USER STAT TITLE -->
-
-											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">작성글</p>
-											<!-- /USER STAT TEXT -->
-										</div>
-										<!-- /USER STAT -->
-
-										<!-- USER STAT -->
-										<div class="user-stat">
-											<!-- USER STAT TITLE -->
-											<p class="user-stat-title">60</p>
-											<!-- /USER STAT TITLE -->
-
-											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">친구</p>
-											<!-- /USER STAT TEXT -->
-										</div>
-										<!-- /USER STAT -->
-
-										<!-- USER STAT -->
-										<div class="user-stat">
-											<!-- USER STAT TITLE -->
-											<p class="user-stat-title">3.9k</p>
-											<!-- /USER STAT TITLE -->
-
-											<!-- USER STAT TEXT -->
-											<p class="user-stat-text">달성목표</p>
-											<!-- /USER STAT TEXT -->
-										</div>
-										<!-- /USER STAT -->
-									</div>
-									<!-- /USER STATS -->
+					<!-- USER PREVIEW INFO -->
+					<div class="user-preview-info">
+						<!-- USER SHORT DESCRIPTION -->
+						<div class="user-short-description">
+							<!-- USER SHORT DESCRIPTION AVATAR -->
+							<a class="user-short-description-avatar user-avatar medium"
+								href="profile-timeline.html"> <!-- USER AVATAR BORDER -->
+								<div class="user-avatar-border">
+									<!-- HEXAGON -->
+									<div class="hexagon-120-132"></div>
+									<!-- /HEXAGON -->
+								</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
+								<div class="user-avatar-content">
+									<!-- HEXAGON -->
+									<div class="hexagon-image-82-90"
+										th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
+									<!-- /HEXAGON -->
 								</div>
-								<!-- /USER PREVIEW STATS SLIDE -->
-							</div>
-							<!-- /USER PREVIEW STATS SLIDES -->
+							</a>
+							<!-- /USER SHORT DESCRIPTION AVATAR -->
 
-							<!-- USER PREVIEW STATS ROSTER -->
-							<div id="user-preview-stats-roster-01"
-								class="user-preview-stats-roster slider-roster">
-								<!-- SLIDER ROSTER ITEM -->
-								<div class="slider-roster-item"></div>
-								<!-- /SLIDER ROSTER ITEM -->
-							</div>
-							<!-- /USER PREVIEW STATS ROSTER -->
-							<!-- USER PREVIEW ACTIONS -->
-							<div class="user-preview-actions">
-								<!-- BUTTON -->
-								<p class="button secondary">친구 추가하기</p>
-								<!-- /BUTTON -->
-
-								<!-- BUTTON -->
-								<p class="button primary">메세지 보내기</p>
-								<!-- /BUTTON -->
-							</div>
-							<!-- /USER PREVIEW ACTIONS -->
+							<!-- USER SHORT DESCRIPTION TITLE -->
+							<p class="user-short-description-title">
+								<a href="profile-timeline.html" th:text="${groupUser.userId}"></a>
+							</p>
+							<!-- /USER SHORT DESCRIPTION TITLE -->
 						</div>
-						<!-- /USER PREVIEW INFO -->
+						<!-- /USER SHORT DESCRIPTION -->
+						<!-- USER PREVIEW STATS SLIDES -->
+						<div id="user-preview-stats-slides-01"
+							class="user-preview-stats-slides">
+							<!-- USER PREVIEW STATS SLIDE -->
+							<div class="user-preview-stats-slide">
+								<!-- USER STATS -->
+								<div class="user-stats">
+									<!-- USER STAT -->
+									<div class="user-stat">
+										<!-- USER STAT TITLE -->
+										<p class="user-stat-title">874</p>
+										<!-- /USER STAT TITLE -->
+
+										<!-- USER STAT TEXT -->
+										<p class="user-stat-text">작성글</p>
+										<!-- /USER STAT TEXT -->
+									</div>
+									<!-- /USER STAT -->
+
+									<!-- USER STAT -->
+									<div class="user-stat">
+										<!-- USER STAT TITLE -->
+										<p class="user-stat-title">60</p>
+										<!-- /USER STAT TITLE -->
+
+										<!-- USER STAT TEXT -->
+										<p class="user-stat-text">친구</p>
+										<!-- /USER STAT TEXT -->
+									</div>
+									<!-- /USER STAT -->
+
+									<!-- USER STAT -->
+									<div class="user-stat">
+										<!-- USER STAT TITLE -->
+										<p class="user-stat-title">3.9k</p>
+										<!-- /USER STAT TITLE -->
+
+										<!-- USER STAT TEXT -->
+										<p class="user-stat-text">달성목표</p>
+										<!-- /USER STAT TEXT -->
+									</div>
+									<!-- /USER STAT -->
+								</div>
+								<!-- /USER STATS -->
+							</div>
+							<!-- /USER PREVIEW STATS SLIDE -->
+						</div>
+						<!-- /USER PREVIEW STATS SLIDES -->
+
+						<!-- USER PREVIEW STATS ROSTER -->
+						<div id="user-preview-stats-roster-01"
+							class="user-preview-stats-roster slider-roster">
+							<!-- SLIDER ROSTER ITEM -->
+							<div class="slider-roster-item"></div>
+							<!-- /SLIDER ROSTER ITEM -->
+						</div>
+						<!-- /USER PREVIEW STATS ROSTER -->
+						<!-- USER PREVIEW ACTIONS -->
+						<div class="user-preview-actions">
+							<!-- BUTTON -->
+							<p class="button secondary">친구 추가하기</p>
+							<!-- /BUTTON -->
+
+							<!-- BUTTON -->
+							<p class="button primary">메세지 보내기</p>
+							<!-- /BUTTON -->
+						</div>
+						<!-- /USER PREVIEW ACTIONS -->
 					</div>
-					<!-- /USER PREVIEW -->
+					<!-- /USER PREVIEW INFO -->
 				</div>
-				<!-- /GRID -->
-
-				<!-- SECTION PAGER BAR -->
-				<div class="section-pager-bar">
-					<!-- SECTION PAGER -->
-					<div class="section-pager secondary">
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item active">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">01</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">02</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">03</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">04</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">05</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-
-						<!-- SECTION PAGER ITEM -->
-						<div class="section-pager-item">
-							<!-- SECTION PAGER ITEM TEXT -->
-							<p class="section-pager-item-text">06</p>
-							<!-- /SECTION PAGER ITEM TEXT -->
-						</div>
-						<!-- /SECTION PAGER ITEM -->
-					</div>
-					<!-- /SECTION PAGER -->
-
-					<!-- SECTION PAGER CONTROLS -->
-					<div class="section-pager-controls">
-						<!-- SLIDER CONTROL -->
-						<div class="slider-control left disabled">
-							<!-- SLIDER CONTROL ICON -->
-							<svg class="slider-control-icon icon-small-arrow">
-              <use xlink:href="#svg-small-arrow"></use>
-            </svg>
-							<!-- /SLIDER CONTROL ICON -->
-						</div>
-						<!-- /SLIDER CONTROL -->
-
-						<!-- SLIDER CONTROL -->
-						<div class="slider-control right">
-							<!-- SLIDER CONTROL ICON -->
-							<svg class="slider-control-icon icon-small-arrow">
-              <use xlink:href="#svg-small-arrow"></use>
-            </svg>
-							<!-- /SLIDER CONTROL ICON -->
-						</div>
-						<!-- /SLIDER CONTROL -->
-					</div>
-					<!-- /SECTION PAGER CONTROLS -->
-				</div>
-				<!-- /SECTION PAGER BAR -->
+				<!-- /USER PREVIEW -->
+			</div>
+			<!-- /GRID -->
 		</section>
 		<!-- /SECTION -->
 	</div>

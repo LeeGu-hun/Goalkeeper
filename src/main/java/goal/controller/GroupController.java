@@ -147,14 +147,6 @@ public class GroupController {
 		}
 		return "redirect:/groups";
 	}
-	@PostMapping("/group_join")
-	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
-		UserVO user = commonService.getLoginUser(request);
-		join.setUno(user.getUno());
-		groupService.insertGroupJoin(join);
-		return "/group_join";
-	}
-	
 	@GetMapping("/group_detail/{gno}")
 	public ModelAndView openDetail(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
@@ -196,6 +188,12 @@ public class GroupController {
 		mv.addObject("group", group);
 		return mv;
 	}
+	@PostMapping("/group_join")
+	public void joinGroup(GroupJoinVO join, HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
+		join.setUno(user.getUno());
+		groupService.insertGroupJoin(join);
+	}
 	@PostMapping("/join_request")
 	public String joinMember(GroupJoinVO groupJoin, HttpServletRequest request) {
 		GroupUserVO groupUser = new GroupUserVO();
@@ -204,6 +202,11 @@ public class GroupController {
 		groupUser.setG_role("ROLE_MEMBER");
 		groupService.insertGroupUser(groupUser);
 		groupService.removeGroupJoin(groupJoin);
+		return "redirect:/group_mgJoin/";
+	}
+	@PostMapping("/join_delete")
+	public String deleteJoin(GroupJoinVO join, HttpServletRequest request) {
+		groupService.removeGroupJoin(join);
 		return "redirect:/group_mgJoin/";
 	}
 	@GetMapping("/group_member/{gno}")
@@ -323,7 +326,7 @@ public class GroupController {
 			groupFileService.updateGroupBgi(groupBgi);	
 		} else {
 			groupBgi = groupUpload.requestBackgroundUpload(multi, groupBgi);
-			groupService.updateBgiCheck("Y");
+			groupService.updateBgiCheck(groupBgi.getGno());
 			groupFileService.insertGroupBgi(groupBgi);
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
@@ -371,7 +374,9 @@ public class GroupController {
 		List<GroupUserVO> groupUser = groupService.findUserbyGroup(gno);
 		int userResult = groupService.countUserbyGroup(gno);
 		int goalResult = groupService.countGoalbyGroup(gno);
+		int dataResult = groupService.countDatabyGno(gno);
 		mv.addObject("goalCount", goalResult);
+		mv.addObject("dataCount", dataResult);
 		mv.addObject("userCount", userResult);
 		mv.addObject("groupUser", groupUser);
 		mv.addObject("gno", gno);

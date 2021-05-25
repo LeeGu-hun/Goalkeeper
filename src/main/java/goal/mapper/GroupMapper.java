@@ -26,12 +26,13 @@ public interface GroupMapper {
 	int findGnobyName(String g_name);
 	int countGoalbyId(int gno);
 	void insertGroupJoin(GroupJoinVO join);
-	void updateBgiCheck(String bgi_check);
+	void updateBgiCheck(int gno);
 	List<GroupJoinVO> selectGroupJoin(int gno);
 	GroupJoinVO selectGroupJoinUno(int uno);
 	void removeGroupJoin(GroupJoinVO join);
 	void insertGroupData(GroupDataVO data);
 	GroupDataVO countDatabyUno(GroupDataVO data);
+	int countDatabyGno(int gno);
 	List<GroupVO> findGroupbyUno(int uno);
 	
 }

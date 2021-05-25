@@ -110,8 +110,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 	
 	@Override
-	public void updateBgiCheck(String bgi_check) {
-		groupMapper.updateBgiCheck(bgi_check);
+	public void updateBgiCheck(int gno) {
+		groupMapper.updateBgiCheck(gno);
 	}
 
 	@Override
@@ -159,6 +159,11 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public GroupDataVO countDatabyUno(GroupDataVO data) {
 		return groupMapper.countDatabyUno(data);
+	}
+
+	@Override
+	public int countDatabyGno(int gno) {
+		return groupMapper.countDatabyGno(gno);
 	}
 
 	@Override

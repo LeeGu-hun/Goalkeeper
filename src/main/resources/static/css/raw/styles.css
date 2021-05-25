@@ -7606,13 +7606,6 @@ figure > img {
   padding-left: 60px;
 }
 
-.table .table-header-column:first-child {
-  padding-left: 28px;
-}
-
-.table .table-header-column:last-child {
-  padding-right: 28px;
-}
 
 .table .table-header-column .table-header-title {
   font-size: 0.75rem;

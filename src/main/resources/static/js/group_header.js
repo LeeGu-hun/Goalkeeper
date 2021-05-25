@@ -19,7 +19,7 @@ function openJoin(result){
 };
 function openMgJoin(result){
 	if(result=="joinDinied"){
-		openCautionModal("권한이 없습니다.");
+			openCautionModal("권한이 없습니다.");
 		return false;
 	}
 	$('#goManage').submit();
