@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -390,11 +392,5 @@ public class FriendsController {
 	    entity = userCommon.getImageEntity(entity, mediaUtils, in, backFile.getBackName(), backFile.getBackId(), backFile.getBackPath());
 	    return entity;
 	}
-	
-	/*
-	 * @RequestMapping(value="/infinite", method=RequestMethod.POST)
-	 * public @ResponseBody List<UserVO> infiniteUser(@ResponseBody UserVO user){
-	 * return }
-	 */
 	
 }
