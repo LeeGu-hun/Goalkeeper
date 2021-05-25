@@ -6,6 +6,7 @@ import goal.vo.BoardFileVO;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupUserGoalVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -37,4 +38,5 @@ public interface GroupService {
 	GroupDataVO countDatabyUno(GroupDataVO data);
 	int countDatabyGno(int gno);
 	List<GroupVO> findGroupbyUno(int uno);
+	List<GroupUserGoalVO> findDatabyDno(GroupDataVO data);
 }

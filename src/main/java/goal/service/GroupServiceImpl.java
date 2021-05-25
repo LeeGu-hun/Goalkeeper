@@ -14,6 +14,7 @@ import goal.vo.BoardFileVO;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupUserGoalVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -169,6 +170,11 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public List<GroupVO> findGroupbyUno(int uno) {
 		return groupMapper.findGroupbyUno(uno);
+	}
+
+	@Override
+	public List<GroupUserGoalVO> findDatabyDno(GroupDataVO data) {
+		return groupMapper.findDatabyDno(data);
 	}
 	
 }

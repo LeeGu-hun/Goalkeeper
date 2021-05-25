@@ -398,21 +398,60 @@
 							<p class="widget-box-title">목표 통계</p>
 							<!-- /WIDGET BOX TITLE -->
 						</div>
+						<div>
+							<form id="dataFrm">
+							<label>목표명</label>
+							<select id="dataOption" name="dno" onchange="getDataList()">
+								<option>선택해주세요</option>
+								<option th:each="goal:${goalList}" id="goalName" th:text="${goal.goal_name}" th:value="${goal.dno}"></option>
+							</select>
+							</form>
+						</div>
 						<!-- /WIDGET BOX ACTION -->
 					</div>
 					<!-- /WIDGET BOX ACTIONS -->
 
 					<!-- WIDGET BOX CONTENT -->
 					<div class="widget-box-content">
-						<!-- CHART WRAP -->
-						<div class="chart-wrap">
-							<!-- CHART -->
-							<div class="chart">
-								<canvas id="members-report-chart"></canvas>
+						<div class="table table-quests split-rows">
+							<div class="table-header" style="display: flex;">
+								<div class="table-header-column"
+									style="flex: 1; padding-left: 0px;">
+									<p class="table-header-title" style="text-align: center;">유저</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1.5; text-align: center">
+									<p class="table-header-title">목표명</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1; text-align: center">
+									<p class="table-header-title">개수</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1; padding-right: 0px;">
+									<p class="table-header-title" style="text-align: center">날짜</p>
+								</div>
 							</div>
-							<!-- /CHART -->
+							<div class="table-boby" id="ajaxDataContainer">
+								<div style="display: none;" id="ajaxDataBox">
+									<div class="table-column" style="flex: 1; padding-left: 0px;">
+										<p id="ajaxDataId" style="text-align:center; line-height:70px"></p>
+									</div>
+									<div class="table-column" style="flex: 1.5; width: 91px;">
+										<p class="table-text" id="ajaxDataName"
+											style="text-align: center; line-height:70px;"></p>
+									</div>
+									<div class="table-column" style="flex: 1; text-align: center;">
+										<p class="table-text" id="ajaxDataCnt"
+											style="text-align: center; line-height:70px;"></p>
+									</div>
+									<div class="table-column" style="flex: 1; padding-right: 0px;">
+										<p class="table-text" id="ajaxDataDate"
+											style="text-align: center; line-height:70px;"></p>
+									</div>
+								</div>
+							</div>
 						</div>
-						<!-- /CHART WRAP -->
 					</div>
 					<!-- WIDGET BOX CONTENT -->
 				</div>
@@ -422,111 +461,112 @@
 
 			<!-- GRID COLUMN -->
 			<div class="grid-column">
-				<!-- WIDGET BOX -->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
-					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
-								<svg class="post-settings-icon icon-more-dots">
+				<!-- WIDGET BOX SETTINGS -->
+				<div class="widget-box-settings">
+					<!-- POST SETTINGS WRAP -->
+					<div class="post-settings-wrap">
+						<!-- POST SETTINGS -->
+						<div
+							class="post-settings widget-box-post-settings-dropdown-trigger">
+							<!-- POST SETTINGS ICON -->
+							<svg class="post-settings-icon icon-more-dots">
                   <use xlink:href="#svg-more-dots"></use>
                 </svg>
-								<!-- /POST SETTINGS ICON -->
-							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-							</div>
-							<!-- /SIMPLE DROPDOWN -->
+							<!-- /POST SETTINGS ICON -->
 						</div>
-						<!-- /POST SETTINGS WRAP -->
+						<!-- /POST SETTINGS -->
+
+						<!-- SIMPLE DROPDOWN -->
+						<div class="simple-dropdown widget-box-post-settings-dropdown">
+							<!-- SIMPLE DROPDOWN LINK -->
+							<p class="simple-dropdown-link">Widget Settings</p>
+							<!-- /SIMPLE DROPDOWN LINK -->
+						</div>
+						<!-- /SIMPLE DROPDOWN -->
 					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">그룹 규칙</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
-						<!-- PARAGRAPH -->
-						<p class="paragraph">Hi! To ensure that this is a great place
-							for everyone to have a wondefull time, we have some rules.
-							Breaking them will result in a ban from the group.</p>
-						<!-- /PARAGRAPH -->
-
-						<!-- ORDERED ITEM LIST -->
-						<ol class="ordered-item-list">
-							<!-- ORDERED ITEM -->
-							<li class="ordered-item">
-								<!-- ORDERED ITEM BULLET -->
-								<p class="ordered-item-bullet">01-</p> <!-- /ORDERED ITEM BULLET -->
-
-								<!-- ORDERED ITEM TEXT -->
-								<p class="ordered-item-text">Be positive! Respect and help
-									other viewers</p> <!-- /ORDERED ITEM TEXT -->
-							</li>
-							<!-- /ORDERED ITEM -->
-
-							<!-- ORDERED ITEM -->
-							<li class="ordered-item">
-								<!-- ORDERED ITEM BULLET -->
-								<p class="ordered-item-bullet">02-</p> <!-- /ORDERED ITEM BULLET -->
-
-								<!-- ORDERED ITEM TEXT -->
-								<p class="ordered-item-text">No insults, aggravations or any
-									other bad language</p> <!-- /ORDERED ITEM TEXT -->
-							</li>
-							<!-- /ORDERED ITEM -->
-
-							<!-- ORDERED ITEM -->
-							<li class="ordered-item">
-								<!-- ORDERED ITEM BULLET -->
-								<p class="ordered-item-bullet">03-</p> <!-- /ORDERED ITEM BULLET -->
-
-								<!-- ORDERED ITEM TEXT -->
-								<p class="ordered-item-text">No self promotions</p> <!-- /ORDERED ITEM TEXT -->
-							</li>
-							<!-- /ORDERED ITEM -->
-
-							<!-- ORDERED ITEM -->
-							<li class="ordered-item">
-								<!-- ORDERED ITEM BULLET -->
-								<p class="ordered-item-bullet">04-</p> <!-- /ORDERED ITEM BULLET -->
-
-								<!-- ORDERED ITEM TEXT -->
-								<p class="ordered-item-text">Avoid political or religious
-									discussions</p> <!-- /ORDERED ITEM TEXT -->
-							</li>
-							<!-- /ORDERED ITEM -->
-
-							<!-- ORDERED ITEM -->
-							<li class="ordered-item">
-								<!-- ORDERED ITEM BULLET -->
-								<p class="ordered-item-bullet">05-</p> <!-- /ORDERED ITEM BULLET -->
-
-								<!-- ORDERED ITEM TEXT -->
-								<p class="ordered-item-text">No comment spamming</p> <!-- /ORDERED ITEM TEXT -->
-							</li>
-							<!-- /ORDERED ITEM -->
-						</ol>
-						<!-- /ORDERED ITEM LIST -->
-					</div>
-					<!-- /WIDGET BOX CONTENT -->
+					<!-- /POST SETTINGS WRAP -->
 				</div>
-				<!-- /WIDGET BOX -->
+				<!-- /WIDGET BOX SETTINGS -->
+
+				<!-- WIDGET BOX TITLE -->
+				<p class="widget-box-title">그룹 규칙</p>
+				<!-- /WIDGET BOX TITLE -->
+
+				<!-- WIDGET BOX CONTENT -->
+				<div class="widget-box-content">
+					<!-- PARAGRAPH -->
+					<p class="paragraph">Hi! To ensure that this is a great place
+						for everyone to have a wondefull time, we have some rules.
+						Breaking them will result in a ban from the group.</p>
+					<!-- /PARAGRAPH -->
+
+					<!-- ORDERED ITEM LIST -->
+					<ol class="ordered-item-list">
+						<!-- ORDERED ITEM -->
+						<li class="ordered-item">
+							<!-- ORDERED ITEM BULLET -->
+							<p class="ordered-item-bullet">01-</p> <!-- /ORDERED ITEM BULLET -->
+
+							<!-- ORDERED ITEM TEXT -->
+							<p class="ordered-item-text">Be positive! Respect and help
+								other viewers</p> <!-- /ORDERED ITEM TEXT -->
+						</li>
+						<!-- /ORDERED ITEM -->
+
+						<!-- ORDERED ITEM -->
+						<li class="ordered-item">
+							<!-- ORDERED ITEM BULLET -->
+							<p class="ordered-item-bullet">02-</p> <!-- /ORDERED ITEM BULLET -->
+
+							<!-- ORDERED ITEM TEXT -->
+							<p class="ordered-item-text">No insults, aggravations or any
+								other bad language</p> <!-- /ORDERED ITEM TEXT -->
+						</li>
+						<!-- /ORDERED ITEM -->
+
+						<!-- ORDERED ITEM -->
+						<li class="ordered-item">
+							<!-- ORDERED ITEM BULLET -->
+							<p class="ordered-item-bullet">03-</p> <!-- /ORDERED ITEM BULLET -->
+
+							<!-- ORDERED ITEM TEXT -->
+							<p class="ordered-item-text">No self promotions</p> <!-- /ORDERED ITEM TEXT -->
+						</li>
+						<!-- /ORDERED ITEM -->
+
+						<!-- ORDERED ITEM -->
+						<li class="ordered-item">
+							<!-- ORDERED ITEM BULLET -->
+							<p class="ordered-item-bullet">04-</p> <!-- /ORDERED ITEM BULLET -->
+
+							<!-- ORDERED ITEM TEXT -->
+							<p class="ordered-item-text">Avoid political or religious
+								discussions</p> <!-- /ORDERED ITEM TEXT -->
+						</li>
+						<!-- /ORDERED ITEM -->
+
+						<!-- ORDERED ITEM -->
+						<li class="ordered-item">
+							<!-- ORDERED ITEM BULLET -->
+							<p class="ordered-item-bullet">05-</p> <!-- /ORDERED ITEM BULLET -->
+
+							<!-- ORDERED ITEM TEXT -->
+							<p class="ordered-item-text">No comment spamming</p> <!-- /ORDERED ITEM TEXT -->
+						</li>
+						<!-- /ORDERED ITEM -->
+					</ol>
+					<!-- /ORDERED ITEM LIST -->
+				</div>
+				<!-- /WIDGET BOX CONTENT -->
 			</div>
-			<!-- /GRID COLUMN -->
+			<!-- /WIDGET BOX -->
 		</div>
-		<!-- /GRID -->
+		<!-- /GRID COLUMN -->
+	</div>
+	<!-- /GRID COLUMN -->
+	</div>
+	<!-- /GRID -->
 	</div>
 	<!-- /CONTENT GRID -->
 	<div th:insert="/view/fragments/modal.html :: modal"></div>

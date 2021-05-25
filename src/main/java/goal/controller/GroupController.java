@@ -54,6 +54,7 @@ import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupUserGoalVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.ReCommentVO;
@@ -223,7 +224,12 @@ public class GroupController {
 		mv.addObject("userCount", count);
 		return mv;
 	}
-	
+	@RequestMapping(value="/group_getData", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<GroupUserGoalVO>> getData(GroupDataVO data){
+		List<GroupUserGoalVO> resultData = groupService.findDatabyDno(data);
+		return new ResponseEntity<List<GroupUserGoalVO>>(resultData,HttpStatus.OK);
+	}
 	@GetMapping("/group_info/{gno}")
 	public ModelAndView openInfo(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_info");

@@ -22,6 +22,14 @@
 		<id property="join_date" column="join_date"/>
 		<id property="userName" column="userName"/>
 	</resultMap>
+	<resultMap type="goal.vo.GroupDataVO" id="groupDataVO">
+		<id property="mno" column="mno"/>
+		<id property="gno" column="gno"/>
+		<id property="dno" column="dno"/>
+		<id property="uno" column="uno"/>
+		<id property="data_cnt" column="data_cnt"/>
+		<id property="data_regDate" column="data_regDate"/>
+	</resultMap>
 	<select id="getGroupUser" resultType="goal.vo.GroupUserVO">
 		SELECT * FROM gk_group_user where gno=#{gno}
 	</select>
@@ -101,6 +109,9 @@
 		insert into GK_DATA(mno, dno, uno, data_cnt, data_regdate) values
 		(gk_data_seq.nextval, #{dno}, #{uno}, #{data_cnt}, sysdate)
 	</insert>
+	<select id="findDatabyDno" parameterType="goal.vo.GroupDataVO" resultMap="groupUserGoal">
+		select goal_name, userId, goal_allcnt, data_cnt, data_regdate from gk_data d, gk_goal g, gk_user u where d.uno=u.uno and g.dno=d.dno and d.dno=#{dno}
+	</select>
 	<select id="countDatabyUno" parameterType="goal.vo.GroupDataVO" resultType="goal.vo.GroupDataVO">
 		select * from gk_data where uno=#{uno} and dno=#{dno} and TO_CHAR(data_regdate, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
 	</select>
