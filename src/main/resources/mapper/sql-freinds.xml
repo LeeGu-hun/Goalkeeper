@@ -8,6 +8,7 @@
 		<id property="friendBirthdate" column="friendBirthdate"></id>
 		<id property="userFileCheck" column="userFileCheck"></id>
 		<id property="userBackCheck" column="userBackCheck"></id>
+		<collection column="" property="groupUser" javaType="List" ofType="goal.vo.GroupUserVO" select="getGroupUser"/>
 	</resultMap>
 	
 	<select id="getlistFriend" resultMap="friendVO" parameterType="goal.vo.FriendVO">
