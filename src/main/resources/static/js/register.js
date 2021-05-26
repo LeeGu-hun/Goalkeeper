@@ -75,12 +75,15 @@ window.onload = function() {
 		})
 	});
 	
-	function pressEnter(){
-		if(window.event.keyCode == 13){
-		    check();
-		}
-	}
 }
+$(document).ready(function(){
+       $("#userPw1").keypress(function (e) {
+        if (e.which == 13){
+             check();  
+        }
+    });
+});
+
 function openModal(content){
 	$('.modal-con').attr('style','min-height:24%');
 	$("#noticemodal").fadeIn(300);
