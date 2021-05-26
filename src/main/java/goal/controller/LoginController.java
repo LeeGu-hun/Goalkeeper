@@ -73,7 +73,8 @@ public class LoginController {
 		return "redirect:" + referer;
 	}
 	private String getHome(String referer) {
-		if(referer.contains("profileInfo")) {
+		if(referer.contains("profileInfo") || referer.contains("mySearchFriends")
+				|| referer.contains("applyList") || referer.contains("receiveList")) {
 			referer = "/home";
 		}
 		return referer;

@@ -20,7 +20,7 @@
 	<insert id="apply" parameterType="goal.vo.FriendApplyVO">
 		insert into GK_FRIEND_APPLY values
 		(#{applyUno}, #{receiveUno}, #{applyId}, #{receiveId}, #{applyBirthdate}, #{receiveBirthdate}, #{applyFileCheck},
-		#{receiveFileCheck}, #{applyBackCheck}, #{receiveBackCheck}, sysdate)
+		#{applyBackCheck}, #{receiveFileCheck}, #{receiveBackCheck}, sysdate)
 	</insert>
 	
 	<select id="receiveList" resultMap="friendApplyVO">
