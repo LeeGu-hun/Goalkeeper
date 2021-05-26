@@ -36,5 +36,5 @@ public interface GroupMapper {
 	int countDatabyGno(int gno);
 	List<GroupVO> findGroupbyUno(int uno);
 	List<GroupUserGoalVO> findDatabyDno(GroupDataVO data);
-	
+	GroupVO recGroup();
 }
