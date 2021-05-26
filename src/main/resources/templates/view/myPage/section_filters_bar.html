@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="/main.css" rel="stylesheet"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
+          type="text/css"> 
+</head>
+<body>
+<div th:fragment="section_filters_bar">
+<div class="section-filters-bar v1">
+						<!-- SECTION FILTERS BAR ACTIONS -->
+						<div class="section-filters-bar-actions">
+							<!-- FORM -->
+							<form th:attr="action=@{/myFriends/}+${vo.userId}" class="form" method="post">
+							
+								<!-- FORM INPUT -->
+								<div class="form-input small with-button">
+									<label for="friends-search">Search Friends</label> <input
+										type="text" id="friends-search" name="friends_search">
+									<!-- BUTTON -->
+									<button class="button primary" type="submit" id="searchBtn">
+										<!-- ICON MAGNIFYING GLASS -->
+										<svg class="icon-magnifying-glass">
+						                	<use xlink:href="#svg-magnifying-glass"></use>
+						                </svg>
+										<!-- /ICON MAGNIFYING GLASS -->
+									</button>
+									<!-- /BUTTON -->
+								</div>
+								<!-- /FORM INPUT -->
+							</form>
+							<!-- /FORM -->
+		
+							<!-- FILTER TABS -->
+							<div class="filter-tabs">
+								<!-- FILTER TAB -->
+								<div id="myFriendList" class="filter-tab active"
+									th:onclick="'location.href=\'myFriends/'+ @{${user.userId}} + '\''">
+									<!-- FILTER TAB TEXT -->
+									<p class="filter-tab-text">친구 목록</p>
+									<!-- /FILTER TAB TEXT -->
+								</div>
+								<!-- /FILTER TAB -->
+								
+								<!-- FILTER TAB -->
+								<div id="newFriendList" class="filter-tab"
+									onclick="location.href='../mySearchFriends'">
+									<!-- FILTER TAB TEXT -->
+									<p class="filter-tab-text">새 친구 찾기</p>
+									<!-- /FILTER TAB TEXT -->
+								</div>
+								<!-- /FILTER TAB -->
+								
+								<!-- FILTER TAB -->
+								<div id="newFriendList" class="filter-tab"
+									onclick="location.href='../applyList'">
+									<!-- FILTER TAB TEXT -->
+									<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
+									<!-- /FILTER TAB TEXT -->
+								</div>
+								<!-- /FILTER TAB -->
+								
+								<!-- FILTER TAB -->
+								<div id="newFriendList" class="filter-tab"
+									onclick="location.href='../receiveList'">
+									<!-- FILTER TAB TEXT -->
+									<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
+									<!-- /FILTER TAB TEXT -->
+								</div>
+								<!-- /FILTER TAB -->
+							</div>
+							<!-- /FILTER TABS -->
+						</div>
+						<!-- /SECTION FILTERS BAR ACTIONS -->
+					</div>
+</div>
+</body>
+</html>

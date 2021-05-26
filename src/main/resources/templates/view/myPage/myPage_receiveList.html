@@ -283,68 +283,7 @@
 			<!-- /SECTION HEADER -->
 
 			<!-- SECTION FILTERS BAR -->
-			<div class="section-filters-bar v1">
-				<!-- SECTION FILTERS BAR ACTIONS -->
-				<div class="section-filters-bar-actions">
-					<!-- FORM -->
-					<form action="/myFriends" class="form" method="post">
-						<!-- FORM INPUT -->
-						<div class="form-input small with-button">
-							<label for="friends-search">Search Friends</label> <input
-								type="text" id="friends-search" name="friends_search">
-							<!-- BUTTON -->
-							<button class="button primary" type="submit" id="searchBtn">
-								<!-- ICON MAGNIFYING GLASS -->
-								<svg class="icon-magnifying-glass">
-				                	<use xlink:href="#svg-magnifying-glass"></use>
-				                </svg>
-								<!-- /ICON MAGNIFYING GLASS -->
-							</button>
-							<!-- /BUTTON -->
-						</div>
-						<!-- /FORM INPUT -->
-					</form>
-					<!-- /FORM -->
-
-					<!-- FILTER TABS -->
-					<div class="filter-tabs">
-						<!-- FILTER TAB -->
-						<div id="myFriendList" class="filter-tab"
-							th:onclick="'location.href=\'myFriends/'+ @{${user.userId}} + '\''">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">친구 목록</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab"
-							onclick="location.href='mySearchFriends'">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">새 친구 찾기</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab"
-							onclick="location.href='applyList'">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-						
-						<!-- FILTER TAB -->
-						<div id="newFriendList" class="filter-tab active"
-							onclick="location.href='receiveList'">
-							<!-- FILTER TAB TEXT -->
-							<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
-							<!-- /FILTER TAB TEXT -->
-						</div>
-						<!-- /FILTER TAB -->
-					</div>
-					<!-- /FILTER TABS -->
-				</div>
-				<!-- /SECTION FILTERS BAR ACTIONS -->
-			</div>
+			<div th:insert="/view/myPage/section_filters_bar.html :: section_filters_bar"></div>
 			<!-- /SECTION FILTERS BAR -->
 
 			<!-- GRID -->

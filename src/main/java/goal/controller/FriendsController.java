@@ -216,7 +216,7 @@ public class FriendsController {
 		return mv;
 	}
 	
-	@PostMapping("/myFriends/delete")
+	@PostMapping("/*/myFriends/delete")
 	public ModelAndView deleteFriend(@RequestParam int friendNo, HttpServletRequest request, UserVO vo) {
 		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("redirect:/myFriends");
