@@ -113,7 +113,7 @@ public class MyPageController {
 		return mv;	
 	}
     
-    @GetMapping("myPage/groups/{userId}")
+    @GetMapping({"/groups/{userId}","/*/groups/{userId}"})
     public ModelAndView openGroup(@ModelAttribute GroupVO group, HttpServletRequest request, @PathVariable String userId) {
     	UserVO user = commonService.getLoginUser(request);
     	UserVO myPageUser = userService.myPageUserInfo(userId);
@@ -130,11 +130,11 @@ public class MyPageController {
 		mv.addObject("userId", myPageUser.getUserId());
 		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
 		mv.addObject("userFileCheck", myPageUser.getUserFileCheck());
-		mv.addObject("userBackCheck", myPageUser.getUserBackCheck());
 		mv.addObject("profile", myPageUser.getUserFileCheck());
 		mv.addObject("background", myPageUser.getUserBackCheck());
 		
-    	if(user != null) {		
+    	if(user!= null) {		
+    		mv.addObject("userBackCheck", user.getUserBackCheck());
     		mv.addObject("user", user);
     	} else {
     		mv.addObject("user", null);

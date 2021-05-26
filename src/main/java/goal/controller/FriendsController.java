@@ -113,7 +113,7 @@ public class FriendsController {
 		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
 		int countPost = friendService.countPost(vo.getUserId());
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
@@ -185,7 +185,7 @@ public class FriendsController {
 		return mv;
 	}
 	
-	@PostMapping("/mySearchFriends/apply")
+	@PostMapping("/*/mySearchFriends/apply")
 	public ModelAndView apply(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
 			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
 			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {

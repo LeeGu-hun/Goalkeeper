@@ -273,9 +273,6 @@
 				
 				<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
 
-				<div th:unless="${user!= null}">
-					<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
-				</div>
 			<svg class="section-menu-item-icon icon-friend">
             <use xlink:href="#svg-friend"></use>
           </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -293,23 +290,7 @@
 				</a>
 				<!-- /SECTION MENU ITEM -->
 
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-photos.html"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-photos">
-            <use xlink:href="#svg-photos"></use>
-          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="myGoal"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-blog-posts">
-            <use xlink:href="#svg-blog-posts"></use>
-          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">My Goal</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
+				
 
 			</div>
 			<!-- /SECTION MENU -->
@@ -339,9 +320,10 @@
 			<!-- /SLIDER CONTROLS -->
 		</nav>
 		<!-- /SECTION NAVIGATION -->
-		<div class="grid grid-3-6-3 mobile-prefer-content">
+		<div class="grid grid-3-6-3 mobile-prefer-content" >
 			<!-- GRID COLUMN -->
-			<div class="grid-column">
+			<div class="grid-column" id="left_widget"style="position: absolute;width: 280px; left:0; 
+				height: 200px;top: 650px;">
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX TITLE -->
@@ -1077,7 +1059,7 @@
 				<!-- /GRID COLUMN -->
 				<!-- GRID COLUMN -->
 			</div>
-			<div class="grid-column">
+			<div class="grid-column"id="right_widget" style="position: absolute; width: 280px; right: 0; height: 200px; top: 650px;">
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX TITLE -->
@@ -1457,6 +1439,7 @@
 	<script src="../../js/form/form.utils.js"></script>
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
+	<script src="../../js/group_sidebanner.js"></script>
 
 </body>
 </html>

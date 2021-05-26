@@ -89,7 +89,7 @@ public class OhterFriendsController {
 		int countFriend = friendService.countFriends(myPageUser.getUno());
 		int applyCount = friendApplyService.applyCount(myPageUser.getUno());
 		int receiveCount = friendApplyService.receiveCount(myPageUser.getUno());
-		int countPost = friendService.countPost(user.getUserId());
+		int countPost = friendService.countPost(myPageUser.getUserId());
 		
 		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
 		mv = commonService.checkLoginUser(request, mv);
@@ -112,9 +112,9 @@ public class OhterFriendsController {
 			mv.addObject("loginUserProfile", user.getUserFileCheck());
 			mv.addObject("loginUserBackground", user.getUserBackCheck());
 		}
+		mv.addObject("countPost",countPost);
 		mv.addObject("list", list);
 		mv.addObject("count", countFriend);
-		mv.addObject("countPost",countPost);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
 		

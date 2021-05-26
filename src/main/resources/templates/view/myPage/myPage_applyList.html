@@ -262,8 +262,66 @@
 		</div>
 		<!-- /PROFILE HEADER -->
 
-		<!-- SECTION NAVIGATION -->
-			<div th:insert="/view/myPage/section_navigation.html :: section-navi"></div>
+		<!-- SECTION NAVIGATION -->	
+		<nav class="section-navigation">
+			<!-- SECTION MENU -->
+			<div id="section-navigation-slider" class="section-menu">
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" th:href="@{/myPage/}+${user.userId}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-profile">
+			            <use xlink:href="#svg-profile"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item active" th:href="@{/myFriends/}+${user.userId}">
+					
+					<svg class="section-menu-item-icon icon-friend">
+			            <use xlink:href="#svg-friend"></use>
+			        </svg> <!-- /SECTION MENU ITEM ICON -->
+			   
+					<p class="section-menu-item-text">Friends</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+
+				<!-- SECTION MENU ITEM -->
+				<a class="section-menu-item" th:href="@{/groups/}+${user.userId}"> <!-- SECTION MENU ITEM ICON -->
+					<svg class="section-menu-item-icon icon-group">
+		            	<use xlink:href="#svg-group"></use>
+		          	</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
+					<p class="section-menu-item-text">Groups</p> <!-- /SECTION MENU ITEM TEXT -->
+				</a>
+				<!-- /SECTION MENU ITEM -->
+			</div>
+			<!-- /SECTION MENU -->
+
+			<!-- SLIDER CONTROLS -->
+			<div id="section-navigation-slider-controls" class="slider-controls">
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control left">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+			            <use xlink:href="#svg-small-arrow"></use>
+			        </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+
+				<!-- SLIDER CONTROL -->
+				<div class="slider-control right">
+					<!-- SLIDER CONTROL ICON -->
+					<svg class="slider-control-icon icon-small-arrow">
+			            <use xlink:href="#svg-small-arrow"></use>
+			        </svg>
+					<!-- /SLIDER CONTROL ICON -->
+				</div>
+				<!-- /SLIDER CONTROL -->
+			</div>
+			<!-- /SLIDER CONTROLS -->
+		</nav>
+		<!-- /SECTION NAVIGATION -->
 		<!-- /SECTION NAVIGATION -->
 
 		<!-- SECTION -->
@@ -283,7 +341,72 @@
 			<!-- /SECTION HEADER -->
 
 			<!-- SECTION FILTERS BAR -->
-			<div th:insert="/view/myPage/section_filters_bar.html :: section_filters_bar"></div>
+			<div class="section-filters-bar v1">
+	<!-- SECTION FILTERS BAR ACTIONS -->
+	<div class="section-filters-bar-actions">
+		<!-- FORM -->
+		<form th:attr="action=@{/myFriends/}+${userId}" class="form" method="post">
+		
+			<!-- FORM INPUT -->
+			<div class="form-input small with-button">
+				<label for="friends-search">Search Friends</label> <input
+					type="text" id="friends-search" name="friends_search">
+				<!-- BUTTON -->
+				<button class="button primary" type="submit" id="searchBtn">
+					<!-- ICON MAGNIFYING GLASS -->
+					<svg class="icon-magnifying-glass">
+	                	<use xlink:href="#svg-magnifying-glass"></use>
+	                </svg>
+					<!-- /ICON MAGNIFYING GLASS -->
+				</button>
+				<!-- /BUTTON -->
+			</div>
+			<!-- /FORM INPUT -->
+		</form>
+		<!-- /FORM -->
+	
+		<!-- FILTER TABS -->
+		<div class="filter-tabs">
+			<!-- FILTER TAB -->
+			<div id="myFriendList" class="filter-tab"
+				th:onclick="'location.href=\'myFriends/'+ @{${userId}} + '\''">
+				<!-- FILTER TAB TEXT -->
+				<p class="filter-tab-text">친구 목록</p>
+				<!-- /FILTER TAB TEXT -->
+			</div>
+			<!-- /FILTER TAB -->
+			
+			<!-- FILTER TAB -->
+			<div id="newFriendList" class="filter-tab"
+				onclick="location.href='../mySearchFriends'">
+				<!-- FILTER TAB TEXT -->
+				<p class="filter-tab-text">새 친구 찾기</p>
+				<!-- /FILTER TAB TEXT -->
+			</div>
+			<!-- /FILTER TAB -->
+			
+			<!-- FILTER TAB -->
+			<div id="newFriendList" class="filter-tab active"
+				onclick="location.href='../applyList'">
+				<!-- FILTER TAB TEXT -->
+				<p class="filter-tab-text">신청 목록 [<span th:text="${applyCount}"></span>]</p>
+				<!-- /FILTER TAB TEXT -->
+			</div>
+			<!-- /FILTER TAB -->
+			
+			<!-- FILTER TAB -->
+			<div id="newFriendList" class="filter-tab"
+				onclick="location.href='../receiveList'">
+				<!-- FILTER TAB TEXT -->
+				<p class="filter-tab-text">신청 받은 목록 [<span th:text="${receiveCount}"></span>]</p>
+				<!-- /FILTER TAB TEXT -->
+			</div>
+			<!-- /FILTER TAB -->
+		</div>
+		<!-- /FILTER TABS -->
+	</div>
+	<!-- /SECTION FILTERS BAR ACTIONS -->
+	</div>
 			<!-- /SECTION FILTERS BAR -->
 
 			<!-- GRID -->

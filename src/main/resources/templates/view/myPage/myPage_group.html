@@ -263,7 +263,7 @@
 			<!-- SECTION MENU -->
 			<div id="section-navigation-slider" class="section-menu">
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" th:href="myPage"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item" th:href="@{/myPage/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-profile">
 			            <use xlink:href="#svg-profile"></use>
 			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -272,7 +272,7 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item active" href="profile-friends.html">
+				<a class="section-menu-item" th:href="@{/myFriends/}+${vo.userId}">
 					<!-- SECTION MENU ITEM ICON --> 
 					<svg class="section-menu-item-icon icon-friend">
 			            <use xlink:href="#svg-friend"></use>
@@ -282,7 +282,7 @@
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-groups.html"> <!-- SECTION MENU ITEM ICON -->
+				<a class="section-menu-item active" th:href="@{/groups/}+${vo.userId}"> <!-- SECTION MENU ITEM ICON -->
 					<svg class="section-menu-item-icon icon-group">
 		            	<use xlink:href="#svg-group"></use>
 		          	</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
@@ -290,23 +290,7 @@
 				</a>
 				<!-- /SECTION MENU ITEM -->
 
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="profile-photos.html"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-photos">
-			            <use xlink:href="#svg-photos"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="myGoal"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-blog-posts">
-			            <use xlink:href="#svg-blog-posts"></use>
-			        </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">My Goal</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
+				
 
 			</div>
 			<!-- /SECTION MENU -->

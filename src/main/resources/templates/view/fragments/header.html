@@ -165,7 +165,7 @@
   <nav id="navigation-widget" class="navigation-widget navigation-widget-desktop sidebar left hidden" data-simplebar>
     <!-- NAVIGATION WIDGET COVER -->
     <figure class="navigation-widget-cover liquid" th:if="${userBackCheck} =='Y'">
-      <img th:src="@{/user/background/}+${user.uno}" alt="cover-01">
+      <img th:src="@{/user/background/}+${user.uno}">
     </figure>
     <figure class="navigation-widget-cover liquid" th:unless="${userBackCheck} =='Y'">
       <img src="../../img/user_baseBack.png" alt="cover-01">
