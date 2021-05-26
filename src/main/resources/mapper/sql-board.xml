@@ -100,10 +100,16 @@
 	</select>
 	<select id="searchBoard" resultMap="boardVO"
 		parameterType="goal.vo.BoardVO">
-		select bo_content, userid from GK_BOARD
+		select * from GK_BOARD
 		where userid like
 		'%' || #{search_result} || '%' or bo_content like '%' ||
-		#{search_result} || '%'
+		#{search_result} || '%' order by bo_date desc
+	</select>
+	<select id="searchNullBoard" resultType="int" parameterType="goal.vo.BoardVO">
+	select count(*) from GK_BOARD
+		where userid like
+		'%' || #{search_result} || '%' or bo_content like '%' ||
+		#{search_result} || '%' order by bo_date desc
 	</select>
 	<insert id="insertBoard" parameterType="goal.vo.BoardVO"
 		useGeneratedKeys="true" keyProperty="bno" keyColumn="BNO">
@@ -214,7 +220,5 @@
 		SELECT COUNT(*) FROM GK_group_user WHERE UNO=#{UNO}
 	</select>
 	
-	<select id="recGroup" resultType="string" parameterType="goal.vo.GroupVO">
-		select * from (select * from gk_allgroup order by dbms_random.value) where rownum = 1
-	</select>
+
 </mapper>

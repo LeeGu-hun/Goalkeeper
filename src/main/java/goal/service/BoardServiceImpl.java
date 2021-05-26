@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import goal.mapper.BoardMapper;
+import goal.mapper.GroupMapper;
 import goal.vo.BoardVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -17,6 +18,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	private BoardMapper boardMapper;
+	@Autowired
+	private GroupMapper groupMapper;
 	
 	@Override
 	public void insertBoard(BoardVO vo) {
@@ -103,11 +106,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public String recGroup() {
-		return boardMapper.recGroup();
+	public int searchNullBoard(BoardVO vo) {
+		return boardMapper.searchNullBoard(vo);
 	}
 
 
-
-	
 }

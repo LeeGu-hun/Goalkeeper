@@ -9,15 +9,15 @@
 	    var RbannerTop = currentTop + RfloatPosition + "px";
 	    var LbannerTop = currentTop + LfloatPosition + "px";
 	    //이동 애니메이션
-	     if($(window).scrollTop()>390){
+	     if($(window).scrollTop()>290){
 	    	document.getElementById("lefthidden").style.visibility = "visible";
-	    } else if($(window).scrollTop()<390){
+	    } else if($(window).scrollTop()<290){
 	    	document.getElementById("lefthidden").style.visibility = "hidden";
 	    }
 	    	
-	     if($(window).scrollTop()>390){
+	     if($(window).scrollTop()>290){
 	    	document.getElementById("righthidden").style.visibility = "visible";
-	    } else if($(window).scrollTop()<390){
+	    } else if($(window).scrollTop()<290){
 	    	document.getElementById("righthidden").style.visibility = "hidden";
 	    }	
 	    $("#right_widget").stop().animate({

@@ -26,5 +26,5 @@ public interface BoardService {
 	int userCount();
 	int mainGroupCount();
 	int myGroupCount(int uno);
-	String recGroup();
+	int searchNullBoard(BoardVO vo);
 }

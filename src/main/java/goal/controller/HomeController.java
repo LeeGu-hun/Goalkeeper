@@ -108,11 +108,13 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
 		mv = getHome(mv, request);
 		UserVO user = commonService.getLoginUser(request);
-		if (user != null) {
-			List<BoardVO> searchlist = boardService.searchBoard(vo);
-			mv.addObject("searchlist", searchlist);
-			mv.addObject("user", user);
-		}
+		
+		List<BoardVO> searchlist = boardService.searchBoard(vo);
+		int searchNullBoard = boardService.searchNullBoard(vo);
+		mv.addObject("searchNullBoard", searchNullBoard);
+		mv.addObject("searchlist", searchlist);
+		mv.addObject("user", user);
+
 		return mv;
 	}
 
@@ -164,7 +166,6 @@ public class HomeController {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		FriendVO friendVO = new FriendVO();
-		GroupVO groupVO = new GroupVO();
 		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
 		mv.addObject("BoList", boardList);
 		int allcount = boardService.boardAllCount();
@@ -173,8 +174,6 @@ public class HomeController {
 		mv.addObject("userCount", userCount);
 		int mainGroupCount = boardService.mainGroupCount();
 		mv.addObject("mainGroupCount", mainGroupCount);
-		String recGroup = boardService.recGroup();
-		mv.addObject("recGroup", recGroup);
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 //			List<ReplyVO> ReplyList = replyService.getMainReply();
