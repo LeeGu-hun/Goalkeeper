@@ -38,4 +38,5 @@ public interface GroupMapper {
 	List<GroupUserGoalVO> findDatabyDno(GroupDataVO data);
 	GroupVO recGroup();
 	int countMonthGoalbyId(int gno);
+	GroupJoinVO selectGroupJoinbyGno(GroupJoinVO join);
 }

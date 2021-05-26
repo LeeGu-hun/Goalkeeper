@@ -136,9 +136,15 @@
 								<div class="hexagon-34-36"></div>
 							</div>
 
-							<div class="user-avatar-content">
+							<div class="user-avatar-content"
+								th:if="${groupList.userFileCheck}=='Y'">
 								<div class="hexagon-image-30-32"
 									th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
+							</div>
+							<div class="user-avatar-content"
+								th:unless="${groupList.userFileCheck}=='Y'">
+								<div class="hexagon-image-30-32"
+									data-src="../../img/user_baseProfile.png"></div>
 							</div>
 						</div>
 					</div>
@@ -201,7 +207,7 @@
 					<div class="form-row">
 						<label>공개 여부</label>
 						<div class="form-item">
-							<div class="form-input" style="float:left">
+							<div class="form-input" style="float: left">
 								<input type="radio" id="g_open" name="g_open" value="Y">
 								<span for="g_open">공개</span> <input type="radio" id="g_close"
 									name="g_open" value="N"> <span for="g_close">비공개</span>

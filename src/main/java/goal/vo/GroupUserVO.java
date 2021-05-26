@@ -14,4 +14,5 @@ public class GroupUserVO {
 	private String g_role, userId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date g_date;
+	private String userFileCheck;
 }

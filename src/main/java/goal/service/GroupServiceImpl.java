@@ -181,5 +181,10 @@ public class GroupServiceImpl implements GroupService{
 	public int countMonthGoalbyId(int gno) {
 		return groupMapper.countMonthGoalbyId(gno);
 	}
+
+	@Override
+	public GroupJoinVO selectGroupJoinbyGno(GroupJoinVO join) {
+		return groupMapper.selectGroupJoinbyGno(join);
+	}
 	
 }

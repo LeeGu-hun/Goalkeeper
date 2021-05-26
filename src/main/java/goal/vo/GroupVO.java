@@ -17,4 +17,5 @@ public class GroupVO {
 	private String file_check, bgi_check;
 	private List<GroupUserVO> groupUser;
 	private int userCount, boardCount;
+	private String userFileCheck;
 }

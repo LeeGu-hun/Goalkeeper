@@ -25,12 +25,27 @@
 			openModal('아무것도 입력하지 않았습니다.');
 			return false;
 		}
-		openModal('가입 신청이 완료되었습니다.');
-		$('#joinBtn').remove();
-		$("#confirmbtn").on('click',function(){
-			$('form').submit();
+		var param = $('form').serialize();
+		$.ajax({
+			url : '/group_checkJoin',
+			type : 'POST',
+			data: param,
+	   		datatype : 'text', 
+	   		success: function(data) {
+	   			if(data.join_msg=='fail'){
+	   				openModal("이미 신청했습니다.");
+	   				return false;
+	   			} else{
+	   				openModal('가입 신청이 완료되었습니다.');
+	   				$("#confirmbtn").on('click',function(){
+	   					$('form').submit();
+	   				});
+	   			}
+	   		},
+	   		error: function(request, status, error){
+   				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
 		});
-		
 	}
 </script>
 </head>

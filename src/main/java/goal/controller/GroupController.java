@@ -111,9 +111,6 @@ public class GroupController {
 	public ModelAndView openSearchGroup(@RequestParam("word") String word, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("view/group/groups");
 		List<GroupVO> searchList = groupService.getSearchList(word);
-		if(searchList == null) {
-			mv.addObject("fail", "fail");
-		} 
 		mv.addObject("list", searchList);
 		mv = commonService.checkLoginUser(request, mv);
 		return mv;
@@ -190,10 +187,22 @@ public class GroupController {
 		return mv;
 	}
 	@PostMapping("/group_join")
-	public void joinGroup(GroupJoinVO join, HttpServletRequest request) {
+	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
 		UserVO user = commonService.getLoginUser(request);
 		join.setUno(user.getUno());
 		groupService.insertGroupJoin(join);
+		return "redirect:/group_join";
+	}
+	@RequestMapping(value="/group_checkJoin", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<GroupJoinVO> groupCheckJoin(GroupJoinVO join, HttpServletRequest request){
+		UserVO user = commonService.getLoginUser(request);
+		join.setUno(user.getUno());
+		GroupJoinVO resultJoin = groupService.selectGroupJoinbyGno(join);
+		if(resultJoin!=null) {
+			resultJoin.setJoin_msg("fail");
+		}
+		return new ResponseEntity<GroupJoinVO>(resultJoin,HttpStatus.OK);
 	}
 	@PostMapping("/join_request")
 	public String joinMember(GroupJoinVO groupJoin, HttpServletRequest request) {

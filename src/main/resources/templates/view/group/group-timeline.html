@@ -178,9 +178,13 @@
 								th:each="groupUser:${groupUser}">
 								<a class="user-status-avatar" href="profile-timeline.html">
 									<div class="user-avatar small no-outline">
-										<div class="user-avatar-content">
+										<div class="user-avatar-content" th:if="${groupUser.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
+										</div>
+										<div class="user-avatar-content" th:unless="${groupUser.userFileCheck}=='Y'">
+											<div class="hexagon-image-30-32"
+												data-src="../../img/user_baseProfile.png"></div>
 										</div>
 									</div>
 								</a>

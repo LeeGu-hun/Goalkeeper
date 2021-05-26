@@ -31,5 +31,5 @@ public class BoardVO {
    private int reactType;
    private String bnoDay;
    private String bnoTime;
-  
+   private String userFileCheck;  
 }
