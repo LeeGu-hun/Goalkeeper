@@ -134,6 +134,8 @@ public class FriendsController {
 	
 		int countFriend = friendService.countFriends(myPageUser.getUno());
 		int countPost = friendService.countPost(myPageUser.getUserId());
+		int applyCount = friendApplyService.applyCount(myPageUser.getUno());
+		int receiveCount = friendApplyService.receiveCount(myPageUser.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -160,6 +162,8 @@ public class FriendsController {
 		mv.addObject("countPost",countPost);
 		mv.addObject("list", searchFriendList);
 		mv.addObject("count", countFriend);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
@@ -191,13 +195,16 @@ public class FriendsController {
 	}
 
 	@PostMapping("/mySearchFriends")
-	public ModelAndView searchUser(@RequestParam(value="friends_search") String word, HttpServletRequest request, UserVO vo, @PathVariable String userId) {
+	public ModelAndView searchUser(@RequestParam(value="friends_search") String word, HttpServletRequest request, UserVO vo) {
 		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
 		
 		int countFriend = friendService.countFriends(vo.getUno());
 		int countPost = friendService.countPost(vo.getUserId());
+		int applyCount = friendApplyService.applyCount(vo.getUno());
+		int receiveCount = friendApplyService.receiveCount(vo.getUno());
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
 		map.put("word", word);
@@ -212,6 +219,8 @@ public class FriendsController {
 		mv.addObject("list", searchResult);
 		mv.addObject("count", countFriend);
 		mv.addObject("countPost",countPost);
+		mv.addObject("applyCount", applyCount);
+		mv.addObject("receiveCount", receiveCount);
 		
 		return mv;
 	}
