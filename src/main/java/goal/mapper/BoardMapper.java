@@ -31,4 +31,5 @@ public interface BoardMapper {
 	int userCount();
 	int mainGroupCount();
 	int myGroupCount(int uno);
+	String recGroup();
 }

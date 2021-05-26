@@ -8,6 +8,8 @@
 		<id property="friendBirthdate" column="friendBirthdate"></id>
 		<id property="userFileCheck" column="userFileCheck"></id>
 		<id property="userBackCheck" column="userBackCheck"></id>
+		<collection column="friendNo" property="friendCnt" javaType="int" ofType="int" select="friendCount"/>
+		<collection column="friendId" property="boardCnt" javaType="int" ofType="int" select="boardCount"/>
 	</resultMap>
 	
 	<select id="getlistFriend" resultMap="friendVO" parameterType="goal.vo.FriendVO">
@@ -43,4 +45,13 @@
 	<select id="countPost" parameterType="String" resultType="int">
 		select count(*) from GK_BOARD where userId = #{userId}
 	</select>
+	
+	<select id="friendCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND where uno = #{friendNo}
+	</select>
+	
+	<select id="boardCount" parameterType="String" resultType="int">
+		select count(*) from GK_BOARD where userId = #{friendId}
+	</select>
+	
 </mapper>

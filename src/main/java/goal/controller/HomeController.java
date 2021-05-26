@@ -164,6 +164,7 @@ public class HomeController {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		FriendVO friendVO = new FriendVO();
+		GroupVO groupVO = new GroupVO();
 		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
 		mv.addObject("BoList", boardList);
 		int allcount = boardService.boardAllCount();
@@ -172,6 +173,8 @@ public class HomeController {
 		mv.addObject("userCount", userCount);
 		int mainGroupCount = boardService.mainGroupCount();
 		mv.addObject("mainGroupCount", mainGroupCount);
+		String recGroup = boardService.recGroup();
+		mv.addObject("recGroup", recGroup);
 		if (user != null) {
 			List<GroupVO> groupList = groupService.getGroupList(user);
 //			List<ReplyVO> ReplyList = replyService.getMainReply();

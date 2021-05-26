@@ -69,7 +69,13 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		referer = request.getHeader("REFERER");
+		referer = getHome(referer);
 		return "redirect:" + referer;
 	}
-
+	private String getHome(String referer) {
+		if(referer.contains("profileInfo")) {
+			referer = "/home";
+		}
+		return referer;
+	}
 }

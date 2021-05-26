@@ -321,7 +321,7 @@
 					<!-- STATS DECORATION -->
 					<div class="stats-decoration v2 secondary">
 						<!-- STATS DECORATION TITLE -->
-						<p class="stats-decoration-title">2</p>
+						<p class="stats-decoration-title" th:text="${monthGoal}"></p>
 						<!-- /STATS DECORATION TITLE -->
 
 						<!-- STATS DECORATION SUBTITLE -->
@@ -329,7 +329,7 @@
 						<!-- /STATS DECORATION SUBTITLE -->
 
 						<!-- STATS DECORATION TEXT -->
-						<p class="stats-decoration-text">지난 달</p>
+						<p class="stats-decoration-text">이번 달</p>
 						<!-- /STATS DECORATION TEXT -->
 
 						<!-- PERCENTAGE DIFF -->
@@ -345,7 +345,7 @@
 							<!-- /PERCENTAGE DIFF ICON WRAP -->
 
 							<!-- PERCENTAGE DIFF TEXT -->
-							<p class="percentage-diff-text">8.1%</p>
+							<p class="percentage-diff-text" th:text="${monthRate}+'%'"></p>
 							<!-- /PERCENTAGE DIFF TEXT -->
 						</div>
 						<!-- /PERCENTAGE DIFF -->
@@ -355,34 +355,18 @@
 					<!-- STATS DECORATION -->
 					<div class="stats-decoration v2 primary">
 						<!-- STATS DECORATION TITLE -->
-						<p class="stats-decoration-title">14</p>
+						<p class="stats-decoration-title" th:text="${goalCount}"></p>
 						<!-- /STATS DECORATION TITLE -->
 
 						<!-- STATS DECORATION SUBTITLE -->
-						<p class="stats-decoration-subtitle">달성 목표</p>
+						<p class="stats-decoration-subtitle">현재 목표</p>
 						<!-- /STATS DECORATION SUBTITLE -->
 
 						<!-- STATS DECORATION TEXT -->
-						<p class="stats-decoration-text">지난 달</p>
+						<p class="stats-decoration-text">전체</p>
 						<!-- /STATS DECORATION TEXT -->
 
-						<!-- PERCENTAGE DIFF -->
-						<div class="percentage-diff">
-							<!-- PERCENTAGE DIFF ICON WRAP -->
-							<div class="percentage-diff-icon-wrap negative">
-								<!-- PERCENTAGE DIFF ICON -->
-								<svg class="percentage-diff-icon icon-minus-small">
-                  <use xlink:href="#svg-minus-small"></use>
-                </svg>
-								<!-- /PERCENTAGE DIFF ICON -->
-							</div>
-							<!-- /PERCENTAGE DIFF ICON WRAP -->
 
-							<!-- PERCENTAGE DIFF TEXT -->
-							<p class="percentage-diff-text">0.2%</p>
-							<!-- /PERCENTAGE DIFF TEXT -->
-						</div>
-						<!-- /PERCENTAGE DIFF -->
 					</div>
 					<!-- /STATS DECORATION -->
 				</div>
@@ -391,48 +375,21 @@
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX ACTIONS -->
-					<div class="widget-box-actions">
+					<div class="widget-box-actions" th:if="${goalList}!=null">
 						<!-- WIDGET BOX ACTION -->
 						<div class="widget-box-action">
 							<!-- WIDGET BOX TITLE -->
 							<p class="widget-box-title">목표 통계</p>
 							<!-- /WIDGET BOX TITLE -->
 						</div>
-						<!-- /WIDGET BOX ACTION -->
-
-						<!-- WIDGET BOX ACTION -->
-						<div class="widget-box-action">
-							<form id="statFrm" action="/group_stat" method="POST">
-								<!-- FORM SELECT -->
-								<div class="form-select v2">
-									<select id="goal_name" name="dno">
-										<option selected>선택해주세요</option>
-										<option th:each="goalList:${goalList}"
-											th:text="${goalList.goal_name}" th:value="${goalList.dno}"></option>
-									</select>
-									<!-- FORM SELECT ICON -->
-									<svg class="form-select-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-									<!-- /FORM SELECT ICON -->
-								</div>
-								<input type="hidden" name="gno" th:value="${group.gno}">
-								<!-- /FORM SELECT -->
-								<div class="form-select v2">
-									<select id="week_count" name="week_count" onchange="getChart()">
-										<option selected>선택해주세요</option>
-										<option value="1">1주차</option>
-										<option value="2">2주차</option>
-										<option value="3">3주차</option>
-										<option value="4">4주차</option>
-									</select>
-									<!-- FORM SELECT ICON -->
-									<svg class="form-select-icon icon-small-arrow">
-                  <use xlink:href="#svg-small-arrow"></use>
-                </svg>
-									<!-- /FORM SELECT ICON -->
-								</div>
-								<!-- /FORM SELECT -->
+						<div>
+							<form id="dataFrm">
+								<label>목표명</label> <select id="dataOption" name="dno"
+									onchange="getDataList()">
+									<option>선택해주세요</option>
+									<option th:each="goal:${goalList}" id="goalName"
+										th:text="${goal.goal_name}" th:value="${goal.dno}"></option>
+								</select>
 							</form>
 						</div>
 						<!-- /WIDGET BOX ACTION -->
@@ -441,15 +398,45 @@
 
 					<!-- WIDGET BOX CONTENT -->
 					<div class="widget-box-content">
-						<!-- CHART WRAP -->
-						<div class="chart-wrap">
-							<!-- CHART -->
-							<div class="chart">
-								<canvas id="members-report-chart"></canvas>
+						<div class="table table-quests split-rows">
+							<div class="table-header" style="display: flex;">
+								<div class="table-header-column"
+									style="flex: 1; padding-left: 0px;">
+									<p class="table-header-title" style="text-align: center;">유저</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1.5; text-align: center">
+									<p class="table-header-title">목표명</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1; text-align: center">
+									<p class="table-header-title">개수</p>
+								</div>
+								<div class="table-header-column"
+									style="flex: 1; padding-right: 0px;">
+									<p class="table-header-title" style="text-align: center">날짜</p>
+								</div>
 							</div>
-							<!-- /CHART -->
+							<div class="table-boby" id="ajaxDataContainer"></div>
+							<div style="display: none;" id="ajaxDataBox">
+								<div class="table-column" style="flex: 1; padding-left: 0px;">
+									<p id="ajaxDataId"
+										style="text-align: center; line-height: 70px"></p>
+								</div>
+								<div class="table-column" style="flex: 1.5; width: 91px;">
+									<p class="table-text" id="ajaxDataName"
+										style="text-align: center; line-height: 70px;"></p>
+								</div>
+								<div class="table-column" style="flex: 1; text-align: center;">
+									<p class="table-text" id="ajaxDataCnt"
+										style="text-align: center; line-height: 70px;"></p>
+								</div>
+								<div class="table-column" style="flex: 1; padding-right: 0px;">
+									<p class="table-text" id="ajaxDataDate"
+										style="text-align: center; line-height: 70px;"></p>
+								</div>
+							</div>
 						</div>
-						<!-- /CHART WRAP -->
 					</div>
 					<!-- WIDGET BOX CONTENT -->
 				</div>
@@ -459,7 +446,6 @@
 
 			<!-- GRID COLUMN -->
 			<div class="grid-column">
-				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
@@ -563,7 +549,9 @@
 			</div>
 			<!-- /GRID COLUMN -->
 		</div>
-		<!-- /GRID -->
+		<!-- /GRID COLUMN -->
+	</div>
+	<!-- /GRID -->
 	</div>
 	<!-- /CONTENT GRID -->
 	<div th:insert="/view/fragments/modal.html :: modal"></div>

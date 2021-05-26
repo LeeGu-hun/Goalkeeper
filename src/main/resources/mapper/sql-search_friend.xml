@@ -11,6 +11,8 @@
 		<id property="userBirthdate" column="userBirthdate"/>
 		<id property="userFileCheck" column="userFileCheck"/>
 		<id property="userBackFile" column="userBackFile"/>
+		<collection column="uno" property="friendCnt" javaType="int" ofType="int" select="friendCount"/>
+		<collection column="userId" property="boardCnt" javaType="int" ofType="int" select="boardCount"/>
 	</resultMap>
 	
 	<select id="allUser" parameterType="goal.vo.UserVO" resultMap="userVO">
@@ -34,6 +36,17 @@
 	<select id="searchUser" parameterType="java.util.Map" resultMap="userVO">
 		SELECT * FROM GK_USER 
 		WHERE UNO NOT IN(SELECT FRIENDNO FROM GK_FRIEND WHERE UNO = #{uno}) 
+		AND UNO NOT IN(SELECT RECEIVEUNO FROM GK_FRIEND_APPLY WHERE APPLYUNO = #{uno})
+		AND UNO NOT IN(SELECT APPLYUNO FROM GK_FRIEND_APPLY WHERE RECEIVEUNO = #{uno})
 		AND NOT UNO = #{uno} AND UPPER(USERNAME) LIKE '%' || UPPER(#{word}) || '%'
 	</select>
+	
+	<select id="friendCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND where uno = #{friendNo}
+	</select>
+	
+	<select id="boardCount" parameterType="String" resultType="int">
+		select count(*) from GK_BOARD where userId = #{userId}
+	</select>
+	
 </mapper>

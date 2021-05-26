@@ -25,131 +25,77 @@
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
-	<!-- CONTENT GRID -->
 	<div class="content-grid">
-		<!-- PROFILE HEADER -->
 		<div th:insert="/view/fragments/group_header.html :: group_header"></div>
-		<!-- SECTION NAVIGATION -->
 		<nav class="section-navigation">
-			<!-- SECTION MENU -->
 			<div id="section-navigation-medium-slider"
 				class="section-menu secondary">
-				<!-- SECTION MENU ITEM -->
 				<a class="section-menu-item active"
 					id="section-navigation-medium-slider-item0"
-					th:href="@{/group_detail/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-timeline">
+					th:href="@{/group_detail/{gno}(gno=${group.gno})}"> <svg
+						class="section-menu-item-icon icon-timeline">
             		<use xlink:href="#svg-timeline"></use>
-          		</svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Timeline</p> <!-- /SECTION MENU ITEM TEXT -->
+          		</svg>
+					<p class="section-menu-item-text">Timeline</p>
 				</a>
 				<!-- /SECTION MENU ITEM -->
 				<!-- SECTION MENU ITEM -->
 				<a class="section-menu-item"
 					id="section-navigation-medium-slider-item1"
-					th:href="@{/group_info/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-info">
+					th:href="@{/group_info/{gno}(gno=${group.gno})}"> <svg
+						class="section-menu-item-icon icon-info">
             <use xlink:href="#svg-info"></use>
-          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Info</p> <!-- /SECTION MENU ITEM TEXT -->
+          </svg> <!-- /SECTION MENU ITEM ICON -->
+					<p class="section-menu-item-text">Info</p>
 				</a>
 				<!-- /SECTION MENU ITEM -->
 
 				<!-- SECTION MENU ITEM -->
 				<a class="section-menu-item"
 					id="section-navigation-medium-slider-item2"
-					th:href="@{/group_member/{gno}(gno=${group.gno})}"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-members">
+					th:href="@{/group_member/{gno}(gno=${group.gno})}"> <svg
+						class="section-menu-item-icon icon-members">
             <use xlink:href="#svg-members"></use>
-          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Members</p> <!-- /SECTION MENU ITEM TEXT -->
-				</a>
-				<!-- /SECTION MENU ITEM -->
-				<!-- SECTION MENU ITEM -->
-				<a class="section-menu-item" href="#"> <!-- SECTION MENU ITEM ICON -->
-					<svg class="section-menu-item-icon icon-photos">
+          </svg>
+					<p class="section-menu-item-text">Members</p>
+				</a> <a class="section-menu-item" href="#"> <svg
+						class="section-menu-item-icon icon-photos">
             <use xlink:href="#svg-photos"></use>
-          </svg> <!-- /SECTION MENU ITEM ICON --> <!-- SECTION MENU ITEM TEXT -->
-					<p class="section-menu-item-text">Photos</p> <!-- /SECTION MENU ITEM TEXT -->
+          </svg>
+					<p class="section-menu-item-text">Photos</p>
 				</a>
-				<!-- /SECTION MENU ITEM -->
 			</div>
-			<!-- /SECTION MENU -->
-
-			<!-- SLIDER CONTROLS -->
 			<div id="section-navigation-medium-slider-controls"
 				class="slider-controls">
-				<!-- SLIDER CONTROL -->
 				<div class="slider-control left">
-					<!-- SLIDER CONTROL ICON -->
 					<svg class="slider-control-icon icon-small-arrow">
             <use xlink:href="#svg-small-arrow"></use>
           </svg>
-					<!-- /SLIDER CONTROL ICON -->
 				</div>
-				<!-- /SLIDER CONTROL -->
-
-				<!-- SLIDER CONTROL -->
 				<div class="slider-control right">
-					<!-- SLIDER CONTROL ICON -->
 					<svg class="slider-control-icon icon-small-arrow">
             <use xlink:href="#svg-small-arrow"></use>
           </svg>
-					<!-- /SLIDER CONTROL ICON -->
 				</div>
-				<!-- /SLIDER CONTROL -->
 			</div>
-			<!-- /SLIDER CONTROLS -->
 		</nav>
-		<!-- /SECTION NAVIGATION -->
-		<!-- GRID -->
 		<div class="grid grid-3-6-3 mobile-prefer-content">
-			<!-- GRID COLUMN -->
-			<div class="grid-column">
-				<!-- WIDGET BOX -->
+			<div class="grid-column" id="left_widget"style="position: absolute;width: 280px; left:0; 
+				height: 200px;top: 650px;">
+				<!--목표 생성-->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
-					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
-								<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
-								<!-- /POST SETTINGS ICON -->
-							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-							</div>
-							<!-- /SIMPLE DROPDOWN -->
-						</div>
-						<!-- /POST SETTINGS WRAP -->
-					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
 					<p class="widget-box-title">목표 입력</p>
-					<!-- /WIDGET BOX TITLE -->
 					<br>
 					<div class="quick-post-footer"
 						th:if="${boardResult}=='WriteSuccess'">
 						<div class="form-row">
-							<!-- FORM ITEM -->
 							<div class="form-item">
-								<!-- FORM INPUT -->
 								<div class="form-input" th:if="${goalList}!='goalEmpty'">
 									<form id="dataFrm" action="/group_addData" method="POST">
-										<select style="display:block; width: 60%" id="selectGoalName" name="dno">
+										<select style="display: block; width: 60%" id="selectGoalName"
+											name="dno">
 											<option selected>선택해주세요</option>
-											<option th:each="goalList:${goalList}" 
+											<option th:each="goalList:${goalList}"
 												th:value="${goalList.dno}" th:text="${goalList.goal_name}">
 											</option>
 										</select> <input type="hidden" name="gno" th:value="${gno}"> <input
@@ -164,440 +110,229 @@
 								<div th:unless="${goalList}!='goalEmpty'">
 									<br>
 									<p class="widget-box-title" style="display: inline">목표가
-										없습니다.</p>
+										없습니다</p>
 									<p
 										class="button small secondary full popup-manage-group-trigger"
-										style="width: 20%" href="#">목표 만들기</p>
+										style="width: 20%" href="#">만들기</p>
 								</div>
-								<!-- /FORM INPUT -->
 								<br>
 							</div>
-
-							<!-- /FORM ITEM -->
 						</div>
 					</div>
 				</div>
-				<!-- /WIDGET BOX -->
-
-				<!-- WIDGET BOX -->
+				<!--그룹 정보-->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
 						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
 							<div
 								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
 								<svg class="post-settings-icon icon-more-dots">
                   <use xlink:href="#svg-more-dots"></use>
                 </svg>
-								<!-- /POST SETTINGS ICON -->
 							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
 								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
 							</div>
-							<!-- /SIMPLE DROPDOWN -->
 						</div>
-						<!-- /POST SETTINGS WRAP -->
 					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
 					<p class="widget-box-title">그룹 정보</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
 					<div class="widget-box-content">
-						<!-- PARAGRAPH -->
 						<p class="paragraph" th:text="${group.g_intro}"></p>
-						<!-- /PARAGRAPH -->
-
-						<!-- INFORMATION LINE LIST -->
 						<div class="information-line-list">
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
 								<p class="information-line-title">생성일</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
 								<p class="information-line-text" th:text="${group.g_date}"></p>
-								<!-- /INFORMATION LINE TEXT -->
 							</div>
-							<!-- /INFORMATION LINE -->
-
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
 								<p class="information-line-title">분류</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
 								<p class="information-line-text" th:text="${group.g_cate}"></p>
-								<!-- /INFORMATION LINE TEXT -->
 							</div>
-							<!-- /INFORMATION LINE -->
-
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
 								<p class="information-line-title">공개여부</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
 								<p class="information-line-text"
 									th:text="${group.g_open}=='Y'?'공개':'비공개'"></p>
-								<!-- /INFORMATION LINE TEXT -->
 							</div>
-							<!-- /INFORMATION LINE -->
 						</div>
-						<!-- /INFORMATION LINE LIST -->
 					</div>
-					<!-- /WIDGET BOX CONTENT -->
 				</div>
-				<!-- /WIDGET BOX -->
-
-				<!-- WIDGET BOX -->
+				<!--멤버 목록-->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
 						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
 							<div
 								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
 								<svg class="post-settings-icon icon-more-dots">
                   <use xlink:href="#svg-more-dots"></use>
                 </svg>
-								<!-- /POST SETTINGS ICON -->
 							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
 								<p class="simple-dropdown-link"
 									th:href="@{/group_member/{gno}(gno=${group.gno})}">더보기</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
 							</div>
-							<!-- /SIMPLE DROPDOWN -->
 						</div>
-						<!-- /POST SETTINGS WRAP -->
 					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
 					<p class="widget-box-title">멤버</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
 					<div class="widget-box-content">
-						<!-- USER STATUS LIST -->
 						<div class="user-status-list">
-							<!-- USER STATUS -->
 							<div class="user-status request-small"
 								th:each="groupUser:${groupUser}">
-								<!-- USER STATUS AVATAR -->
 								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
 									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
 										<div class="user-avatar-content">
-											<!-- HEXAGON -->
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
-											<!-- /HEXAGON -->
 										</div>
-										<!-- /USER AVATAR CONTENT -->
-									</div> <!-- /USER AVATAR -->
+									</div>
 								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
 								<p class="user-status-title">
 									<a class="bold" href="profile-timeline.html"
 										th:text="${groupUser.userId}"></a>
 								</p>
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
 								<p class="user-status-text small"
 									th:text="${groupUser.g_role}=='ROLE_ADMIN'?'관리자':'일반멤버'"></p>
-								<!-- /USER STATUS TEXT -->
-
-								<!-- ACTION REQUEST LIST -->
 								<div class="action-request-list">
-									<!-- ACTION REQUEST -->
 									<div class="action-request accept">
-										<!-- ACTION REQUEST ICON -->
 										<svg class="action-request-icon icon-add-friend">
                       <use xlink:href="#svg-add-friend"></use>
                     </svg>
-										<!-- /ACTION REQUEST ICON -->
 									</div>
-									<!-- /ACTION REQUEST -->
 								</div>
-								<!-- ACTION REQUEST LIST -->
 							</div>
-							<!-- /USER STATUS -->
 						</div>
-						<!-- /USER STATUS LIST -->
 					</div>
-					<!-- WIDGET BOX CONTENT -->
 				</div>
-				<!-- /WIDGET BOX -->
 			</div>
-			<!-- /GRID COLUMN -->
-
-			<!-- GRID COLUMN -->
+			<!--글 포스트-->
 			<div class="grid-column">
 				<form id="groupWrite" method="post" action="/group_detail"
 					enctype="multipart/form-data">
-					<!-- QUICK POST -->
 					<div class="quick-post" th:if="${boardResult}=='WriteSuccess'">
-						<!-- QUICK POST HEADER -->
 						<div class="quick-post-header">
-							<!-- OPTION ITEMS -->
 							<div class="option-items">
-								<!-- OPTION ITEM -->
-								<div  class="option-item"
-									value="group">
+								<div class="option-item" value="group">
 									<input type="hidden" th:value="${group.g_name}" name="g_name">
 									<input type="hidden" th:value="${group.gno}" name="gno">
-									<!-- OPTION ITEM ICON -->
 									<svg class="option-item-icon icon-poll">
 					                  <use xlink:href="#svg-poll"></use>
 					                </svg>
-									<!-- /OPTION ITEM ICON -->
-
-									<!-- OPTION ITEM TITLE -->
 									<p class="option-item-title">그룹 글</p>
-									<!-- /OPTION ITEM TITLE -->
 								</div>
-								<!-- /OPTION ITEM -->
 							</div>
-							<!-- /OPTION ITEMS -->
 						</div>
-						<!-- /QUICK POST HEADER -->
-
-						<!-- QUICK POST BODY -->
 						<div class="quick-post-body">
-							<!-- FORM -->
-							<!-- FORM ROW -->
 							<div class="form-row">
-								<!-- FORM ITEM -->
 								<div class="form-item">
-									<!-- FORM TEXTAREA -->
 									<div class="form-textarea">
 										<textarea id="text" name="bo_content"
 											placeholder="하고싶은 말을 쓰세요"></textarea>
-										<!-- FORM TEXTAREA LIMIT TEXT -->
-										<!-- /FORM TEXTAREA LIMIT TEXT -->
 									</div>
-									<!-- /FORM TEXTAREA -->
 								</div>
-								<!-- /FORM ITEM -->
 							</div>
-							<!-- /FORM ROW -->
-
 						</div>
-						<!-- /QUICK POST BODY -->
-
-						<!-- QUICK POST FOOTER -->
 						<div class="quick-post-footer">
-							<!-- QUICK POST FOOTER ACTIONS -->
 							<div class="quick-post-footer-actions">
-								<!-- QUICK POST FOOTER ACTION -->
 								<div class="quick-post-footer-action text-tooltip-tft-medium"
 									data-title="Insert Photo" style="position: relative;">
-									<!-- QUICK POST FOOTER ACTION ICON -->
-									<a id="photo"> <svg
+									<a id="photoBtn" onclick="photo()"> <svg
 											class="quick-post-footer-action-icon icon-camera">
 					                  	<use xlink:href="#svg-camera"></use>
 					                </svg>
 									</a>
-									<!-- /QUICK POST FOOTER ACTION ICON -->
 									<div class="xm-tooltip"
 										style="white-space: nowrap; position: absolute; z-index: 99999; top: -32px; left: 50%; margin-left: -42.5px; opacity: 0; visibility: hidden; transform: translate(0px, 10px); transition: all 0.3s ease-in-out 0s;">
-										<p class="xm-tooltip-text">Insert Photo</p>
+										<p class="xm-tooltip-text">사진 넣기</p>
 									</div>
 									<input id="pic"
 										style="border-right: none; border-left: none; border-top: none; cursor: default; width: 130px"
 										type="text" readonly>
 								</div>
 							</div>
-							<!-- /QUICK POST FOOTER ACTION -->
-							<!-- QUICK POST FOOTER ACTIONS -->
 							<div class="quick-post-footer-actions">
-								<!-- BUTTON -->
 								<p class="button small void">취소</p>
-								<!-- /BUTTON -->
-
-								<button type="button"  onclick="goInsert()"
+								<button type="button" onclick="goInsert()"
 									class="button small secondary">글쓰기</button>
-
 							</div>
-							<div class="backmodal">
-								<div class="modal">
-									<div class="modal_content">
-										<div class="ocean">
-											<div class="wave"></div>
-											<div class="wave"></div>
-										</div>
-										<H2 style="margin-left: 330px;">
-											<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
-											<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
-										</H2>
-
-										<div style="margin: 5px" id="imgsrc" src=""></div>
-
-										<div class="filebox">
-											<label for="file">UpLoad</label> <input type="file" id="file"
-												name="files" maxlength="2" multiple
-												accept=".jpg, .jpeg, .png">
-										</div>
-										<span class="file-custom"></span>
-									</div>
-									<button type="button" id="photobtn"
-										style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
+						</div>
+					</div>
+					<div class="backmodal">
+						<div class="modal">
+							<div class="modal_content">
+								<div class="ocean">
+									<div class="wave"></div>
+									<div class="wave"></div>
 								</div>
+								<H2 style="margin-left: 330px;">
+									<span>P</span> <span>H</span> <span>o</span> <span>T</span> <span>O</span>
+									<span>L</span> <span>I</span> <span>S</span> <span>T</span> <span>!</span>
+								</H2>
+								<div style="margin: 5px" id="imgsrc" src=""></div>
+								<div class="filebox">
+									<label for="file">UpLoad</label> <input type="file" id="file"
+										name="files" maxlength="2" multiple accept=".jpg, .jpeg, .png">
+								</div>
+								<span class="file-custom"></span>
 							</div>
-							<!-- /QUICK POST FOOTER ACTIONS -->
+							<button type="button" id="savePhoto" onclick="saveImage()"
+								style="position: absolute; height: 40px; width: 50px; right: 20px; bottom: 20px">저장</button>
 						</div>
 					</div>
 				</form>
-				<!-- /QUICK POST FOOTER -->
-
-				<!-- /QUICK POST -->
-				<!-- /MODAL -->
-				<!-- WIDGET BOX -->
 				<div th:each="post:${BoList}" class="widget-box no-padding">
-					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
 						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
 							<div
 								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
 								<svg class="post-settings-icon icon-more-dots">
                   <use xlink:href="#svg-more-dots"></use>
                 </svg>
-								<!-- /POST SETTINGS ICON -->
 							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:if="${user} == null"></div>
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:unless="${user} == null">
 								<div th:if="${post.userId} == ${user.userId}">
-
-									<!-- SIMPLE DROPDOWN LINK -->
 									<p class="simple-dropdown-link"
 										th:onclick="|javascript:fnEdit('${post.bno}')|">수정하기</p>
-									<!-- /SIMPLE DROPDOWN LINK -->
-
-									<!-- SIMPLE DROPDOWN LINK -->
 									<p class="simple-dropdown-link"
 										th:onclick="|javascript:fnDelete('${post.bno}')|">삭제하기</p>
-									<!-- /SIMPLE DROPDOWN LINK -->
 								</div>
 							</div>
-
-							<!-- /SIMPLE DROPDOWN -->
 						</div>
-						<!-- /POST SETTINGS WRAP -->
 					</div>
-					<!-- /WIDGET BOX SETTINGS -->
 
-					<!-- WIDGET BOX STATUS -->
 					<div class="widget-box-status">
-						<!-- WIDGET BOX STATUS CONTENT -->
 						<div class="widget-box-status-content">
-							<!-- USER STATUS -->
 							<div class="user-status">
-								<!-- USER STATUS AVATAR -->
 								<a class="user-status-avatar" href="profile-timeline.html">
-									<!-- USER AVATAR -->
 									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
 										<div class="user-avatar-content">
-											<!-- HEXAGON -->
 											<div class="hexagon-image-30-32"></div>
-											<!-- /HEXAGON -->
 										</div>
-										<!-- /USER AVATAR CONTENT -->
-
-										<!-- USER AVATAR PROGRESS -->
 										<div class="user-avatar-progress">
-											<!-- HEXAGON -->
 											<div class="hexagon-progress-40-44"></div>
-											<!-- /HEXAGON -->
 										</div>
-										<!-- /USER AVATAR PROGRESS -->
-
-										<!-- USER AVATAR PROGRESS BORDER -->
 										<div class="user-avatar-progress-border">
-											<!-- HEXAGON -->
 											<div class="hexagon-border-40-44"></div>
-											<!-- /HEXAGON -->
 										</div>
-										<!-- /USER AVATAR PROGRESS BORDER -->
-
-										<!-- USER AVATAR BADGE -->
 										<div class="user-avatar-badge">
-											<!-- USER AVATAR BADGE BORDER -->
 											<div class="user-avatar-badge-border">
-												<!-- HEXAGON -->
 												<div class="hexagon-22-24"></div>
-												<!-- /HEXAGON -->
 											</div>
-											<!-- /USER AVATAR BADGE BORDER -->
-
-											<!-- USER AVATAR BADGE CONTENT -->
 											<div class="user-avatar-badge-content">
-												<!-- HEXAGON -->
 												<div class="hexagon-dark-16-18"></div>
-												<!-- /HEXAGON -->
 											</div>
-											<!-- /USER AVATAR BADGE CONTENT -->
-
-											<!-- USER AVATAR BADGE TEXT -->
 											<p class="user-avatar-badge-text">12</p>
-											<!-- /USER AVATAR BADGE TEXT -->
 										</div>
-										<!-- /USER AVATAR BADGE -->
-									</div> <!-- /USER AVATAR -->
+									</div>
 								</a>
-								<!-- /USER STATUS AVATAR -->
-
-								<!-- USER STATUS TITLE -->
-
 								<p class="user-status-title medium">
 									<a class="bold" href="profile-timeline.html"
 										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold"
 										th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
-
-								<!-- /USER STATUS TITLE -->
-
-								<!-- USER STATUS TEXT -->
 								<p class="user-status-text small"
 									th:text="${#dates.format(post.bo_date, 'yyyy-MM-dd HH:mm')}+'분에 등록됨'"></p>
-								<!-- /USER STATUS TEXT -->
 							</div>
-							<!-- /USER STATUS -->
-							<!-- /WIDGET BOX STATUS CONTENT -->
-							<!-- WIDGET BOX STATUS TEXT -->
 							<form id="modify_form" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
 
@@ -619,9 +354,6 @@
 										style="width: 80px; float: right;">취소</p>
 								</div>
 							</form>
-							<!-- /WIDGET BOX STATUS TEXT -->
-
-							<!-- IFRAME WRAP -->
 							<div>
 								<!-- PICTURE COLLAGE -->
 								<div class="picture-collage" th:if="${post.bo_fileCheck}=='Y'">
@@ -629,6 +361,11 @@
 									<div class="picture-collage-row medium">
 										<!-- PICTURE COLLAGE ITEM -->
 										<div class="picture-collage-item popup-picture-trigger"
+											th:data-parameter1="${post.bno}"
+										th:data-parameter2="${file.uuid}"
+										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|" 
+										th:attr="id='popup'+${post.bno}"
 											th:each="file, i:${post.fileList}" th:if="${i.index}<3">
 											<!-- PHOTO PREVIEW -->
 											<div class="photo-preview">
@@ -636,6 +373,8 @@
 												<figure class="photo-preview-image liquid">
 													<img th:attr="src=@{/boardImage/}+${file.uuid}"
 														alt="photo-preview-10">
+													<input type="hidden" th:value="${file.uuid}" 
+												th:id="|img${file.fileCnt}of${file.bno}|"> 
 												</figure>
 												<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -646,27 +385,13 @@
 														<!-- REACTION COUNT -->
 														<div class="reaction-count negative">
 															<!-- REACTION COUNT ICON -->
-															<svg class="reaction-count-icon icon-thumbs-up">
-                              <use xlink:href="#svg-thumbs-up"></use>
+															<svg class="reaction-count-icon icon-magnifying-glass">
+                              <use xlink:href="#svg-magnifying-glass"></use>
                             </svg>
 															<!-- /REACTION COUNT ICON -->
 
 															<!-- REACTION COUNT TEXT -->
-															<p class="reaction-count-text">2</p>
-															<!-- /REACTION COUNT TEXT -->
-														</div>
-														<!-- /REACTION COUNT -->
-
-														<!-- REACTION COUNT -->
-														<div class="reaction-count negative">
-															<!-- REACTION COUNT ICON -->
-															<svg class="reaction-count-icon icon-comment">
-                              <use xlink:href="#svg-comment"></use>
-                            </svg>
-															<!-- /REACTION COUNT ICON -->
-
-															<!-- REACTION COUNT TEXT -->
-															<p class="reaction-count-text">5</p>
+															<p class="reaction-count-text">더보기</p>
 															<!-- /REACTION COUNT TEXT -->
 														</div>
 														<!-- /REACTION COUNT -->
@@ -686,6 +411,11 @@
 										th:if="${post.bo_fileCount}>=3">
 										<!-- PICTURE COLLAGE ITEM -->
 										<div class="picture-collage-item popup-picture-trigger"
+										th:data-parameter1="${post.bno}"
+										th:data-parameter2="${file.uuid}"
+										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|" 
+										th:attr="id='popup'+${post.bno}"
 											th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
 											<!-- PHOTO PREVIEW -->
 											<div class="photo-preview">
@@ -693,6 +423,8 @@
 												<figure class="photo-preview-image liquid">
 													<img th:attr="src=@{/boardImage/}+${file.uuid}"
 														alt="photo-preview-16">
+														<input type="hidden" th:value="${file.uuid}" 
+												th:id="|img${file.fileCnt}of${file.bno}|"> 
 												</figure>
 												<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -703,27 +435,13 @@
 														<!-- REACTION COUNT -->
 														<div class="reaction-count negative">
 															<!-- REACTION COUNT ICON -->
-															<svg class="reaction-count-icon icon-thumbs-up">
-                              <use xlink:href="#svg-thumbs-up"></use>
-                            </svg>
-															<!-- /REACTION COUNT ICON -->
-
-															<!-- REACTION COUNT TEXT -->
-															<p class="reaction-count-text">2</p>
-															<!-- /REACTION COUNT TEXT -->
-														</div>
-														<!-- /REACTION COUNT -->
-
-														<!-- REACTION COUNT -->
-														<div class="reaction-count negative">
-															<!-- REACTION COUNT ICON -->
 															<svg class="reaction-count-icon icon-comment">
                               <use xlink:href="#svg-comment"></use>
                             </svg>
 															<!-- /REACTION COUNT ICON -->
 
 															<!-- REACTION COUNT TEXT -->
-															<p class="reaction-count-text">5</p>
+															<p class="reaction-count-text">더보기</p>
 															<!-- /REACTION COUNT TEXT -->
 														</div>
 														<!-- /REACTION COUNT -->
@@ -900,7 +618,7 @@
 				<!-- /GRID COLUMN -->
 			</div>
 			<!-- GRID COLUMN -->
-			<div class="grid-column">
+			<div class="grid-column" id="right_widget" style="position: absolute; width: 280px; right: 0; height: 200px; top: 650px;">
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX SETTINGS -->
@@ -958,257 +676,139 @@
 						<p>등록된 사진이 없습니다.</p>
 					</div>
 				</div>
-				<!-- /WIDGET BOX -->
-
-				<!-- WIDGET BOX -->
+				<!--  목표 현황 -->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
-					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
-						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
-								<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
-								<!-- /POST SETTINGS ICON -->
-							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
-								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
-							</div>
-							<!-- /SIMPLE DROPDOWN -->
-						</div>
-						<!-- /POST SETTINGS WRAP -->
-					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
 					<p class="widget-box-title">
-						목표 <span class="highlighted">16</span>
+						목표 현황 <span class="highlighted" th:text="${dataCount}"></span>
 					</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
-						<!-- FILTERS -->
-						<div class="filters">
-							<!-- FILTER -->
-							<p class="filter">Newest</p>
-							<!-- /FILTER -->
-
-							<!-- FILTER -->
-							<p class="filter active">Popular</p>
-							<!-- /FILTER -->
+					<div class="table table-quests split-rows">
+						<div class="table-header" style="display: flex;">
+							<div class="table-header-column"
+								style="flex: 1; padding-left: 0px;">
+								<p class="table-header-title" style="text-align: center;">유저</p>
+							</div>
+							<div class="table-header-column"
+								style="flex: 2; text-align: center">
+								<p class="table-header-title">목표명</p>
+							</div>
+							<div class="table-header-column"
+								style="flex: 1; text-align: center">
+								<p class="table-header-title">개수</p>
+							</div>
+							<div class="table-header-column"
+								style="flex: 1; padding-right: 0px;">
+								<p class="table-header-title">날짜</p>
+							</div>
 						</div>
-						<!-- /FILTERS -->
-
-						<!-- POST PREVIEW LINE LIST -->
-						<div class="post-preview-line-list">
-							<!-- POST PREVIEW LINE -->
-							<div class="post-preview-line">
-								<!-- POST PREVIEW LINE TITLE -->
-								<p class="post-preview-line-title">
-									<a href="forums-discussion.html">In your opinion, who has
-										the best cosplay?</a>
-								</p>
-								<!-- /POST PREVIEW LINE TITLE -->
-
-								<!-- POST PREVIEW LINE META -->
-								<div class="post-preview-line-meta">
-									<!-- USER AVATAR -->
+						<div class="table-boby" th:if="${goalList}!='goalEmpty'"
+							th:each="goal:${goalList}">
+							<div th:each="userGoal:${goal.userGoal}" style="display: flex;">
+								<div class="table-column" style="flex: 1.5; padding-left: 0px;">
 									<a class="user-avatar micro no-border"
-										href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
+										th:href="@{/myPage/}+${userGoal.userId}">
 										<div class="user-avatar-content">
-											<!-- HEXAGON -->
 											<div class="hexagon-image-18-20"
-												data-src="../../img/avatar/05.jpg"></div>
-											<!-- /HEXAGON -->
-										</div> <!-- /USER AVATAR CONTENT -->
+												th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+										</div>
 									</a>
-									<!-- /USER AVATAR -->
-
-									<!-- POST PREVIEW LINE AUTHOR -->
-									<p class="post-preview-line-author">
-										<a href="profile-timeline.html">By Neko Bebop</a>
-									</p>
-									<!-- /POST PREVIEW LINE AUTHOR -->
-
-									<!-- POST PREVIEW LINE TIMESTAMP -->
-									<p class="post-preview-line-timestamp">2 weeks ago</p>
-									<!-- /POST PREVIEW LINE TIMESTAMP -->
+									<p th:text="${userGoal.userId}"></p>
 								</div>
-								<!-- /POST PREVIEW LINE META -->
-							</div>
-							<!-- /POST PREVIEW LINE -->
-
-							<!-- POST PREVIEW LINE -->
-							<div class="post-preview-line">
-								<!-- POST PREVIEW LINE TITLE -->
-								<p class="post-preview-line-title">
-									<a href="forums-discussion.html">Preparing everything for
-										CosWorld 2019, show your works here!</a>
-								</p>
-								<!-- /POST PREVIEW LINE TITLE -->
-
-								<!-- POST PREVIEW LINE META -->
-								<div class="post-preview-line-meta">
-									<!-- USER AVATAR -->
-									<a class="user-avatar micro no-border"
-										href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-18-20"
-												data-src="../../img/avatar/03.jpg"></div>
-											<!-- /HEXAGON -->
-										</div> <!-- /USER AVATAR CONTENT -->
-									</a>
-									<!-- /USER AVATAR -->
-
-									<!-- POST PREVIEW LINE AUTHOR -->
-									<p class="post-preview-line-author">
-										<a href="profile-timeline.html">By Nick Grissom</a>
-									</p>
-									<!-- /POST PREVIEW LINE AUTHOR -->
-
-									<!-- POST PREVIEW LINE TIMESTAMP -->
-									<p class="post-preview-line-timestamp">13 hours ago</p>
-									<!-- /POST PREVIEW LINE TIMESTAMP -->
+								<div class="table-column" style="flex: 4; width: 91px;">
+									<p class="table-text"
+										style="text-align: center; line-height: 2.5;"
+										th:text="${userGoal.goal_name}"></p>
 								</div>
-								<!-- /POST PREVIEW LINE META -->
-							</div>
-							<!-- /POST PREVIEW LINE -->
-
-							<!-- POST PREVIEW LINE -->
-							<div class="post-preview-line">
-								<!-- POST PREVIEW LINE TITLE -->
-								<p class="post-preview-line-title">
-									<a href="forums-discussion.html">Official Topic! Let's
-										organize the global meetups for all continents!</a>
-								</p>
-								<!-- /POST PREVIEW LINE TITLE -->
-
-								<!-- POST PREVIEW LINE META -->
-								<div class="post-preview-line-meta">
-									<!-- USER AVATAR -->
-									<a class="user-avatar micro no-border"
-										href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-18-20"
-												data-src="../../img/avatar/02.jpg"></div>
-											<!-- /HEXAGON -->
-										</div> <!-- /USER AVATAR CONTENT -->
-									</a>
-									<!-- /USER AVATAR -->
-
-									<!-- POST PREVIEW LINE AUTHOR -->
-									<p class="post-preview-line-author">
-										<a href="profile-timeline.html">By Destroy Dex</a>
-									</p>
-									<!-- /POST PREVIEW LINE AUTHOR -->
-
-									<!-- POST PREVIEW LINE TIMESTAMP -->
-									<p class="post-preview-line-timestamp">5 days ago</p>
-									<!-- /POST PREVIEW LINE TIMESTAMP -->
+								<div class="table-column" style="flex: 2; text-align: center;">
+									<p class="table-text"
+										style="text-align: center; line-height: 2.5;"
+										th:text="${userGoal.data_cnt}"></p>
 								</div>
-								<!-- /POST PREVIEW LINE META -->
-							</div>
-							<!-- /POST PREVIEW LINE -->
-
-							<!-- POST PREVIEW LINE -->
-							<div class="post-preview-line">
-								<!-- POST PREVIEW LINE TITLE -->
-								<p class="post-preview-line-title">
-									<a href="forums-discussion.html">Share your cosplay tips
-										here! Tutorials, DIY's, paints and more</a>
-								</p>
-								<!-- /POST PREVIEW LINE TITLE -->
-
-								<!-- POST PREVIEW LINE META -->
-								<div class="post-preview-line-meta">
-									<!-- USER AVATAR -->
-									<a class="user-avatar micro no-border"
-										href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-18-20"
-												data-src="../../img/avatar/05.jpg"></div>
-											<!-- /HEXAGON -->
-										</div> <!-- /USER AVATAR CONTENT -->
-									</a>
-									<!-- /USER AVATAR -->
-
-									<!-- POST PREVIEW LINE AUTHOR -->
-									<p class="post-preview-line-author">
-										<a href="profile-timeline.html">By Neko Bebop</a>
-									</p>
-									<!-- /POST PREVIEW LINE AUTHOR -->
-
-									<!-- POST PREVIEW LINE TIMESTAMP -->
-									<p class="post-preview-line-timestamp">20 hours ago</p>
-									<!-- /POST PREVIEW LINE TIMESTAMP -->
+								<div class="table-column" style="flex: 2; padding-right: 0px;">
+									<p class="table-text"
+										style="text-align: center; line-height: 2.5;"
+										th:text="${#dates.format(userGoal.data_regdate, 'yy/MM/dd')}"></p>
 								</div>
-								<!-- /POST PREVIEW LINE META -->
 							</div>
-							<!-- /POST PREVIEW LINE -->
-
-							<!-- POST PREVIEW LINE -->
-							<div class="post-preview-line">
-								<!-- POST PREVIEW LINE TITLE -->
-								<p class="post-preview-line-title">
-									<a href="forums-discussion.html">Check out all the pictures
-										I took at the CosplayWonder 2018</a>
-								</p>
-								<!-- /POST PREVIEW LINE TITLE -->
-
-								<!-- POST PREVIEW LINE META -->
-								<div class="post-preview-line-meta">
-									<!-- USER AVATAR -->
-									<a class="user-avatar micro no-border"
-										href="profile-timeline.html"> <!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
-											<div class="hexagon-image-18-20"
-												data-src="../../img/avatar/07.jpg"></div>
-											<!-- /HEXAGON -->
-										</div> <!-- /USER AVATAR CONTENT -->
-									</a>
-									<!-- /USER AVATAR -->
-
-									<!-- POST PREVIEW LINE AUTHOR -->
-									<p class="post-preview-line-author">
-										<a href="profile-timeline.html">By Sarah Diamond</a>
-									</p>
-									<!-- /POST PREVIEW LINE AUTHOR -->
-
-									<!-- POST PREVIEW LINE TIMESTAMP -->
-									<p class="post-preview-line-timestamp">19 days ago</p>
-									<!-- /POST PREVIEW LINE TIMESTAMP -->
-								</div>
-								<!-- /POST PREVIEW LINE META -->
-							</div>
-							<!-- /POST PREVIEW LINE -->
 						</div>
-						<!-- /POST PREVIEW LINE LIST -->
 					</div>
-					<!-- WIDGET BOX CONTENT -->
+					<!-- <div class="widget-box-content">
+						<div class="post-preview-line-list">
+							<div class="post-preview-line" th:each="goal:${goalList}">
+								<div th:each="userGoal:${goal.userGoal}">
+									<p class="post-preview-line-title" style="display:inline-block; margin-left:25px;">유저</p>
+									<p class="post-preview-line-title" style="display:inline-block; margin-left:10px;">목표명</p>
+									<p class="post-preview-line-title" style="display:inline-block; margin-left:5px;">실행횟수</p>
+									<p class="post-preview-line-title" style="display:inline-block; margin-left:5px;">날짜</p>
+									<div class="post-preview-line-meta">
+										<a class="user-avatar micro no-border"
+											href="profile-timeline.html"> 
+											<div class="user-avatar-content">
+												<div class="hexagon-image-18-20"
+													data-src="../../img/avatar/05.jpg"></div>
+											</div> 
+										</a><p th:text="${userGoal.userId}"></p>
+										<p class="post-preview-liner" 
+										th:text="${userGoal.goal_name}"></p>
+										<p class="post-preview-liner" th:text="${userGoal.data_cnt}+'개'"></p>
+										<p class="post-preview-line-timestamp"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
 				</div>
 			</div>
-			<!-- /GRID COLUMN -->
 		</div>
-		<!-- /GRID -->
 	</div>
-	<!-- POPUP BOX -->
 	<div class="popup-box mid popup-manage-group">
-		<!-- POPUP CLOSE BUTTON -->
 		<div class="popup-close-button popup-manage-group-trigger">
+			<svg class="popup-close-button-icon icon-cross">
+        <use xlink:href="#svg-cross"></use>
+      </svg>
+		</div>
+		<div class="popup-box-content">
+			<div class="widget-box">
+				<p class="widget-box-title">목표 추가</p>
+				<div class="widget-box-content">
+					<form id="addFrm" class="form" action="/group_addGoal"
+						method="POST">
+						<div class="form-row">
+							<div class="form-item">
+								<input type="hidden" name="gno" th:value="${gno}">
+								<div class="form-input small active">
+									<label for="group-name">목표 이름</label> <input type="text"
+										id="goal_name" name="goal_name">
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-item">
+								<div class="form-input small active">
+									<label for="group-name">목표 횟수</label> <input type="text"
+										id="goal_allcnt" name="goal_allcnt">
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-item">
+								<label for="group-public-email">목표 달성일</label>
+								<div class="form-input small active">
+									<input type="date" id="goal_enddate" name="goal_enddate">
+								</div>
+							</div>
+						</div>
+					</form>
+					<button id="addGoal" type="submit" class="button secondary full">저장하기</button>
+					<p class="button white full popup-manage-group-trigger">취소</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팝업시작 -->
+<div class="popup-picture"
+		style="position: fixed; left: 50%; z-index: 100001; opacity: 1; visibility: visible; transform: translate(0px, 0px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s; top: 98px; margin-left: -547px;">
+		<!-- POPUP CLOSE BUTTON -->
+		<div class="popup-close-button popup-picture-trigger">
 			<!-- POPUP CLOSE BUTTON ICON -->
 			<svg class="popup-close-button-icon icon-cross">
         <use xlink:href="#svg-cross"></use>
@@ -1216,81 +816,24 @@
 			<!-- /POPUP CLOSE BUTTON ICON -->
 		</div>
 		<!-- /POPUP CLOSE BUTTON -->
-		<!-- POPUP BOX CONTENT -->
-		<div class="popup-box-content">
-			<!-- WIDGET BOX -->
-			<div class="widget-box">
-				<!-- WIDGET BOX TITLE -->
-				<p class="widget-box-title">목표 추가</p>
-				<!-- /WIDGET BOX TITLE -->
 
-				<!-- WIDGET BOX CONTENT -->
-				<div class="widget-box-content">
-					<!-- FORM -->
-					<form id="addFrm" class="form" action="/group_addGoal"
-						method="POST">
-						<!-- FORM ROW -->
-						<div class="form-row">
-							<!-- FORM ITEM -->
-							<div class="form-item">
-								<!-- FORM INPUT -->
-								<input type="hidden" name="gno" th:value="${gno}">
-								<div class="form-input small active">
-									<label for="group-name">목표 이름</label> <input type="text"
-										id="goal_name" name="goal_name">
-								</div>
-								<!-- /FORM INPUT -->
-							</div>
-							<!-- /FORM ITEM -->
-						</div>
-						<!-- /FORM ROW -->
-
-						<!-- FORM ROW -->
-						<div class="form-row">
-							<!-- FORM ITEM -->
-							<div class="form-item">
-								<!-- FORM INPUT -->
-								<div class="form-input small active">
-									<label for="group-name">목표 횟수</label> <input type="text"
-										id="goal_allcnt" name="goal_allcnt">
-								</div>
-								<!-- /FORM INPUT -->
-							</div>
-							<!-- /FORM ITEM -->
-						</div>
-						<!-- /FORM ROW -->
-
-						<!-- FORM ROW -->
-						<div class="form-row">
-							<!-- FORM ITEM -->
-							<div class="form-item">
-								<!-- FORM INPUT -->
-								<label for="group-public-email">목표 달성일</label>
-								<div class="form-input small active">
-									<input type="date" id="goal_enddate" name="goal_enddate">
-								</div>
-								<!-- /FORM INPUT -->
-							</div>
-							<!-- /FORM ITEM -->
-						</div>
-						<!-- /FORM ROW -->
-					</form>
-					<!-- /FORM -->
-					<!-- BUTTON -->
-					<button id="addGoal" type="submit" class="button secondary full">저장하기</button>
-					<!-- /BUTTON -->
-
-					<!-- BUTTON -->
-					<p class="button white full popup-manage-group-trigger">취소</p>
-					<!-- /BUTTON -->
-				</div>
-				<!-- WIDGET BOX CONTENT -->
-			</div>
-			<!-- /WIDGET BOX -->
+		<!-- POPUP PICTURE IMAGE WRAP -->
+		<div class="popup-picture-image-wrap" style="padding-left: 30px;padding-right: 30px;">
+		
+		<p id="imgModaluserId" style="position:absolute;top: 20px;left: 30px;
+			color:white; font-size: 30px;font-family: 'Open Sans';"></p>
+			<hr>
+			<!-- POPUP PICTURE IMAGE -->
+ 				<img id="modalimg" width="800" height="500" alt="cover-04" style="margin-bottom: 100px;">
+			<!-- /POPUP PICTURE IMAGE -->
+			
+		<p id="imgModalContent" style="position:absolute;bottom: 130px;left: 30px;
+			color:white; font-size: 20px;font-family: 'Open Sans';"></p>	
+			
 		</div>
-		<!-- /POPUP BOX CONTENT -->
+		<!-- /POPUP PICTURE IMAGE WRAP -->
 	</div>
-	<!-- /POPUP BOX -->
+	<!-- 팝업끝 -->
 	<div th:insert="/view/fragments/modal.html :: modal"></div>
 	<!-- app -->
 	<script src="../../js/utils/app.js"></script>
@@ -1330,5 +873,6 @@
 	<script src="../../js/reply.js"></script>
 	<script src="../../js/group_header.js"></script>
 	<script src="../../js/group_mgGoal.js"></script>
+	<script src="../../js/group_sidebanner.js"></script>
 </body>
 </html>

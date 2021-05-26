@@ -10,6 +10,14 @@
 		<id property="goal_type" column="goal_type"/>
 		<id property="goal_enddate" column="goal_enddate"/>
 		<collection property="groupMaxData" column="dno" javaType="int" ofType="int" select="getMaxDataById"/>
+		<collection property="userGoal" column="dno" javaType="List" ofType="goal.vo.GroupUserGoalVO" select="getUserGoal"/>
+	</resultMap>
+	<resultMap type="goal.vo.GroupUserGoalVO" id="groupUserGoal">
+		<id property="goal_name" column="goal_name"/>
+		<id property="userId" column="userId"/>
+		<id property="goal_allcnt" column="goal_allcnt"/>
+		<id property="data_cnt" column="data_cnt"/>
+		<id property="data_regdate" column="data_regdate"/>
 	</resultMap>
 	<insert id="insertData" parameterType="goal.vo.GroupGoalVO">
 		insert into
@@ -22,5 +30,15 @@
 	<select id="countGoalbyId" parameterType="int" resultType="int">
 		select count(*) from gk_goal where gno=#{gno}	
 	</select>
-	
+	<select id="countMonthGoalbyId" parameterType="int" resultType="int">
+		<![CDATA[
+		select count(*) from gk_goal where gno=#{gno} and goal_startdate >= trunc(sysdate, 'month')
+		]]>
+	</select>
+	<select id="getUserGoal" resultMap="groupUserGoal">
+		select goal_name, userId, goal_allcnt, data_cnt, data_regdate from gk_data d, gk_goal g, gk_user u where d.uno=u.uno and g.dno=d.dno and d.dno=#{dno}
+	</select>
+	<select id="findGoalbyId" parameterType="int" resultMap="groupGoal">
+		select * from GK_GOAL where gno=#{gno}
+	</select>
 </mapper>

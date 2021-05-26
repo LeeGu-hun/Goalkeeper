@@ -8,14 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-@Alias("groupDataVO")
-public class GroupDataVO {
-	private int mno;
-	private int gno;
-	private int dno;
-	private int uno;
-	private int data_cnt;
+@Alias("groupUserGoal")
+public class GroupUserGoalVO {
+	private String goal_name, userId;
+	private int goal_allcnt, data_cnt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date data_regDate;
-	int week_count;
+	Date data_regdate;
 }

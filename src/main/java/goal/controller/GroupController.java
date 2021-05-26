@@ -54,6 +54,7 @@ import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupUserGoalVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.ReCommentVO;
@@ -147,14 +148,6 @@ public class GroupController {
 		}
 		return "redirect:/groups";
 	}
-	@PostMapping("/group_join")
-	public String joinGroup(GroupJoinVO join, HttpServletRequest request) {
-		UserVO user = commonService.getLoginUser(request);
-		join.setUno(user.getUno());
-		groupService.insertGroupJoin(join);
-		return "/group_join";
-	}
-	
 	@GetMapping("/group_detail/{gno}")
 	public ModelAndView openDetail(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group-timeline");
@@ -196,6 +189,12 @@ public class GroupController {
 		mv.addObject("group", group);
 		return mv;
 	}
+	@PostMapping("/group_join")
+	public void joinGroup(GroupJoinVO join, HttpServletRequest request) {
+		UserVO user = commonService.getLoginUser(request);
+		join.setUno(user.getUno());
+		groupService.insertGroupJoin(join);
+	}
 	@PostMapping("/join_request")
 	public String joinMember(GroupJoinVO groupJoin, HttpServletRequest request) {
 		GroupUserVO groupUser = new GroupUserVO();
@@ -204,6 +203,11 @@ public class GroupController {
 		groupUser.setG_role("ROLE_MEMBER");
 		groupService.insertGroupUser(groupUser);
 		groupService.removeGroupJoin(groupJoin);
+		return "redirect:/group_mgJoin/";
+	}
+	@PostMapping("/join_delete")
+	public String deleteJoin(GroupJoinVO join, HttpServletRequest request) {
+		groupService.removeGroupJoin(join);
 		return "redirect:/group_mgJoin/";
 	}
 	@GetMapping("/group_member/{gno}")
@@ -220,13 +224,19 @@ public class GroupController {
 		mv.addObject("userCount", count);
 		return mv;
 	}
-	
+	@RequestMapping(value="/group_getData", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<GroupUserGoalVO>> getData(GroupDataVO data){
+		List<GroupUserGoalVO> resultData = groupService.findDatabyDno(data);
+		return new ResponseEntity<List<GroupUserGoalVO>>(resultData,HttpStatus.OK);
+	}
 	@GetMapping("/group_info/{gno}")
 	public ModelAndView openInfo(@PathVariable("gno") int gno, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/view/group/group_info");
 		UserVO user = commonService.getLoginUser(request);
 		mv = getJoinResult(user, mv);
 		mv = getGoalList(mv, gno);
+		mv = getGroupUser(gno, mv);
 		GroupVO group = groupService.getGroup(gno);
 		mv.addObject("group", group);
 		return mv;	
@@ -323,7 +333,7 @@ public class GroupController {
 			groupFileService.updateGroupBgi(groupBgi);	
 		} else {
 			groupBgi = groupUpload.requestBackgroundUpload(multi, groupBgi);
-			groupService.updateBgiCheck("Y");
+			groupService.updateBgiCheck(groupBgi.getGno());
 			groupFileService.insertGroupBgi(groupBgi);
 		}
 		return "redirect:/group_mgSetting/" + groupBgi.getGno();
@@ -371,7 +381,18 @@ public class GroupController {
 		List<GroupUserVO> groupUser = groupService.findUserbyGroup(gno);
 		int userResult = groupService.countUserbyGroup(gno);
 		int goalResult = groupService.countGoalbyGroup(gno);
+		int dataResult = groupService.countDatabyGno(gno);
+		int monthGoal = groupService.countMonthGoalbyId(gno);
+		int monthRate;
+		if(goalResult==0 || monthGoal==0) {
+			monthRate = 0;
+		} else {
+			monthRate = (goalResult / monthGoal) *100;
+		}
+		mv.addObject("monthRate", monthRate);
+		mv.addObject("monthGoal", monthGoal);
 		mv.addObject("goalCount", goalResult);
+		mv.addObject("dataCount", dataResult);
 		mv.addObject("userCount", userResult);
 		mv.addObject("groupUser", groupUser);
 		mv.addObject("gno", gno);

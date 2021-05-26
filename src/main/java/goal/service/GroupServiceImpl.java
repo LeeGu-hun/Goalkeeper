@@ -14,6 +14,7 @@ import goal.vo.BoardFileVO;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupGoalVO;
 import goal.vo.GroupJoinVO;
+import goal.vo.GroupUserGoalVO;
 import goal.vo.GroupUserVO;
 import goal.vo.GroupVO;
 import goal.vo.UserVO;
@@ -110,8 +111,8 @@ public class GroupServiceImpl implements GroupService{
 	}
 	
 	@Override
-	public void updateBgiCheck(String bgi_check) {
-		groupMapper.updateBgiCheck(bgi_check);
+	public void updateBgiCheck(int gno) {
+		groupMapper.updateBgiCheck(gno);
 	}
 
 	@Override
@@ -162,8 +163,23 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
+	public int countDatabyGno(int gno) {
+		return groupMapper.countDatabyGno(gno);
+	}
+
+	@Override
 	public List<GroupVO> findGroupbyUno(int uno) {
 		return groupMapper.findGroupbyUno(uno);
+	}
+
+	@Override
+	public List<GroupUserGoalVO> findDatabyDno(GroupDataVO data) {
+		return groupMapper.findDatabyDno(data);
+	}
+
+	@Override
+	public int countMonthGoalbyId(int gno) {
+		return groupMapper.countMonthGoalbyId(gno);
 	}
 	
 }

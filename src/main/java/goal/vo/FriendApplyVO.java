@@ -16,6 +16,8 @@ public class FriendApplyVO {
 	private String applyBackCheck;
 	private String receiveFileCheck;
 	private String receiveBackCheck;
+	private int receiveFriend;
+	private int applyFriend;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date applyBirthdate, receiveBirthdate;

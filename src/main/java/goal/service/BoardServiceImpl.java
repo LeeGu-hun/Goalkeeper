@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import goal.mapper.BoardMapper;
 import goal.vo.BoardVO;
+import goal.vo.GroupVO;
 import goal.vo.UserVO;
 
 @Service
@@ -99,6 +100,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<BoardVO> getMyPageBoardList(String userId) {
 		return boardMapper.getMyPageBoardList(userId);
+	}
+
+	@Override
+	public String recGroup() {
+		return boardMapper.recGroup();
 	}
 
 

@@ -1,10 +1,13 @@
 var toggle = true;
+var tbno = 0;
 function openReply(bno){
 	if(toggle){
 	 	$('#replyBox'+bno).attr('style', 'display:flex; flex-direction:column');
+	 	$('#commentForm'+bno).attr('style', 'display:flex; flex-direction:column');
 	 	toggle = false;	
 	} else{
 		$('#replyBox'+bno).attr('style', 'display:none');
+		$('#commentForm'+bno).attr('style', 'display:none');
 		toggle = true;
 	}
 }
@@ -18,13 +21,13 @@ function openRecmt(rno){
 		reToggle = true;
 	}
 }
-var count = 1;
-$('#replyBtn').click(function(){
-	if($('#replyContent').val()==''){
+var count = 0;
+function replyBtn(bno){
+	if($('#replyContent'+bno).val()==''){
 		openModal("내용을 입력해주세요.");
 		return false;
 	}
-	var params = $('#replyFrm').serialize();
+	var params = $('#replyFrm'+bno).serialize();
 	$.ajax({
 		url : '/reply',
 		type : 'POST',
@@ -33,32 +36,32 @@ $('#replyBtn').click(function(){
 	    datatype : 'text',
 		contentType:'application/x-www-form-urlencoded; charset=utf-8',
 	    success: function(data) {
-	    	var cloneReply = $('#ajaxAddReply').clone();
-	    	cloneReply.attr('id', 'ajaxAddReply'+count);
+	    	var cloneReply = $('#ajaxAddReply'+bno).clone();
 	    	if(data.profileCheck==1){
-	    		cloneReply.find('#ajaxReplyProfile').replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.replyWriter+'"></figure>');
+	    		cloneReply.find('#ajaxReplyProfile'+bno).replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.replyWriter+'"></figure>');
 	    	} else{
-		    	cloneReply.find('#ajaxReplyProfile').replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
+		    	cloneReply.find('#ajaxReplyProfile'+bno).replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
 	    	}	    	
 	    	var date = new Date(data.replyDate);
 	    	var month = date.getMonth();
 	    	if(month <10){
 	    		month = '0' + month;
 	    	}
-	    	cloneReply.find('#ajaxReplyId').html(data.replyWriter);
-	    	cloneReply.find('#ajaxReplyContent').html(data.replyContent);
-	    	cloneReply.find('#ajaxReplyDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
+	    	cloneReply.find('#ajaxReplyId'+bno).html(data.replyWriter);
+	    	cloneReply.find('#ajaxReplyContent'+bno).html(data.replyContent);
+	    	cloneReply.find('#ajaxReplyDate'+bno).html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
 	    	cloneReply.attr('style', 'display:flex; flex-direction:column; margin-left:40px;');
-	    	$('#replyContent').val("");
-	    	$('#ajaxAddReply').before(cloneReply);
-	    	count ++;
-	    	
+	    	$('#replyContent'+bno).val("");
+		    $('#replyBox'+bno).append(cloneReply);	
+		    var commentBox = $('#commentPost'+bno).clone();
+		    $('#replyBox'+bno).append(commentBox);
+		    $('#commentPost'+bno).remove();
 	    },
 	    error: function(request, status, error){
    			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
-});
+}
 function react(no, id){
 	var param = {"bno" : no, "userId" : id};
 	var reactDiv = $('#react'+no);

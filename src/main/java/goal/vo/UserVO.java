@@ -21,6 +21,8 @@ public class UserVO {
 	private String userPhone;
 	private String userFileCheck;
 	private String userBackCheck;
+	private int friendCnt;
+	private int boardCnt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userBirthdate;

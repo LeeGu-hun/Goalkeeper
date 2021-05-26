@@ -26,6 +26,7 @@
 			return false;
 		}
 		openModal('가입 신청이 완료되었습니다.');
+		$('#joinBtn').remove();
 		$("#confirmbtn").on('click',function(){
 			$('form').submit();
 		});
@@ -53,7 +54,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="button" class="button small white add-field-button"
+				<button type="button" id="joinBtn"class="button small white add-field-button"
 					style="float: right" onclick="joinSubmit();">가입하기</button>
 			</form>
 		</div>

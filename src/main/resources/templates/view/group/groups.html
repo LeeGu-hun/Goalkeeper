@@ -48,9 +48,8 @@
 			</div>
 
 			<div class="page-wrapper" th:if="${user}==null">
-				<a class="btn"
-					th:attr="onclick=|javascript:goCreateGroup('fail')|" href="#">그룹
-					만들기</a>
+				<a class="btn" th:attr="onclick=|javascript:goCreateGroup('fail')|"
+					href="#">그룹 만들기</a>
 			</div>
 			<div class="page-wrapper" th:unless="${user}==null">
 				<a class="btn"
@@ -64,11 +63,11 @@
 			<div class="user-preview" th:each="groupList:${list}">
 				<figure class="user-preview-cover liquid"
 					th:if="${groupList.bgi_check}=='Y'">
-					<img th:attr="src=@{/background/}+${groupList.gno}" alt="cover-29">
+					<img th:attr="src=@{/background/}+${groupList.gno}">
 				</figure>
 				<figure class="user-preview-cover liquid"
 					th:unless="${groupList.bgi_check}=='Y'">
-					<img src="../../img/group_baseBgi.png" alt="cover-29">
+					<img src="../../img/group_baseBgi.png">
 				</figure>
 
 				<div class="user-preview-info">
@@ -153,23 +152,20 @@
 		</div>
 	</div>
 	<div class="noticemodal" id="createmodal"></div>
-	<div id="createcontent" class="modal-con modalnotice">
+	<div id="createcontent" class="modal-con modalnotice"
+		style="width: auto; height: auto">
 		<a href="javascript:;" class="modalclose"> <svg
 				class="icon-cross demo-box-icon">
 				<use xlink:href="#svg-cross"></use></svg></a>
 		<p class="noticetitle">
 			<svg class="icon-notification demo-box-icon">
 	    <use xlink:href="#svg-notification"></use></svg>
-			알림
+			가입하기
 		</p>
 		<div class="con">
-			<div class="form-box login-register-form-element">
-				<img class="form-box-decoration" src="img/landing/rocket.png"
-					alt="rocket">
-				<h2 class="form-box-title">그룹 생성</h2>
-
-				<form class="form" method="post" id="goal_submit" action="/group_create"
-					enctype="multipart/form-data">
+			<div>
+				<form class="form" method="post" id="goal_submit"
+					action="/group_create" enctype="multipart/form-data">
 					<div class="form-row">
 						<div class="form-item">
 							<div class="form-input">
@@ -180,12 +176,12 @@
 						</div>
 					</div>
 					<div class="form-row">
+						<label for="register-email">그룹 프로필</label>
 						<div class="form-item">
-							<label for="register-email">그룹 프로필</label>
-							<div class="form-input">
 
+							<div class="form-input">
 								<input type="file" id="g_profile" accept=".jpg, .jpeg, .png"
-									name="file">
+									name="file" style="float: left">
 								<div id="img_border"
 									style="border: 1px solid black; margin: 10px;">
 									<div id="img_preview" src=""></div>
@@ -203,9 +199,9 @@
 						</div>
 					</div>
 					<div class="form-row">
+						<label>공개 여부</label>
 						<div class="form-item">
-							<label>공개 여부</label>
-							<div class="form-input">
+							<div class="form-input" style="float:left">
 								<input type="radio" id="g_open" name="g_open" value="Y">
 								<span for="g_open">공개</span> <input type="radio" id="g_close"
 									name="g_open" value="N"> <span for="g_close">비공개</span>
@@ -214,8 +210,8 @@
 						</div>
 					</div>
 					<div class="form-row">
+						<label for="register-password">카테고리</label>
 						<div class="form-item">
-							<label for="register-password">카테고리</label>
 							<div class="form-input">
 								<select id="g_cate" name="g_cate">
 									<option value="공부">공부</option>
@@ -228,8 +224,8 @@
 						</div>
 					</div>
 					<div class="form-row">
+						<label for="projectinput5">목표 달성 일자</label>
 						<div class="form-item">
-							<label for="projectinput5">목표 달성 일자</label>
 							<fieldset id="goal_input" class="f">
 								<select id="goal_down" class="form-control">
 									<option value="default">입력하기</option>
@@ -249,7 +245,8 @@
 					<div class="form-row">
 						<div class="form-item">
 							<input type="button" id="groupCreateBtn"
-								class="button medium primary" style="width:356px; height:54px" value="그룹 가입하기">
+								class="button medium primary" style="width: 356px; height: 54px"
+								value="그룹 가입하기">
 						</div>
 					</div>
 				</form>
