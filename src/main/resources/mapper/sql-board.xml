@@ -81,7 +81,9 @@
 		gk_react_list where bno=#{bno}
 	</select>
 	<select id="getUnobyUserid" resultType="int">
-		select b.uno from gk_user u, gk_board b where u.userid=b.userid and bno=#{bno}
+		<![CDATA[
+		select rownum, u.uno from gk_user u, gk_board b where u.userid=b.userid and b.userId=#{userId} and rownum<=1
+		]]>
 	</select>
 	<select id="countReply" resultType="int">
 		select count(*) from
