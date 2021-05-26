@@ -411,11 +411,12 @@
 
 							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
-								th:if="${user} == null"></div>
+								th:if="${user} == null">
+								<a class="simple-dropdown-link"
+										href="/login">로그인 해주세요</a></div>
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:unless="${user} == null">
 								<div th:if="${post.userId} == ${user.userId}">
-
 									<!-- SIMPLE DROPDOWN LINK -->
 									<p class="simple-dropdown-link"
 										th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>

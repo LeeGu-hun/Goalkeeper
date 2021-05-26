@@ -26,9 +26,7 @@
 		]]>
 	</select>
 	<delete id="removeBoardFile" parameterType="int">
-		<![CDATA[
 			delete GK_FILE WHERE bno=#{bno}
-		]]> 
 	</delete>
 	<select id="selectFile" parameterType="int" resultMap="boardFileVO">
 		select * from GK_FILE where bno=#{bno}

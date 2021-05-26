@@ -97,12 +97,13 @@ public class BoardController {
 	}
 	
 	@PostMapping("/board/delete.do")
-	public String deleteBoard(BoardVO board, HttpServletRequest request) {
+	public String deleteBoard(BoardVO board,BoardFileVO boardFile, HttpServletRequest request) {
 		UserVO user = commonService.getLoginUser(request);
 		
 		board.setUserId(user.getUserId());
 		board.setUno(user.getUno());
 		board.setBno(board.getBno());
+		boardFileService.removeBoardFile(boardFile.getBno());
 		boardService.deleteBoard(board);
 		
 		return "redirect:/home";
