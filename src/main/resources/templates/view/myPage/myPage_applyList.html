@@ -440,7 +440,7 @@
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
 									<figure th:if="${apply.receiveFileCheck}=='Y'">
-										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${apply.ReceiveUno}"></div>
+										<div class="hexagon-image-82-90" th:attr="data-src=@{/user/profile/}+${apply.receiveUno}"></div>
 									</figure>
 									<figure th:unless="${apply.receiveFileCheck}=='Y'">
 										<div class="hexagon-image-82-90" data-src="../../img/user_baseProfile.png"></div>

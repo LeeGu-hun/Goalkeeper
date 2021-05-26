@@ -78,31 +78,48 @@ public class FriendsController {
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
     ResponseEntity<byte[]> entity = null;
+    private String userId;
+    private String referer = null;
     
-	@GetMapping("/myFriends")
-	public ModelAndView getFriendsList(HttpServletRequest request, UserVO vo, FriendVO friend) {
-		vo = commonService.getLoginUser(request);
-		friend.setUno(vo.getUno());
-		int countFriend = friendService.countFriends(vo.getUno());
-		int applyCount = friendApplyService.applyCount(vo.getUno());
-		int receiveCount = friendApplyService.receiveCount(vo.getUno());
-		int countPost = friendService.countPost(vo.getUserId());
+    @GetMapping("/myFriends/{userId}")
+	public ModelAndView getMyPageFriendsList(HttpServletRequest request,@PathVariable String userId, UserVO vo, FriendVO friend) {
+		this.userId = userId;
 		
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
+		UserVO user = commonService.getLoginUser(request);
+		UserVO myPageUser = userService.myPageUserInfo(userId);
+		friend.setUno(myPageUser.getUno());
+		referer = request.getHeader("REFERER");
+		int countFriend = friendService.countFriends(myPageUser.getUno());
+		int applyCount = friendApplyService.applyCount(myPageUser.getUno());
+		int receiveCount = friendApplyService.receiveCount(myPageUser.getUno());
+		int countPost = friendService.countPost(myPageUser.getUserId());
+		
+		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		
-		mv.addObject("uno", vo.getUno());
-		mv.addObject("userBackCheck", vo.getUserBackCheck());
-		mv.addObject("userFileCheck", vo.getUserFileCheck());
+		mv.addObject("vo", myPageUser);
+		mv.addObject("uno", myPageUser.getUno());
+		mv.addObject("userId", myPageUser.getUserId());
+		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
+		mv.addObject("userFileCheck", myPageUser.getUserFileCheck());
+		
+		mv.addObject("profile", myPageUser.getUserFileCheck());
+		mv.addObject("background", myPageUser.getUserBackCheck());
+		
+		if(user != null) {
+			mv.addObject("user", user);
+			mv.addObject("loginUserId", user.getUserId());
+			mv.addObject("loginUserBirthdate", user.getUserBirthdate());
+			mv.addObject("loginUserProfile", user.getUserFileCheck());
+			mv.addObject("loginUserBackground", user.getUserBackCheck());
+		}
+		mv.addObject("countPost",countPost);
 		mv.addObject("list", list);
-		mv.addObject("userId", vo.getUserId());
-		mv.addObject("userBirthdate", vo.getUserBirthdate());
 		mv.addObject("count", countFriend);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
-		mv.addObject("countPost",countPost);
 		
 		return mv;
 	}
@@ -113,7 +130,7 @@ public class FriendsController {
 		UserVO user = new UserVO();
 		int countFriend = friendService.countFriends(vo.getUno());
 		int countPost = friendService.countPost(vo.getUserId());
-		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
+		ModelAndView mv = new ModelAndView("view/myPage/myPage_friends");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", vo.getUno());
@@ -185,7 +202,7 @@ public class FriendsController {
 		return mv;
 	}
 	
-	@PostMapping("/*/mySearchFriends/apply")
+	@PostMapping("/mySearchFriends/apply")
 	public ModelAndView apply(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
 			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
 			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
@@ -211,6 +228,36 @@ public class FriendsController {
 		friendApplyService.apply(apply);
 		
 		ModelAndView mv = new ModelAndView("redirect:/mySearchFriends");
+		List<FriendVO> list = friendService.getFriendsList(friend);
+		mv.addObject(list);
+		return mv;
+	}
+	@PostMapping("/*/mySearchFriends/apply2")
+	public ModelAndView applyOthersFriends(HttpServletRequest request, UserVO vo, int receiveUno, String applyId, String receiveId,
+			@DateTimeFormat(pattern="yyyy-MM-dd") Date applyBirthdate, @DateTimeFormat(pattern="yyyy-MM-dd") Date receiveBirthdate,
+			String applyFileCheck, String receiveFileCheck, String applyBackCheck, String receiveBackCheck) {
+		vo = commonService.getLoginUser(request);
+		FriendApplyVO apply = new FriendApplyVO();
+		FriendVO friend = new FriendVO();
+		friend.setUno(vo.getUno());
+		apply.setApplyUno(vo.getUno());
+		apply.setReceiveUno(receiveUno);
+		apply.setApplyId(applyId);
+		apply.setReceiveId(receiveId);
+		apply.setApplyBirthdate(applyBirthdate);
+		apply.setReceiveBirthdate(receiveBirthdate);
+		if(applyFileCheck.equals("Y")) apply.setApplyFileCheck(applyFileCheck);
+		else apply.setApplyFileCheck("N");
+		if(receiveFileCheck.equals("Y")) apply.setReceiveFileCheck(receiveFileCheck);
+		else apply.setReceiveFileCheck("N");
+		if(applyBackCheck.equals("Y")) apply.setApplyBackCheck(applyBackCheck);
+		else apply.setApplyBackCheck("N");
+		if(receiveBackCheck.equals("Y")) apply.setReceiveBackCheck(receiveBackCheck);
+		else apply.setReceiveBackCheck("N");
+		
+		friendApplyService.apply(apply);
+		
+		ModelAndView mv = new ModelAndView("redirect:/myFriends/"+userId);
 		List<FriendVO> list = friendService.getFriendsList(friend);
 		mv.addObject(list);
 		return mv;

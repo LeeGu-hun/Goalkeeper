@@ -77,48 +77,8 @@ public class OhterFriendsController {
 	MediaUtils mediaUtils = new MediaUtils();
     InputStream in = null;
     ResponseEntity<byte[]> entity = null;
-    private String userId;
+    
 	
-	@GetMapping("/myFriends/{userId}")
-	public ModelAndView getMyPageFriendsList(HttpServletRequest request,@PathVariable String userId, UserVO vo, FriendVO friend) {
-		this.userId = userId;
-		
-		UserVO user = commonService.getLoginUser(request);
-		UserVO myPageUser = userService.myPageUserInfo(userId);
-		friend.setUno(myPageUser.getUno());
-		int countFriend = friendService.countFriends(myPageUser.getUno());
-		int applyCount = friendApplyService.applyCount(myPageUser.getUno());
-		int receiveCount = friendApplyService.receiveCount(myPageUser.getUno());
-		int countPost = friendService.countPost(myPageUser.getUserId());
-		
-		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
-		mv = commonService.checkLoginUser(request, mv);
-		
-		List<FriendVO> list = friendService.getFriendsList(friend);
-		
-		mv.addObject("vo", myPageUser);
-		mv.addObject("uno", myPageUser.getUno());
-		mv.addObject("userId", myPageUser.getUserId());
-		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
-		mv.addObject("userFileCheck", myPageUser.getUserFileCheck());
-		
-		mv.addObject("profile", myPageUser.getUserFileCheck());
-		mv.addObject("background", myPageUser.getUserBackCheck());
-		
-		if(user != null) {
-			mv.addObject("user", user);
-			mv.addObject("loginUserId", user.getUserId());
-			mv.addObject("loginUserBirthdate", user.getUserBirthdate());
-			mv.addObject("loginUserProfile", user.getUserFileCheck());
-			mv.addObject("loginUserBackground", user.getUserBackCheck());
-		}
-		mv.addObject("countPost",countPost);
-		mv.addObject("list", list);
-		mv.addObject("count", countFriend);
-		mv.addObject("applyCount", applyCount);
-		mv.addObject("receiveCount", receiveCount);
-		
-		return mv;
-	}
+	
 	
 }
