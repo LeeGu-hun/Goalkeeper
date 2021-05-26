@@ -123,7 +123,7 @@ public class GroupController {
 		if(searchList.isEmpty()) {
 			group.setG_cate("fail");
 		}
-		return new ResponseEntity<GroupVO>(group,HttpStatus.OK);
+		return new ResponseEntity<GroupVO>(group,HttpStatus.OK); 
 	}
 	
 	@PostMapping("/group_create")
