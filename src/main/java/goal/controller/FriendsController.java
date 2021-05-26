@@ -83,9 +83,9 @@ public class FriendsController {
     private String referer = null;
     
     @GetMapping("/myFriends/{userId}")
-	public ModelAndView getMyPageFriendsList(HttpServletRequest request,@PathVariable String userId, UserVO vo, FriendVO friend) {
-		this.userId = userId;
-		
+	public ModelAndView getMyPageFriendsList(HttpServletRequest request, @PathVariable String userId, UserVO vo, FriendVO friend) {
+    	this.userId = userId;
+    	
 		UserVO user = commonService.getLoginUser(request);
 		UserVO myPageUser = userService.myPageUserInfo(userId);
 		friend.setUno(myPageUser.getUno());
