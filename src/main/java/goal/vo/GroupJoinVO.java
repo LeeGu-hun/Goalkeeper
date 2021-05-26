@@ -13,6 +13,7 @@ public class GroupJoinVO {
 	private int gno, uno;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date join_date;
-	private String userName;
+	private String userId;
 	private String join_msg;
+	private String userFileCheck;
 }
