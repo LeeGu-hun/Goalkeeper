@@ -23,22 +23,6 @@
 							<!-- /HEXAGON -->
 						</div>
 						<!-- /USER AVATAR CONTENT -->
-
-						<!-- USER AVATAR PROGRESS -->
-						<div class="user-avatar-progress">
-							<!-- HEXAGON -->
-							<div class="hexagon-progress-40-44"></div>
-							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR PROGRESS -->
-
-						<!-- USER AVATAR PROGRESS BORDER -->
-						<div class="user-avatar-progress-border">
-							<!-- HEXAGON -->
-							<div class="hexagon-border-40-44"></div>
-							<!-- /HEXAGON -->
-						</div>
-						<!-- /USER AVATAR PROGRESS BORDER -->
 					</div> <!-- /USER AVATAR -->
 				</a>
 				<!-- /USER STATUS AVATAR -->
@@ -55,118 +39,93 @@
 				<a class="user-status-text small" th:id="reComment+${reply.rno}"
 					th:onclick="|javascript:openRecmt('${reply.rno}')|">&nbsp;&nbsp;답글쓰기</a>
 				<!-- /USER STATUS TITLE -->
-				<div class="user-status" id="refreshRecmt"
-					th:each="recmt:${reply.recmtList}">
-					<!-- USER STATUS AVATAR -->
-					<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
-						<div class="user-avatar small no-outline">
-							<!-- USER AVATAR CONTENT -->
-							<div class="user-avatar-content">
-								<!-- HEXAGON -->
-								<div class="hexagon-image-30-32"
-									th:if="${reply.profileCheck}==1"
-									th:attr="data-src=@{/user/profileId/}+${recmt.recmtWriter}"></div>
-								<div class="hexagon-image-30-32"
-									th:unless="${reply.profileCheck}==1"
-									th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
-								<!-- /HEXAGON -->
-							</div>
-							<!-- /USER AVATAR CONTENT -->
-
-							<!-- USER AVATAR PROGRESS -->
-							<div class="user-avatar-progress">
-								<!-- HEXAGON -->
-								<div class="hexagon-progress-40-44"></div>
-								<!-- /HEXAGON -->
-							</div>
-							<!-- /USER AVATAR PROGRESS -->
-
-							<!-- USER AVATAR PROGRESS BORDER -->
-							<div class="user-avatar-progress-border">
-								<!-- HEXAGON -->
-								<div class="hexagon-border-40-44"></div>
-								<!-- /HEXAGON -->
-							</div>
-							<!-- /USER AVATAR PROGRESS BORDER -->
-						</div> <!-- /USER AVATAR -->
-					</a>
-					<!-- /USER STATUS AVATAR -->
-					<!-- USER STATUS TEXT -->
-					<p class="user-status-text small" th:text="${recmt.recmtWriter}"></p>
-					<!-- /USER STATUS TEXT -->
-					<!-- USER STATUS TITLE -->
-					<p class="user-status-title medium">
-						<span class="bold" th:text="${recmt.recmtContent}"></span>
-					</p>
-					<p class="user-status-text small" style="display: inline"
-						th:text="${#dates.format(recmt.recmtDate, 'yyyy-MM-dd HH:mm')}">
-					</p>
-					<!-- /USER STATUS TITLE -->
+				<div th:id="recmtBox+${reply.rno}">
+					<div class="user-status" th:each="recmt:${reply.recmtList}">
+						<!-- USER STATUS AVATAR -->
+						<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
+							<div class="user-avatar small no-outline">
+								<!-- USER AVATAR CONTENT -->
+								<div class="user-avatar-content">
+									<!-- HEXAGON -->
+									<div class="hexagon-image-30-32"
+										th:if="${reply.profileCheck}==1"
+										th:attr="data-src=@{/user/profileId/}+${recmt.recmtWriter}"></div>
+									<div class="hexagon-image-30-32"
+										th:unless="${reply.profileCheck}==1"
+										th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR CONTENT -->
+							</div> <!-- /USER AVATAR -->
+						</a>
+						<!-- /USER STATUS AVATAR -->
+						<!-- USER STATUS TEXT -->
+						<p class="user-status-text small" th:text="${recmt.recmtWriter}"></p>
+						<!-- /USER STATUS TEXT -->
+						<!-- USER STATUS TITLE -->
+						<p class="user-status-title medium">
+							<span class="bold" th:text="${recmt.recmtContent}"></span>
+						</p>
+						<p class="user-status-text small" style="display: inline"
+							th:text="${#dates.format(recmt.recmtDate, 'yyyy-MM-dd HH:mm')}">
+						</p>
+						<!-- /USER STATUS TITLE -->
+					</div>
 				</div>
-				<div class="post-options" th:id="recmtPost+${reply.rno}"
+				<div class="post-options" th:id="reCmtFormBox+${reply.rno}"
 					style="display: none"
 					th:if="${user}!=null and ${boardResult}=='WriteSuccess'">
 					<form class="form" th:id="recmtFrm+${reply.rno}"
-						style="width: 75%; display: inline-block">
+						style="display: inline">
 						<div class="form-row">
 							<!-- FORM ITEM -->
 							<div class="form-item">
 								<!-- FORM INPUT -->
 								<div class="form-input">
 									<label>내용</label> <input type="text"
+										style="width: 70%; display: inline-block"
 										class="form-control form-control-lg input-lg"
 										th:id="replyContent+${reply.rno}" name="recmtContent">
+									<button class="button primary" type="button"
+										th:onclick="|javascript:recmtBtn('${reply.rno}')|"
+										style="width: 20%; margin-top: -2px;">쓰기</button>
 								</div>
 								<input type="hidden" th:id="recmtRno+${reply.rno}" name="rno"
 									th:value="${reply.rno}">
+
 								<!-- /FORM INPUT -->
 							</div>
 							<!-- /FORM ITEM -->
 						</div>
 					</form>
-					<button class="button primary"
-						th:onclick="|javascript:recmtBtn('${reply.rno}')|"
-						style="width: 20%; margin-top: -2px;">쓰기</button>
+
 				</div>
-				<div class="user-status" id="ajaxAddRecmt" style="display: none;">
+				<div class="user-status" th:id="ajaxAddRecmt+${reply.rno}"
+					style="display: none;">
 					<!-- USER STATUS AVATAR -->
 					<a class="user-status-avatar" href="/myPage"> <!-- USER AVATAR -->
 						<div class="user-avatar small no-outline" id="addAvatar">
 							<!-- USER AVATAR CONTENT -->
 							<div class="user-avatar-content">
 								<!-- HEXAGON -->
-								<img class="hexagon-image-30-32" id="ajaxRecmtProfile"
+								<img class="hexagon-image-30-32"
+									th:id="ajaxRecmtProfile+${reply.rno}"
 									th:attr="data-src=@{../../user_baseProfile.png}">
 								<!-- /HEXAGON -->
 							</div>
 							<!-- /USER AVATAR CONTENT -->
-
-							<!-- USER AVATAR PROGRESS -->
-							<div class="user-avatar-progress">
-								<!-- HEXAGON -->
-								<div class="hexagon-progress-40-44"></div>
-								<!-- /HEXAGON -->
-							</div>
-							<!-- /USER AVATAR PROGRESS -->
-							<!-- USER AVATAR PROGRESS BORDER -->
-							<div class="user-avatar-progress-border">
-								<!-- HEXAGON -->
-								<div class="hexagon-border-40-44"></div>
-								<!-- /HEXAGON -->
-							</div>
-							<!-- /USER AVATAR PROGRESS BORDER -->
 						</div> <!-- /USER AVATAR -->
 					</a>
 					<!-- /USER STATUS AVATAR -->
 					<!-- USER STATUS TEXT -->
-					<p class="user-status-text small" id="ajaxRecmtId"></p>
+					<p class="user-status-text small" th:id="ajaxRecmtId+${reply.rno}"></p>
 					<!-- /USER STATUS TEXT -->
 					<!-- USER STATUS TITLE -->
 					<p class="user-status-title medium">
-						<span class="bold" id="ajaxRecmtContent"></span>
+						<span class="bold" th:id="ajaxRecmtContent+${reply.rno}"></span>
 					</p>
-					<p class="user-status-text small" id="ajaxRecmtDate"
-						style="display: inline"></p>
+					<p class="user-status-text small"
+						th:id="ajaxRecmtDate+${reply.rno}" style="display: inline"></p>
 					<!-- /USER STATUS TITLE -->
 				</div>
 			</div>
@@ -215,7 +174,7 @@
 				<!-- /USER STATUS TITLE -->
 			</div>
 		</div>
-		<div th:id="commentForm+${post.bno}" style="display:none">
+		<div th:id="commentForm+${post.bno}" style="display: none">
 			<div class="post-options" th:id="commentPost+${post.bno}"
 				th:if="${user}!=null">
 				<form class="form" th:id="replyFrm+${post.bno}"

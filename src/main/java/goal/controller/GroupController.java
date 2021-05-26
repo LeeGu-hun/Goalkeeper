@@ -207,12 +207,13 @@ public class GroupController {
 	@PostMapping("/join_request")
 	public String joinMember(GroupJoinVO groupJoin, HttpServletRequest request) {
 		GroupUserVO groupUser = new GroupUserVO();
+		int gno = groupJoin.getGno();
 		groupUser.setGno(groupJoin.getGno());
 		groupUser.setUno(groupJoin.getUno());
 		groupUser.setG_role("ROLE_MEMBER");
 		groupService.insertGroupUser(groupUser);
 		groupService.removeGroupJoin(groupJoin);
-		return "redirect:/group_mgJoin/";
+		return "redirect:/group_mgJoin/"+gno;
 	}
 	@PostMapping("/join_delete")
 	public String deleteJoin(GroupJoinVO join, HttpServletRequest request) {

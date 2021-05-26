@@ -13,7 +13,7 @@
 		<id property="file_check" column="file_check"/>
 		<id property="bgi_check" column="bgi_check"/>
 		<collection column="gno" property="groupUser" javaType="List" ofType="goal.vo.GroupUserVO" select="getGroupUser"/>
-		<collection column="gno" property="userFileCheck" javaType="String" ofType="String" select="checkUserProfile"/>
+		<collection column="{gno=gno, uno=uno}" property="userFileCheck" javaType="String" ofType="String" select="checkUserProfile"/>
 		<collection column="gno" property="userCount" javaType="int" ofType="int" select="countUser"/>
 		<collection column="g_name" property="boardCount" javaType="int" ofType="int" select="countBoard"/>
 	</resultMap>
@@ -34,8 +34,8 @@
 	<select id="getGroupUser" resultType="goal.vo.GroupUserVO">
 		SELECT * FROM gk_group_user where gno=#{gno}
 	</select>
-	<select id="checkUserProfile" parameterType="int" resultType="String">
-		select userFileCheck from gk_allgroup a, gk_user u, gk_group_user g where a.gno=g.gno and g.uno=u.uno and a.gno=#{gno}
+	<select id="checkUserProfile" parameterType="java.util.Map" resultType="String">
+		select userFileCheck from gk_allgroup a, gk_user u, gk_group_user g where a.gno=g.gno and g.uno=u.uno and a.gno=#{gno} and g.uno=#{uno}
 	</select>
 	<select id="countUser" resultType="int">
 		SELECT count(*) FROM gk_group_user where gno=#{gno}

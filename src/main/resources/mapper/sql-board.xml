@@ -4,7 +4,7 @@
 <mapper namespace="goal.mapper.BoardMapper">
 	<resultMap type="goal.vo.BoardVO" id="boardVO">
 		<id property="bno" column="bno" />
-		<id property="uno" column="uno" />
+		<id property="userId" column="userId" />
 		<id property="bo_content" column="bo_content" />
 		<id property="bo_title" column="bo_title" />
 		<id property="bo_cate" column="bo_cate" />
@@ -14,6 +14,8 @@
 		<id property="bo_fileCount" column="bo_fileCount" />
 		<collection column="bno" property="fileList"
 			javaType="List" ofType="goal.vo.BoardFileVO" select="getFileByBno" />
+		<collection column="userId" property="uno"
+			javaType="int" ofType="int" select="getUnobyUserid" />
 		<collection column="bno" property="replyList"
 			javaType="List" ofType="goal.vo.ReplyVO" select="getReplyByBno" />
 		<collection column="bno" property="replyCount"
@@ -26,6 +28,7 @@
 			javaType="String" ofType="goal.vo.BoardVO" select="boardDay" />
 		<collection column="bno" property="bnoTime"
 			javaType="String" ofType="goal.vo.BoardVO" select="boardTime" />
+		<collection column="bno" property="userFileCheck" javaType="String" ofType="String" select="checkUserProfile"/>
 
 	</resultMap>
 	<resultMap type="goal.vo.ReplyVO" id="replyVO">
@@ -64,7 +67,9 @@
 		<id property="userId" column="userId"></id>
 		<id property="uno" column="uno"></id>
 	</resultMap>
-	
+	<select id="checkUserProfile" parameterType="int" resultType="String">
+		select userFileCheck from gk_board b, gk_user u where b.userid=u.userid and b.bno=#{bno}
+	</select>
 	<select id="checkProfilebyReCmt" parameterType="String"
 		resultType="int">
 		SELECT COUNT(*) FROM gk_user_file f, gk_user u where
@@ -74,6 +79,9 @@
 	<select id="countReact" resultType="int">
 		select count(*) from
 		gk_react_list where bno=#{bno}
+	</select>
+	<select id="getUnobyUserid" resultType="int">
+		select b.uno from gk_user u, gk_board b where u.userid=b.userid and bno=#{bno}
 	</select>
 	<select id="countReply" resultType="int">
 		select count(*) from
@@ -92,7 +100,7 @@
 	</select>
 	<select id="getRecmtByRno" resultMap="reCmtVO">
 		select * from GK_ReComment
-		where rno = #{rno}
+		where rno = #{rno} order by recmtdate
 	</select>
 	<select id="getReactByBno" resultMap="reactVO">
 		select * from GK_react_list

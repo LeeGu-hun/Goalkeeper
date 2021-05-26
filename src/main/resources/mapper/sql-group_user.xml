@@ -8,7 +8,7 @@
 		<id property="userId" column="userId"/>
 		<id property="g_role" column="g_role"/>
 		<id property="g_date" column="g_date"/>
-		<collection column="uno" property="userFileCheck" javaType="String" ofType="String" select="checkUserFile"/>
+		<collection column="{gno=gno, uno=uno}" property="userFileCheck" javaType="String" ofType="String" select="checkUserFile"/>
 	</resultMap>
 	<insert id="insertGroupUser" parameterType="goal.vo.GroupUserVO">
 		<selectKey keyProperty="sno" resultType="int" order="BEFORE">
@@ -24,8 +24,8 @@
 			select sno, g.uno, gno, g_role, userId, g_date from GK_GROUP_USER G, GK_USER U where G.UNO = U.UNO and g.gno=#{gno}
 		]]>
 	</select>
-	<select id="checkUserFile" parameterType="int" resultType="String">
-		select userFileCheck from gk_group_user g, gk_user u where g.uno=u.uno and g.uno=#{uno}
+	<select id="checkUserFile" parameterType="java.util.Map" resultType="String">
+		select userFileCheck from gk_group_user g, gk_user u where g.uno=u.uno and g.uno=#{uno} and g.gno=#{gno}
 	</select>
 	<select id="countUserbyGroup" parameterType="int" resultType="int">
 		select count(*) from gk_group_user where gno=#{gno}

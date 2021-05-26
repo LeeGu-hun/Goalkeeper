@@ -14,10 +14,12 @@ function openReply(bno){
 var reToggle = true;
 function openRecmt(rno){
 	if(reToggle){
-	 	$('#recmtPost'+rno).attr('style', 'display:flex; flex-direction:column');
+		$('#recmtPost'+rno).attr('style', 'display:flex; flex-direction:column');
+	 	$('#reCmtFormBox'+rno).attr('style', 'display:flex; flex-direction:column');
 	 	reToggle = false;	
 	} else{
 		$('#recmtPost'+rno).attr('style', 'display:none');
+		$('#reCmtFormBox'+rno).attr('style', 'display:none');
 		reToggle = true;
 	}
 }
@@ -102,24 +104,23 @@ function recmtBtn(rno){
 	    datatype : 'text',
 		contentType:'application/x-www-form-urlencoded; charset=utf-8',
 	    success: function(data) {
-	    	var cloneRecmt = $('#ajaxAddRecmt').clone();
-	    	cloneRecmt.attr('id', 'ajaxAddRecmt'+reCount);
+	    	var cloneRecmt = $('#ajaxAddRecmt'+data.rno).clone();
 	    	if(data.profileCheck==1){
-	    		cloneRecmt.find('#ajaxRecmtProfile').replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.recmtWriter+'"></figure>');
+	    		cloneRecmt.find('#ajaxRecmtProfile'+data.rno).replaceWith('<figure><img class="hexagon-image-30-32" id="ajaxReplyProfile" src="/user/profileId/'+data.recmtWriter+'"></figure>');
 	    	} else{
-		    	cloneRecmt.find('#ajaxRecmtProfile').replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
+		    	cloneRecmt.find('#ajaxRecmtProfile'+data.rno).replaceWith('<div class="hexagon-image-30-32" id="ajaxReplyProfile" data-src="../../img/user_baseProfile.png"></div>');
 	    	}	    	
 	    	var date = new Date(data.recmtDate);
 	    	var month = date.getMonth();
 	    	if(month <10){
 	    		month = '0' + month;
 	    	}
-	    	cloneRecmt.find('#ajaxRecmtId').html(data.recmtWriter);
-	    	cloneRecmt.find('#ajaxRecmtContent').html(data.recmtContent);
-	    	cloneRecmt.find('#ajaxRecmtDate').html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
+	    	cloneRecmt.find('#ajaxRecmtId'+data.rno).html(data.recmtWriter);
+	    	cloneRecmt.find('#ajaxRecmtContent'+data.rno).html(data.recmtContent);
+	    	cloneRecmt.find('#ajaxRecmtDate'+data.rno).html(date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes());
 	    	cloneRecmt.attr('style', 'display:block;');
-	    	$('#recmtContent').val("");
-	    	$('#recmtPost'+data.rno).before(cloneRecmt);
+	    	$('#recmtContent'+data.rno).val("");
+	    	$('#recmtBox'+data.rno).append(cloneRecmt);
 	    	reCount ++;
 	    	
 	    },

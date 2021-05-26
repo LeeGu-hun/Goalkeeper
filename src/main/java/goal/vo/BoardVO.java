@@ -12,7 +12,6 @@ import lombok.Data;
 @Alias("boardVO")
 public class BoardVO {
    private int bno;
-   private int uno;
    private String userId;
    private String bo_content;
    private String bo_title;
@@ -23,6 +22,7 @@ public class BoardVO {
    private int replyCount;
    @DateTimeFormat(pattern = "yyyy-MM-dd")
    private Date bo_date;
+   private int uno;
    private String bo_fileCheck;
    private int bo_fileCount;
    private List<BoardFileVO> fileList;
