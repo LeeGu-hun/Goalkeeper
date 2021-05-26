@@ -285,11 +285,8 @@
 								<div class="form-item">
 									<!-- FORM TEXTAREA -->
 									<div class="form-textarea">
-										<textarea id="text" name="bo_content"
+										<textarea id="text" name="bo_content" wrap="hard"
 											placeholder="Share your post here..."></textarea>
-										<!-- FORM TEXTAREA LIMIT TEXT -->
-										<p class="form-textarea-limit-text">998/1000</p>
-										<!-- /FORM TEXTAREA LIMIT TEXT -->
 									</div>
 									<!-- /FORM TEXTAREA -->
 								</div>
@@ -409,11 +406,12 @@
 
 							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
-								th:if="${user} == null"></div>
+								th:if="${user} == null">
+								<a class="simple-dropdown-link"
+										href="/login">로그인 해주세요</a></div>
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:unless="${user} == null">
 								<div th:if="${post.userId} == ${user.userId}">
-
 									<!-- SIMPLE DROPDOWN LINK -->
 									<p class="simple-dropdown-link"
 										th:onclick="|javascript:fnEdit('${post.bno}')|">Edit Post</p>
@@ -449,8 +447,6 @@
 											<!-- HEXAGON -->
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
-												<p th:text="${post.uno}"></p>
-												<p name="userId" th:text="${post.userId}"></p>
 											<!-- /HEXAGON -->
 										</div>
 										<!-- /USER AVATAR CONTENT -->
@@ -498,11 +494,11 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
-
+								<pre style="display:flex;">
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
-
+								</pre>
 								<input type="hidden" th:value="${post.bo_content}"
 									th:attr="id='detailmodal_content'+${post.bno}"> <input
 									type="hidden" th:value="${post.userId}"
@@ -932,7 +928,7 @@
 							<!-- /STATS BOX TITLE -->
 
 							<!-- STATS BOX TEXT -->
-							<p class="stats-box-text">여러 친구를 사귀어보세요!</p>
+							<p class="stats-box-text">여러 친구를 사겨보세요!</p>
 							<!-- /STATS BOX TEXT -->
 						</div>
 					</div>
@@ -1033,10 +1029,10 @@
 			<img id="modalimg" width="800" height="500" alt="cover-04"
 				style="margin-bottom: 100px;">
 			<!-- /POPUP PICTURE IMAGE -->
-
+			<pre style="margin-right: -180px;">
 			<p id="imgModalContent"
-				style="position: absolute; bottom: 130px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
-
+				style="position: absolute; bottom: 60px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
+			</pre>
 		</div>
 		<!-- /POPUP PICTURE IMAGE WRAP -->
 	</div>
@@ -1089,7 +1085,7 @@
 	<script src="../../js/form/form.utils.js"></script>
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
-	<script src="../../js/reply.js"></script>
+	<script src="../../js/reply.js"></script> 
 	<script src="../../js/global/global.popups.js"></script>
 	<script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
 	<script
