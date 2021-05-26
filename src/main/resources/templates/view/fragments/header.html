@@ -139,7 +139,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- MENU ITEM LINK -->
-        <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');"class="menu-item-link text-tooltip-tfr" data-title="Members">
+        <a th:unless="${user!=null}" onclick="openModal('로그인 후 이용해주세요!');"class="menu-item-link text-tooltip-tfr" data-title="Members">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-members">
             <use xlink:href="#svg-members"></use>
@@ -384,7 +384,7 @@
       <!-- MENU ITEM -->
       <li class="menu-item">
         <!-- 로그아웃 -->
-        <a th:unless="${user!=null}"class="menu-item-link" onclick="alert('로그인 후 이용해주세요!');">
+        <a th:unless="${user!=null}"class="menu-item-link" onclick="openModal('로그인 후 이용해주세요!');">
           <!-- MENU ITEM LINK ICON -->
           <svg class="menu-item-link-icon icon-members">
             <use xlink:href="#svg-members"></use>
@@ -725,7 +725,7 @@
           <li class="menu-main-item">
             <!-- MENUmenu-main-item-link MAIN ITEM LINK -->
             <a th:if="${user!=null}" class="menu-main-item-link" href="/myFriends">Friends</a>
-            <a th:unless="${user!=null}" onclick="alert('로그인 후 이용해주세요!');" class="menu-main-item-link" id="logOutFriendPage">Friends</a>
+            <a th:unless="${user!=null}" onclick="openModal('로그인 후 이용해주세요!');" class="menu-main-item-link" id="logOutFriendPage">Friends</a>
             <!-- /MENU MAIN ITEM LINK -->
           </li>
           <!-- /MENU MAIN ITEM -->
