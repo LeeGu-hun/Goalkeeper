@@ -285,11 +285,8 @@
 								<div class="form-item">
 									<!-- FORM TEXTAREA -->
 									<div class="form-textarea">
-										<textarea id="text" name="bo_content"
+										<textarea id="text" name="bo_content" wrap="hard"
 											placeholder="Share your post here..."></textarea>
-										<!-- FORM TEXTAREA LIMIT TEXT -->
-										<p class="form-textarea-limit-text">998/1000</p>
-										<!-- /FORM TEXTAREA LIMIT TEXT -->
 									</div>
 									<!-- /FORM TEXTAREA -->
 								</div>
@@ -499,11 +496,11 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
-
+								<pre>
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
-
+								</pre>
 								<input type="hidden" th:value="${post.bo_content}"
 									th:attr="id='detailmodal_content'+${post.bno}"> <input
 									type="hidden" th:value="${post.userId}"
@@ -1034,10 +1031,10 @@
 			<img id="modalimg" width="800" height="500" alt="cover-04"
 				style="margin-bottom: 100px;">
 			<!-- /POPUP PICTURE IMAGE -->
-
+			<pre style="margin-right: -180px;">
 			<p id="imgModalContent"
-				style="position: absolute; bottom: 130px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
-
+				style="position: absolute; bottom: 60px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
+			</pre>
 		</div>
 		<!-- /POPUP PICTURE IMAGE WRAP -->
 	</div>
