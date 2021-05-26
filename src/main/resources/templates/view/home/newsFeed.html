@@ -496,7 +496,7 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
-								<pre>
+								<pre style="display:flex;">
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
