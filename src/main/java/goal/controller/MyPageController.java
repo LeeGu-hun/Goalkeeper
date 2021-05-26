@@ -87,6 +87,7 @@ public class MyPageController {
 		UserVO user = commonService.getLoginUser(request);
 		UserVO myPageUser = userService.myPageUserInfo(userId);
 		friend.setUno(myPageUser.getUno());
+		int countPost = friendService.countPost(myPageUser.getUserId());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
 		mv = commonService.checkLoginUser(request, mv);
 		int countFriend = friendService.countFriends(myPageUser.getUno());
@@ -101,6 +102,7 @@ public class MyPageController {
 			mv.addObject("friendlist", friendlist);
 			mv.addObject("vo", myPageUser);
 			mv.addObject("user", user);
+			mv.addObject("countPost",countPost);
 			mv.addObject("uno", myPageUser.getUno());
 			mv.addObject("profile", myPageUser.getUserFileCheck());
 			mv.addObject("background", myPageUser.getUserBackCheck());
