@@ -28,7 +28,7 @@
 			javaType="String" ofType="goal.vo.BoardVO" select="boardDay" />
 		<collection column="bno" property="bnoTime"
 			javaType="String" ofType="goal.vo.BoardVO" select="boardTime" />
-		<collection column="bno" property="userFileCheck" javaType="String" ofType="String" select="checkUserProfile"/>
+		<collection column="{bno=bno, userId=userId}" property="userFileCheck" javaType="String" ofType="String" select="checkUserProfile"/>
 
 	</resultMap>
 	<resultMap type="goal.vo.ReplyVO" id="replyVO">
@@ -88,8 +88,8 @@
 		<id property="userId" column="userId"></id>
 		<id property="uno" column="uno"></id>
 	</resultMap>
-	<select id="checkUserProfile" parameterType="int" resultType="String">
-		select userFileCheck from gk_board b, gk_user u where b.userid=u.userid and b.bno=#{bno}
+	<select id="checkUserProfile" parameterType="java.util.Map" resultType="String">
+		select userFileCheck from gk_board b, gk_user u where b.userid=u.userid and b.bno=#{bno} and b.userId=#{userId}
 	</select>
 	<select id="checkProfilebyReCmt" parameterType="String"
 		resultType="int">

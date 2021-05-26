@@ -311,12 +311,12 @@
 							<div class="user-status">
 								<a class="user-status-avatar" href="profile-timeline.html">
 									<div class="user-avatar small no-outline">
-										<div class="user-avatar-content">
+										<div class="user-avatar-content" th:if="${post.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
-												th:if="${post.userFileCheck}=='Y'"
 												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
+										</div>
+										<div class="user-avatar-content" th:unless="${post.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
-												th:unless="${post.userFileCheck}=='Y'"
 												th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
 										</div>
 										<!-- USER AVATAR PROGRESS -->
