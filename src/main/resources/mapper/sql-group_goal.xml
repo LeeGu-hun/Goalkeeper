@@ -30,6 +30,11 @@
 	<select id="countGoalbyId" parameterType="int" resultType="int">
 		select count(*) from gk_goal where gno=#{gno}	
 	</select>
+	<select id="countMonthGoalbyId" parameterType="int" resultType="int">
+		<![CDATA[
+		select count(*) from gk_goal where gno=#{gno} and goal_startdate >= trunc(sysdate, 'month')
+		]]>
+	</select>
 	<select id="getUserGoal" resultMap="groupUserGoal">
 		select goal_name, userId, goal_allcnt, data_cnt, data_regdate from gk_data d, gk_goal g, gk_user u where d.uno=u.uno and g.dno=d.dno and d.dno=#{dno}
 	</select>

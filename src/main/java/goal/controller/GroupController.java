@@ -236,6 +236,7 @@ public class GroupController {
 		UserVO user = commonService.getLoginUser(request);
 		mv = getJoinResult(user, mv);
 		mv = getGoalList(mv, gno);
+		mv = getGroupUser(gno, mv);
 		GroupVO group = groupService.getGroup(gno);
 		mv.addObject("group", group);
 		return mv;	
@@ -381,6 +382,15 @@ public class GroupController {
 		int userResult = groupService.countUserbyGroup(gno);
 		int goalResult = groupService.countGoalbyGroup(gno);
 		int dataResult = groupService.countDatabyGno(gno);
+		int monthGoal = groupService.countMonthGoalbyId(gno);
+		int monthRate;
+		if(goalResult==0 || monthGoal==0) {
+			monthRate = 0;
+		} else {
+			monthRate = (goalResult / monthGoal) *100;
+		}
+		mv.addObject("monthRate", monthRate);
+		mv.addObject("monthGoal", monthGoal);
 		mv.addObject("goalCount", goalResult);
 		mv.addObject("dataCount", dataResult);
 		mv.addObject("userCount", userResult);

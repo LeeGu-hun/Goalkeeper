@@ -176,5 +176,10 @@ public class GroupServiceImpl implements GroupService{
 	public List<GroupUserGoalVO> findDatabyDno(GroupDataVO data) {
 		return groupMapper.findDatabyDno(data);
 	}
+
+	@Override
+	public int countMonthGoalbyId(int gno) {
+		return groupMapper.countMonthGoalbyId(gno);
+	}
 	
 }

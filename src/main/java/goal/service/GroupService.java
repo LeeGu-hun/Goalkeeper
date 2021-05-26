@@ -39,4 +39,5 @@ public interface GroupService {
 	int countDatabyGno(int gno);
 	List<GroupVO> findGroupbyUno(int uno);
 	List<GroupUserGoalVO> findDatabyDno(GroupDataVO data);
+	int countMonthGoalbyId(int gno);
 }
