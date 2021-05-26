@@ -137,6 +137,7 @@ public class FriendsController {
 		map.put("word", word);
 		
 		List<FriendVO> searchFriendList = friendService.findMyFriend(map);
+		
 		mv.addObject("list", searchFriendList);
 		mv.addObject("user", user);
 		mv.addObject("uno", vo.getUno());

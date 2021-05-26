@@ -1,5 +1,5 @@
 
-		const url = 'http://localhost:8080';
+		const url = 'http://192.168.0.78:8080';
 		let stompClient;
 		let selectedUser;
 		let newMessages = new Map();

@@ -77,6 +77,13 @@ window.onload = function() {
 	
 }
 $(document).ready(function(){
+       $("#userId1").keypress(function (e) {
+        if (e.which == 13){
+             check();  
+        }
+    });
+});
+$(document).ready(function(){
        $("#userPw1").keypress(function (e) {
         if (e.which == 13){
              check();  
