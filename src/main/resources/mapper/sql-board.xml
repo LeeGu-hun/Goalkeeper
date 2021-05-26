@@ -41,26 +41,47 @@
 			javaType="int" ofType="int" select="checkProfile" />
 		<collection column="rno" property="recmtList"
 			javaType="List" ofType="goal.vo.ReCommentVO" select="getRecmtByRno" />
+		<collection column="replyWriter" property="uno"
+			javaType="int" ofType="int" select="getUnobyWriter" />
 	</resultMap>
+	<resultMap type="goal.vo.ReCommentVO" id="reCmtVO">
+		<id property="cno" column="cno"/>
+		<id property="rno" column="rno"/>
+		<id property="recmtContent" column="recmtContent"/>
+		<id property="recmtWriter" column="recmtWriter"/>
+		<id property="recmtDate" column="recmtDate"/>
+		<collection column="recmtWriter" property="uno" javaType="int" ofType="int" select="getUnoByReWriter"/>
+		<collection column="recmtWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReCmt"/>
+	</resultMap>
+	<select id="getUnoByReWriter" parameterType="String"
+		resultType="int">
+		<![CDATA[
+		SELECT uno, rownum FROM gk_user u, gk_recomment c where
+		u.userid=c.recmtwriter and recmtwriter=#{recmtWriter} and rownum <= 1
+		]]>
+	</select>
 	<select id="checkProfile" parameterType="String"
 		resultType="int">
 		SELECT COUNT(*) FROM gk_user_file f, gk_user u where
 		f.uno=u.uno and
 		#{replyWriter}=u.userId
 	</select>
+	<select id="getUnobyWriter" parameterType="String"
+		resultType="int">
+		<![CDATA[
+		SELECT uno, rownum FROM gk_user u, gk_comment c where
+		u.userid=c.replywriter and replyWriter=#{replyWriter} and rownum <= 1
+		]]>
+	</select>
+	<select id="readMainRecmt" resultMap="reCmtVO">
+		<![CDATA[
+		select rownum, recmtWriter, recmtContent, rno, recmtDate from (select * from GK_RECOMMENT order by recmtDate desc) where rownum <= 1
+		]]>
+	</select>
 	<resultMap type="goal.vo.ReactVO" id="reactVO">
 		<id property="react_name" column="react_name" />
 		<id property="bno" column="bno" />
 		<id property="userId" column="userId" />
-	</resultMap>
-	<resultMap type="goal.vo.ReCommentVO" id="reCmtVO">
-		<id property="cno" column="cno" />
-		<id property="rno" column="rno" />
-		<id property="recmtContent" column="recmtContent" />
-		<id property="recmtWriter" column="recmtWriter" />
-		<id property="recmtDate" column="recmtDate" />
-		<collection column="recmtWriter" property="profileCheck"
-			javaType="int" ofType="int" select="checkProfilebyReCmt" />
 	</resultMap>
 	
 	<resultMap type="goal.vo.ChatVO" id="chatVO">
@@ -82,7 +103,7 @@
 	</select>
 	<select id="getUnobyUserid" resultType="int">
 		<![CDATA[
-		select rownum, u.uno from gk_user u, gk_board b where u.userid=b.userid and b.userId=#{userId} and rownum<=1
+		select u.uno, rownum from gk_user u, gk_board b where u.userid=b.userid and b.userId=#{userId} and rownum<=1
 		]]>
 	</select>
 	<select id="countReply" resultType="int">

@@ -66,7 +66,7 @@ public class ReplyController {
 		UserVO user = commonService.getLoginUser(request);
 		recmtVO.setRecmtWriter(user.getUserId());
 		replyService.insertRecmt(recmtVO);
-		ReCommentVO recentRecmt = replyService.getMainRecmt();
+		ReCommentVO recentRecmt = boardService.getMainRecmt();
 		return new ResponseEntity<ReCommentVO>(recentRecmt,HttpStatus.OK);
 	}
 }

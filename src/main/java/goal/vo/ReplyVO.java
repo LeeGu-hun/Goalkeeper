@@ -18,4 +18,5 @@ public class ReplyVO {
 	private int bno;
 	private int profileCheck;
 	private List<ReCommentVO> recmtList;
+	private int uno;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import goal.vo.BoardVO;
 import goal.vo.ChatVO;
 import goal.vo.GroupVO;
+import goal.vo.ReCommentVO;
 import goal.vo.UserVO;
 
 public interface BoardService {
@@ -27,4 +28,5 @@ public interface BoardService {
 	int mainGroupCount();
 	int myGroupCount(int uno);
 	int searchNullBoard(BoardVO vo);
+	ReCommentVO getMainRecmt();
 }

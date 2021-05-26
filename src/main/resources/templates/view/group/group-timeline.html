@@ -80,8 +80,8 @@
 			</div>
 		</nav>
 		<div class="grid grid-3-6-3 mobile-prefer-content">
-			<div class="grid-column" id="left_widget"style="position: absolute;width: 280px; left:0; 
-				height: 200px;top: 650px;">
+			<div class="grid-column" id="left_widget"
+				style="position: absolute; width: 280px; left: 0; height: 200px; top: 650px;">
 				<!--목표 생성-->
 				<div class="widget-box">
 					<p class="widget-box-title">목표 입력</p>
@@ -178,11 +178,13 @@
 								th:each="groupUser:${groupUser}">
 								<a class="user-status-avatar" href="profile-timeline.html">
 									<div class="user-avatar small no-outline">
-										<div class="user-avatar-content" th:if="${groupUser.userFileCheck}=='Y'">
+										<div class="user-avatar-content"
+											th:if="${groupUser.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
 										</div>
-										<div class="user-avatar-content" th:unless="${groupUser.userFileCheck}=='Y'">
+										<div class="user-avatar-content"
+											th:unless="${groupUser.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
 												data-src="../../img/user_baseProfile.png"></div>
 										</div>
@@ -310,23 +312,28 @@
 								<a class="user-status-avatar" href="profile-timeline.html">
 									<div class="user-avatar small no-outline">
 										<div class="user-avatar-content">
-											<div class="hexagon-image-30-32"></div>
+											<div class="hexagon-image-30-32"
+												th:if="${post.userFileCheck}=='Y'"
+												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
+											<div class="hexagon-image-30-32"
+												th:unless="${post.userFileCheck}=='Y'"
+												th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
 										</div>
+										<!-- USER AVATAR PROGRESS -->
 										<div class="user-avatar-progress">
+											<!-- HEXAGON -->
 											<div class="hexagon-progress-40-44"></div>
+											<!-- /HEXAGON -->
 										</div>
+										<!-- /USER AVATAR PROGRESS -->
+
+										<!-- USER AVATAR PROGRESS BORDER -->
 										<div class="user-avatar-progress-border">
+											<!-- HEXAGON -->
 											<div class="hexagon-border-40-44"></div>
+											<!-- /HEXAGON -->
 										</div>
-										<div class="user-avatar-badge">
-											<div class="user-avatar-badge-border">
-												<div class="hexagon-22-24"></div>
-											</div>
-											<div class="user-avatar-badge-content">
-												<div class="hexagon-dark-16-18"></div>
-											</div>
-											<p class="user-avatar-badge-text">12</p>
-										</div>
+										<!-- /USER AVATAR PROGRESS BORDER -->
 									</div>
 								</a>
 								<p class="user-status-title medium">
@@ -366,10 +373,10 @@
 										<!-- PICTURE COLLAGE ITEM -->
 										<div class="picture-collage-item popup-picture-trigger"
 											th:data-parameter1="${post.bno}"
-										th:data-parameter2="${file.uuid}"
-										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
-										this.getAttribute('data-parameter2'))|" 
-										th:attr="id='popup'+${post.bno}"
+											th:data-parameter2="${file.uuid}"
+											th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|"
+											th:attr="id='popup'+${post.bno}"
 											th:each="file, i:${post.fileList}" th:if="${i.index}<3">
 											<!-- PHOTO PREVIEW -->
 											<div class="photo-preview">
@@ -377,8 +384,8 @@
 												<figure class="photo-preview-image liquid">
 													<img th:attr="src=@{/boardImage/}+${file.uuid}"
 														alt="photo-preview-10">
-													<input type="hidden" th:value="${file.uuid}" 
-												th:id="|img${file.fileCnt}of${file.bno}|"> 
+													<input type="hidden" th:value="${file.uuid}"
+														th:id="|img${file.fileCnt}of${file.bno}|">
 												</figure>
 												<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -415,11 +422,11 @@
 										th:if="${post.bo_fileCount}>=3">
 										<!-- PICTURE COLLAGE ITEM -->
 										<div class="picture-collage-item popup-picture-trigger"
-										th:data-parameter1="${post.bno}"
-										th:data-parameter2="${file.uuid}"
-										th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
-										this.getAttribute('data-parameter2'))|" 
-										th:attr="id='popup'+${post.bno}"
+											th:data-parameter1="${post.bno}"
+											th:data-parameter2="${file.uuid}"
+											th:onclick="|javascript:modal(this.getAttribute('data-parameter1'),
+										this.getAttribute('data-parameter2'))|"
+											th:attr="id='popup'+${post.bno}"
 											th:each="file, i:${post.fileList}" th:if="${i.index}>=3">
 											<!-- PHOTO PREVIEW -->
 											<div class="photo-preview">
@@ -427,8 +434,8 @@
 												<figure class="photo-preview-image liquid">
 													<img th:attr="src=@{/boardImage/}+${file.uuid}"
 														alt="photo-preview-16">
-														<input type="hidden" th:value="${file.uuid}" 
-												th:id="|img${file.fileCnt}of${file.bno}|"> 
+													<input type="hidden" th:value="${file.uuid}"
+														th:id="|img${file.fileCnt}of${file.bno}|">
 												</figure>
 												<!-- /PHOTO PREVIEW IMAGE -->
 
@@ -622,7 +629,8 @@
 				<!-- /GRID COLUMN -->
 			</div>
 			<!-- GRID COLUMN -->
-			<div class="grid-column" id="right_widget" style="position: absolute; width: 280px; right: 0; height: 200px; top: 650px;">
+			<div class="grid-column" id="right_widget"
+				style="position: absolute; width: 280px; right: 0; height: 200px; top: 650px;">
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX SETTINGS -->
@@ -809,7 +817,7 @@
 		</div>
 	</div>
 	<!-- 팝업시작 -->
-<div class="popup-picture"
+	<div class="popup-picture"
 		style="position: fixed; left: 50%; z-index: 100001; opacity: 1; visibility: visible; transform: translate(0px, 0px); transition: transform 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s, visibility 0.3s ease-in-out 0s; top: 98px; margin-left: -547px;">
 		<!-- POPUP CLOSE BUTTON -->
 		<div class="popup-close-button popup-picture-trigger">
@@ -822,18 +830,20 @@
 		<!-- /POPUP CLOSE BUTTON -->
 
 		<!-- POPUP PICTURE IMAGE WRAP -->
-		<div class="popup-picture-image-wrap" style="padding-left: 30px;padding-right: 30px;">
-		
-		<p id="imgModaluserId" style="position:absolute;top: 20px;left: 30px;
-			color:white; font-size: 30px;font-family: 'Open Sans';"></p>
+		<div class="popup-picture-image-wrap"
+			style="padding-left: 30px; padding-right: 30px;">
+
+			<p id="imgModaluserId"
+				style="position: absolute; top: 20px; left: 30px; color: white; font-size: 30px; font-family: 'Open Sans';"></p>
 			<hr>
 			<!-- POPUP PICTURE IMAGE -->
- 				<img id="modalimg" width="800" height="500" alt="cover-04" style="margin-bottom: 100px;">
+			<img id="modalimg" width="800" height="500" alt="cover-04"
+				style="margin-bottom: 100px;">
 			<!-- /POPUP PICTURE IMAGE -->
-			
-		<p id="imgModalContent" style="position:absolute;bottom: 130px;left: 30px;
-			color:white; font-size: 20px;font-family: 'Open Sans';"></p>	
-			
+
+			<p id="imgModalContent"
+				style="position: absolute; bottom: 130px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
+
 		</div>
 		<!-- /POPUP PICTURE IMAGE WRAP -->
 	</div>

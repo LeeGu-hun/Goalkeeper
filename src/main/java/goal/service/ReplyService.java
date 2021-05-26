@@ -11,7 +11,6 @@ import goal.vo.UserVO;
 
 public interface ReplyService {
 	ReplyVO getMainReply();
-	ReCommentVO getMainRecmt();
 	List<ReplyVO> getDetailMainReply(int bno);
 	void insertReply(ReplyVO replyVO);
 	void insertRecmt(ReCommentVO recmtVO);

@@ -15,4 +15,5 @@ public class ReCommentVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date recmtDate;
 	private int profileCheck;
+	private int uno;
 }

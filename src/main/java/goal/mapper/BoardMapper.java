@@ -10,6 +10,7 @@ import goal.vo.ChatVO;
 import goal.vo.ReplyVO;
 import goal.vo.UserVO;
 import goal.vo.GroupVO;
+import goal.vo.ReCommentVO;
 
 @Mapper
 public interface BoardMapper {
@@ -32,5 +33,6 @@ public interface BoardMapper {
 	int mainGroupCount();
 	int myGroupCount(int uno);
 	int searchNullBoard(BoardVO vo);
+	ReCommentVO readMainRecmt();
 
 }

@@ -34,13 +34,6 @@ public class ReplyServiceImpl implements ReplyService{
 		return mapper.readMainReply();
 	}
 
-
-	@Override
-	public ReCommentVO getMainRecmt() {
-		return mapper.readMainRecmt();
-	}
-
-
 	@Override
 	public List<ReplyVO> getDetailMainReply(int bno) {
 		return mapper.readDetailMainReply(bno);

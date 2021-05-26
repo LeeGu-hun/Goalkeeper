@@ -16,12 +16,27 @@
 						<div class="user-avatar-content">
 							<!-- HEXAGON -->
 							<div class="hexagon-image-30-32" th:if="${reply.profileCheck}==1"
-								th:attr="data-src=@{/user/profileId/}+${reply.replyWriter}"></div>
+								th:attr="data-src=@{/user/profile/}+${reply.uno}"></div>
 							<div class="hexagon-image-30-32"
 								th:unless="${reply.profileCheck}==1"
 								th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
 							<!-- /HEXAGON -->
 						</div>
+						<!-- USER AVATAR PROGRESS -->
+						<div class="user-avatar-progress">
+							<!-- HEXAGON -->
+							<div class="hexagon-progress-40-44"></div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR PROGRESS -->
+
+						<!-- USER AVATAR PROGRESS BORDER -->
+						<div class="user-avatar-progress-border">
+							<!-- HEXAGON -->
+							<div class="hexagon-border-40-44"></div>
+							<!-- /HEXAGON -->
+						</div>
+						<!-- /USER AVATAR PROGRESS BORDER -->
 						<!-- /USER AVATAR CONTENT -->
 					</div> <!-- /USER AVATAR -->
 				</a>
@@ -49,12 +64,27 @@
 									<!-- HEXAGON -->
 									<div class="hexagon-image-30-32"
 										th:if="${reply.profileCheck}==1"
-										th:attr="data-src=@{/user/profileId/}+${recmt.recmtWriter}"></div>
+										th:attr="data-src=@{/user/profile/}+${recmt.uno}"></div>
 									<div class="hexagon-image-30-32"
 										th:unless="${reply.profileCheck}==1"
 										th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
 									<!-- /HEXAGON -->
 								</div>
+								<!-- USER AVATAR PROGRESS -->
+								<div class="user-avatar-progress">
+									<!-- HEXAGON -->
+									<div class="hexagon-progress-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS -->
+
+								<!-- USER AVATAR PROGRESS BORDER -->
+								<div class="user-avatar-progress-border">
+									<!-- HEXAGON -->
+									<div class="hexagon-border-40-44"></div>
+									<!-- /HEXAGON -->
+								</div>
+								<!-- /USER AVATAR PROGRESS BORDER -->
 								<!-- /USER AVATAR CONTENT -->
 							</div> <!-- /USER AVATAR -->
 						</a>

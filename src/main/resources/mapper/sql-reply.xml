@@ -10,23 +10,16 @@
 		<id property="replyDate" column="replyDate"/>
 		<collection column="replyWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReply"/>
 	</resultMap>
-	<resultMap type="goal.vo.ReCommentVO" id="reCmtVO">
-		<id property="cno" column="cno"/>
-		<id property="rno" column="rno"/>
-		<id property="recmtContent" column="recmtContent"/>
-		<id property="recmtWriter" column="recmtWriter"/>
-		<id property="recmtDate" column="recmtDate"/>
-		<collection column="recmtWriter" property="profileCheck" javaType="int" ofType="int" select="checkProfilebyReCmt"/>
-	</resultMap>
-	
+	<select id="getUnoByWriter" parameterType="String"
+		resultType="int">
+		<![CDATA[
+		SELECT uno, rownum FROM gk_user u, gk_recomment c where
+		u.userid=c.recmtwriter and recmtwriter=#{recmtWriter} and rownum <= 1
+		]]>
+	</select>
 	<select id="readMainReply" resultMap="replyVO">
 		<![CDATA[
 		select rownum, replyWriter, replyContent, bno, replyDate from (select * from GK_COMMENT order by replyDate desc) where rownum <= 1
-		]]>
-	</select>
-	<select id="readMainRecmt" resultMap="reCmtVO">
-		<![CDATA[
-		select rownum, recmtWriter, recmtContent, rno, recmtDate from (select * from GK_RECOMMENT order by recmtDate desc) where rownum <= 1
 		]]>
 	</select>
     <select id="checkProfilebyReply" parameterType="String" resultType="int">

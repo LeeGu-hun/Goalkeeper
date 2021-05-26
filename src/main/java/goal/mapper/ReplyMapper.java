@@ -15,7 +15,6 @@ import goal.vo.UserVO;
 @Mapper
 public interface ReplyMapper {
 	ReplyVO readMainReply();
-	ReCommentVO readMainRecmt();
 	List<ReplyVO> readDetailMainReply(int bno);
 	int replyCount() throws Exception;
     List<ReplyVO> replyList() throws Exception;

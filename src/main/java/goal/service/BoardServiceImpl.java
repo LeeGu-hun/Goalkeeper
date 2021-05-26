@@ -10,6 +10,7 @@ import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
 import goal.vo.BoardVO;
 import goal.vo.GroupVO;
+import goal.vo.ReCommentVO;
 import goal.vo.UserVO;
 
 @Service
@@ -108,6 +109,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int searchNullBoard(BoardVO vo) {
 		return boardMapper.searchNullBoard(vo);
+	}
+
+	@Override
+	public ReCommentVO getMainRecmt() {
+		return boardMapper.readMainRecmt();
 	}
 
 
