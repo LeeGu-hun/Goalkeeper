@@ -13,6 +13,8 @@
 		<id property="receiveFileCheck" column="receiveFileCheck"></id>
 		<id property="receiveBackCheck" column="receiveBackCheck"></id>
 		<id property="applyDate" column="applyDate"></id>
+		<collection column="applyUno" property="applyFriend" javaType="int" ofType="int" select="applyFriendCount"/>
+		<collection column="receiveUno" property="receiveFriend" javaType="int" ofType="int" select="receiveFriendCount"/>
 	</resultMap>
 	
 	<insert id="apply" parameterType="goal.vo.FriendApplyVO">
@@ -71,5 +73,13 @@
 	
 	<select id="receiveCount" parameterType="int" resultType="int">
 		select count(*) from GK_FRIEND_APPLY where receiveUno = #{receiveUno}
+	</select>
+	
+	<select id="applyFriendCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND where uno = #{applyUno}
+	</select>
+	
+	<select id="receiveFriendCount" parameterType="int" resultType="int">
+		select count(*) from GK_FRIEND where uno = #{receiveUno}
 	</select>
 </mapper>

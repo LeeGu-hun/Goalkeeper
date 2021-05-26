@@ -14,6 +14,8 @@ public class FriendVO {
 	private String friendId;
 	private String userFileCheck;
 	private String userBackCheck;
+	private int friendCnt;
+	private int boardCnt;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date friendBirthdate;
