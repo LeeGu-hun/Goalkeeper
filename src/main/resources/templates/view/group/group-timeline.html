@@ -344,7 +344,7 @@
 								<p class="user-status-text small"
 									th:text="${#dates.format(post.bo_date, 'yyyy-MM-dd HH:mm')}+'분에 등록됨'"></p>
 							</div>
-							<form id="modify_form" method="post"
+							<form style="margin-top: 20px" id="modify_form" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
 								<pre style="display:flex;">
 								<p th:attr="id=${post.bno}"

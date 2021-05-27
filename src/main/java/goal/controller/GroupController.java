@@ -39,6 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import goal.common.CommonDownload;
 import goal.service.BoardFileService;
 import goal.service.BoardService;
+import goal.service.ChatService;
 import goal.service.CommonService;
 import goal.service.GroupFileService;
 import goal.service.GroupService;
@@ -49,6 +50,7 @@ import goal.upload.GroupUpload;
 import goal.util.MediaUtils;
 import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.GroupBgiVO;
 import goal.vo.GroupDataVO;
 import goal.vo.GroupFileVO;
@@ -82,6 +84,9 @@ public class GroupController {
 	@Autowired
 	private BoardFileService boardFileService;
 	
+	@Autowired
+	private ChatService chatService;
+	
 	private GroupUpload groupUpload = new GroupUpload();
 	private CommonDownload commonDownload = new CommonDownload();
 	private String referer;
@@ -101,6 +106,8 @@ public class GroupController {
 		mv.addObject("list", groupList);
 		if(user != null) {		
 			mv.addObject("user", user);
+			List<ChatVO> friendlist = chatService.findFriendList(user);
+			mv.addObject("friendlist", friendlist);
 		} else {
 			mv.addObject("user", null);
 		}
@@ -162,6 +169,11 @@ public class GroupController {
 		mv.addObject("group", group);
 		mv.addObject("BoList", boardList);
 		mv = getGroupUser(gno, mv);
+		if(user != null) {		
+			mv.addObject("user", user);
+			List<ChatVO> friendlist = chatService.findFriendList(user);
+			mv.addObject("friendlist", friendlist);
+		}
 		return mv;
 	}
 	@PostMapping("/group_detail")
