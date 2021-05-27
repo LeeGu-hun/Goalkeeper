@@ -255,121 +255,113 @@
 				<!-- /SECTION HEADER -->
 
 				<!-- WIDGET BOX -->
-				<div>
-					<div class="widget-box" style="height: 300px">
-						<!-- WIDGET BOX TITLE -->
-						<p class="widget-box-title">가입 신청 목록</p>
-						<br>
-						<!-- /WIDGET BOX TITLE -->
-						<div th:if="${joinList}!=null">
-							<!-- TABLE -->
-							<div class="table table-forum-category">
-								<!-- TABLE HEADER -->
-								<div style="display: flex">
+				<div class="widget-box" style="height: auto">
+					<!-- WIDGET BOX TITLE -->
+					<p class="widget-box-title">가입 신청 목록</p>
+					<br>
+					<!-- /WIDGET BOX TITLE -->
+					<!-- TABLE -->
+					<div class="table table-forum-category" th:if="${joinList}!=null">
+						<!-- TABLE HEADER -->
+						<div style="display: flex">
+							<!-- TABLE HEADER COLUMN -->
+							<div style="flex: 1; text-align: center">
+								<!-- TABLE HEADER TITLE -->
+								<p class="table-header-title">아이디</p>
+								<!-- /TABLE HEADER TITLE -->
+							</div>
+							<!-- /TABLE HEADER COLUMN -->
+							<div style="flex: 2; text-align: center">
+								<!-- TABLE HEADER TITLE -->
+								<p class="table-header-title">메세지</p>
+								<!-- /TABLE HEADER TITLE -->
+							</div>
+							<!-- TABLE HEADER COLUMN -->
+							<div style="flex: 2; text-align: center">
+								<!-- TABLE HEADER TITLE -->
+								<p class="table-header-title">신청일</p>
+								<!-- /TABLE HEADER TITLE -->
+							</div>
+							<!-- /TABLE HEADER COLUMN -->
+
+							<!-- TABLE HEADER COLUMN -->
+							<div style="flex: 2; text-align: center">
+								<!-- TABLE HEADER TITLE -->
+								<p class="table-header-title">관리</p>
+								<!-- /TABLE HEADER TITLE -->
+							</div>
+							<!-- /TABLE HEADER COLUMN -->
+						</div>
+						<!-- /TABLE HEADER -->
+
+						<!-- TABLE BODY -->
+						<div class="table-body" th:if="${joinList}!=null">
+							<!-- TABLE ROW -->
+							<form id="joinFrm" action="/join_request" method="POST">
+								<!-- TABLE COLUMN -->
+								<div style="display: flex" th:each="join:${joinList}">
 									<!-- TABLE HEADER COLUMN -->
 									<div style="flex: 1; text-align: center">
-										<!-- TABLE HEADER TITLE -->
-										<p class="table-header-title">아이디</p>
-										<!-- /TABLE HEADER TITLE -->
-									</div>
-									<!-- /TABLE HEADER COLUMN -->
-									<div style="flex: 2; text-align: center">
-										<!-- TABLE HEADER TITLE -->
-										<p class="table-header-title">메세지</p>
-										<!-- /TABLE HEADER TITLE -->
-									</div>
-									<!-- TABLE HEADER COLUMN -->
-									<div style="flex: 2; text-align: center">
-										<!-- TABLE HEADER TITLE -->
-										<p class="table-header-title">신청일</p>
-										<!-- /TABLE HEADER TITLE -->
-									</div>
-									<!-- /TABLE HEADER COLUMN -->
-
-									<!-- TABLE HEADER COLUMN -->
-									<div style="flex: 2; text-align: center">
-										<!-- TABLE HEADER TITLE -->
-										<p class="table-header-title">관리</p>
-										<!-- /TABLE HEADER TITLE -->
-									</div>
-									<!-- /TABLE HEADER COLUMN -->
-								</div>
-								<!-- /TABLE HEADER -->
-
-								<!-- TABLE BODY -->
-								<div class="table-body" th:if="${joinList}!=null">
-									<!-- TABLE ROW -->
-									<form id="joinFrm" action="/join_request" method="POST">
-										<div th:each="join:${joinList}">
-											<!-- TABLE COLUMN -->
-											<div style="display: flex">
-												<!-- TABLE HEADER COLUMN -->
-												<div style="flex: 1; text-align: center">
-													<div class="user-short-description"
-														style="width: 82px; height: 56px;">
-														<!-- USER SHORT DESCRIPTION AVATAR -->
-														<a class="user-short-description-avatar user-avatar small"
-															th:href="@{/myPage/}+${join.userId}"
-															style="display: inline-block; position: relative; margin-top: -5px;">
-															<!-- USER AVATAR CONTENT -->
-															<figure class="user-avatar-content"
-																th:if="${join.userFileCheck}=='Y'">
-																<!-- HEXAGON -->
-																<div class="hexagon-image-40-44"
-																	th:attr="data-src=@{/user/profile/}+${join.uno}"></div>
-																<!-- /HEXAGON -->
-															</figure>
-															<figure class="user-avatar-content"
-																th:unless="${join.userFileCheck}=='Y'">
-																<div class="hexagon-image-40-44"
-																	th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
-															</figure> <!-- /USER AVATAR CONTENT -->
-														</a> <input type="hidden" name="uno" th:value="${join.uno}">
-														<input type="hidden" name="gno" th:value="${join.gno}">
-													</div>
-													<p style="margin-bottom: 10px;"
-														class="user-short-description-title"
-														th:text="${join.userId}"></p>
-												</div>
-												<!-- /TABLE HEADER COLUMN -->
-												<div style="flex: 2; text-align: center;">
-													<!-- FORUM CATEGORY TEXT -->
-													<p class="forum-category-text" style="line-height: 110px"
-														th:text="${join.join_msg}"></p>
-													<!-- /FORUM CATEGORY TEXT -->
-												</div>
-												<!-- TABLE HEADER COLUMN -->
-												<div style="flex: 2; text-align: center">
-													<!-- TABLE TITLE -->
-													<p class="table-title" style="line-height: 110px"
-														th:text="${#dates.format(join.join_date, 'yyyy-MM-dd HH:mm')}"></p>
-													<!-- /TABLE TITLE -->
-												</div>
-												<!-- /TABLE HEADER COLUMN -->
-
-												<!-- TABLE HEADER COLUMN -->
-												<div style="flex: 2; text-align: center">
-													<button id="acceptUser" type="submit"
-														style="width: 80px; margin-top: 43px;"
-														class="table-title btn-primary success">수락</button>
-													<button class="table-title btn-primary" type="button"
-														id="cancelBtn" style="width: 80px">거절</button>
-												</div>
-												<!-- /TABLE HEADER COLUMN -->
-											</div>
-
+										<div class="user-short-description"
+											style="width: 82px; height: 56px;">
+											<!-- USER SHORT DESCRIPTION AVATAR -->
+											<a class="user-short-description-avatar user-avatar small"
+												th:href="@{/myPage/}+${join.userId}"
+												style="display: inline-block; position: relative; margin-top: -5px;">
+												<!-- USER AVATAR CONTENT -->
+												<figure class="user-avatar-content"
+													th:if="${join.userFileCheck}=='Y'">
+													<!-- HEXAGON -->
+													<div class="hexagon-image-40-44"
+														th:attr="data-src=@{/user/profile/}+${join.uno}"></div>
+													<!-- /HEXAGON -->
+												</figure>
+												<figure class="user-avatar-content"
+													th:unless="${join.userFileCheck}=='Y'">
+													<div class="hexagon-image-40-44"
+														th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+												</figure> <!-- /USER AVATAR CONTENT -->
+											</a> <input type="hidden" name="uno" th:value="${join.uno}">
+											<input type="hidden" name="gno" th:value="${join.gno}">
 										</div>
-										<!-- /TABLE ROW -->
-									</form>
+										<p style="margin-bottom: 10px;"
+											class="user-short-description-title" th:text="${join.userId}"></p>
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+									<div style="flex: 2; text-align: center;">
+										<!-- FORUM CATEGORY TEXT -->
+										<p class="forum-category-text" style="line-height: 110px"
+											th:text="${join.join_msg}"></p>
+										<!-- /FORUM CATEGORY TEXT -->
+									</div>
+									<!-- TABLE HEADER COLUMN -->
+									<div style="flex: 2; text-align: center">
+										<!-- TABLE TITLE -->
+										<p class="table-title" style="line-height: 110px"
+											th:text="${#dates.format(join.join_date, 'yyyy-MM-dd HH:mm')}"></p>
+										<!-- /TABLE TITLE -->
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
+
+									<!-- TABLE HEADER COLUMN -->
+									<div style="flex: 2; text-align: center">
+										<button id="acceptUser" type="submit"
+											style="width: 80px; margin-top: 43px;"
+											class="table-title btn-primary success">수락</button>
+										<button class="table-title btn-primary" type="button"
+											id="cancelBtn" style="width: 80px">거절</button>
+									</div>
+									<!-- /TABLE HEADER COLUMN -->
 								</div>
-							</div>
-						</div>
-						<div th:unless="${joinList}!=null">
-							<p>가입 신청이 없습니다.</p>
+								<!-- /TABLE ROW -->
+							</form>
 						</div>
 					</div>
-					<!-- /WIDGET BOX -->
+					<div th:unless="${joinList}!=null">
+						<p>가입 신청이 없습니다.</p>
+					</div>
 				</div>
+				<!-- /WIDGET BOX -->
 			</div>
 			<!-- /GRID COLUMN -->
 		</div>
