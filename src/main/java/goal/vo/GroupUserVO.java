@@ -15,4 +15,6 @@ public class GroupUserVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date g_date;
 	private String userFileCheck;
+	private int boardCount;
+	private int friendCount;
 }

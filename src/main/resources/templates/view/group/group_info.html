@@ -20,7 +20,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | Group</title>
+<title>TrendSetter | Group</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -212,105 +212,41 @@
 				<!-- /WIDGET BOX -->
 
 				<!-- WIDGET BOX -->
+				<!--그룹 정보-->
 				<div class="widget-box">
-					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
-						<!-- POST SETTINGS WRAP -->
 						<div class="post-settings-wrap">
-							<!-- POST SETTINGS -->
 							<div
 								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<!-- POST SETTINGS ICON -->
 								<svg class="post-settings-icon icon-more-dots">
                   <use xlink:href="#svg-more-dots"></use>
                 </svg>
-								<!-- /POST SETTINGS ICON -->
 							</div>
-							<!-- /POST SETTINGS -->
-
-							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<!-- SIMPLE DROPDOWN LINK -->
 								<p class="simple-dropdown-link">Widget Settings</p>
-								<!-- /SIMPLE DROPDOWN LINK -->
 							</div>
-							<!-- /SIMPLE DROPDOWN -->
 						</div>
-						<!-- /POST SETTINGS WRAP -->
 					</div>
-					<!-- /WIDGET BOX SETTINGS -->
-
-					<!-- WIDGET BOX TITLE -->
-					<p class="widget-box-title">Group Info</p>
-					<!-- /WIDGET BOX TITLE -->
-
-					<!-- WIDGET BOX CONTENT -->
+					<p class="widget-box-title">그룹 정보</p>
 					<div class="widget-box-content">
-						<!-- PARAGRAPH -->
-						<p class="paragraph">Hello everyone! This is a group open to
-							all for cosplayers around the world to talk about their passion,
-							trade tips, ask for opinions and have a great time!</p>
-						<!-- /PARAGRAPH -->
-
-						<!-- INFORMATION LINE LIST -->
+						<p class="paragraph" th:text="${group.g_intro}"></p>
 						<div class="information-line-list">
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
-								<p class="information-line-title">Created</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
-								<p class="information-line-text">April 9th, 2018</p>
-								<!-- /INFORMATION LINE TEXT -->
+								<p class="information-line-title">생성일</p>
+								<p class="information-line-text" th:text="${#dates.format(group.g_date, 'yyyy-MM-dd HH:mm')}"></p>
 							</div>
-							<!-- /INFORMATION LINE -->
-
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
-								<p class="information-line-title">Type</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
-								<p class="information-line-text">Public</p>
-								<!-- /INFORMATION LINE TEXT -->
+								<p class="information-line-title">분류</p>
+								<p class="information-line-text" th:text="${group.g_cate}"></p>
 							</div>
-							<!-- /INFORMATION LINE -->
-
-							<!-- INFORMATION LINE -->
 							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
-								<p class="information-line-title">Email</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
-								<p class="information-line-text">
-									<a href="#">info@cosworld.com</a>
-								</p>
-								<!-- /INFORMATION LINE TEXT -->
+								<p class="information-line-title">공개여부</p>
+								<p class="information-line-text"
+									th:text="${group.g_open}=='Y'?'공개':'비공개'"></p>
 							</div>
-							<!-- /INFORMATION LINE -->
-
-							<!-- INFORMATION LINE -->
-							<div class="information-line">
-								<!-- INFORMATION LINE TITLE -->
-								<p class="information-line-title">Web</p>
-								<!-- /INFORMATION LINE TITLE -->
-
-								<!-- INFORMATION LINE TEXT -->
-								<p class="information-line-text">
-									<a href="#">www.cosplayworld.com</a>
-								</p>
-								<!-- /INFORMATION LINE TEXT -->
-							</div>
-							<!-- /INFORMATION LINE -->
 						</div>
-						<!-- /INFORMATION LINE LIST -->
 					</div>
-					<!-- /WIDGET BOX CONTENT -->
 				</div>
-				<!-- /WIDGET BOX -->
 			</div>
 			<!-- /GRID COLUMN -->
 
@@ -375,7 +311,7 @@
 				<!-- WIDGET BOX -->
 				<div class="widget-box">
 					<!-- WIDGET BOX ACTIONS -->
-					<div class="widget-box-actions" th:if="${goalList}!=null">
+					<div class="widget-box-actions" th:if="${goalList}!='goalEmpty'">
 						<!-- WIDGET BOX ACTION -->
 						<div class="widget-box-action">
 							<!-- WIDGET BOX TITLE -->

@@ -21,7 +21,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | Group</title>
+<title>TrendSetter | Group</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -141,7 +141,7 @@
 						<div class="information-line-list">
 							<div class="information-line">
 								<p class="information-line-title">생성일</p>
-								<p class="information-line-text" th:text="${group.g_date}"></p>
+								<p class="information-line-text" th:text="${#dates.format(group.g_date, 'yyyy-MM-dd HH:mm')}"></p>
 							</div>
 							<div class="information-line">
 								<p class="information-line-title">분류</p>
@@ -176,7 +176,7 @@
 						<div class="user-status-list">
 							<div class="user-status request-small"
 								th:each="groupUser:${groupUser}">
-								<a class="user-status-avatar" href="profile-timeline.html">
+								<a class="user-status-avatar" th:href="@{/myPage/}+${groupUser.userId}">
 									<div class="user-avatar small no-outline">
 										<div class="user-avatar-content"
 											th:if="${groupUser.userFileCheck}=='Y'">
@@ -309,7 +309,7 @@
 					<div class="widget-box-status">
 						<div class="widget-box-status-content">
 							<div class="user-status">
-								<a class="user-status-avatar" href="profile-timeline.html">
+								<a class="user-status-avatar" th:href="@{/myPage/}+${post.userId}">
 									<div class="user-avatar small no-outline">
 										<figure class="user-avatar-content" th:if="${post.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"

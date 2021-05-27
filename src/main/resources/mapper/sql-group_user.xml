@@ -9,6 +9,8 @@
 		<id property="g_role" column="g_role"/>
 		<id property="g_date" column="g_date"/>
 		<collection column="{gno=gno, uno=uno}" property="userFileCheck" javaType="String" ofType="String" select="checkUserFile"/>
+		<collection column="{gno=gno, uno=uno}" property="boardCount" javaType="String" ofType="String" select="checkBoardCount"/>
+		<collection column="uno" property="friendCount" javaType="int" ofType="int" select="checkFriendCount"/>
 	</resultMap>
 	<insert id="insertGroupUser" parameterType="goal.vo.GroupUserVO">
 		<selectKey keyProperty="sno" resultType="int" order="BEFORE">
@@ -26,6 +28,12 @@
 	</select>
 	<select id="checkUserFile" parameterType="java.util.Map" resultType="String">
 		select userFileCheck from gk_group_user g, gk_user u where g.uno=u.uno and g.uno=#{uno} and g.gno=#{gno}
+	</select>
+	<select id="checkBoardCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from gk_allgroup a, gk_group_user u, gk_board b where a.gno=u.gno and b.bo_group=a.g_name and u.uno=#{uno} and u.gno=#{gno}
+	</select>
+	<select id="checkFriendCount" parameterType="int" resultType="int">
+		select count(*) from gk_friend where uno=#{uno}
 	</select>
 	<select id="countUserbyGroup" parameterType="int" resultType="int">
 		select count(*) from gk_group_user where gno=#{gno}

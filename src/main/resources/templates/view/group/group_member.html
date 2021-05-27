@@ -20,7 +20,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | Group</title>
+<title>TrendSetter | Member</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -169,9 +169,14 @@
 								</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
 								<div class="user-avatar-content">
 									<!-- HEXAGON -->
-									<div class="hexagon-image-82-90"
+									<div class="hexagon-image-82-90" th:if="${groupUser.userFileCheck}=='Y'"
 										th:attr="data-src=@{/user/profile/}+${groupUser.uno}"></div>
 									<!-- /HEXAGON -->
+									<figure class="user-avatar-content"
+										th:unless="${groupUser.userFileCheck}=='Y'">
+										<div class="hexagon-image-82-90"
+											th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+									</figure>
 								</div>
 							</a>
 							<!-- /USER SHORT DESCRIPTION AVATAR -->
@@ -193,7 +198,7 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">874</p>
+										<p class="user-stat-title" th:text="${groupUser.boardCount}"></p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
@@ -205,7 +210,7 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">60</p>
+										<p class="user-stat-title" th:text="${groupUser.friendCount}"></p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
@@ -217,7 +222,7 @@
 									<!-- USER STAT -->
 									<div class="user-stat">
 										<!-- USER STAT TITLE -->
-										<p class="user-stat-title">3.9k</p>
+										<p class="user-stat-title">0</p>
 										<!-- /USER STAT TITLE -->
 
 										<!-- USER STAT TEXT -->
@@ -243,7 +248,7 @@
 						<!-- USER PREVIEW ACTIONS -->
 						<div class="user-preview-actions">
 							<!-- BUTTON -->
-							<p class="button secondary">친구 추가하기</p>
+							<a class="button secondary" th:href="@{/myPage/}+${groupUser.userId}">자세히 보기</a>
 							<!-- /BUTTON -->
 
 							<!-- BUTTON -->

@@ -19,7 +19,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | Groups</title>
+<title>TrendSetter | Group</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -84,7 +84,7 @@
 					<div class="user-short-description">
 						<a
 							class="user-short-description-avatar user-avatar medium no-stats"
-							href="group-timeline.html"> <!-- USER AVATAR BORDER -->
+							th:href="@{/group_detail/{gno}(gno=${groupList.gno})}"> <!-- USER AVATAR BORDER -->
 							<div class="user-avatar-border">
 								<div class="hexagon-120-130"></div>
 							</div> <!-- /USER AVATAR BORDER --> <!-- USER AVATAR CONTENT -->
