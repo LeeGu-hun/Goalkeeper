@@ -21,9 +21,9 @@
 		<id property="gno" column="gno"/>
 		<id property="join_msg" column="join_msg"/>
 		<id property="join_date" column="join_date"/>
-		<id property="userId" column="userId"/>
 		<id property="uno" column="uno"/>
-		<collection column="{gno=gno, userId=userId}" property="userFileCheck" javaType="String" ofType="String" select="checkJoinProfile"/>
+		<collection column="uno" property="userFileCheck" javaType="String" ofType="String" select="checkJoinProfile"/>
+		<collection column="uno" property="userId" javaType="String" ofType="String" select="getUserId"/>
 	</resultMap>
 	<resultMap type="goal.vo.GroupDataVO" id="groupDataVO">
 		<id property="mno" column="mno"/>
@@ -39,8 +39,8 @@
 	<select id="checkUserProfile" parameterType="java.util.Map" resultType="String">
 		select userFileCheck from gk_allgroup a, gk_user u, gk_group_user g where a.gno=g.gno and g.uno=u.uno and a.gno=#{gno} and g.uno=#{uno}
 	</select>
-	<select id="checkJoinProfile" parameterType="java.util.Map" resultType="String">
-		select userFileCheck from gk_group_join j, gk_user u where u.userid=u.userid and j.gno=#{gno} and u.userId=#{userId}
+	<select id="checkJoinProfile" parameterType="int" resultType="String">
+		select userFileCheck from gk_user where uno=#{uno}
 	</select>
 	<select id="countUser" resultType="int">
 		SELECT count(*) FROM gk_group_user where gno=#{gno}
@@ -99,10 +99,13 @@
 		(#{gno}, #{join_msg}, sysdate, #{uno})
 	</insert>
 	<select id="selectGroupJoin" parameterType="int" resultMap="groupJoinVO">
-		select GNO, JOIN_MSG, JOIN_DATE, userId, j.uno from gk_group_join j, gk_user u where j.uno=u.uno and gno=#{gno}
+		select * from gk_group_join where gno=#{gno}
 	</select>
-	<select id="selectGroupJoinUno" parameterType="int" resultMap="groupJoinVO">
-		select * from gk_group_join where uno=#{uno}
+	<select id="getUserId" parameterType="int" resultType="String">
+		select userId from gk_user where uno=#{uno}
+	</select>
+	<select id="selectGroupJoinUno" parameterType="goal.vo.GroupJoinVO" resultMap="groupJoinVO">
+		select * from gk_group_join where uno=#{uno} and gno=#{gno}
 	</select>
 	<select id="selectGroupJoinbyGno" parameterType="int" resultMap="groupJoinVO">
 		select * from gk_group_join where uno=#{uno} and gno=#{gno}

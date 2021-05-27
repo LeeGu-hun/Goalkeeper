@@ -29,7 +29,7 @@ public interface GroupMapper {
 	void insertGroupJoin(GroupJoinVO join);
 	void updateBgiCheck(int gno);
 	List<GroupJoinVO> selectGroupJoin(int gno);
-	GroupJoinVO selectGroupJoinUno(int uno);
+	GroupJoinVO selectGroupJoinUno(GroupJoinVO joinUser);
 	void removeGroupJoin(GroupJoinVO join);
 	void insertGroupData(GroupDataVO data);
 	GroupDataVO countDatabyUno(GroupDataVO data);

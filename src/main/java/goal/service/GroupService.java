@@ -28,7 +28,7 @@ public interface GroupService {
 	void insertGroupJoin(GroupJoinVO join);
 	void updateBgiCheck(int gno);
 	List<GroupJoinVO> getGroupJoin(int gno);
-	GroupJoinVO selectGroupJoinUno(int uno);
+	GroupJoinVO selectGroupJoinUno(GroupJoinVO joinUser);
 	int checkUserbyGroup(GroupUserVO groupUser);
 	String getRolebyUser(GroupUserVO groupUser);
 	void insertGroupUser(GroupUserVO groupUser);
