@@ -98,12 +98,12 @@ public class MyPageController {
 		List<BoardVO> boardList = boardService.getMyPageBoardList(userId);
 		mv.addObject("BoList", boardList);
 		this.userId = userId;
-		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
-		List<BoardFileVO> myPageFile = boardService.findFilebyMyPage(myPageUser);
-	      
+		List<BoardFileVO> myPageFile = boardService.findFilebyMyPage(userId);
+		int countPic = boardService.countFilebyMyPage(userId);
+		mv.addObject("countPic", countPic);
+		
 		if(vo != null) {
 			mv.addObject("myGroupCount", myGroupCount);
-			mv.addObject("friendlist", friendlist);
 			mv.addObject("fileList", myPageFile);
 			mv.addObject("vo", myPageUser);
 			mv.addObject("user", user);
@@ -116,6 +116,11 @@ public class MyPageController {
 		} else {
 			mv.setViewName("view/error/denied");
 		}
+
+    	if(user!= null) {		
+    		List<ChatVO> friendlist = chatService.findFriendList(user);
+    	      mv.addObject("friendlist", friendlist);
+    	}
 		
 		return mv;	
 	}

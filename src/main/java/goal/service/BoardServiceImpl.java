@@ -120,8 +120,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.readMainRecmt();
 	}
 	@Override
-	public List<BoardFileVO> findFilebyMyPage(UserVO vo) {
+	public List<BoardFileVO> findFilebyMyPage(String vo) {
 		return boardFileMapper.selectFilebyMyPage(vo);
 	}
-
+	@Override
+		public int countFilebyMyPage(String vo) {
+		return boardFileMapper.countFilebyMyPage(vo);
+	}
 }

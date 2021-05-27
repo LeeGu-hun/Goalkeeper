@@ -22,5 +22,6 @@ public interface BoardFileMapper {
 	int countFilebyGroup(BoardVO board);
 	BoardFileVO selectFilebyUuid(String uuid);
 	List<BoardFileVO> selectFilebyGroup(GroupVO group);
-	List<BoardFileVO> selectFilebyMyPage(UserVO group);
+	List<BoardFileVO> selectFilebyMyPage(String vo);
+	int countFilebyMyPage(String vo);
 }

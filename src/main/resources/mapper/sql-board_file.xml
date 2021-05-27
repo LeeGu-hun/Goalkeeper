@@ -45,8 +45,11 @@
 	<select id="selectFilebyGroup" parameterType="goal.vo.GroupVO" resultMap="boardFileVO">
    	select * from gk_file f, gk_board b where b.bo_group = #{g_name} and f.bno = b.bno
 	</select>
-	<select id="selectFilebyMyPage" parameterType="goal.vo.UserVO" resultMap="boardFileVO">
+	<select id="selectFilebyMyPage" parameterType="String" resultMap="boardFileVO">
    	select * from gk_file f, gk_board b where b.userId = #{userId} and f.bno = b.bno
+	</select>
+	<select id="countFilebyMyPage" parameterType="String" resultType="int">
+   	select count(*) from gk_file f, gk_board b where b.userId = #{userId} and f.bno = b.bno
 	</select>
 
 </mapper>

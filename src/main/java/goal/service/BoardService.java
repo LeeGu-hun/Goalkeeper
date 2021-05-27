@@ -30,5 +30,6 @@ public interface BoardService {
 	int myGroupCount(int uno);
 	int searchNullBoard(BoardVO vo);
 	ReCommentVO getMainRecmt();
-	List<BoardFileVO> findFilebyMyPage(UserVO vo);
+	List<BoardFileVO> findFilebyMyPage(String vo);
+	int countFilebyMyPage(String userId);
 }
