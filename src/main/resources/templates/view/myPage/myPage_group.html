@@ -346,19 +346,6 @@
 				<!-- /FORM -->
 			</div>
 			<!-- /SECTION FILTERS BAR ACTIONS -->
-
-			<!-- SECTION FILTERS BAR ACTIONS -->
-			<div class="page-wrapper" th:if="${user}==null">
-				<a class="btn"
-					th:attr="onclick=|javascript:goCreateGroup('fail')|" href="#">그룹
-					만들기</a>
-			</div>
-			<div class="page-wrapper" th:unless="${user}==null">
-				<a class="btn"
-					th:attr="onclick=|javascript:goCreateGroup('success')|" href="#">그룹
-					만들기</a>
-			</div>
-			<!-- /SECTION FILTERS BAR ACTIONS -->
 		</div>
 		<!-- /SECTION FILTERS BAR -->
 		<div class="grid grid-4-4-4 centered">
