@@ -76,9 +76,11 @@ function react(no, id){
 	    success: function(data) {
 	    	if(data.reactCount == 0){
 	    		reactDiv.find('p').html('');
+	    		$('#react-icon').attr('style','display:none');
 	    		$('#reactStartDiv'+no).attr('style', 'display:none');
 	    		$('#userDiv'+no).find('#user'+id).remove();
 	    	} else{
+	    		$('#react-icon').attr('style','display:inline');
 	    		$('#reactStartDiv'+no).attr('style', 'display:flex');
 	    		reactDiv.find('p').html(data.reactCount);
 	    		if(data.reactType==1){
