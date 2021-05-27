@@ -138,6 +138,7 @@ public class FriendsController {
 		int receiveCount = friendApplyService.receiveCount(myPageUser.getUno());
 		ModelAndView mv = new ModelAndView("view/myPage/InMyPage_friends");
 		
+		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uno", myPageUser.getUno());
 		map.put("word", word);
@@ -158,6 +159,7 @@ public class FriendsController {
 			mv.addObject("loginUserBirthdate", user.getUserBirthdate());
 			mv.addObject("loginUserProfile", user.getUserFileCheck());
 			mv.addObject("loginUserBackground", user.getUserBackCheck());
+			mv.addObject("friendlist", friendlist);
 		}
 		mv.addObject("countPost",countPost);
 		mv.addObject("list", searchFriendList);
@@ -171,6 +173,8 @@ public class FriendsController {
 	@GetMapping("/mySearchFriends")
 	public ModelAndView userList(HttpServletRequest request) {
 		UserVO vo = commonService.getLoginUser(request);
+		UserVO myPageUser = userService.myPageUserInfo(userId);
+		
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
@@ -180,6 +184,8 @@ public class FriendsController {
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<UserVO> list = searchFriendService.allUserList(vo);
+		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
+		
 		mv.addObject("uno", vo.getUno());
 		mv.addObject("userId", vo.getUserId());
 		mv.addObject("userBirthdate", vo.getUserBirthdate());
@@ -190,6 +196,7 @@ public class FriendsController {
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
 		mv.addObject("countPost",countPost);
+		mv.addObject("friendlist", friendlist);
 		
 		return mv;
 	}
@@ -199,6 +206,7 @@ public class FriendsController {
 		vo = commonService.getLoginUser(request);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_search_friends");
 		mv = commonService.checkLoginUser(request, mv);
+		UserVO myPageUser = userService.myPageUserInfo(userId);
 		
 		int countFriend = friendService.countFriends(vo.getUno());
 		int countPost = friendService.countPost(vo.getUserId());
@@ -210,6 +218,8 @@ public class FriendsController {
 		map.put("word", word);
 		
 		List<UserVO> searchResult = searchFriendService.searchUser(map);
+		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
+		
 		mv.addObject("user", vo);
 		mv.addObject("uno", vo.getUno());
 		mv.addObject("userId", vo.getUserId());
@@ -221,6 +231,7 @@ public class FriendsController {
 		mv.addObject("countPost",countPost);
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
+		mv.addObject("friendlist", friendlist);
 		
 		return mv;
 	}
@@ -302,38 +313,16 @@ public class FriendsController {
 		return mv;
 	}
 	
-	@GetMapping("/myGoal")
-	public ModelAndView goalList(HttpServletRequest request, UserVO vo) {
-		UserVO user = new UserVO();
-		user = commonService.getLoginUser(request);
-		int countFriend = friendService.countFriends(user.getUno());
-		ModelAndView mv = new ModelAndView("view/myPage/myPage_data");
-		mv = commonService.checkLoginUser(request, mv);
-		
-		mv.addObject("vo", user);
-		mv.addObject("uno", user.getUno());
-		mv.addObject("count", countFriend);
-
-		return mv;	
-	}
-	
-	@PostMapping("/makeGoal")
-	public ModelAndView makePrivatGoal(HttpServletRequest request, UserVO vo, MyGoalVO goal) {
-		vo = commonService.getLoginUser(request);
-		goal.setUno(vo.getUno());
-		myGoalService.createGoal(goal);
-		ModelAndView mv = new ModelAndView("redirect:/myGoal");
-		
-		return mv;
-	}
-	
 	@GetMapping("/applyList")
 	public ModelAndView applyList(HttpServletRequest request, UserVO user) {
 		user = commonService.getLoginUser(request);
+		UserVO myPageUser = userService.myPageUserInfo(userId);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_applyList");
 		mv = commonService.checkLoginUser(request, mv);
 		
-		List<FriendApplyVO> applyList = friendApplyService.applyList(user.getUno()); 
+		List<FriendApplyVO> applyList = friendApplyService.applyList(user.getUno());
+		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
+		
 		int countFriend = friendService.countFriends(user.getUno());
 		int applyCount = friendApplyService.applyCount(user.getUno());
 		int receiveCount = friendApplyService.receiveCount(user.getUno());
@@ -349,6 +338,7 @@ public class FriendsController {
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
 		mv.addObject("countPost",countPost);
+		mv.addObject("friendlist", friendlist);
 		
 		return mv;
 	}
@@ -372,10 +362,13 @@ public class FriendsController {
 	@GetMapping("/receiveList")
 	public ModelAndView receiveList(HttpServletRequest request, UserVO vo) {
 		vo = commonService.getLoginUser(request);
+		UserVO myPageUser = userService.myPageUserInfo(userId);
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_receiveList");
 		mv = commonService.checkLoginUser(request, mv);
 		
 		List<FriendApplyVO> receiveList = friendApplyService.receiveList(vo.getUno());
+		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
+		
 		int countFriend = friendService.countFriends(vo.getUno());
 		int applyCount = friendApplyService.applyCount(vo.getUno());
 		int receiveCount = friendApplyService.receiveCount(vo.getUno());
@@ -391,6 +384,7 @@ public class FriendsController {
 		mv.addObject("applyCount", applyCount);
 		mv.addObject("receiveCount", receiveCount);
 		mv.addObject("countPost",countPost);
+		mv.addObject("friendlist", friendlist);
 		
 		return mv;
 	}

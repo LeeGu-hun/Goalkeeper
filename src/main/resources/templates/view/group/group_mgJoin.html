@@ -36,7 +36,7 @@
 	vertical-align: middle
 }
 </style>
-<title>Vikinger | Account Hub</title>
+<title>TrendSetter | Join</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -309,21 +309,27 @@
 														style="width: 82px; height: 56px;">
 														<!-- USER SHORT DESCRIPTION AVATAR -->
 														<a class="user-short-description-avatar user-avatar small"
-															href="profile-timeline.html"
+															th:href="@{/myPage/}+${join.userId}"
 															style="display: inline-block; position: relative; margin-top: -5px;">
 															<!-- USER AVATAR CONTENT -->
-															<div class="user-avatar-content">
+															<figure class="user-avatar-content"
+																th:if="${join.userFileCheck}=='Y'">
 																<!-- HEXAGON -->
 																<div class="hexagon-image-40-44"
-																	data-src="../../img/avatar/01.jpg"></div>
+																	th:attr="data-src=@{/user/profile/}+${join.uno}"></div>
 																<!-- /HEXAGON -->
-															</div> <!-- /USER AVATAR CONTENT -->
+															</figure>
+															<figure class="user-avatar-content"
+																th:unless="${join.userFileCheck}=='Y'">
+																<div class="hexagon-image-40-44"
+																	th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+															</figure> <!-- /USER AVATAR CONTENT -->
 														</a> <input type="hidden" name="uno" th:value="${join.uno}">
 														<input type="hidden" name="gno" th:value="${join.gno}">
 													</div>
 													<p style="margin-bottom: 10px;"
 														class="user-short-description-title"
-														th:text="${join.userName}"></p>
+														th:text="${join.userId}"></p>
 												</div>
 												<!-- /TABLE HEADER COLUMN -->
 												<div style="flex: 2; text-align: center;">
@@ -343,9 +349,11 @@
 
 												<!-- TABLE HEADER COLUMN -->
 												<div style="flex: 2; text-align: center">
-													<button id="acceptUser" type="submit" style="width:80px; margin-top:43px;"
+													<button id="acceptUser" type="submit"
+														style="width: 80px; margin-top: 43px;"
 														class="table-title btn-primary success">수락</button>
-													<button class="table-title btn-primary" type="button" id="cancelBtn" style="width: 80px">거절</button>
+													<button class="table-title btn-primary" type="button"
+														id="cancelBtn" style="width: 80px">거절</button>
 												</div>
 												<!-- /TABLE HEADER COLUMN -->
 											</div>

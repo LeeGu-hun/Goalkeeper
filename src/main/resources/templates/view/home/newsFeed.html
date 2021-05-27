@@ -23,7 +23,11 @@
 	crossorigin="anonymous">
 	
 </script>
+<<<<<<< HEAD
 <title>Trend Setter | NewsFeeds</title>
+=======
+<title>TrendSetter | NewsFeeds</title>
+>>>>>>> refs/remotes/origin/Goalkeeper0.0.0
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -488,7 +492,7 @@
 
 								<p class="user-status-title medium">
 									<a class="bold" th:href="@{/myPage/}+${post.userId}"
-										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold">post</span>
+										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold">post<span class="bold" th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
