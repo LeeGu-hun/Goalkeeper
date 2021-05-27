@@ -181,7 +181,7 @@
 
 	<select id="getGroupBoardList" resultMap="boardVO"
 		parameterType="string">
-		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where bo_cate='all' and (bo_group=#{bo_group}) order by bo_date desc
+		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where bo_group=#{bo_group} order by bo_date desc
 	</select>
 	
 	<select id="getMyPageBoardList" resultMap="boardVO" parameterType="String">
