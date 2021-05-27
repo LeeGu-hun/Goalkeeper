@@ -5,10 +5,11 @@
 		<id property="userId" column="userId"></id>
 		<id property="uno" column="uno"></id>
 		<id property="friendNo" column="friendNo"></id>
+		<id property="USERFILECHECK" column="USERFILECHECK"></id>
 	</resultMap>
 	
 	<select id="chatFriendList" resultMap="chatVO" parameterType="goal.vo.UserVO">
-		select  F.uno, F.friendNo, U.userId from GK_FRIEND F left outer join  GK_user U  on F.friendNo = U.uno where F.uno = #{uno}
+		select  F.uno, F.friendNo, U.userId,F.USERFILECHECK from GK_FRIEND F left outer join  GK_user U  on F.friendNo = U.uno where F.uno = #{uno}
 	</select>
 	
 	

@@ -1,220 +1,282 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="/main.css" rel="stylesheet"> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
-          type="text/css"> 
+<link href="/webjars/bootstrap/5.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- <link href="/main.css" rel="stylesheet"> -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+	rel="stylesheet" type="text/css">
 </head>
-<body> 
-<div th:fragment="chatBar">
-<input type="hidden" th:value="${user.userId}" id="chatUserId" class="chatUserId"/>
- <aside id="chat-widget-messages" class="chat-widget sidebar right closed">
-    <!-- CHAT WIDGET MESSAGES -->
-    <div class="chat-widget-messages" data-simplebar="init" style="height: 717px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-      <!-- CHAT WIDGET MESSAGE -->
-      <div class="chat-widget-message" th:each="fl:${friendlist}">
-        <!-- USER STATUS -->
-        <div class="user-status"  th:attr="onclick=|selectUser('${fl.userId}');selectFriendNo('${fl.friendNo}');|">
-          <!-- USER STATUS AVATAR -->
-          <div class="user-status-avatar">
-            <!-- USER AVATAR -->
-            <div class="user-avatar small no-outline online">
-              <!-- USER AVATAR CONTENT -->
-              <div class="user-avatar-content">
-                <!-- HEXAGON -->
-                <div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${fl.friendNo}" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR CONTENT -->
-          
-              <!-- USER AVATAR PROGRESS -->
-              <div class="user-avatar-progress">
-                <!-- HEXAGON -->
-                <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS -->
-          
-              <!-- USER AVATAR PROGRESS BORDER -->
-              <div class="user-avatar-progress-border">
-                <!-- HEXAGON -->
-                <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                <!-- /HEXAGON -->
-              </div>
-              <!-- /USER AVATAR PROGRESS BORDER -->
-          
-              
-            </div>
-            <!-- /USER AVATAR -->
-          </div>
-          <!-- /USER STATUS AVATAR -->
-      
-          <!-- USER STATUS TITLE -->
-          <p class="user-status-title" >
-          	<span class="bold" th:text="${fl.userId}"></span>
-          </p>
-          <!-- /USER STATUS TITLE -->
-      
-          <!-- USER STATUS TEXT -->
-          <p class="user-status-text small">Can you stream the new game?</p>
-          <!-- /USER STATUS TEXT -->
-      
-          <!-- USER STATUS TIMESTAMP -->
-          <p class="user-status-timestamp floaty">2hrs</p>
-          <!-- /USER STATUS TIMESTAMP -->
-      
-        <!-- /USER STATUS -->
-        </div>
-      </div>
-      <!-- /CHAT WIDGET MESSAGE -->
+<body>
+	<div th:fragment="chatBar">
+		<input type="hidden" th:value="${user.userId}" id="chatUserId"
+			class="chatUserId" />
+		<aside id="chat-widget-messages"
+			class="chat-widget sidebar right closed">
+			<!-- CHAT WIDGET MESSAGES -->
+			<div class="chat-widget-messages" data-simplebar="init"
+				style="height: 717px;">
+				<div class="simplebar-wrapper" style="margin: 0px;">
+					<div class="simplebar-height-auto-observer-wrapper">
+						<div class="simplebar-height-auto-observer"></div>
+					</div>
+					<div class="simplebar-mask">
+						<div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+							<div class="simplebar-content-wrapper"
+								style="height: 100%; overflow: hidden scroll;">
+								<div class="simplebar-content" style="padding: 0px;">
+									<!-- CHAT WIDGET MESSAGE -->
+									<div class="chat-widget-message" th:each="fl:${friendlist}">
+										<!-- USER STATUS -->
+										<div class="user-status"
+											th:attr="onclick=|selectUser('${fl.userId}');selectFriendNo('${fl.friendNo}');|">
+											<!-- USER STATUS AVATAR -->
+											<div class="user-status-avatar">
+												<!-- USER AVATAR -->
+												<div class="user-avatar small no-outline online">
+													<!-- USER AVATAR CONTENT -->
+													<div class="user-avatar-content"
+														th:if="${fl.USERFILECHECK}=='Y'">
+														<div class="hexagon-image-30-32"
+															th:attr="data-src=@{/user/profile/}+${fl.friendNo}"></div>
+													</div>
+													<div class="user-avatar-content"
+														th:unless="${fl.USERFILECHECK}=='Y'">
+														<div class="hexagon-image-30-32"
+															data-src="../../img/user_baseProfile.png"></div>
+													</div>
+													<!-- /USER AVATAR CONTENT -->
 
-      
+													<!-- USER AVATAR PROGRESS -->
+													<div class="user-avatar-progress">
+														<!-- HEXAGON -->
+														<div class="hexagon-progress-40-44"
+															style="width: 40px; height: 44px; position: relative;">
+															<canvas width="40" height="44"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR PROGRESS -->
 
-      
-    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 792px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 649px; display: block; transform: translate3d(0px, 0px, 0px);"></div></div></div>
-    <!-- /CHAT WIDGET MESSAGES -->
+													<!-- USER AVATAR PROGRESS BORDER -->
+													<div class="user-avatar-progress-border">
+														<!-- HEXAGON -->
+														<div class="hexagon-border-40-44"
+															style="width: 40px; height: 44px; position: relative;">
+															<canvas width="40" height="44"
+																style="position: absolute; top: 0px; left: 0px;"></canvas>
+														</div>
+														<!-- /HEXAGON -->
+													</div>
+													<!-- /USER AVATAR PROGRESS BORDER -->
 
-    <!-- CHAT WIDGET FORM -->
-    <form class="chat-widget-form">
-      <!-- INTERACTIVE INPUT -->
-      <div class="interactive-input small">
-        <input type="text" id="chat-widget-search" name="chat_widget_search" placeholder="Search Messages...">
-        <!-- INTERACTIVE INPUT ICON WRAP -->
-        <div class="interactive-input-icon-wrap">
-          <!-- INTERACTIVE INPUT ICON -->
-          <svg class="interactive-input-icon icon-magnifying-glass">
+
+												</div>
+												<!-- /USER AVATAR -->
+											</div>
+											<!-- /USER STATUS AVATAR -->
+
+											<!-- USER STATUS TITLE -->
+											<p class="user-status-title">
+												<span class="bold" th:text="${fl.userId}"></span>
+											</p>
+											<!-- /USER STATUS TITLE -->
+
+											<!-- USER STATUS TEXT -->
+											<p class="user-status-text small">Can you stream the new
+												game?</p>
+											<!-- /USER STATUS TEXT -->
+
+											<!-- USER STATUS TIMESTAMP -->
+											<p class="user-status-timestamp floaty">2hrs</p>
+											<!-- /USER STATUS TIMESTAMP -->
+
+											<!-- /USER STATUS -->
+										</div>
+									</div>
+									<!-- /CHAT WIDGET MESSAGE -->
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="simplebar-placeholder"
+						style="width: auto; height: 792px;"></div>
+				</div>
+				<div class="simplebar-track simplebar-horizontal"
+					style="visibility: hidden;">
+					<div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+				</div>
+				<div class="simplebar-track simplebar-vertical"
+					style="visibility: visible;">
+					<div class="simplebar-scrollbar"
+						style="height: 649px; display: block; transform: translate3d(0px, 0px, 0px);"></div>
+				</div>
+			</div>
+			<!-- /CHAT WIDGET MESSAGES -->
+
+			<!-- CHAT WIDGET FORM -->
+			<form class="chat-widget-form">
+				<!-- INTERACTIVE INPUT -->
+				<div class="interactive-input small">
+					<input type="text" id="chat-widget-search"
+						name="chat_widget_search" placeholder="Search Messages...">
+					<!-- INTERACTIVE INPUT ICON WRAP -->
+					<div class="interactive-input-icon-wrap">
+						<!-- INTERACTIVE INPUT ICON -->
+						<svg class="interactive-input-icon icon-magnifying-glass">
             <use xlink:href="#svg-magnifying-glass"></use>
           </svg>
-          <!-- /INTERACTIVE INPUT ICON -->
-        </div>
-        <!-- /INTERACTIVE INPUT ICON WRAP -->
+						<!-- /INTERACTIVE INPUT ICON -->
+					</div>
+					<!-- /INTERACTIVE INPUT ICON WRAP -->
 
-        <!-- INTERACTIVE INPUT ACTION -->
-        <div class="interactive-input-action">
-          <!-- INTERACTIVE INPUT ACTION ICON -->
-          <svg class="interactive-input-action-icon icon-cross-thin">
+					<!-- INTERACTIVE INPUT ACTION -->
+					<div class="interactive-input-action">
+						<!-- INTERACTIVE INPUT ACTION ICON -->
+						<svg class="interactive-input-action-icon icon-cross-thin">
             <use xlink:href="#svg-cross-thin"></use>
           </svg>
-          <!-- /INTERACTIVE INPUT ACTION ICON -->
-        </div>
-        <!-- /INTERACTIVE INPUT ACTION -->
-      </div>
-      <!-- /INTERACTIVE INPUT -->
-    </form>
-    <!-- /CHAT WIDGET FORM -->
+						<!-- /INTERACTIVE INPUT ACTION ICON -->
+					</div>
+					<!-- /INTERACTIVE INPUT ACTION -->
+				</div>
+				<!-- /INTERACTIVE INPUT -->
+			</form>
+			<!-- /CHAT WIDGET FORM -->
 
-    <!-- CHAT WIDGET BUTTON -->
-    <div class="chat-widget-button">
-      <!-- CHAT WIDGET BUTTON ICON -->
-      <div class="chat-widget-button-icon">
-        <!-- BURGER ICON -->
-        <div class="burger-icon">
-          <!-- BURGER ICON BAR -->
-          <div class="burger-icon-bar"></div>
-          <!-- /BURGER ICON BAR -->
+			<!-- CHAT WIDGET BUTTON -->
+			<div class="chat-widget-button">
+				<!-- CHAT WIDGET BUTTON ICON -->
+				<div class="chat-widget-button-icon">
+					<!-- BURGER ICON -->
+					<div class="burger-icon">
+						<!-- BURGER ICON BAR -->
+						<div class="burger-icon-bar"></div>
+						<!-- /BURGER ICON BAR -->
 
-          <!-- BURGER ICON BAR -->
-          <div class="burger-icon-bar"></div>
-          <!-- /BURGER ICON BAR -->
+						<!-- BURGER ICON BAR -->
+						<div class="burger-icon-bar"></div>
+						<!-- /BURGER ICON BAR -->
 
-          <!-- BURGER ICON BAR -->
-          <div class="burger-icon-bar"></div>
-          <!-- /BURGER ICON BAR -->
-        </div>
-        <!-- /BURGER ICON -->
-      </div>
-      <!-- /CHAT WIDGET BUTTON ICON -->
+						<!-- BURGER ICON BAR -->
+						<div class="burger-icon-bar"></div>
+						<!-- /BURGER ICON BAR -->
+					</div>
+					<!-- /BURGER ICON -->
+				</div>
+				<!-- /CHAT WIDGET BUTTON ICON -->
 
-      <!-- CHAT WIDGET BUTTON TEXT -->
-      <p class="chat-widget-button-text">Messages / Chat</p>
-      <!-- /CHAT WIDGET BUTTON TEXT -->
-    </div>
-    <!-- /CHAT WIDGET BUTTON -->
-  </aside>
-  
-  
-  <aside id="chat-widget-message" class="chat-widget chat-widget-overlay hidden sidebar right">
-    <!-- CHAT WIDGET HEADER -->
-    <div class="chat-widget-header" >
-      <!-- CHAT WIDGET CLOSE BUTTON -->
-      <div class="chat-widget-close-button">
-        <!-- CHAT WIDGET CLOSE BUTTON ICON -->
-        <svg class="chat-widget-close-button-icon icon-back-arrow">
+				<!-- CHAT WIDGET BUTTON TEXT -->
+				<p class="chat-widget-button-text">Messages / Chat</p>
+				<!-- /CHAT WIDGET BUTTON TEXT -->
+			</div>
+			<!-- /CHAT WIDGET BUTTON -->
+		</aside>
+
+
+		<aside id="chat-widget-message"
+			class="chat-widget chat-widget-overlay hidden sidebar right">
+			<!-- CHAT WIDGET HEADER -->
+			<div class="chat-widget-header">
+				<!-- CHAT WIDGET CLOSE BUTTON -->
+				<div class="chat-widget-close-button">
+					<!-- CHAT WIDGET CLOSE BUTTON ICON -->
+					<svg class="chat-widget-close-button-icon icon-back-arrow">
           <use xlink:href="#svg-back-arrow"></use>
         </svg>
-        <!-- CHAT WIDGET CLOSE BUTTON ICON -->
-      </div>
-      <!-- /CHAT WIDGET CLOSE BUTTON -->
+					<!-- CHAT WIDGET CLOSE BUTTON ICON -->
+				</div>
+				<!-- /CHAT WIDGET CLOSE BUTTON -->
 
-      <!-- USER STATUS -->
-      <div class="user-status">
-        <!-- USER STATUS AVATAR -->
-        <div class="user-status-avatar">
-          <!-- USER AVATAR -->
-          <div class="user-avatar small no-outline online">
-            <!-- USER AVATAR CONTENT -->
-            <div class="user-avatar-content">
-              <!-- HEXAGON -->
-              <div id="secondPageProfilePic" class="hexagon-image-30-32" data-src ="#" style="width: 30px; height: 32px; position: relative;">
-             	 <canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas>
-              </div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR CONTENT -->
-        
-            <!-- USER AVATAR PROGRESS -->
-            <div class="user-avatar-progress">
-              <!-- HEXAGON -->
-              <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR PROGRESS -->
-        
-            <!-- USER AVATAR PROGRESS BORDER -->
-            <div class="user-avatar-progress-border">
-              <!-- HEXAGON -->
-              <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-              <!-- /HEXAGON -->
-            </div>
-            <!-- /USER AVATAR PROGRESS BORDER -->
-        
-            
-          </div>
-          <!-- /USER AVATAR -->
-        </div>
-        <!-- /USER STATUS AVATAR -->
+				<!-- USER STATUS -->
+				<div class="user-status">
+					<!-- USER STATUS AVATAR -->
+					<div class="user-status-avatar">
+						<!-- USER AVATAR -->
+						<div class="user-avatar small no-outline online">
+							<!-- USER AVATAR CONTENT -->
+							<div class="user-avatar-content">
+								<!-- HEXAGON -->
+								<div id="secondPageProfilePic" class="hexagon-image-30-32"
+									data-src="#"
+									style="width: 30px; height: 32px; position: relative;">
+									<canvas width="30" height="32"
+										style="position: absolute; top: 0px; left: 0px;"></canvas>
+								</div>
+								<!-- /HEXAGON -->
+							</div>
+							<!-- /USER AVATAR CONTENT -->
 
-        <!-- USER STATUS TITLE -->
-        <p class="user-status-title"  >
-        	<span class="bold" id="chatOtherId" ></span>
-        </p>
-        <!-- /USER STATUS TITLE -->
-		<p class="user-status-tag online">Online</p>
-       
-      </div>
-      <!-- /USER STATUS -->
-    </div>
-    <!-- /CHAT WIDGET HEADER -->
-    <!-- CHAT WIDGET CONVERSATION -->
-    <div class="chat-widget-conversation" data-simplebar="init" style="height: 629px;">
-    	<div class="simplebar-wrapper" style="margin: -35px -28px;">
-    	<div class="simplebar-height-auto-observer-wrapper">
-    		<div class="simplebar-height-auto-observer">
-    		</div>
-    	</div>
-    <div class="simplebar-mask">
-    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-    <div class="simplebar-content-wrapper" style="height: 100%; overflow: scroll;">
-    <div class="simplebar-content" style="padding: 35px 28px;">
-     	<div class="chat-history" >
-			<ul>
+							<!-- USER AVATAR PROGRESS -->
+							<div class="user-avatar-progress">
+								<!-- HEXAGON -->
+								<div class="hexagon-progress-40-44"
+									style="width: 40px; height: 44px; position: relative;">
+									<canvas width="40" height="44"
+										style="position: absolute; top: 0px; left: 0px;"></canvas>
+								</div>
+								<!-- /HEXAGON -->
+							</div>
+							<!-- /USER AVATAR PROGRESS -->
 
-			</ul>
-		</div>
-     <script id="message-response-template" type="text/x-handlebars-template">
+							<!-- USER AVATAR PROGRESS BORDER -->
+							<div class="user-avatar-progress-border">
+								<!-- HEXAGON -->
+								<div class="hexagon-border-40-44"
+									style="width: 40px; height: 44px; position: relative;">
+									<canvas width="40" height="44"
+										style="position: absolute; top: 0px; left: 0px;"></canvas>
+								</div>
+								<!-- /HEXAGON -->
+							</div>
+							<!-- /USER AVATAR PROGRESS BORDER -->
+
+
+						</div>
+						<!-- /USER AVATAR -->
+					</div>
+					<!-- /USER STATUS AVATAR -->
+
+					<!-- USER STATUS TITLE -->
+					<p class="user-status-title">
+						<span class="bold" id="chatOtherId"></span>
+					</p>
+					<!-- /USER STATUS TITLE -->
+					<p class="user-status-tag online">Online</p>
+
+				</div>
+				<!-- /USER STATUS -->
+			</div>
+			<!-- /CHAT WIDGET HEADER -->
+			<!-- CHAT WIDGET CONVERSATION -->
+			<div class="chat-widget-conversation" data-simplebar="init"
+				style="height: 629px;">
+				<div class="simplebar-wrapper" style="margin: -35px -28px;">
+					<div class="simplebar-height-auto-observer-wrapper">
+						<div class="simplebar-height-auto-observer"></div>
+					</div>
+					<div class="simplebar-mask">
+						<div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+							<div class="simplebar-content-wrapper"
+								style="height: 100%; overflow: scroll;">
+								<div class="simplebar-content" style="padding: 35px 28px;">
+									<div class="chat-history">
+										<ul>
+
+										</ul>
+									</div>
+									<script id="message-response-template"
+										type="text/x-handlebars-template">
       <!-- @@@상대방 대화 @@@-->
        <div class="chat-widget-speaker left">
         <!-- CHAT WIDGET SPEAKER AVATAR -->
@@ -243,8 +305,8 @@
       </div>
       <!-- /상대방 대화 -->
 	</script>
-	
-	<script id="message-template" type="text/x-handlebars-template">
+
+									<script id="message-template" type="text/x-handlebars-template">
       <!-- 내 대화 -->
       <div class="chat-widget-speaker right">
 
@@ -258,52 +320,74 @@
       </div>
       <!-- /CHAT WIDGET SPEAKER -->
 	</script>
-     
-      <!-- /CHAT WIDGET SPEAKER -->
-    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 542px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
-    <!-- /CHAT WIDGET CONVERSATION -->
 
-    <!-- CHAT WIDGET FORM -->
-    <div class="chat-widget-form">
-      <!-- INTERACTIVE INPUT -->
-      <div class="interactive-input small">
-        <input type="text" id="chatSendTextBox" class="chatSendTextBox"  placeholder="Write a message...">
-        <!-- INTERACTIVE INPUT ICON WRAP -->
-        <div class="interactive-input-icon-wrap">
-          <!-- INTERACTIVE INPUT ICON -->
-          <svg class="interactive-input-icon icon-send-message">
+									<!-- /CHAT WIDGET SPEAKER -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="simplebar-placeholder"
+						style="width: auto; height: 542px;"></div>
+				</div>
+				<div class="simplebar-track simplebar-horizontal"
+					style="visibility: hidden;">
+					<div class="simplebar-scrollbar"
+						style="width: 0px; transform: translate3d(0px, 0px, 0px); display: none;"></div>
+				</div>
+				<div class="simplebar-track simplebar-vertical"
+					style="visibility: hidden;">
+					<div class="simplebar-scrollbar"
+						style="height: 0px; display: none;"></div>
+				</div>
+			</div>
+			<!-- /CHAT WIDGET CONVERSATION -->
+
+			<!-- CHAT WIDGET FORM -->
+			<div class="chat-widget-form">
+				<!-- INTERACTIVE INPUT -->
+				<div class="interactive-input small">
+					<input type="text" id="chatSendTextBox" class="chatSendTextBox"
+						placeholder="Write a message...">
+					<!-- INTERACTIVE INPUT ICON WRAP -->
+					<div class="interactive-input-icon-wrap">
+						<!-- INTERACTIVE INPUT ICON -->
+						<svg class="interactive-input-icon icon-send-message">
             <use xlink:href="#svg-send-message"></use>
           </svg>
-          <!-- /INTERACTIVE INPUT ICON -->
-        </div>
-        <!-- /INTERACTIVE INPUT ICON WRAP -->
+						<!-- /INTERACTIVE INPUT ICON -->
+					</div>
+					<!-- /INTERACTIVE INPUT ICON WRAP -->
 
-        <!-- INTERACTIVE INPUT ACTION -->
-        <div class="interactive-input-action">
-          <!-- INTERACTIVE INPUT ACTION ICON -->
-          <svg class="interactive-input-action-icon icon-cross-thin">
+					<!-- INTERACTIVE INPUT ACTION -->
+					<div class="interactive-input-action">
+						<!-- INTERACTIVE INPUT ACTION ICON -->
+						<svg class="interactive-input-action-icon icon-cross-thin">
             <use xlink:href="#svg-cross-thin"></use>
           </svg>
-          <!-- /INTERACTIVE INPUT ACTION ICON -->
-        </div>
-        <!-- /INTERACTIVE INPUT ACTION -->
-      </div>
-      <!-- /INTERACTIVE INPUT -->
-   	</div>
-    <!-- /CHAT WIDGET FORM -->
-  </aside>
+						<!-- /INTERACTIVE INPUT ACTION ICON -->
+					</div>
+					<!-- /INTERACTIVE INPUT ACTION -->
+				</div>
+				<!-- /INTERACTIVE INPUT -->
+			</div>
+			<!-- /CHAT WIDGET FORM -->
+		</aside>
 
-	<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
-	<script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
-	<script src="../../js/chat.js"></script>
-	<script src="../../js/custom.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
-    <!--    libs for stomp and sockjs-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <!--    end libs for stomp and sockjs-->
-</div>
+		<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+		<script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+		<script src="../../js/chat.js"></script>
+		<script src="../../js/custom.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+		<!--    libs for stomp and sockjs-->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<!--    end libs for stomp and sockjs-->
+	</div>
 </body>
 </html>

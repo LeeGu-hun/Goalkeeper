@@ -10,5 +10,5 @@ import lombok.Data;
 @Alias("chatVO")
 public class ChatVO {
 	private int uno, friendNo;
-	private String userId;
+	private String userId, USERFILECHECK;
 }

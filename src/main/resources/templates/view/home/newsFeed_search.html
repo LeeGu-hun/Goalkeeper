@@ -23,7 +23,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | NewsFeeds</title>
+<title>Trend Setter | NewsFeeds</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -46,15 +46,16 @@
 				up to!</p>
 			<!-- /SECTION BANNER TEXT -->
 		</div>
-		<!-- /SECTION BANNER -->		
-		
+		<!-- /SECTION BANNER -->
+
 		<div class="grid grid-3-6-3 mobile-prefer-content">
 			<!-- GRID COLUMN -->
 			<!-- lefthidden -->
 			<div id="left_widget" class="grid-column"
 				style="position: absolute; width: 280px; left: 0; height: 200px; top: 90px;">
 				<!-- WIDGET BOX -->
-				<div id="lefthidden" style="height: 190px; visibility: hidden; padding: 10px 10px"
+				<div id="lefthidden"
+					style="height: 190px; visibility: hidden; padding: 10px 10px"
 					class="widget-box">
 					<div id="dogbox">
 						<div class="dog">
@@ -87,7 +88,7 @@
 					</div>
 				</div>
 				<!-- /WIDGET BOX -->
-				
+
 				<!-- WIDGET BOX -->
 				<div style="height: 190px" class="widget-box">
 					<div id="textwidget_box">
@@ -120,8 +121,9 @@
 						</a>
 					</div>
 				</div>
-				<div class="widget-box" style="background: linear-gradient( to bottom, #b7e7e8, #8de1e3, #5ddbde, #24d2d6 );
-				height: 450px"th:unless="${user}==null">
+				<div class="widget-box"
+					style="background: linear-gradient(to bottom, #b7e7e8, #8de1e3, #5ddbde, #24d2d6); height: 450px"
+					th:unless="${user}==null">
 					<!-- WIDGET BOX SETTINGS -->
 					<div class="widget-box-settings">
 						<!-- POST SETTINGS WRAP -->
@@ -145,15 +147,19 @@
 									style="margin-bottom: 10px; padding-top: 7px;">
 									<!-- USER STATUS AVATAR -->
 									<a class="user-status-avatar"
-									th:href="@{/myPage/}+${friend.friendId}"> <!-- USER AVATAR -->
-									<div class="user-avatar small no-outline">
-										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
+										th:href="@{/myPage/}+${friend.friendId}"> <!-- USER AVATAR -->
+										<div class="user-avatar small no-outline">
+											<!-- USER AVATAR CONTENT -->
+										<div class="user-avatar-content"
+											th:if="${friend.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${friend.friendNo}"></div>
-												<!-- /HEXAGON -->
-											</div>
+										</div>
+										<div class="user-avatar-content"
+											th:unless="${friend.userFileCheck}=='Y'">
+											<div class="hexagon-image-30-32"
+												data-src="../../img/user_baseProfile.png"></div>
+										</div>
 											<!-- /USER AVATAR CONTENT -->
 
 											<!-- USER AVATAR PROGRESS -->
@@ -178,9 +184,9 @@
 									<!-- /USER STATUS AVATAR -->
 
 									<!-- USER STATUS TITLE -->
-									<a style="font-size: 20px;font-weight: bolder;"
-									th:text="${friend.friendId}" th:href="@{/myPage/}+${friend.friendId}">
-										<!-- <a class="bold" href="profile-timeline.html" ></a> -->
+									<a style="font-size: 20px; font-weight: bolder;"
+										th:text="${friend.friendId}"
+										th:href="@{/myPage/}+${friend.friendId}"> <!-- <a class="bold" href="profile-timeline.html" ></a> -->
 									</a>
 									<!-- /USER STATUS TITLE -->
 
@@ -407,8 +413,8 @@
 							<!-- SIMPLE DROPDOWN -->
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:if="${user} == null">
-								<a class="simple-dropdown-link"
-										href="/login">로그인 해주세요</a></div>
+								<a class="simple-dropdown-link" href="/login">로그인 해주세요</a>
+							</div>
 							<div class="simple-dropdown widget-box-post-settings-dropdown"
 								th:unless="${user} == null">
 								<div th:if="${post.userId} == ${user.userId}">
@@ -443,11 +449,15 @@
 									th:href="@{/myPage/}+${post.userId}"> <!-- USER AVATAR -->
 									<div class="user-avatar small no-outline">
 										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
-											<!-- HEXAGON -->
+										<div class="user-avatar-content"
+											th:if="${post.userFileCheck}=='Y'">
 											<div class="hexagon-image-30-32"
 												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
-											<!-- /HEXAGON -->
+										</div>
+										<div class="user-avatar-content"
+											th:unless="${post.userFileCheck}=='Y'">
+											<div class="hexagon-image-30-32"
+												data-src="../../img/user_baseProfile.png"></div>
 										</div>
 										<!-- /USER AVATAR CONTENT -->
 
@@ -475,8 +485,8 @@
 								<!-- USER STATUS TITLE -->
 
 								<p class="user-status-title medium">
-									<a class="bold" href="profile-timeline.html"
-										th:text="${post.userId}"></a> uploaded a <span class="bold">post</span>
+									<a class="bold" th:href="@{/myPage/}+${post.userId}"
+										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold">post<span class="bold" th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
@@ -494,10 +504,10 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
-								<pre style="display:flex;">
+								<pre style="display: flex;">
 								<p th:attr="id=${post.bno}"
-									class="widget-box-status-text content_board"
-									th:text="${post.bo_content}"></p>
+										class="widget-box-status-text content_board"
+										th:text="${post.bo_content}"></p>
 								</pre>
 								<input type="hidden" th:value="${post.bo_content}"
 									th:attr="id='detailmodal_content'+${post.bno}"> <input
@@ -800,10 +810,12 @@
 
 			<!-- WIDGET BOX -->
 			<div id="righthidden"
-				style="height: 190px; visibility: hidden; margin-bottom: 15px;
-					background:url(../img/banner/banner-reaction.jpg); background-size: 285px 190px;"
+				style="height: 190px; visibility: hidden; margin-bottom: 15px; background: url(../img/banner/banner-reaction.jpg); background-size: 285px 190px;"
 				class="widget-box">
-				<h5 style="color:white">글을 포스트하고<br><br> 소통하세요!</h5>
+				<h5 style="color: white">
+					글을 포스트하고<br>
+					<br> 소통하세요!
+				</h5>
 			</div>
 			<!-- STATS BOX SLIDER -->
 			<div class="stats-box-slider">
@@ -1031,7 +1043,7 @@
 			<!-- /POPUP PICTURE IMAGE -->
 			<pre style="margin-right: -180px;">
 			<p id="imgModalContent"
-				style="position: absolute; bottom: 60px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
+					style="position: absolute; bottom: 60px; left: 30px; color: white; font-size: 20px; font-family: 'Open Sans';"></p>
 			</pre>
 		</div>
 		<!-- /POPUP PICTURE IMAGE WRAP -->
@@ -1085,7 +1097,7 @@
 	<script src="../../js/form/form.utils.js"></script>
 	<!-- SVG icons -->
 	<script src="../../js/utils/svg-loader.js"></script>
-	<script src="../../js/reply.js"></script> 
+	<script src="../../js/reply.js"></script>
 	<script src="../../js/global/global.popups.js"></script>
 	<script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
 	<script
