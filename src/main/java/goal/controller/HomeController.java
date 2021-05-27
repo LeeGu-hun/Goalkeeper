@@ -113,8 +113,12 @@ public class HomeController {
 		int searchNullBoard = boardService.searchNullBoard(vo);
 		mv.addObject("searchNullBoard", searchNullBoard);
 		mv.addObject("searchlist", searchlist);
+		
+		if (user != null) {
 		mv.addObject("user", user);
-
+		List<ChatVO> friendlist = chatService.findFriendList(user);
+		mv.addObject("friendlist", friendlist);
+		}
 		return mv;
 	}
 

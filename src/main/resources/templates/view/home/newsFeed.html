@@ -140,6 +140,7 @@
 					<div class="widget-box-content">
 
 						<!-- USER STATUS LIST -->
+						<div class="friendsc">
 						<div class="user-status-list">
 							<!-- USER STATUS -->
 							<div th:each="friend:${getlistFriend}">
@@ -200,6 +201,7 @@
 								</div>
 							</div>
 							<!-- /USER STATUS -->
+						</div>
 						</div>
 						<!-- /USER STATUS LIST -->
 					</div>
@@ -913,7 +915,7 @@
 								</div>
 
 								<div th:unless="${user}==null">
-									<a href="/myFriends" class="stats-box-value"
+									<a th:attr="href='myFriends/'+${user.userId}" class="stats-box-value"
 										th:text="${friendCount}+'명'"></a>
 								</div>
 

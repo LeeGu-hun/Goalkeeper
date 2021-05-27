@@ -140,6 +140,7 @@
 					<div class="widget-box-content">
 
 						<!-- USER STATUS LIST -->
+						<div style="height: 280px; overflow:auto;">
 						<div class="user-status-list">
 							<!-- USER STATUS -->
 							<div th:each="friend:${getlistFriend}">
@@ -200,6 +201,7 @@
 								</div>
 							</div>
 							<!-- /USER STATUS -->
+						</div>
 						</div>
 						<!-- /USER STATUS LIST -->
 					</div>
@@ -669,7 +671,10 @@
 												<!-- REACTION ITEM -->
 												<div class="reaction-item">
 													<!-- REACTION IMAGE -->
-													<img class="reaction-image reaction-item-dropdown-trigger"
+													<img id="react-icon" class="reaction-image reaction-item-dropdown-trigger" style="display:none"
+														th:attr="src=@{../../img/reaction/Like.png}"
+														alt="reaction-sad">
+													<img class="reaction-image reaction-item-dropdown-trigger" th:if="${post.reactCount}!=0"
 														th:attr="src=@{../../img/reaction/Like.png}"
 														alt="reaction-sad">
 													<!-- /REACTION IMAGE -->
@@ -908,7 +913,7 @@
 								</div>
 
 								<div th:unless="${user}==null">
-									<a href="/myFriends" class="stats-box-value"
+									<a th:attr="href='myFriends/'+${user.userId}" class="stats-box-value"
 										th:text="${friendCount}+'명'"></a>
 								</div>
 
