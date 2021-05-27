@@ -166,3 +166,11 @@ function saveImage(){
 				$('div[name=picdiv]').length + " 장의 사진");
 	});
 }
+function modal(bno, uuid){
+	var detailmodal_content = $("#detailmodal_content"+bno).val();
+	var detailmodal_userId = $("#detailmodal_userId"+bno).val();
+	
+	$("#imgModaluserId").text(detailmodal_userId);
+	$("#imgModalContent").text(detailmodal_content);
+	$('#modalimg').attr("src","/boardImage/"+uuid);
+}
