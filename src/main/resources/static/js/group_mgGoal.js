@@ -16,7 +16,7 @@ window.onload = function() {
 			alert("달성날짜를 정해주세요.");
 			return false;
 		}
-		alert("추가가 완료되었습니다.");
+		openModal("추가가 완료되었습니다.");
 		$('#addFrm').submit();
 	});
 }

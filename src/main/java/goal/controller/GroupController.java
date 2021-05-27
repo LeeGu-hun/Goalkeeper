@@ -230,7 +230,7 @@ public class GroupController {
 	@PostMapping("/join_delete")
 	public String deleteJoin(GroupJoinVO join, HttpServletRequest request) {
 		groupService.removeGroupJoin(join);
-		return "redirect:/group_mgJoin/";
+		return "redirect:/group_mgJoin/"+join.getGno();
 	}
 	@GetMapping("/group_member/{gno}")
 	public ModelAndView openMember(@PathVariable("gno") int gno, HttpServletRequest request) {
