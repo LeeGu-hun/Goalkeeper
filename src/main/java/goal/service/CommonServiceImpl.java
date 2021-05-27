@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import goal.upload.BoardUpload;
 import goal.vo.BoardVO;
+import goal.vo.ChatVO;
 import goal.vo.ReactVO;
 import goal.vo.UserVO;
 
@@ -25,8 +26,7 @@ public class CommonServiceImpl implements CommonService {
 	@Autowired
 	private BoardUpload boardUpload;
 	@Autowired
-	private ReactService reactService;
-	
+	private ChatService chatService;
 	@Override
 	public ModelAndView checkLoginUser(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession(true);
@@ -62,6 +62,13 @@ public class CommonServiceImpl implements CommonService {
 			board.setBo_fileCheck("N");
 			boardService.insertBoard(board);
 		}
+	}
+
+	@Override
+	public ModelAndView getChatFriend(UserVO user, ModelAndView mv) {
+		List<ChatVO> friendlist = chatService.findFriendList(user);
+		mv.addObject("friendlist", friendlist);
+		return null;
 	}
 	
 }
