@@ -5,11 +5,11 @@
 		<id property="sno" column="sno"/>
 		<id property="uno" column="uno"/>
 		<id property="gno" column="gno"/>
-		<id property="userId" column="userId"/>
 		<id property="g_role" column="g_role"/>
 		<id property="g_date" column="g_date"/>
 		<collection column="{gno=gno, uno=uno}" property="userFileCheck" javaType="String" ofType="String" select="checkUserFile"/>
 		<collection column="{gno=gno, uno=uno}" property="boardCount" javaType="String" ofType="String" select="checkBoardCount"/>
+		<collection column="uno" property="userId" javaType="String" ofType="String" select="getUserId"/>
 		<collection column="uno" property="friendCount" javaType="int" ofType="int" select="checkFriendCount"/>
 	</resultMap>
 	<insert id="insertGroupUser" parameterType="goal.vo.GroupUserVO">
@@ -23,11 +23,14 @@
 	</insert>
 	<select id="findUserbyGroup" parameterType="int" resultMap="groupUserVO">
 		<![CDATA[
-			select sno, g.uno, gno, g_role, userId, g_date from GK_GROUP_USER G, GK_USER U where G.UNO = U.UNO and g.gno=#{gno}
+			select * from GK_GROUP_USER where gno=#{gno}
 		]]>
 	</select>
 	<select id="checkUserFile" parameterType="java.util.Map" resultType="String">
 		select userFileCheck from gk_group_user g, gk_user u where g.uno=u.uno and g.uno=#{uno} and g.gno=#{gno}
+	</select>
+	<select id="getUserId" parameterType="int" resultType="String">
+		select userId from gk_user where uno=#{uno}
 	</select>
 	<select id="checkBoardCount" parameterType="java.util.Map" resultType="int">
 		select count(*) from gk_allgroup a, gk_group_user u, gk_board b where a.gno=u.gno and b.bo_group=a.g_name and u.uno=#{uno} and u.gno=#{gno}

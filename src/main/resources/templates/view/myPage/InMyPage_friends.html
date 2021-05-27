@@ -21,6 +21,11 @@
 	background-color: #fa3250;
 	color: white;
 }
+
+.addBtn{
+	background-color : #23D2E2;
+	color : white;
+}
 </style>
 <body>
 <div th:insert="/view/fragments/header.html :: header"></div>
@@ -606,14 +611,10 @@
 									<input type="hidden" th:value="${#dates.format(f.friendBirthdate, 'yyyy-MM-dd')}" name="receiveBirthdate">						
 									<input type="hidden" th:value="${loginUserProfile}" name="applyFileCheck"> 
 									<input type="hidden" th:value="${f.userFileCheck}" name="receiveFileCheck">
-									<input type="hidden" th:value="${loginUserBackground}" name="applyBackCheck"> 
+									<input type="hidden" th:value="${loginUserBackground}" name="applyBackCheck">
 									<input type="hidden" th:value="${f.userBackCheck}" name="receiveBackCheck">
 									<button type="submit" class="addBtn" onclick="href='apply'">친구 신청</button>
 								</form>
-								<!-- /BUTTON -->
-	
-								<!-- BUTTON -->
-								<p class="button primary">Send Message</p>
 								<!-- /BUTTON -->
 							</div>
 							<!-- /USER PREVIEW ACTIONS -->
@@ -813,10 +814,6 @@
 										<button type="submit" class="remove" onclick="href='deleteFriend'">Remove
 											Friend</button>
 									</form>
-									<!-- /BUTTON -->
-		
-									<!-- BUTTON -->
-									<p class="button primary">Send Message</p>
 									<!-- /BUTTON -->
 								</div>
 								<!-- /USER PREVIEW ACTIONS -->

@@ -430,8 +430,12 @@
 										<!-- USER AVATAR CONTENT -->
 										<div class="user-avatar-content">
 											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32"
-												th:attr="data-src=@{/user/profile/}"></div>
+											<figure th:if="${f.userFileCheck}=='Y'">
+												<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${f.friendNo}"></div>
+											</figure>
+											<figure th:unless="${f.userFileCheck}=='Y'">
+												<div class="hexagon-image-30-32" data-src="../../img/user_baseProfile.png"></div>
+											</figure>
 											<!-- /HEXAGON -->
 										</div>
 										<!-- /USER AVATAR CONTENT -->
@@ -560,7 +564,7 @@
 										<div class="form-item">
 											<!-- FORM TEXTAREA -->
 											<div class="form-textarea">
-												<textarea wrap="hard" id="text" name="bo_content"
+												<textarea id="text" name="bo_content"
 													placeholder="Share your post here..."></textarea>
 												<!-- FORM TEXTAREA LIMIT TEXT -->
 												<p class="form-textarea-limit-text">998/1000</p>
@@ -770,20 +774,18 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/myPage/modify.do">
-								<pre style="display:flex;">
+
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
-								</pre>
+
 								<input type="hidden" th:value="board" name="placeCheck">
 								<input type="hidden" th:value="${post.bno}" name="bno">
 								<input type="hidden" th:value="${post.bo_cate}" name="bo_cate">
 
 								<div class="modify" th:attr="id='modify'+${post.bno}"
 									style="margin-bottom: 60px; display: none">
-									<pre style="display:flex;">
 									<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
-									</pre>
 									<button type=submit class="button small secondary edit_btn"
 										style="width: 80px; float: right;">수정완료</button>
 									<p class="button small edit_cancelbtn"
@@ -916,9 +918,12 @@
 												<!-- REACTION ITEM -->
 												<div class="reaction-item">
 													<!-- REACTION IMAGE -->
-													<img class="reaction-image reaction-item-dropdown-trigger"
-														th:attr="src=@{../../img/reaction/Like.png}"
-														alt="reaction-sad">
+													<img id="react-icon" class="reaction-image reaction-item-dropdown-trigger" style="display:none"
+			                                        	th:attr="src=@{../../img/reaction/Like.png}"
+			                                        	alt="reaction-sad">
+			                                        <img class="reaction-image reaction-item-dropdown-trigger" th:if="${post.reactCount}!=0"
+			                                        	th:attr="src=@{../../img/reaction/Like.png}"
+			                                        	alt="reaction-sad">
 													<!-- /REACTION IMAGE -->
 
 													<!-- SIMPLE DROPDOWN -->
@@ -1073,92 +1078,18 @@
 					<!-- /WIDGET BOX TITLE -->
 
 					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
+					<div class="widget-box-content" th:if="${fileList}!=null">
 						<!-- PICTURE ITEM LIST -->
 						<div class="picture-item-list small">
-
-
 							<!-- PICTURE ITEM -->
-							<div class="picture-item">
+							<div class="picture-item" th:each="file:${fileList}">
 								<!-- PICTURE -->
 								<figure class="picture round liquid">
-									<img th:src="@{/user/background/}+${uno}" alt="avatar-06">
+									<img th:attr="src=@{/boardImage/}+${file.uuid}" >
 								</figure>
 								<!-- /PICTURE -->
 							</div>
 							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/13.jpg" alt="avatar-13">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/04.jpg" alt="avatar-04">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/15.jpg" alt="avatar-15">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/11.jpg" alt="avatar-11">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/08.jpg" alt="avatar-08">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<div class="picture-item">
-								<!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/16.jpg" alt="avatar-16">
-								</figure>
-								<!-- /PICTURE -->
-							</div>
-							<!-- /PICTURE ITEM -->
-
-							<!-- PICTURE ITEM -->
-							<a class="picture-item" href="profile-photos.html"> <!-- PICTURE -->
-								<figure class="picture round liquid">
-									<img src="img/cover/17.jpg" alt="avatar-17">
-								</figure> <!-- /PICTURE --> <!-- PICTURE ITEM OVERLAY -->
-								<div class="picture-item-overlay round">
-									<!-- PICTURE ITEM OVERLAY TEXT -->
-									<p class="picture-item-overlay-text">+61</p>
-									<!-- /PICTURE ITEM OVERLAY TEXT -->
-								</div> <!-- /PICTURE ITEM OVERLAY -->
-							</a>
 							<!-- /PICTURE ITEM -->
 						</div>
 						<!-- /PICTURE ITEM LIST -->
@@ -1171,7 +1102,7 @@
 				<div class="widget-box">
 					<!-- WIDGET BOX TITLE -->
 					<p class="widget-box-title">
-						Groups <span class="highlighted" th:text="${myGroupCount}"></span>
+						Groups <span class="highlighted">7</span>
 					</p>
 					<!-- /WIDGET BOX TITLE -->
 

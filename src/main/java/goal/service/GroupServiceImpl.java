@@ -123,8 +123,8 @@ public class GroupServiceImpl implements GroupService{
 	
 
 	@Override
-	public GroupJoinVO selectGroupJoinUno(int uno) {
-		return groupMapper.selectGroupJoinUno(uno);
+	public GroupJoinVO selectGroupJoinUno(GroupJoinVO joinUser) {
+		return groupMapper.selectGroupJoinUno(joinUser);
 	}
 
 	@Override

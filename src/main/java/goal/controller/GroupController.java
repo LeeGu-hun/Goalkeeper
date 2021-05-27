@@ -428,7 +428,10 @@ public class GroupController {
 			checkUser.setGno(this.gno);
 			checkUser.setUno(user.getUno());
 			int userCount = groupService.checkUserbyGroup(checkUser);
-			GroupJoinVO joinUser = groupService.selectGroupJoinUno(user.getUno());
+			GroupJoinVO joinUser = new GroupJoinVO();
+			joinUser.setGno(this.gno);
+			joinUser.setUno(user.getUno());
+			joinUser = groupService.selectGroupJoinUno(joinUser);
 			if(userCount==1 && joinUser==null) {
 				mv.addObject("boardResult", "WriteSuccess");
 				mv.addObject("joinResult", "joinDenied");
