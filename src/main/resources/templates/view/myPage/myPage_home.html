@@ -918,9 +918,12 @@
 												<!-- REACTION ITEM -->
 												<div class="reaction-item">
 													<!-- REACTION IMAGE -->
-													<img class="reaction-image reaction-item-dropdown-trigger"
-														th:attr="src=@{../../img/reaction/Like.png}"
-														alt="reaction-sad">
+													<img id="react-icon" class="reaction-image reaction-item-dropdown-trigger" style="display:none"
+			                                        	th:attr="src=@{../../img/reaction/Like.png}"
+			                                        	alt="reaction-sad">
+			                                        <img class="reaction-image reaction-item-dropdown-trigger" th:if="${post.reactCount}!=0"
+			                                        	th:attr="src=@{../../img/reaction/Like.png}"
+			                                        	alt="reaction-sad">
 													<!-- /REACTION IMAGE -->
 
 													<!-- SIMPLE DROPDOWN -->
