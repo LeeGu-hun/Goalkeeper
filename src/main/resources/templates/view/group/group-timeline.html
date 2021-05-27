@@ -58,11 +58,6 @@
             <use xlink:href="#svg-members"></use>
           </svg>
 					<p class="section-menu-item-text">Members</p>
-				</a> <a class="section-menu-item" href="#"> <svg
-						class="section-menu-item-icon icon-photos">
-            <use xlink:href="#svg-photos"></use>
-          </svg>
-					<p class="section-menu-item-text">Photos</p>
 				</a>
 			</div>
 			<div id="section-navigation-medium-slider-controls"
@@ -116,41 +111,6 @@
 										style="width: 20%" href="#">만들기</p>
 								</div>
 								<br>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--그룹 정보-->
-				<div class="widget-box">
-					<div class="widget-box-settings">
-						<div class="post-settings-wrap">
-							<div
-								class="post-settings widget-box-post-settings-dropdown-trigger">
-								<svg class="post-settings-icon icon-more-dots">
-                  <use xlink:href="#svg-more-dots"></use>
-                </svg>
-							</div>
-							<div class="simple-dropdown widget-box-post-settings-dropdown">
-								<p class="simple-dropdown-link">Widget Settings</p>
-							</div>
-						</div>
-					</div>
-					<p class="widget-box-title">그룹 정보</p>
-					<div class="widget-box-content">
-						<p class="paragraph" th:text="${group.g_intro}"></p>
-						<div class="information-line-list">
-							<div class="information-line">
-								<p class="information-line-title">생성일</p>
-								<p class="information-line-text" th:text="${#dates.format(group.g_date, 'yyyy-MM-dd HH:mm')}"></p>
-							</div>
-							<div class="information-line">
-								<p class="information-line-title">분류</p>
-								<p class="information-line-text" th:text="${group.g_cate}"></p>
-							</div>
-							<div class="information-line">
-								<p class="information-line-title">공개여부</p>
-								<p class="information-line-text"
-									th:text="${group.g_open}=='Y'?'공개':'비공개'"></p>
 							</div>
 						</div>
 					</div>
@@ -691,6 +651,41 @@
 					<!-- /WIDGET BOX CONTENT -->
 					<div th:unless="${fileList}!=null">
 						<p>등록된 사진이 없습니다.</p>
+					</div>
+				</div>
+				<!--그룹 정보-->
+				<div class="widget-box">
+					<div class="widget-box-settings">
+						<div class="post-settings-wrap">
+							<div
+								class="post-settings widget-box-post-settings-dropdown-trigger">
+								<svg class="post-settings-icon icon-more-dots">
+                  <use xlink:href="#svg-more-dots"></use>
+                </svg>
+							</div>
+							<div class="simple-dropdown widget-box-post-settings-dropdown">
+								<p class="simple-dropdown-link">Widget Settings</p>
+							</div>
+						</div>
+					</div>
+					<p class="widget-box-title">그룹 정보</p>
+					<div class="widget-box-content">
+						<p class="paragraph" th:text="${group.g_intro}"></p>
+						<div class="information-line-list">
+							<div class="information-line">
+								<p class="information-line-title">생성일</p>
+								<p class="information-line-text" th:text="${#dates.format(group.g_date, 'yyyy-MM-dd HH:mm')}"></p>
+							</div>
+							<div class="information-line">
+								<p class="information-line-title">분류</p>
+								<p class="information-line-text" th:text="${group.g_cate}"></p>
+							</div>
+							<div class="information-line">
+								<p class="information-line-title">공개여부</p>
+								<p class="information-line-text"
+									th:text="${group.g_open}=='Y'?'공개':'비공개'"></p>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!--  목표 현황 -->
