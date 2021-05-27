@@ -23,7 +23,7 @@
 	crossorigin="anonymous">
 	
 </script>
-<title>Vikinger | NewsFeeds</title>
+<title>Trend Setter | NewsFeeds</title>
 </head>
 <body>
 	<div th:insert="/view/fragments/header.html :: header"></div>
@@ -487,8 +487,8 @@
 								<!-- USER STATUS TITLE -->
 
 								<p class="user-status-title medium">
-									<a class="bold" href="profile-timeline.html"
-										th:text="${post.userId}"></a> uploaded a <span class="bold">post</span>
+									<a class="bold" th:href="@{/myPage/}+${post.userId}"
+										th:text="${post.userId}"></a>님이 업로드 한 <span class="bold">post</span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
