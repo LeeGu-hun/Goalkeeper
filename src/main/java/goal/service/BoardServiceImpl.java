@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import goal.mapper.BoardFileMapper;
 import goal.mapper.BoardMapper;
 import goal.mapper.GroupMapper;
+import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.GroupVO;
 import goal.vo.ReCommentVO;
@@ -19,6 +21,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	private BoardMapper boardMapper;
+	@Autowired
+	private BoardFileMapper boardFileMapper;
 	@Autowired
 	private GroupMapper groupMapper;
 	
@@ -115,6 +119,9 @@ public class BoardServiceImpl implements BoardService{
 	public ReCommentVO getMainRecmt() {
 		return boardMapper.readMainRecmt();
 	}
-
+	@Override
+	public List<BoardFileVO> findFilebyMyPage(UserVO vo) {
+		return boardFileMapper.selectFilebyMyPage(vo);
+	}
 
 }

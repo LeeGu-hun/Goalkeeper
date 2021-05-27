@@ -1078,14 +1078,14 @@
 					<!-- /WIDGET BOX TITLE -->
 
 					<!-- WIDGET BOX CONTENT -->
-					<div class="widget-box-content">
+					<div class="widget-box-content" th:if="${fileList}!=null">
 						<!-- PICTURE ITEM LIST -->
 						<div class="picture-item-list small">
 							<!-- PICTURE ITEM -->
-							<div class="picture-item">
+							<div class="picture-item" th:each="file:${fileList}">
 								<!-- PICTURE -->
 								<figure class="picture round liquid">
-									<img th:src="@{/user/background/}+${uno}" >
+									<img th:attr="src=@{/boardImage/}+${file.uuid}" >
 								</figure>
 								<!-- /PICTURE -->
 							</div>

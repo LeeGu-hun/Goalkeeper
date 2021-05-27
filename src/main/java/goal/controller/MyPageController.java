@@ -33,6 +33,7 @@ import goal.service.UserBackFileService;
 import goal.service.UserFileService;
 import goal.service.UserService;
 import goal.util.MediaUtils;
+import goal.vo.BoardFileVO;
 import goal.vo.BoardVO;
 import goal.vo.ChatVO;
 import goal.vo.FriendVO;
@@ -98,10 +99,12 @@ public class MyPageController {
 		mv.addObject("BoList", boardList);
 		this.userId = userId;
 		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
+		List<BoardFileVO> myPageFile = boardService.findFilebyMyPage(myPageUser);
 	      
 		if(vo != null) {
 			mv.addObject("myGroupCount", myGroupCount);
 			mv.addObject("friendlist", friendlist);
+			mv.addObject("fileList", myPageFile);
 			mv.addObject("vo", myPageUser);
 			mv.addObject("user", user);
 			mv.addObject("countPost",countPost);
