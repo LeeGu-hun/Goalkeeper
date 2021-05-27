@@ -23,6 +23,7 @@ public interface BoardMapper {
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getBoardList();
 	List<BoardVO> getGroupBoardList(String bo_group);
+	List<BoardVO> getMainBoardList(String bo_group);
 	List<BoardVO> getMyPageBoardList(String userId);
 	void updateBoard(BoardVO board);
 	void deleteBoard(BoardVO board);

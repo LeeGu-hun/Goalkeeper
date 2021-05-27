@@ -15,6 +15,7 @@ public interface BoardService {
 	void modifyBoard(BoardVO board);
 	List<BoardVO> searchBoard(BoardVO vo);
 	List<BoardVO> getBoardList();
+	List<BoardVO> getMainBoardList(String bo_group);
 	List<BoardVO> selectBoardList(UserVO vo);
 	List<BoardVO> getMyPageBoardList(String userId);
 	BoardVO findBoardbyBno(int bno);

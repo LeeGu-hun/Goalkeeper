@@ -169,7 +169,7 @@ public class HomeController {
 		mv = commonService.checkLoginUser(request, mv);
 		UserVO user = commonService.getLoginUser(request);
 		FriendVO friendVO = new FriendVO();
-		List<BoardVO> boardList = boardService.getGroupBoardList("noGroup");
+		List<BoardVO> boardList = boardService.getMainBoardList("noGroup");
 		mv.addObject("BoList", boardList);
 		int allcount = boardService.boardAllCount();
 		mv.addObject("allcount", allcount);

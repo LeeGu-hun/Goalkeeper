@@ -48,6 +48,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> getBoardList() {
 		return boardMapper.getBoardList();
 	}
+	
+	@Override
+	public List<BoardVO> getMainBoardList(String bo_group) {
+		return boardMapper.getMainBoardList(bo_group);
+	}
 
 	@Override
 	public List<BoardVO> searchBoard(BoardVO vo) {
