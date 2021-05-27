@@ -132,9 +132,9 @@
 	<select id="searchBoard" resultMap="boardVO"
 		parameterType="goal.vo.BoardVO">
 		select * from GK_BOARD
-		where userid like
+		where bo_cate='all' and (userid like
 		'%' || #{search_result} || '%' or bo_content like '%' ||
-		#{search_result} || '%' order by bo_date desc
+		#{search_result} || '%') order by bo_date desc
 	</select>
 	<select id="searchNullBoard" resultType="int" parameterType="goal.vo.BoardVO">
 	select count(*) from GK_BOARD
@@ -175,13 +175,13 @@
 		select * from GK_BOARD where bno=#{bno}
 	</select>
 	<select id="getBoardList" resultMap="boardVO">
-		select * from GK_BOARD order
+		select * from GK_BOARD where bo_cate='all' order
 		by bo_date desc
 	</select>
 
 	<select id="getGroupBoardList" resultMap="boardVO"
 		parameterType="string">
-		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where bo_group=#{bo_group} order by bo_date desc
+		select B.bno, B.userId, U.uno, B.BO_CONTENT, B.BO_DATE, B.BO_CATE, B.BO_GROUP, B.BO_FILECHECK, b.BO_FILECOUNT from GK_BOARD B left outer join GK_USER U on B.userId = U.userId where bo_cate='all' and (bo_group=#{bo_group}) order by bo_date desc
 	</select>
 	
 	<select id="getMyPageBoardList" resultMap="boardVO" parameterType="String">

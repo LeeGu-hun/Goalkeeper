@@ -108,7 +108,6 @@ public class HomeController {
 		ModelAndView mv = new ModelAndView("view/home/newsFeed_search");
 		mv = getHome(mv, request);
 		UserVO user = commonService.getLoginUser(request);
-		
 		List<BoardVO> searchlist = boardService.searchBoard(vo);
 		int searchNullBoard = boardService.searchNullBoard(vo);
 		mv.addObject("searchNullBoard", searchNullBoard);
