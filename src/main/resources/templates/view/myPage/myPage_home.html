@@ -752,8 +752,7 @@
 								<!-- USER STATUS TITLE -->
 
 								<p class="user-status-title medium">
-									<a class="bold" href="profile-timeline.html"
-										th:text="${post.userId}"></a> uploaded a <span class="bold">post</span>
+									<a class="bold" th:href="@{/myPage/}+${post.userId}" th:text="${post.userId}"></a>님이 업로드 한 <span class="bold" th:text="${post.bo_fileCheck}=='Y'?'사진':'글'"></span>
 								</p>
 
 								<!-- /USER STATUS TITLE -->
