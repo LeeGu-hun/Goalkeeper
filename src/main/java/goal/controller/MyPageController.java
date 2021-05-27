@@ -87,6 +87,7 @@ public class MyPageController {
 		UserVO user = commonService.getLoginUser(request);
 		UserVO myPageUser = userService.myPageUserInfo(userId);
 		friend.setUno(myPageUser.getUno());
+		int myGroupCount = boardService.myGroupCount(myPageUser.getUno());
 		int countPost = friendService.countPost(myPageUser.getUserId());
 		ModelAndView mv = new ModelAndView("view/myPage/myPage_home");
 		mv = commonService.checkLoginUser(request, mv);
@@ -99,6 +100,7 @@ public class MyPageController {
 		List<ChatVO> friendlist = chatService.findFriendList(myPageUser);
 	      
 		if(vo != null) {
+			mv.addObject("myGroupCount", myGroupCount);
 			mv.addObject("friendlist", friendlist);
 			mv.addObject("vo", myPageUser);
 			mv.addObject("user", user);
@@ -120,14 +122,17 @@ public class MyPageController {
     	UserVO user = commonService.getLoginUser(request);
     	UserVO myPageUser = userService.myPageUserInfo(userId);
     	ModelAndView mv = new ModelAndView("view/myPage/myPage_group");
+    	int countFriend = friendService.countFriends(myPageUser.getUno());
     	mv = commonService.checkLoginUser(request, mv);
     	int myPageUserUno = myPageUser.getUno();
+    	int countPost = friendService.countPost(myPageUser.getUserId());
     	
     	List<GroupVO> groupList = groupService.findGroupbyUno(myPageUserUno);
     	
     	mv.addObject("vo", myPageUser);
     	mv.addObject("list", groupList);
-    	
+    	mv.addObject("count", countFriend);
+    	mv.addObject("countPost",countPost);
 		mv.addObject("uno", myPageUser.getUno());
 		mv.addObject("userId", myPageUser.getUserId());
 		mv.addObject("userBirthdate", myPageUser.getUserBirthdate());
