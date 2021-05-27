@@ -229,7 +229,7 @@
 							<div class="form-row">
 								<div class="form-item">
 									<div class="form-textarea">
-										<textarea id="text" name="bo_content"
+										<textarea wrap="hard" id="text" name="bo_content"
 											placeholder="하고싶은 말을 쓰세요"></textarea>
 									</div>
 								</div>
@@ -346,11 +346,11 @@
 							</div>
 							<form id="modify_form" method="post"
 								enctype="multipart/form-data" action="/board/modify.do">
-
+								<pre style="display:flex;">
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
-
+								</pre>
 								<input type="hidden" th:value="${post.bno}" name="bno"
 									id="boardbno"> <input type="hidden"
 									th:value="${post.bo_cate}" name="bo_cate" id="boardcate">
@@ -358,7 +358,9 @@
 									type="hidden" th:value="${post.bo_group}" name="bo_group">
 								<div class="modify" th:attr="id='modify'+${post.bno}"
 									style="margin-bottom: 60px; display: none">
+									<pre style="display:flex;">
 									<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
+									</pre>
 									<button type=submit class="button small secondary edit_btn"
 										style="width: 80px; float: right;">수정완료</button>
 									<p class="button small edit_cancelbtn"

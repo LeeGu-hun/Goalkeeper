@@ -560,7 +560,7 @@
 										<div class="form-item">
 											<!-- FORM TEXTAREA -->
 											<div class="form-textarea">
-												<textarea id="text" name="bo_content"
+												<textarea wrap="hard" id="text" name="bo_content"
 													placeholder="Share your post here..."></textarea>
 												<!-- FORM TEXTAREA LIMIT TEXT -->
 												<p class="form-textarea-limit-text">998/1000</p>
@@ -770,18 +770,20 @@
 							<form style="margin-top: 30px"
 								th:attr="id='modify_form'+${post.bno}" method="post"
 								enctype="multipart/form-data" action="/myPage/modify.do">
-
+								<pre style="display:flex;">
 								<p th:attr="id=${post.bno}"
 									class="widget-box-status-text content_board"
 									th:text="${post.bo_content}"></p>
-
+								</pre>
 								<input type="hidden" th:value="board" name="placeCheck">
 								<input type="hidden" th:value="${post.bno}" name="bno">
 								<input type="hidden" th:value="${post.bo_cate}" name="bo_cate">
 
 								<div class="modify" th:attr="id='modify'+${post.bno}"
 									style="margin-bottom: 60px; display: none">
+									<pre style="display:flex;">
 									<textarea name="bo_content" th:text="${post.bo_content}"></textarea>
+									</pre>
 									<button type=submit class="button small secondary edit_btn"
 										style="width: 80px; float: right;">수정완료</button>
 									<p class="button small edit_cancelbtn"
