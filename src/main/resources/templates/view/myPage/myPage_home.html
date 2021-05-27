@@ -717,12 +717,15 @@
 									<!-- USER AVATAR -->
 									<div class="user-avatar small no-outline">
 										<!-- USER AVATAR CONTENT -->
-										<div class="user-avatar-content">
 											<!-- HEXAGON -->
-											<div class="hexagon-image-30-32"
-												th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
+											<figure class="user-avatar-content" th:if="${post.userFileCheck}=='Y'">
+                                				<div class="hexagon-image-30-32" th:attr="data-src=@{/user/profile/}+${post.uno}"></div>
+                              				</figure>
+				                            <figure class="user-avatar-content" th:unless="${post.userFileCheck}=='Y'">
+				                                 <div class="hexagon-image-30-32"
+				                                    th:attr="data-src=@{../../img/user_baseProfile.png}"></div>
+				                            </figure>
 											<!-- /HEXAGON -->
-										</div>
 										<!-- /USER AVATAR CONTENT -->
 
 										<!-- USER AVATAR PROGRESS -->
